@@ -48,7 +48,7 @@ class Launcher:
         title.pack(fill='x', pady=(3, 0))
         tk.Label(title, text='海龟画廊', fg=TEXT, bg=BG,
                  font=(FONT, 27, 'bold')).pack(side='left')
-        tk.Label(title, text='24 个创意  /  从一笔画，到会动的小世界', fg=MUTED,
+        tk.Label(title, text=f'{len(WORKS)} 个创意  /  从一笔画，到会动的小世界', fg=MUTED,
                  bg=BG, font=(FONT, 10)).pack(side='left', padx=20, pady=(12, 0))
         filters = tk.Frame(self.root, bg=BG)
         filters.pack(fill='x', padx=28, pady=(0, 10))
@@ -71,6 +71,12 @@ class Launcher:
             button = self.button(themes, category, lambda c=category: self.select_category(c), small=True)
             button.pack(side='left', padx=(0, 7))
             self.theme_buttons[category] = button
+        featured_count = sum(work.get('featured', False) for work in WORKS)
+        if featured_count:
+            featured = self.button(themes, f'✦ 浪漫光影  {featured_count}',
+                                   lambda: self.select_collection('romantic'), small=True)
+            featured.pack(side='right')
+            self.tabs['romantic'] = featured
         self.canvas = tk.Canvas(self.root, bg=BG, highlightthickness=0, takefocus=True)
         self.canvas.pack(fill='both', expand=True, padx=20, pady=(7, 0))
         footer = tk.Frame(self.root, bg=BG)
@@ -145,10 +151,13 @@ class Launcher:
 
     def filtered(self):
         words = self.query.get().casefold().split()
-        return [w for w in WORKS if (self.collection == 'all' or w['collection'] == self.collection)
+        matches = [w for w in WORKS if (self.collection == 'all' or w['collection'] == self.collection
+                                       or (self.collection == 'romantic' and w.get('featured', False)))
                 and (self.category.get() == CATEGORIES[0] or w['category'] == self.category.get())
                 and all(word in ' '.join((w['number'], str(w['id']), w['title'], w['subtitle'],
-                                         w['filename'], *w['tags'])).casefold() for word in words)]
+                                         w['category'], w['description'], w['filename'],
+                                         *w['tags'])).casefold() for word in words)]
+        return sorted(matches, key=lambda work: (not work.get('featured', False), work['id']))
 
     def filter_changed(self, *_):
         self.page = 0
@@ -156,6 +165,9 @@ class Launcher:
 
     def select_collection(self, collection):
         self.collection = collection
+        if collection == 'romantic':
+            self.category.set(CATEGORIES[0])
+            self.query.set('')
         self.filter_changed()
 
     def select_category(self, category):
@@ -223,27 +235,37 @@ class Launcher:
                                     fill=MUTED, font=(FONT, 10))
             return
         gap = 12
-        cw, ch = (width - gap * 4) / 3, (height - gap * 3) / 2
+        romantic_layout = self.collection == 'romantic' and len(self.displayed) == 4
+        columns = 2 if romantic_layout else 3
+        cw, ch = (width - gap * (columns + 1)) / columns, (height - gap * 3) / 2
         for index, work in enumerate(self.displayed):
-            x, y = gap + index % 3 * (cw + gap), gap + index // 3 * (ch + gap)
+            x, y = gap + index % columns * (cw + gap), gap + index // columns * (ch + gap)
             tag, detail_tag = f'work-{index}', f'details-{index}'
             rect = self.canvas.create_rectangle(x, y, x + cw, y + ch, fill=PANEL, outline=LINE, tags=tag)
             self.canvas.create_rectangle(x + 1, y + 1, x + cw - 1, y + 3,
                                          fill=work['accent'], outline='', tags=tag)
-            image_height = max(35, ch - 100)
-            picture = self.get_image(work, cw - 24, image_height)
-            if picture:
-                self.canvas.create_image(x + cw / 2, y + 13 + image_height / 2, image=picture, tags=tag)
+            if romantic_layout:
+                image_width, image_height = min(cw * .52, 240), max(45, ch - 24)
+                image_x, image_y = x + image_width / 2 + 6, y + ch / 2
+                title_x, title_y = x + image_width + 10, y + 22
+                text_width = cw - image_width - 22
             else:
-                self.canvas.create_text(x + cw / 2, y + 12 + image_height / 2,
+                image_width, image_height = cw - 24, max(35, ch - 100)
+                image_x, image_y = x + cw / 2, y + 13 + image_height / 2
+                title_x, title_y = x + 13, y + ch - 80
+                text_width = cw - 26
+            picture = self.get_image(work, image_width - 8, image_height)
+            if picture:
+                self.canvas.create_image(image_x, image_y, image=picture, tags=tag)
+            else:
+                self.canvas.create_text(image_x, image_y,
                                         text=work['number'], fill=work['accent'], font=(FONT, 28, 'bold'), tags=tag)
-            title_y = y + ch - 80
-            self.canvas.create_text(x + 13, title_y, text=f"{work['number']}  {work['title']}",
-                                    anchor='nw', fill=TEXT, font=(FONT, 11, 'bold'), width=cw - 26, tags=tag)
-            self.canvas.create_text(x + 13, title_y + 25, text=work['subtitle'],
-                                    anchor='nw', fill=MUTED, font=(FONT, 8), width=cw - 26, tags=tag)
+            self.canvas.create_text(title_x, title_y, text=f"{work['number']}  {work['title']}",
+                                    anchor='nw', fill=TEXT, font=(FONT, 11, 'bold'), width=text_width, tags=tag)
+            self.canvas.create_text(title_x, title_y + 25, text=work['subtitle'],
+                                    anchor='nw', fill=MUTED, font=(FONT, 8), width=text_width, tags=tag)
             action = '了解便签 →' if work['id'] == 20 else '开始作品 →'
-            self.canvas.create_text(x + 13, y + ch - 16, text=f'{index + 1}  {action}',
+            self.canvas.create_text(title_x, y + ch - 16, text=f'{index + 1}  {action}',
                                     anchor='w', fill=work['accent'], font=(FONT, 9), tags=tag)
             self.canvas.create_text(x + cw - 13, y + ch - 16, text='玩法 / 源码', anchor='e',
                                     fill=MUTED, font=(FONT, 8), tags=detail_tag)

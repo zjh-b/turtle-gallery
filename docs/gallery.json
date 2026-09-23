@@ -11,6 +11,12 @@
       "category": "风景动画",
       "controls": "点击发射；A 自动；C 切换花型；F 烟花齐放。",
       "description": "从升空拖尾，到绽放的爱心与金柳，把城市和湖面一起点亮。",
+      "featured": false,
+      "tags": [
+        "烟花",
+        "粒子",
+        "fireworks"
+      ],
       "preview": "assets/exhibits/01.png",
       "source": "https://github.com/zjh-b/turtle-gallery/blob/main/%E7%A4%BE%E5%9B%A2%E5%B1%95%E7%A4%BA/01_%E7%82%B9%E5%87%BB%E7%83%9F%E8%8A%B1.py"
     },
@@ -23,6 +29,12 @@
       "category": "风景动画",
       "controls": "点击星球查看介绍；↑↓ 调整速度；O 显示/隐藏轨道。",
       "description": "看地球、卫星与带环行星在轨道上运行；大小与距离采用艺术化比例。",
+      "featured": false,
+      "tags": [
+        "星系",
+        "宇宙",
+        "solar"
+      ],
       "preview": "assets/exhibits/02.png",
       "source": "https://github.com/zjh-b/turtle-gallery/blob/main/%E7%A4%BE%E5%9B%A2%E5%B1%95%E7%A4%BA/02_%E6%97%8B%E8%BD%AC%E6%98%9F%E7%B3%BB.py"
     },
@@ -35,6 +47,12 @@
       "category": "几何绘画",
       "controls": "拖动画画；↑↓ 调整对称份数；P 换色；C 清空；D 自动。",
       "description": "鼠标的一笔同时出现在多个方向，手绘线条生长成旋转花瓣。",
+      "featured": false,
+      "tags": [
+        "万花筒",
+        "对称",
+        "kaleidoscope"
+      ],
       "preview": "assets/exhibits/03.png",
       "source": "https://github.com/zjh-b/turtle-gallery/blob/main/%E7%A4%BE%E5%9B%A2%E5%B1%95%E7%A4%BA/03_%E9%BC%A0%E6%A0%87%E4%B8%87%E8%8A%B1%E7%AD%92.py"
     },
@@ -47,6 +65,12 @@
       "category": "风景动画",
       "controls": "点击水面投喂；F 添加锦鲤，最多 14 尾。",
       "description": "荷花、涟漪和锦鲤组成一池小景，鱼群会追逐食物并避开同伴。",
+      "featured": false,
+      "tags": [
+        "鱼塘",
+        "锦鲤",
+        "pond"
+      ],
       "preview": "assets/exhibits/04.png",
       "source": "https://github.com/zjh-b/turtle-gallery/blob/main/%E7%A4%BE%E5%9B%A2%E5%B1%95%E7%A4%BA/04_%E4%BA%92%E5%8A%A8%E9%B1%BC%E5%A1%98.py"
     },
@@ -59,6 +83,12 @@
       "category": "趣味挑战",
       "controls": "←→ 或 A/D 移动；M 切换鼠标控制；漏接五颗结束。",
       "description": "在月夜里移动编织篮子，接住星星，比比谁的反应更快。",
+      "featured": false,
+      "tags": [
+        "接星星",
+        "游戏",
+        "stars"
+      ],
       "preview": "assets/exhibits/05.png",
       "source": "https://github.com/zjh-b/turtle-gallery/blob/main/%E7%A4%BE%E5%9B%A2%E5%B1%95%E7%A4%BA/05_%E6%8E%A5%E4%BD%8F%E6%98%9F%E6%98%9F.py"
     },
@@ -71,6 +101,12 @@
       "category": "风景动画",
       "controls": "1～4 选季节；S 下一季；G 逐层生长；↑↓ 调整风力。",
       "description": "同一棵分形树在春花、夏叶、秋色与冬枝之间变化，适合现场演示递归。",
+      "featured": false,
+      "tags": [
+        "四季",
+        "递归",
+        "tree"
+      ],
       "preview": "assets/exhibits/06.png",
       "source": "https://github.com/zjh-b/turtle-gallery/blob/main/%E7%A4%BE%E5%9B%A2%E5%B1%95%E7%A4%BA/06_%E5%9B%9B%E5%AD%A3%E5%88%86%E5%BD%A2%E6%A0%91.py"
     },
@@ -83,6 +119,12 @@
       "category": "风景动画",
       "controls": "点击留下光点；C 切换配色；↑↓ 调整水流。",
       "description": "一群水母随水流漂动，柔软的触手和脉动伞盖回应你留下的光点。",
+      "featured": false,
+      "tags": [
+        "水母",
+        "海洋",
+        "jellyfish"
+      ],
       "preview": "assets/exhibits/07.png",
       "source": "https://github.com/zjh-b/turtle-gallery/blob/main/%E7%A4%BE%E5%9B%A2%E5%B1%95%E7%A4%BA/07_%E6%B7%B1%E6%B5%B7%E6%B0%B4%E6%AF%8D.py"
     },
@@ -95,6 +137,12 @@
       "category": "风景动画",
       "controls": "D 切换昼夜；点击湖面添舟，最多 5 艘；↑↓ 调整风速。",
       "description": "远山、亭台、归鸟与小舟铺成画卷，天色和水中的倒影一起渐变。",
+      "featured": false,
+      "tags": [
+        "山水",
+        "风景",
+        "landscape"
+      ],
       "preview": "assets/exhibits/08.png",
       "source": "https://github.com/zjh-b/turtle-gallery/blob/main/%E7%A4%BE%E5%9B%A2%E5%B1%95%E7%A4%BA/08_%E5%B1%B1%E6%B0%B4%E7%94%BB%E5%8D%B7.py"
     },
@@ -107,6 +155,12 @@
       "category": "几何绘画",
       "controls": "1～4 选曲线；C 重新绘制；G 显示/隐藏圆盘；↑↓ 调速。",
       "description": "观察小圆沿大圆内部滚动，偏心画笔如何描出一朵完整的数学花。",
+      "featured": false,
+      "tags": [
+        "绘图仪",
+        "内旋轮线",
+        "spirograph"
+      ],
       "preview": "assets/exhibits/09.png",
       "source": "https://github.com/zjh-b/turtle-gallery/blob/main/%E7%A4%BE%E5%9B%A2%E5%B1%95%E7%A4%BA/09_%E5%87%A0%E4%BD%95%E7%BB%98%E5%9B%BE%E4%BB%AA.py"
     },
@@ -119,6 +173,12 @@
       "category": "趣味挑战",
       "controls": "鼠标或 ←→ 移动；点击/Enter 发球；A 切换自动演示。",
       "description": "击碎 40 块彩砖，利用球拍的不同位置改变反弹角度，也可以观看自动演示。",
+      "featured": false,
+      "tags": [
+        "打砖块",
+        "游戏",
+        "breakout"
+      ],
       "preview": "assets/exhibits/10.png",
       "source": "https://github.com/zjh-b/turtle-gallery/blob/main/%E7%A4%BE%E5%9B%A2%E5%B1%95%E7%A4%BA/10_%E9%9C%93%E8%99%B9%E5%BC%B9%E7%90%83.py"
     },
@@ -131,6 +191,12 @@
       "category": "几何绘画",
       "controls": "自动绘制；关闭作品窗口返回画廊。",
       "description": "从半径 100 的红圆出发，每层向上下左右递归画出半径减半的圆。",
+      "featured": false,
+      "tags": [
+        "递归",
+        "圆",
+        "fractal"
+      ],
       "preview": "assets/originals/11.png",
       "source": "https://github.com/zjh-b/turtle-gallery/blob/main/2.py"
     },
@@ -143,6 +209,12 @@
       "category": "几何绘画",
       "controls": "自动绘制；关闭作品窗口返回画廊。",
       "description": "画笔每次转过 44 度，位移与方块尺寸逐渐增加，叠出八色几何轨迹。",
+      "featured": false,
+      "tags": [
+        "螺旋",
+        "方块",
+        "spiral"
+      ],
       "preview": "assets/originals/12.png",
       "source": "https://github.com/zjh-b/turtle-gallery/blob/main/import%20turtle.py"
     },
@@ -155,6 +227,11 @@
       "category": "角色与物件",
       "controls": "自动绘制；关闭作品窗口返回画廊。",
       "description": "两段圆弧和两条长线围成爱心，再用红色填满，是简单而直接的画笔创意。",
+      "featured": false,
+      "tags": [
+        "爱心",
+        "heart"
+      ],
       "preview": "assets/originals/13.png",
       "source": "https://github.com/zjh-b/turtle-gallery/blob/main/xin.py"
     },
@@ -167,6 +244,12 @@
       "category": "几何绘画",
       "controls": "自动绘制；关闭作品窗口返回画廊。",
       "description": "通过改变朝向连接四段半圆，在同一张画布上探索圆弧组成的叶形。",
+      "featured": false,
+      "tags": [
+        "叶子",
+        "圆弧",
+        "leaf"
+      ],
       "preview": "assets/originals/14.png",
       "source": "https://github.com/zjh-b/turtle-gallery/blob/main/yeizi.py"
     },
@@ -179,6 +262,11 @@
       "category": "角色与物件",
       "controls": "自动绘制；关闭作品窗口返回画廊。",
       "description": "大半圆作伞面，正负半径的圆弧交替画出伞沿，最后画上弯钩手柄。",
+      "featured": false,
+      "tags": [
+        "雨伞",
+        "umbrella"
+      ],
       "preview": "assets/originals/15.png",
       "source": "https://github.com/zjh-b/turtle-gallery/blob/main/yusan.py"
     },
@@ -191,6 +279,12 @@
       "category": "风景动画",
       "controls": "自动运动；关闭作品窗口，或在画廊点击“结束作品”。",
       "description": "20 颗大小和速度各异的小球在黑色舞台运动，碰到窗口边界就反向弹回。",
+      "featured": false,
+      "tags": [
+        "小球",
+        "动画",
+        "bounce"
+      ],
       "preview": "assets/originals/16.png",
       "source": "https://github.com/zjh-b/turtle-gallery/blob/main/%E4%B8%8B%E8%90%BD%E7%9A%84%E5%B0%8F%E7%90%83.py"
     },
@@ -203,6 +297,12 @@
       "category": "风景动画",
       "controls": "自动绘制；重新打开可生成另一棵树；关闭窗口返回。",
       "description": "左右分枝分别选择随机角度和长度，末梢用粉色小点点出花朵。",
+      "featured": false,
+      "tags": [
+        "树",
+        "递归",
+        "random"
+      ],
       "preview": "assets/originals/17.png",
       "source": "https://github.com/zjh-b/turtle-gallery/blob/main/%E5%88%86%E5%BD%A2%E6%A0%91.py"
     },
@@ -215,6 +315,12 @@
       "category": "角色与物件",
       "controls": "观看逐笔绘制；关闭作品窗口返回画廊。",
       "description": "用圆、圆弧和直线画出熟悉的蓝色头像，适合讲解坐标定位与填色。",
+      "featured": false,
+      "tags": [
+        "角色",
+        "头像",
+        "doraemon"
+      ],
       "preview": "assets/originals/18.png",
       "source": "https://github.com/zjh-b/turtle-gallery/blob/main/%E5%93%86%E5%95%A6A%E6%A2%A6.py"
     },
@@ -227,6 +333,12 @@
       "category": "几何绘画",
       "controls": "自动旋转；关闭作品窗口，或在画廊点击“结束作品”。",
       "description": "使用方向角重新绘制黑白双鱼，让静态的太极图在画布中央缓缓转动。",
+      "featured": false,
+      "tags": [
+        "太极",
+        "旋转",
+        "yin yang"
+      ],
       "preview": "assets/originals/19.png",
       "source": "https://github.com/zjh-b/turtle-gallery/blob/main/%E5%A4%AA%E6%9E%81.py"
     },
@@ -239,6 +351,12 @@
       "category": "文字实验",
       "controls": "主动点击“开始作品”后，会连续打开最多 50 张便签；画廊的“结束作品”可一起关闭。",
       "description": "把一句句问候写成散落的彩色小窗口。这个原稿会创建多个窗口，请在详情页主动开始。",
+      "featured": false,
+      "tags": [
+        "弹窗",
+        "文字",
+        "notes"
+      ],
       "preview": "assets/originals/20.png",
       "source": "https://github.com/zjh-b/turtle-gallery/blob/main/%E5%BC%B9%E7%AA%97.py"
     },
@@ -251,6 +369,11 @@
       "category": "风景动画",
       "controls": "自动显示本机时间；关闭作品窗口，或在画廊点击“结束作品”。",
       "description": "用当前系统时间计算时针、分针和秒针的角度，每隔 0.1 秒刷新表盘。",
+      "featured": false,
+      "tags": [
+        "时间",
+        "clock"
+      ],
       "preview": "assets/originals/21.png",
       "source": "https://github.com/zjh-b/turtle-gallery/blob/main/%E6%97%B6%E9%92%9F.py"
     },
@@ -263,6 +386,12 @@
       "category": "文字实验",
       "controls": "在文字窗口按回车继续，再输入月饼数与每盒数量；输入 q 退出。",
       "description": "一段命令行小程序：输入月饼数量和每盒容量，算出能装满几盒以及剩下多少个。",
+      "featured": false,
+      "tags": [
+        "计算器",
+        "月饼",
+        "console"
+      ],
       "preview": "assets/originals/22.png",
       "source": "https://github.com/zjh-b/turtle-gallery/blob/main/%E6%B5%8B%E8%AF%95.py"
     },
@@ -275,6 +404,12 @@
       "category": "趣味挑战",
       "controls": "点击画布插入新针；与已有针角度过近即结束；关闭窗口后可重新打开。",
       "description": "针盘不停转动，找准空隙插入下一根针，在越来越密的针阵中挑战反应。",
+      "featured": false,
+      "tags": [
+        "游戏",
+        "点击",
+        "needle"
+      ],
       "preview": "assets/originals/23.png",
       "source": "https://github.com/zjh-b/turtle-gallery/blob/main/%E8%A7%81%E7%BC%9D%E6%8F%92%E9%92%88.py"
     },
@@ -287,8 +422,101 @@
       "category": "风景动画",
       "controls": "自动旋转；关闭作品窗口，或在画廊点击“结束作品”。",
       "description": "由四组青色与蓝色多边形组成风车，用逐帧改变方向角的方法带动叶片旋转。",
+      "featured": false,
+      "tags": [
+        "风车",
+        "旋转",
+        "windmill"
+      ],
       "preview": "assets/originals/24.png",
       "source": "https://github.com/zjh-b/turtle-gallery/blob/main/%E9%A3%8E%E8%BD%A6.py"
+    },
+    {
+      "id": 25,
+      "number": "25",
+      "title": "星空彼岸花",
+      "subtitle": "星河流光 · 卷曲花瓣 · 花丝绽放",
+      "collection": "interactive",
+      "category": "风景动画",
+      "controls": "点击落下流星；C 切换花色；G 重播绽放；↑↓ 调整速度。",
+      "description": "细长的卷曲花瓣与舒展花丝在星空下盛放，让一朵彼岸花慢慢长成光。",
+      "featured": true,
+      "tags": [
+        "浪漫光影",
+        "短视频",
+        "抖音",
+        "tiktok",
+        "彼岸花",
+        "starry lily"
+      ],
+      "preview": "assets/exhibits/25.png",
+      "source": "https://github.com/zjh-b/turtle-gallery/blob/main/%E7%A4%BE%E5%9B%A2%E5%B1%95%E7%A4%BA/25_%E6%98%9F%E7%A9%BA%E5%BD%BC%E5%B2%B8%E8%8A%B1.py"
+    },
+    {
+      "id": 26,
+      "number": "26",
+      "title": "怦然心动",
+      "subtitle": "粒子爱心 · 呼吸光晕 · 星点聚合",
+      "collection": "interactive",
+      "category": "几何绘画",
+      "controls": "点击让爱心散成星尘再相聚；C 切换色彩；↑↓ 调整心跳。",
+      "description": "散落的光点聚成有层次的爱心，随着双拍节奏轻轻跳动，把数学曲线变成浪漫的瞬间。",
+      "featured": true,
+      "tags": [
+        "浪漫光影",
+        "短视频",
+        "抖音",
+        "tiktok",
+        "爱心",
+        "粒子",
+        "particle heart"
+      ],
+      "preview": "assets/exhibits/26.png",
+      "source": "https://github.com/zjh-b/turtle-gallery/blob/main/%E7%A4%BE%E5%9B%A2%E5%B1%95%E7%A4%BA/26_%E6%80%A6%E7%84%B6%E5%BF%83%E5%8A%A8.py"
+    },
+    {
+      "id": 27,
+      "number": "27",
+      "title": "星河玫瑰",
+      "subtitle": "层叠花瓣 · 星空微光 · 逐瓣盛开",
+      "collection": "interactive",
+      "category": "风景动画",
+      "controls": "点击洒下星尘；C 切换花色；G 重播生长；↑↓ 调整速度。",
+      "description": "从层叠的花心到向外舒展的花瓣，一朵带着星河微光的玫瑰在深色夜幕中展开。",
+      "featured": true,
+      "tags": [
+        "浪漫光影",
+        "短视频",
+        "抖音",
+        "tiktok",
+        "玫瑰",
+        "rose",
+        "galaxy"
+      ],
+      "preview": "assets/exhibits/27.png",
+      "source": "https://github.com/zjh-b/turtle-gallery/blob/main/%E7%A4%BE%E5%9B%A2%E5%B1%95%E7%A4%BA/27_%E6%98%9F%E6%B2%B3%E7%8E%AB%E7%91%B0.py"
+    },
+    {
+      "id": 28,
+      "number": "28",
+      "title": "霓光蝶舞",
+      "subtitle": "对称蝶翼 · 渐变鳞片 · 点击追光",
+      "collection": "interactive",
+      "category": "几何绘画",
+      "controls": "点击引蝶追光；C 切换色彩；M 切换悬停与漫游。",
+      "description": "渐变蝶翼、细密翅脉与星点鳞片组成一只发光的蝶，随着呼吸般的振翅追逐你留下的光。",
+      "featured": true,
+      "tags": [
+        "浪漫光影",
+        "短视频",
+        "抖音",
+        "tiktok",
+        "蝴蝶",
+        "butterfly",
+        "neon"
+      ],
+      "preview": "assets/exhibits/28.png",
+      "source": "https://github.com/zjh-b/turtle-gallery/blob/main/%E7%A4%BE%E5%9B%A2%E5%B1%95%E7%A4%BA/28_%E9%9C%93%E5%85%89%E8%9D%B6%E8%88%9E.py"
     }
   ]
 }

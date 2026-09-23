@@ -4,17 +4,17 @@
 
 **Draw an idea. Watch it come alive.**
 
-10 interactive exhibits · 14 original experiments · Python Turtle / Tkinter
+14 interactive exhibits · 14 original experiments · Python Turtle / Tkinter
 
 [Online gallery](https://zjh-b.github.io/turtle-gallery/) · [中文](README.md) · [Get started](#get-started) · [Explore](#explore-the-gallery) · [Creative guide](docs/CREATIVE_GUIDE.md)
 
 [![Project checks](https://github.com/zjh-b/turtle-gallery/actions/workflows/checks.yml/badge.svg)](https://github.com/zjh-b/turtle-gallery/actions/workflows/checks.yml)
 
-![Turtle Gallery: fireworks, planets, koi and generative art](docs/assets/hero.png)
+![Turtle Gallery: starry spider lily, particle heart, galaxy rose and neon butterfly](docs/assets/hero.png)
 
 </div>
 
-Click to launch fireworks, turn a brush stroke into a kaleidoscope, or watch a recursive tree grow through four seasons. Turtle Gallery brings together animated scenes, small games and the original drawings and experiments that started the collection.
+Click to grow a spider lily beneath the stars, turn a brush stroke into a kaleidoscope, or watch a recursive tree move through four seasons. Turtle Gallery brings together animated scenes, small games and the original drawings and experiments that started the collection.
 
 Made for club demonstrations, learning Python and trying out visual ideas. The artwork is drawn by code at runtime. **No third-party runtime packages, downloaded art assets or network connection required.**
 
@@ -30,10 +30,11 @@ cd turtle-gallery
 python run.py
 ```
 
-Browse categories or search for an exhibit in the gallery. All 24 works share this entry point; the interface and in-app instructions are primarily in Chinese.
+Browse categories or search for an exhibit in the gallery. All 28 works share this entry point; the interface and in-app instructions are primarily in Chinese.
 
 ```bash
-python run.py --list       # List all 24 works and their IDs
+python run.py --list       # List all 28 works and their IDs
+python run.py --demo 25    # Grow the starry spider lily
 python run.py --demo 01    # Open the fireworks exhibit
 python run.py --demo 18    # Watch the original Doraemon drawing
 python run.py --check      # Check dependencies and files without opening a window
@@ -43,9 +44,26 @@ Developed and checked on Windows. macOS and Linux need a Python build with Tk an
 
 ## Explore the gallery
 
-![Interactive exhibits in motion](docs/assets/showcase.gif)
+![Four new romantic light artworks](docs/assets/romantic.png)
 
-### 10 interactive exhibits
+### Romantic Light · four new exhibits
+
+Four new, interactive Python drawings explore visual themes familiar from short videos. The scenes are rendered by code at runtime. [Drawing notes and controls in Chinese →](docs/SOCIAL_DRAWINGS.md)
+
+![Real animation frames from the four new works](docs/assets/romantic.gif)
+
+| ID | Exhibit / source | Try this |
+| --- | --- | --- |
+| 25 | [Starry Spider Lily](社团展示/25_星空彼岸花.py) | Click to send a meteor across the sky; G replays the bloom, C changes the flower color |
+| 26 | [A Heart Made of Light](社团展示/26_怦然心动.py) | Click to scatter and regather the particle heart; C changes its colors, ↑↓ changes the beat |
+| 27 | [A Rose in the Galaxy](社团展示/27_星河玫瑰.py) | Click to cast stardust; G replays growth, C changes the rose color |
+| 28 | [Wings of Light](社团展示/28_霓光蝶舞.py) | Click to guide the butterfly toward light; M switches hovering and wandering, C changes colors |
+
+### The original interactive exhibits
+
+![The original interactive exhibits in motion](docs/assets/showcase.gif)
+
+These ten exhibits and the four above make up the 14 interactive works.
 
 | ID | Exhibit / source | Try this |
 | --- | --- | --- |
@@ -60,7 +78,7 @@ Developed and checked on Windows. macOS and Linux need a Python build with Tk an
 | 09 | [Circles Drawing Flowers](社团展示/09_几何绘图仪.py) | Pick a curve with 1–4; C redraws it with the moving pen |
 | 10 | [Neon Breakout](社团展示/10_霓虹弹球.py) | Move with the mouse or arrows; A toggles automatic play |
 
-Shared controls for these 10 exhibits: **Space** pause · **R** reset · **H** show/hide instructions · **F11** fullscreen · **Esc** exit the exhibit. When launched from the gallery, closing an exhibit lets you choose another. [Full controls in Chinese →](社团展示/README.md)
+Shared controls for all 14 exhibits: **Space** pause · **R** reset · **H** show/hide instructions · **F11** fullscreen · **Esc** exit the exhibit. When launched from the gallery, closing an exhibit lets you choose another. [Full controls in Chinese →](社团展示/README.md)
 
 ### 14 original experiments
 

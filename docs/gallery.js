@@ -2,6 +2,7 @@
 
 (() => {
   const grid = document.querySelector("#gallery-grid");
+  const featuredGrid = document.querySelector("#featured-grid");
   const tools = document.querySelector("#gallery-tools");
   const search = document.querySelector("#gallery-search");
   const count = document.querySelector("#result-count");
@@ -89,6 +90,30 @@
     return article;
   }
 
+  function featuredCard(work) {
+    const link = element("a", "featured-card");
+    link.href = "#gallery";
+    link.setAttribute("aria-label", "查看「" + work.title + "」的预览与运行方式");
+    const preview = element("div", "featured-preview");
+    const image = element("img");
+    image.src = work.preview;
+    image.alt = work.title + "的程序运行画面";
+    image.loading = "lazy";
+    image.width = 800;
+    image.height = 464;
+    preview.append(image);
+    const caption = element("div", "featured-caption");
+    caption.append(element("span", "featured-number", work.number),
+                   element("strong", "", work.title),
+                   element("span", "featured-arrow", "↗"));
+    link.append(preview, caption);
+    link.addEventListener("click", () => {
+      search.value = work.number;
+      setCollection("romantic");
+    });
+    return link;
+  }
+
   function showMessage(title, detail, action, callback) {
     messageTitle.textContent = title;
     messageDetail.textContent = detail;
@@ -100,8 +125,12 @@
   function render() {
     const query = search.value.trim().toLocaleLowerCase();
     const filtered = works.filter(work => {
-      const inCollection = collection === "all" || work.collection === collection;
-      const haystack = [work.number, work.id, work.title, work.subtitle, work.category, work.description, work.controls, work.collection === "interactive" ? "互动展品 动画" : "创意原作", work.category === "趣味挑战" ? "小游戏 游戏" : ""].join(" ").toLocaleLowerCase();
+      const inCollection = collection === "all" || work.collection === collection
+        || (collection === "romantic" && work.featured);
+      const haystack = [work.number, work.id, work.title, work.subtitle, work.category,
+        work.description, work.controls, ...(work.tags || []),
+        work.collection === "interactive" ? "互动展品 动画" : "创意原作",
+        work.category === "趣味挑战" ? "小游戏 游戏" : ""].join(" ").toLocaleLowerCase();
       return inCollection && (!query || query.split(/\s+/).every(term => haystack.includes(term)));
     });
     grid.replaceChildren(...filtered.map(card));
@@ -128,6 +157,8 @@
   function validWork(work) {
     return work && Number.isInteger(work.id) && work.id > 0
       && ["interactive", "original"].includes(work.collection)
+      && typeof work.featured === "boolean"
+      && Array.isArray(work.tags) && work.tags.every(tag => typeof tag === "string")
       && ["number", "title", "subtitle", "category", "controls", "description", "preview", "source"].every(key => typeof work[key] === "string")
       && /^assets\/(exhibits|originals)\/\d{2}\.png$/.test(work.preview)
       && work.source.startsWith("https://github.com/zjh-b/turtle-gallery/blob/main/");
@@ -145,10 +176,17 @@
       const data = await response.json();
       if (!Array.isArray(data.works) || !data.works.length || !data.works.every(validWork)) throw new Error("Invalid gallery data");
       works = data.works;
+      featuredGrid.replaceChildren(...works.filter(work => work.featured).map(featuredCard));
       tools.hidden = false;
       filters.forEach(button => {
         const number = button.querySelector("span");
-        number.textContent = button.dataset.collection === "all" ? works.length : works.filter(work => work.collection === button.dataset.collection).length;
+        number.textContent = button.dataset.collection === "all" ? works.length
+          : button.dataset.collection === "romantic" ? works.filter(work => work.featured).length
+            : works.filter(work => work.collection === button.dataset.collection).length;
+      });
+      document.querySelectorAll("[data-count]").forEach(node => {
+        const value = node.dataset.count;
+        node.textContent = value === "all" ? works.length : works.filter(work => work.collection === value).length;
       });
       render();
     } catch (_) {
@@ -161,6 +199,10 @@
   }
 
   filters.forEach(button => button.addEventListener("click", () => setCollection(button.dataset.collection)));
+  document.querySelector("[data-show-featured]").addEventListener("click", () => {
+    search.value = "";
+    setCollection("romantic");
+  });
   search.addEventListener("input", render);
   document.addEventListener("click", event => {
     const button = event.target.closest("button[data-copy]");
@@ -174,10 +216,10 @@
   motionButton.hidden = false;
   function setMotion(active) {
     playing = active;
-    motionImage.src = active ? "assets/showcase.gif" : "assets/exhibits/07.png";
-    motionImage.alt = active ? "烟花、四季树、水母、锦鲤、万花筒和弹球的实际运行片段" : "深海来信：深蓝色水中发光的水母，由 Python 代码绘制";
-    motionCaption.textContent = active ? "六款互动展品 · 实际运行片段" : "实际运行画面 · 深海来信";
-    motionButton.textContent = active ? "■ 停止播放" : "▶ 播放作品片段";
+    motionImage.src = active ? "assets/romantic.gif" : "assets/exhibits/25.png";
+    motionImage.alt = active ? "星空彼岸花、粒子爱心、星河玫瑰与霓光蝶舞的实际运行片段" : "星空彼岸花：红色卷瓣与花丝在星空下盛开";
+    motionCaption.textContent = active ? "浪漫光影 · 四款实际运行片段" : "实际运行画面 · 星空彼岸花";
+    motionButton.textContent = active ? "■ 停止播放" : "▶ 播放绽放片段";
     motionButton.setAttribute("aria-pressed", String(active));
   }
   motionButton.addEventListener("click", () => setMotion(!playing));

@@ -23,12 +23,12 @@ class CatalogTests(unittest.TestCase):
         self.addCleanup(self.module_patch.stop)
         self.catalog = ENTRY.catalog()
 
-    def test_catalog_covers_twenty_four_distinct_existing_sources(self):
+    def test_catalog_covers_twenty_eight_distinct_existing_sources(self):
         works = self.catalog.WORKS
-        self.assertEqual(len(works), 24)
-        self.assertEqual({work["id"] for work in works}, set(range(1, 25)))
-        self.assertEqual({int(work["number"]) for work in works}, set(range(1, 25)))
-        self.assertEqual(len({work["filename"] for work in works}), 24)
+        self.assertEqual(len(works), 28)
+        self.assertEqual({work["id"] for work in works}, set(range(1, 29)))
+        self.assertEqual({int(work["number"]) for work in works}, set(range(1, 29)))
+        self.assertEqual(len({work["filename"] for work in works}), 28)
         for work in works:
             with self.subTest(work=work["id"]):
                 path = Path(work["filename"])
@@ -48,7 +48,15 @@ class CatalogTests(unittest.TestCase):
         sources = {work["filename"] for work in self.catalog.WORKS}
         self.assertEqual(originals & sources, originals)
         gallery_sources = {name for name in sources if name.startswith("社团展示/")}
-        self.assertEqual(len(gallery_sources), 10)
+        self.assertEqual(len(gallery_sources), 14)
+
+    def test_new_works_are_interactive_and_original_ids_stay_original(self):
+        for work in self.catalog.WORKS:
+            expected = "original" if 11 <= work["id"] <= 24 else "interactive"
+            self.assertEqual(work["collection"], expected, work["number"])
+        featured = [work for work in self.catalog.WORKS if work.get("featured")]
+        self.assertEqual({work["id"] for work in featured}, {25, 26, 27, 28})
+        self.assertTrue(all(not work["console"] for work in featured))
 
     def test_every_number_and_integer_id_resolves_to_its_work(self):
         for work in self.catalog.WORKS:
@@ -64,7 +72,7 @@ class CatalogTests(unittest.TestCase):
         self.assertEqual(console_works[0]["collection"], "original")
 
     def test_unknown_ids_and_paths_do_not_resolve(self):
-        for identifier in ("", "00", "25", "-1", "no-such-work", "../舞台.py", "/tmp/demo.py"):
+        for identifier in ("", "00", "29", "-1", "no-such-work", "../舞台.py", "/tmp/demo.py"):
             with self.subTest(identifier=identifier):
                 self.assertIsNone(self.catalog.get_work(identifier))
 
@@ -91,8 +99,8 @@ class EntrypointTests(unittest.TestCase):
         self.assertEqual(result, 0)
         execute.assert_not_called()
         lines = output.getvalue().splitlines()
-        self.assertEqual(len(lines), 24)
-        self.assertEqual({int(line.split()[0]) for line in lines}, set(range(1, 25)))
+        self.assertEqual(len(lines), 28)
+        self.assertEqual({int(line.split()[0]) for line in lines}, set(range(1, 29)))
         self.assertIn("01_点击烟花.py", output.getvalue())
         self.assertIn("测试.py", output.getvalue())
 
@@ -124,7 +132,7 @@ class EntrypointTests(unittest.TestCase):
             result = ENTRY.main(["--check"])
         self.assertEqual(result, 0)
         execute.assert_not_called()
-        self.assertIn("24 works", output.getvalue())
+        self.assertIn("28 works", output.getvalue())
         self.assertIn("Python", output.getvalue())
 
     def test_check_reports_missing_source_with_failure_exit_status(self):

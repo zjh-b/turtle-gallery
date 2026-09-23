@@ -71,10 +71,10 @@ def execute(path):
 
 
 def main(argv=None):
-    parser = argparse.ArgumentParser(description="Turtle Gallery — 24 creative Python works.")
+    parser = argparse.ArgumentParser(description="Turtle Gallery — creative Python drawings, animations and games.")
     group = parser.add_mutually_exclusive_group()
     group.add_argument("--list", action="store_true", help="List all works without opening a window")
-    group.add_argument("--demo", metavar="ID", help="Run a specific work (01–24)")
+    group.add_argument("--demo", metavar="ID", help="Run a specific work; use --list to see available IDs")
     group.add_argument("--check", action="store_true", help="Check Python, Tkinter and source files without opening a window")
     args = parser.parse_args(argv)
     data = catalog()

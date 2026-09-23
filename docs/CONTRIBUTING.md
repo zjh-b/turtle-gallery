@@ -39,6 +39,7 @@ python run.py
 ```bash
 python -m pip install -r requirements-media.txt
 python tools/render_media.py --originals --gif --compose
+python tools/render_media.py --social --compose
 ```
 
 抓取运行画面需要可用的桌面显示；仅重新排版已有截图时可使用 `python tools/render_media.py --compose`。更新后检查生成图片中的文字、构图和 GIF 播放效果。预览中的温柔便签为原文排版示意，月饼计算展示实际程序输出；其他原作使用运行截图。
@@ -65,7 +66,7 @@ python -m unittest discover -s tests -v
 
 [自动检查流程](../.github/workflows/checks.yml) 使用同一组命令，并检查 Python 文件能否编译。测试使用模拟窗口检查逻辑，仍需实际观察画面和操作；环境检查本身不会打开 GUI。
 
-若改动共用舞台或画廊，检查不同分类中的作品、小窗口布局、作品结束后返回画廊，以及连续启动不同作品。涉及 10 款互动展品时，验证暂停、重置、说明开关、全屏和 Esc 退出；原作按各自操作验证。
+若改动共用舞台或画廊，检查不同分类中的作品、小窗口布局、作品结束后返回画廊，以及连续启动不同作品。涉及 14 款互动展品时，验证暂停、重置、说明开关、全屏和 Esc 退出；原作按各自操作验证。
 
 项目在 Windows 上开发。若在 macOS / Linux 验证或修复了问题，请写明系统、Python / Tk 版本和实测结果，帮助补齐平台信息。
 

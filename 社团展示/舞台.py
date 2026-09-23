@@ -120,7 +120,7 @@ class Stage:
         display = self.screen.getcanvas()
         self.screen.setup(min(1100, max(760, display.winfo_screenwidth() - 80)),
                           min(800, max(580, display.winfo_screenheight() - 100)))
-        self.screen.title(title + " · 社团创意代码展")
+        self.screen.title(title + " · Turtle Gallery")
         self.screen.bgcolor(background)
         self.screen.tracer(0)
         self.canvas = self.screen.getcanvas()
@@ -189,7 +189,7 @@ class Stage:
         p.rect(-w / 2 + 30, h / 2 - 25, -w / 2 + 34, h / 2 - 55, self.accent)
         p.text(-w / 2 + 47, h / 2 - 38, self.title, fg, 21, "w", True)
         p.text(-w / 2 + 47, h / 2 - 68, ("已暂停  ·  " if self.paused else "") + status, muted, 10, "w")
-        p.text(w / 2 - 30, h / 2 - 35, "社团创意代码展", self.accent, 10, "e")
+        p.text(w / 2 - 30, h / 2 - 35, "TURTLE GALLERY", self.accent, 10, "e")
         p.text(w / 2 - 30, h / 2 - 57, "PYTHON  /  TURTLE", muted, 8, "e")
         p.rect(-w / 2, -h / 2 + 62, w / 2, -h / 2, panel)
         p.line([(-w / 2 + 30, -h / 2 + 62), (w / 2 - 30, -h / 2 + 62)],

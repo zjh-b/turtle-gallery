@@ -1,6 +1,7 @@
 """Rebuild authentic gallery previews and README media (optional Pillow, Windows desktop).
 
     python tools/render_media.py --originals --gif --compose
+    python tools/render_media.py --social --compose
 
 The application itself has no Pillow dependency. Capture helpers execute one work
 at a time in a separate process and write only project-owned image files.
@@ -26,6 +27,8 @@ ROOT = Path(__file__).resolve().parents[1]
 ASSETS = ROOT / "docs" / "assets"
 ORIGINALS = ASSETS / "originals"
 WORK = ROOT / ".work" / "media"
+SOCIAL_CLASSES = {25: "StarryLily", 26: "ParticleHeart", 27: "GalaxyRose", 28: "NeonButterfly"}
+SOCIAL_FRAMES = 24
 
 
 def font(size, bold=False, mono=False):
@@ -56,9 +59,13 @@ def grab(root):
     return ImageGrab.grab(window=user32.GetAncestor(root.winfo_id(), 2)).convert("RGB")
 
 
-def rounded_image(destination, picture, box, radius=14):
+def rounded_image(destination, picture, box, radius=14, contain=False):
     x, y, width, height = box
-    picture = ImageOps.fit(picture.convert("RGB"), (width, height), method=Image.Resampling.LANCZOS)
+    if contain:
+        picture = ImageOps.pad(picture.convert("RGB"), (width, height),
+                               method=Image.Resampling.LANCZOS, color="#111827")
+    else:
+        picture = ImageOps.fit(picture.convert("RGB"), (width, height), method=Image.Resampling.LANCZOS)
     mask = Image.new("L", (width, height))
     ImageDraw.Draw(mask).rounded_rectangle((0, 0, width - 1, height - 1), radius=radius, fill=255)
     destination.paste(picture, (x, y), mask)
@@ -67,6 +74,8 @@ def rounded_image(destination, picture, box, radius=14):
 def load_scene(number):
     path = ROOT / "社团展示" / "previews" / f"{number:02}.png"
     with Image.open(path) as original:
+        if number in SOCIAL_CLASSES:
+            return original.convert("RGB")
         return original.crop((4, 101, original.width - 4, original.height - 65)).convert("RGB")
 
 
@@ -74,7 +83,8 @@ def compose():
     ASSETS.mkdir(parents=True, exist_ok=True)
     exhibits = ASSETS / "exhibits"
     exhibits.mkdir(exist_ok=True)
-    for number in range(1, 11):
+    catalog = works()
+    for number in (work["id"] for work in catalog if work["collection"] == "interactive"):
         ImageOps.fit(load_scene(number), (800, 464), method=Image.Resampling.LANCZOS).save(
             exhibits / f"{number:02}.png", optimize=True)
     hero = Image.new("RGB", (1440, 790), "#0A1423")
@@ -86,15 +96,17 @@ def compose():
     draw.text((58, 239), "GALLERY", font=font(78, bold=True), fill="#C4EEE0")
     draw.text((66, 352), "海龟画廊", font=font(31), fill="#D8E5E6")
     draw.text((66, 410), "用代码，点亮一个小世界。", font=font(21), fill="#9EB3C6")
-    for x, text in [(66, "10 款互动作品"), (251, "14 个原始创意")]:
+    interactive_count = sum(work["collection"] == "interactive" for work in catalog)
+    original_count = len(catalog) - interactive_count
+    for x, text in [(66, f"{interactive_count} 款互动作品"), (251, f"{original_count} 个原始创意")]:
         draw.rounded_rectangle((x, 480, x + 166, 525), radius=10, fill="#1D3541", outline="#365360")
         draw.text((x + 17, 490), text, font=font(17), fill="#BFE6DB")
     draw.text((66, 644), "标准库运行  ·  点击交互  ·  每一幅都能改", font=font(16), fill="#A6B7C6")
     draw.text((66, 681), "github.com/zjh-b/turtle-gallery", font=font(15, mono=True), fill="#6E8C9F")
-    for number, title, x, y in [(1, "LIGHT UP THE NIGHT", 620, 80), (3, "SYMMETRY IN BLOOM", 1006, 80),
-                                 (4, "A QUIET KOI POND", 620, 402), (7, "LET THE OCEAN GLOW", 1006, 402)]:
+    for number, title, x, y in [(25, "STARRY SPIDER LILY", 620, 80), (26, "A HEART MADE OF LIGHT", 1006, 80),
+                                 (27, "A ROSE IN THE GALAXY", 620, 402), (28, "WINGS OF LIGHT", 1006, 402)]:
         draw.rounded_rectangle((x - 10, y - 10, x + 355, y + 279), radius=18, fill="#142437", outline="#2C4356")
-        rounded_image(hero, load_scene(number), (x, y, 345, 231), 10)
+        rounded_image(hero, load_scene(number), (x, y, 345, 231), 10, contain=True)
         draw.text((x + 5, y + 246), title, font=font(12, bold=True), fill="#B9C6D1")
     hero.save(ASSETS / "hero.png", optimize=True)
 
@@ -127,6 +139,99 @@ def compose():
     draw.text((40, 1160), "便签为原作提示语排版预览；月饼计算展示真实终端输出。其余为原作运行画面。", font=font(14), fill="#7F98AD")
     board.save(ASSETS / "originals.png", optimize=True)
     print("Composed hero.png and originals.png")
+
+
+def social_capture(number):
+    """Capture genuine program frames, using a deterministic simulation clock."""
+    work = next(work for work in works() if work["id"] == number)
+    path = ROOT / work["filename"]
+    sys.path.insert(0, str(path.parent))
+    spec = importlib.util.spec_from_file_location("capture_social", path)
+    module = importlib.util.module_from_spec(spec)
+    spec.loader.exec_module(module)
+    random.seed(2026)
+    app = getattr(module, SOCIAL_CLASSES[number])()
+    WORK.mkdir(parents=True, exist_ok=True)
+    try:
+        app.stage.root.geometry("1000x720+20+20")
+        app.stage.root.update()
+        app.reset()
+
+        def picture():
+            app.stage.screen.update()
+            raw = grab(app.stage.root)
+            # Frame the artwork within the shared HUD's top and bottom panels.
+            width, height, scale = app.stage.width, app.stage.height, app.stage.scale
+            left = max(0, (raw.width - width) // 2)
+            top = max(0, raw.height - height - left)
+            return raw.crop((left, top + round(height / 2 - 265 * scale),
+                             left + width, top + round(height / 2 + 285 * scale)))
+
+        for index in range(SOCIAL_FRAMES):
+            # Smaller simulation steps match the application's interactive clock.
+            for _ in range(3):
+                app.frame(0.05)
+            picture().save(WORK / f"social_{number:02}_{index:02}.png")
+        for _ in range(80):
+            app.frame(0.05)
+        still = picture()
+        previews = ROOT / "社团展示" / "previews"
+        previews.mkdir(exist_ok=True)
+        still.save(previews / f"{number:02}.png", optimize=True)
+        for suffix, size in (("thumb", (244, 154)), ("compact", (220, 126))):
+            ImageOps.pad(still, size, method=Image.Resampling.LANCZOS, color="#101A2A").save(
+                previews / f"{number:02}_{suffix}.png", optimize=True)
+        destination = ASSETS / "exhibits"
+        destination.mkdir(exist_ok=True)
+        ImageOps.fit(still, (800, 464), method=Image.Resampling.LANCZOS).save(
+            destination / f"{number:02}.png", optimize=True)
+        print(f"Captured new work {number}", flush=True)
+    finally:
+        app.stage.close()
+
+
+def make_social():
+    titles = {work["id"]: work["title"] for work in works()}
+    for number in SOCIAL_CLASSES:
+        source = ROOT / next(work["filename"] for work in works() if work["id"] == number)
+        preview = ROOT / "社团展示" / "previews" / f"{number:02}.png"
+        frames = [WORK / f"social_{number:02}_{index:02}.png" for index in range(SOCIAL_FRAMES)]
+        source_modified = source.stat().st_mtime_ns
+        if (preview.is_file() and preview.stat().st_mtime_ns >= source_modified
+                and all(frame.is_file() and frame.stat().st_mtime_ns >= source_modified
+                        for frame in frames)):
+            print(f"Using existing capture {number}", flush=True)
+            continue
+        subprocess.run([sys.executable, str(Path(__file__).resolve()), "--capture-social", str(number)],
+                       check=True, timeout=120)
+    frames = []
+    for number in SOCIAL_CLASSES:
+        for index in range(SOCIAL_FRAMES):
+            frame = Image.new("RGB", (720, 460), "#0B1424")
+            draw = ImageDraw.Draw(frame)
+            draw.text((22, 13), f"{number}  {titles[number]}", font=font(22, True), fill="#EDF1EF")
+            draw.text((528, 24), "TURTLE GALLERY", font=font(11, True), fill="#98D6C5")
+            with Image.open(WORK / f"social_{number:02}_{index:02}.png") as scene:
+                rounded_image(frame, scene, (16, 57, 688, 378), 8)
+            frames.append(frame)
+    samples = Image.new("RGB", (192 * len(SOCIAL_CLASSES), 128))
+    for index in range(len(SOCIAL_CLASSES)):
+        samples.paste(frames[index * SOCIAL_FRAMES + SOCIAL_FRAMES - 1].resize((192, 128)), (index * 192, 0))
+    palette = samples.quantize(colors=192)
+    converted = [frame.quantize(palette=palette, dither=Image.Dither.NONE) for frame in frames]
+    converted[0].save(ASSETS / "romantic.gif", save_all=True, append_images=converted[1:],
+                      duration=150, loop=0, optimize=True, disposal=1)
+    board = Image.new("RGB", (1400, 940), "#0B1424")
+    draw = ImageDraw.Draw(board)
+    draw.text((42, 25), "浪漫光影 / FOUR WORLDS MADE OF LIGHT", font=font(30, True), fill="#DFE9F1")
+    draw.text((44, 76), "星空彼岸花 · 怦然心动 · 星河玫瑰 · 霓光蝶舞", font=font(18), fill="#B3BCD4")
+    for index, number in enumerate(SOCIAL_CLASSES):
+        x, y = 40 + index % 2 * 680, 120 + index // 2 * 402
+        draw.rounded_rectangle((x, y, x + 640, y + 377), radius=14, fill="#17243B", outline="#2B3B57")
+        rounded_image(board, load_scene(number), (x + 10, y + 10, 620, 320), 9)
+        draw.text((x + 18, y + 340), f"{number}  {titles[number]}", font=font(21, True), fill="#E0E8F5")
+    board.save(ASSETS / "romantic.png", optimize=True)
+    print(f"Composed romantic.png and romantic.gif ({(ASSETS / 'romantic.gif').stat().st_size / 1048576:.2f} MiB)")
 
 
 def original_capture(number):
@@ -297,10 +402,15 @@ def main():
     parser.add_argument("--originals", action="store_true")
     parser.add_argument("--compose", action="store_true")
     parser.add_argument("--gif", action="store_true")
+    parser.add_argument("--social", action="store_true", help="Capture the four romantic light artworks and their animation")
     parser.add_argument("--capture-original", type=int, help=argparse.SUPPRESS)
     parser.add_argument("--capture-animation", type=int, help=argparse.SUPPRESS)
+    parser.add_argument("--capture-social", type=int, choices=SOCIAL_CLASSES, help=argparse.SUPPRESS)
     args = parser.parse_args()
     ASSETS.mkdir(parents=True, exist_ok=True)
+    if args.capture_social:
+        social_capture(args.capture_social)
+        return
     if args.capture_original:
         original_capture(args.capture_original)
         return
@@ -315,6 +425,8 @@ def main():
                 print(f"Captured original {work['number']}", flush=True)
     if args.gif:
         make_gif()
+    if args.social:
+        make_social()
     if args.compose:
         compose()
 

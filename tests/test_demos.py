@@ -39,6 +39,10 @@ DEMO_CLASSES = {
     "08_山水画卷.py": "Landscape",
     "09_几何绘图仪.py": "Spirograph",
     "10_霓虹弹球.py": "Breakout",
+    "25_星空彼岸花.py": "StarryLily",
+    "26_怦然心动.py": "ParticleHeart",
+    "27_星河玫瑰.py": "GalaxyRose",
+    "28_霓光蝶舞.py": "NeonButterfly",
 }
 with patch.dict(sys.modules, {"舞台": STAGE}):
     DEMOS = {
@@ -194,7 +198,8 @@ def make_app(name):
 
 
 def state(app):
-    return copy.deepcopy({key: value for key, value in vars(app).items()
+    return copy.deepcopy({key: value.getstate() if isinstance(value, random.Random) else value
+                          for key, value in vars(app).items()
                           if key not in {"stage", "paint"}})
 
 
@@ -206,7 +211,7 @@ class DemoTests(unittest.TestCase):
     def tearDown(self):
         random.setstate(self.random_state)
 
-    def test_all_ten_demos_draw_and_freeze_at_zero_delta(self):
+    def test_all_interactive_demos_draw_and_freeze_at_zero_delta(self):
         for name in DEMOS:
             with self.subTest(demo=name):
                 app = make_app(name)
@@ -226,7 +231,11 @@ class DemoTests(unittest.TestCase):
                  ("Pond", "feed", (0, 0)),
                  ("Jellyfish", "light", (0, 100)),
                  ("Landscape", "add_boat", (0, -200)),
-                 ("Breakout", "click", (0, -100))]
+                 ("Breakout", "click", (0, -100)),
+                 ("StarryLily", "meteor", (0, 100)),
+                 ("ParticleHeart", "burst", (0, 100)),
+                 ("GalaxyRose", "stardust", (0, 100)),
+                 ("NeonButterfly", "attract", (0, 100))]
         for name, method, args in cases:
             with self.subTest(demo=name):
                 app = make_app(name)
@@ -234,6 +243,102 @@ class DemoTests(unittest.TestCase):
                 before = state(app)
                 getattr(app, method)(*args)
                 self.assertEqual(state(app), before)
+
+    def test_flowers_complete_growth_and_replay_without_resetting_palette(self):
+        for name, field in (("StarryLily", "bloom"), ("GalaxyRose", "growth")):
+            with self.subTest(demo=name):
+                app = make_app(name)
+                app.frame(8)
+                self.assertEqual(getattr(app, field), 7)
+                app.change_theme()
+                app.replay()
+                self.assertEqual(getattr(app, field), 0)
+                self.assertEqual(app.theme, 1)
+                app.frame(1)
+                app.stage.paused = True
+                before = state(app)
+                app.replay()
+                app.frame(0)
+                self.assertEqual(state(app), before)
+
+    def test_lily_meteors_account_for_scale_stay_bounded_and_expire(self):
+        app = make_app("StarryLily")
+        scale = app.stage.scale
+        for _ in range(30):
+            app.meteor(230 * scale, 100 * scale)
+        self.assertEqual(len(app.meteors), 5)
+        self.assertAlmostEqual(app.meteors[-1][0], 230)
+        self.assertAlmostEqual(app.meteors[-1][1], 100)
+        before = copy.deepcopy(app.meteors)
+        app.meteor(0, 400 * scale)
+        self.assertEqual(app.meteors, before)
+        app.frame(2)
+        self.assertFalse(app.meteors)
+
+    def test_rose_stardust_pool_is_bounded_and_expires(self):
+        app = make_app("GalaxyRose")
+        for _ in range(20):
+            app.stardust(0, 0)
+        self.assertEqual(len(app.particles), 144)
+        app.frame(1)
+        self.assertEqual(len(app.particles), 144)
+        app.frame(1.5)
+        self.assertFalse(app.particles)
+
+    def test_particle_heart_reassembles_without_allocating_more_particles(self):
+        app = make_app("ParticleHeart")
+        original = copy.deepcopy(app.particles)
+        for _ in range(30):
+            app.burst(0, 0)
+        self.assertEqual(app.burst_age, 0)
+        app.frame(1.8)
+        self.assertIsNotNone(app.burst_age)
+        app.frame(2)
+        self.assertIsNone(app.burst_age)
+        self.assertEqual(app.particles, original)
+        self.assertEqual(len(app.particles), app.PARTICLE_COUNT)
+        app.change_rate(-100)
+        self.assertGreater(app.rate, 0)
+        app.change_rate(100)
+        self.assertLessEqual(app.rate, 2)
+
+    def test_butterfly_target_expires_and_hover_holds_position(self):
+        app = make_app("NeonButterfly")
+        scale = app.stage.scale
+        app.attract(250 * scale, 100 * scale)
+        self.assertAlmostEqual(app.target[0], 250)
+        self.assertAlmostEqual(app.target[1], 100)
+        app.frame(.5)
+        self.assertGreater(app.offset[0], 0)
+        app.toggle_motion()
+        position = app.offset[:]
+        app.frame(1)
+        self.assertEqual(app.offset, position)
+        app.frame(6)
+        self.assertIsNone(app.target)
+
+    def test_new_scenes_render_all_palettes_and_keep_canvas_pool_bounded(self):
+        for name in ("StarryLily", "ParticleHeart", "GalaxyRose", "NeonButterfly"):
+            with self.subTest(demo=name):
+                app = make_app(name)
+                app.frame(8)
+                for _ in range(3):
+                    app.change_theme()
+                    app.frame(.05)
+                self.assertEqual(app.theme, 0)
+                count = len(app.stage.canvas.items)
+                self.assertLess(count, 1600)
+                app.frame(.05)
+                self.assertLessEqual(len(app.stage.canvas.items), count + 10)
+
+    def test_heart_curve_closes_and_is_symmetric(self):
+        point = DEMOS["ParticleHeart"].heart_point
+        self.assertAlmostEqual(point(0)[0], point(math.tau)[0])
+        self.assertAlmostEqual(point(0)[1], point(math.tau)[1])
+        for angle in (.2, 1.0, 2.4):
+            left, right = point(angle), point(-angle)
+            self.assertAlmostEqual(left[0], -right[0])
+            self.assertAlmostEqual(left[1], right[1])
 
     def test_game_key_release_and_focus_loss_stop_movement(self):
         for name in ("StarGame", "Breakout"):
