@@ -6,7 +6,7 @@
 
 14 款互动展品 · 14 个创意原作 · 一个可以逛、可以玩、可以改的代码画廊
 
-[在线逛画廊](https://zjh-b.github.io/turtle-gallery/) · [English](README.en.md) · [开始体验](#开始体验) · [全部作品](#逛一逛画廊) · [创作指南](docs/CREATIVE_GUIDE.md)
+[在线逛画廊](https://zjh-b.github.io/turtle-gallery/) · [English](README.en.md) · [开始体验](#开始体验) · [全部作品](#逛一逛画廊) · [创作指南](docs/CREATIVE_GUIDE.md) · [升级路线](docs/ROADMAP.md)
 
 [![项目检查](https://github.com/zjh-b/turtle-gallery/actions/workflows/checks.yml/badge.svg)](https://github.com/zjh-b/turtle-gallery/actions/workflows/checks.yml)
 
@@ -107,6 +107,7 @@ python run.py --check      # 检查环境和作品文件，不打开窗口
 
 ## 继续创作
 
+- [升级路线](docs/ROADMAP.md)：参数创作、作品导出、现场巡展与在线试玩的优先级、试点和完成标准。
 - [创作指南](docs/CREATIVE_GUIDE.md)：28 款作品的代码入口、原作操作和几个可以立刻动手的改法。
 - [贡献指南](docs/CONTRIBUTING.md)：添加作品、报告问题和提交改进。
 - [Issues](https://github.com/zjh-b/turtle-gallery/issues)：分享运行问题或你想看到的下一个小世界。

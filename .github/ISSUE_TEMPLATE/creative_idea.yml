@@ -2,6 +2,30 @@ name: Creative idea / 新创意
 description: Suggest a new work, interaction, or visual improvement.
 title: "[Idea] "
 body:
+  - type: markdown
+    attributes:
+      value: |
+        可以提出新作品，也可以改进已有作品的画面、交互或展示体验。
+        See the [development roadmap / 升级路线](https://github.com/zjh-b/turtle-gallery/blob/main/docs/ROADMAP.md) for planned directions and pilot exhibits.
+  - type: dropdown
+    id: direction
+    attributes:
+      label: 改进方向 / Area
+      options:
+        - 画面与动画 / Visuals and animation
+        - 互动与创作 / Interaction and creation
+        - 展示与导出 / Exhibition and export
+        - 在线试玩 / Browser interaction
+        - 新作品与学习 / New exhibit and learning
+        - 性能与维护 / Performance and maintenance
+        - 其他 / Other
+    validations:
+      required: true
+  - type: input
+    id: exhibit
+    attributes:
+      label: 相关作品或使用场景 / Exhibit or use case
+      placeholder: "例如：25 星空彼岸花；社团投影；手机浏览 / e.g. 25, club projection, mobile browsing"
   - type: textarea
     id: idea
     attributes:
@@ -9,6 +33,18 @@ body:
       description: Describe the scene and how people would interact with it.
     validations:
       required: true
+  - type: textarea
+    id: interaction
+    attributes:
+      label: 观众操作后会发生什么？/ Interaction and feedback
+      description: Optional. Give one concrete action and the visible result.
+      placeholder: "例如：拖动改变风向，松手后花丝缓缓停下。"
+  - type: textarea
+    id: success
+    attributes:
+      label: 怎样判断改进完成？/ What would make this successful?
+      description: Optional. Describe an observable result or a small trial someone could perform.
+      placeholder: "例如：保存配方后，重新打开作品仍能恢复同一构图。"
   - type: textarea
     id: references
     attributes:

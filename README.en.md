@@ -104,3 +104,5 @@ Try **fireworks → a growing seasonal tree → audience doodles in the kaleidos
 Start by changing the heart's fill color in [xin.py](xin.py), or compare the [original fractal tree](分形树.py) with its [seasonal exhibit](社团展示/06_四季分形树.py) to see how one recursive idea grows into a scene.
 
 For code entry points and small experiments, see the [creative guide](docs/CREATIVE_GUIDE.md). To add a work or report a problem, see [contributing](docs/CONTRIBUTING.md) and [Issues](https://github.com/zjh-b/turtle-gallery/issues). These detailed guides are currently in Chinese.
+
+The [development roadmap](docs/ROADMAP.md) prioritizes parameter controls, saved creations, exports, exhibition playlists, and browser interaction. It records proposed work and acceptance criteria; these features are planned. The first proposed milestone uses the spider lily and particle heart as pilot exhibits.
