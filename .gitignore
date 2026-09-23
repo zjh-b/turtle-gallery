@@ -1,0 +1,27 @@
+# Python / local environments
+__pycache__/
+*.py[cod]
+.venv/
+venv/
+.pytest_cache/
+.coverage
+htmlcov/
+
+# Local sessions, development captures, credentials
+.runtime/
+.work/
+.env
+.env.*
+!.env.example
+*.log
+
+# Editor / operating system
+.idea/
+.vscode/
+.DS_Store
+Thumbs.db
+Desktop.ini
+
+# Local agent settings
+.codex/
+.agents/

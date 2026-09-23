@@ -1,0 +1,34 @@
+name: Project checks
+
+on:
+  push:
+  pull_request:
+  workflow_dispatch:
+
+permissions:
+  contents: read
+
+concurrency:
+  group: checks-${{ github.ref }}
+  cancel-in-progress: true
+
+jobs:
+  tests:
+    name: ${{ matrix.os }} / Python ${{ matrix.python }}
+    runs-on: ${{ matrix.os }}
+    strategy:
+      fail-fast: false
+      matrix:
+        os: [ubuntu-latest, windows-latest]
+        python: ['3.9', '3.12', '3.14']
+    steps:
+      - uses: actions/checkout@v7
+      - uses: actions/setup-python@v7
+        with:
+          python-version: ${{ matrix.python }}
+      - name: Check environment and catalog
+        run: python run.py --check
+      - name: Test without opening windows
+        run: python -m unittest discover -s tests -v
+      - name: Compile tracked Python sources
+        run: python -c "import pathlib, subprocess; paths = subprocess.check_output(['git', 'ls-files', '-z', '*.py']).decode('utf-8').split('\0'); [compile(pathlib.Path(p).read_bytes(), p, 'exec') for p in paths if p]"

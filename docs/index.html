@@ -1,0 +1,113 @@
+<!doctype html>
+<html lang="zh-CN">
+<head>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <meta name="theme-color" content="#0b1518">
+  <meta name="description" content="Turtle Gallery 海龟画廊：24 个用 Python Turtle 与 Tkinter 创作的小世界。浏览烟花、锦鲤、分形树和原创小游戏，下载代码，亲手改出自己的作品。">
+  <meta property="og:title" content="Turtle Gallery · 海龟画廊">
+  <meta property="og:description" content="用 Python，把灵感画出来。10 款互动展品，14 个创意原作。">
+  <meta property="og:type" content="website">
+  <meta property="og:url" content="https://zjh-b.github.io/turtle-gallery/">
+  <meta property="og:image" content="https://zjh-b.github.io/turtle-gallery/assets/hero.png">
+  <title>Turtle Gallery · 海龟画廊</title>
+  <link rel="icon" type="image/svg+xml" href="assets/favicon.svg">
+  <link rel="canonical" href="https://zjh-b.github.io/turtle-gallery/">
+  <link rel="stylesheet" href="gallery.css">
+  <script src="gallery.js" defer></script>
+</head>
+<body>
+  <a class="skip-link" href="#gallery">跳到作品画廊</a>
+  <header class="site-header">
+    <div class="header-inner shell">
+      <a class="brand" href="#top" aria-label="Turtle Gallery 首页">
+        <svg class="brand-mark" viewBox="0 0 40 40" fill="none" aria-hidden="true"><path d="M12 9 9 6M28 9l3-3M11 29l-3 4m21-4 3 4M20 32v4" stroke="currentColor" stroke-width="3" stroke-linecap="round"/><ellipse cx="20" cy="20" rx="12" ry="13" fill="currentColor"/><path d="m20 11 7 5v9l-7 5-7-5v-9l7-5Zm0 0v19m-7-14 14 9m0-9-14 9" stroke="#0b1518" stroke-width="1.5"/><circle cx="20" cy="4" r="3" fill="currentColor"/></svg>
+        <span>Turtle Gallery<small>海龟画廊</small></span>
+      </a>
+      <nav aria-label="主导航">
+        <a href="#gallery">逛画廊</a>
+        <a href="#start">开始体验</a>
+        <a class="nav-github" href="https://github.com/zjh-b/turtle-gallery">GitHub <span aria-hidden="true">↗</span></a>
+      </nav>
+    </div>
+  </header>
+
+  <main id="top">
+    <section class="hero shell" aria-labelledby="hero-title">
+      <div class="hero-copy">
+        <p class="eyebrow"><span class="status-dot" aria-hidden="true"></span> A LITTLE GALLERY, MADE WITH PYTHON</p>
+        <h1 id="hero-title">几行代码，<br>生长出<span>小世界。</span></h1>
+        <p class="hero-intro">点亮一场烟花，养一池锦鲤，让一棵树走过四季。<br class="desktop-break">这里收藏可以欣赏、可以动手、可以继续生长的灵感。</p>
+        <div class="hero-actions">
+          <a class="button button-primary" href="#gallery">探索全部作品 <span aria-hidden="true">↘</span></a>
+          <a class="text-link" href="#start">下载后，亲手玩一玩 <span aria-hidden="true">→</span></a>
+        </div>
+        <dl class="hero-stats">
+          <div><dt>24</dt><dd>个代码小世界</dd></div>
+          <div><dt>10<span> + </span>14</dt><dd>互动展品与创意原作</dd></div>
+          <div><dt>Python</dt><dd>标准库即可运行</dd></div>
+        </dl>
+      </div>
+      <figure class="hero-stage">
+        <div class="stage-topline"><span><i aria-hidden="true"></i><i aria-hidden="true"></i><i aria-hidden="true"></i></span><span>GALLERY / IN MOTION</span><span>01—24</span></div>
+        <div class="stage-screen"><img id="showcase-image" src="assets/exhibits/07.png" alt="深海来信：深蓝色水中发光的水母，由 Python 代码绘制" width="800" height="464" fetchpriority="high"></div>
+        <figcaption class="stage-caption"><span><b>代码，也有温度。</b><small id="preview-caption">实际运行画面 · 深海来信</small></span><button id="motion-toggle" class="motion-toggle" type="button" hidden aria-pressed="false"><span aria-hidden="true">▶</span> 播放作品片段</button></figcaption>
+        <span class="stage-sticker" aria-hidden="true">DRAW.<br>PLAY.<br>CREATE.</span>
+      </figure>
+    </section>
+
+    <div class="medium-strip"><div class="shell"><span>从第一条线，到完整的小宇宙</span><p>Python <span>＋</span> Turtle <span>＋</span> Tkinter <span class="strip-divider">/</span> 绘画 · 动画 · 小游戏</p></div></div>
+
+    <section class="gallery-section shell" id="gallery" aria-labelledby="gallery-title">
+      <div class="section-heading"><div><p class="eyebrow">THE COLLECTION</p><h2 id="gallery-title">选一个世界，开始探索。</h2></div><p>每张画面背后，都有一份可以打开的代码。<br>网页展示预览，互动体验请在电脑上运行。</p></div>
+      <div id="gallery-tools" class="gallery-tools" hidden>
+        <div class="collection-filters" role="group" aria-label="作品合集">
+          <button type="button" class="filter-button is-active" data-collection="all" aria-pressed="true">全部作品 <span>24</span></button>
+          <button type="button" class="filter-button" data-collection="interactive" aria-pressed="false">互动展品 <span>10</span></button>
+          <button type="button" class="filter-button" data-collection="original" aria-pressed="false">创意原作 <span>14</span></button>
+        </div>
+        <label class="search-field"><svg viewBox="0 0 24 24" fill="none" aria-hidden="true"><circle cx="10.5" cy="10.5" r="6.5" stroke="currentColor" stroke-width="1.7"/><path d="m16 16 4 4" stroke="currentColor" stroke-width="1.7" stroke-linecap="round"/></svg><span class="sr-only">搜索作品名称、分类或操作</span><input id="gallery-search" type="search" placeholder="搜索烟花、几何、小游戏…" autocomplete="off" maxlength="100"></label>
+      </div>
+      <p id="result-count" class="result-count" role="status" aria-live="polite"></p>
+      <div id="gallery-grid" class="gallery-grid" aria-busy="true"></div>
+      <div id="gallery-message" class="gallery-message" hidden><h3 id="message-title"></h3><p id="message-detail"></p><button id="message-action" type="button" class="button button-secondary"></button></div>
+      <noscript>
+        <p class="noscript-note">开启 JavaScript 可以搜索全部 24 款作品。也可以直接前往 <a href="https://github.com/zjh-b/turtle-gallery#逛一逛画廊">GitHub 查看完整作品目录</a>。</p>
+        <div class="gallery-grid fallback-grid">
+          <figure><img src="assets/exhibits/01.png" alt="烟花在城市上空绽放，湖面映出光影" width="800" height="464" loading="lazy"><figcaption>01 · 把夜空点亮</figcaption></figure>
+          <figure><img src="assets/exhibits/04.png" alt="荷塘里游动的锦鲤" width="800" height="464" loading="lazy"><figcaption>04 · 清浅荷塘</figcaption></figure>
+          <figure><img src="assets/exhibits/06.png" alt="开满粉色花朵的分形树" width="800" height="464" loading="lazy"><figcaption>06 · 一树四季</figcaption></figure>
+          <figure><img src="assets/originals/12.png" alt="彩色方块螺旋原作" width="800" height="464" loading="lazy"><figcaption>12 · 彩色方块螺旋</figcaption></figure>
+          <figure><img src="assets/originals/18.png" alt="用 Turtle 画出的哆啦 A 梦头像" width="800" height="464" loading="lazy"><figcaption>18 · 哆啦 A 梦头像</figcaption></figure>
+          <figure><img src="assets/originals/23.png" alt="见缝插针原作游戏画面" width="800" height="464" loading="lazy"><figcaption>23 · 见缝插针</figcaption></figure>
+        </div>
+      </noscript>
+      <p class="preview-note">预览以程序运行截图为主；「温柔便签」为原文排版示意，「月饼装盒计算」展示实际文字输出。</p>
+    </section>
+
+    <section class="origin-section shell" aria-labelledby="origin-title">
+      <div class="origin-mark" aria-hidden="true">↗</div><div><p class="eyebrow">SMALL IDEAS MATTER</p><h2 id="origin-title">第一颗爱心，也值得被收藏。</h2><p>画廊保留了 14 个创意原作：圆弧、雨伞、时钟、风车，还有一个月饼计算器。把原来的分形树与「一树四季」放在一起，就能看见一个想法怎样长出颜色、风和互动。</p><a class="text-link" href="https://github.com/zjh-b/turtle-gallery/blob/main/docs/CREATIVE_GUIDE.md">从一个参数开始，改出你的版本 <span aria-hidden="true">→</span></a></div>
+    </section>
+
+    <section class="start-section shell" id="start" aria-labelledby="start-title">
+      <div class="section-heading"><div><p class="eyebrow">MAKE IT YOURS</p><h2 id="start-title">把画廊，带到你的电脑。</h2></div><a class="button button-primary" href="https://github.com/zjh-b/turtle-gallery/archive/refs/heads/main.zip">下载项目 ZIP <span aria-hidden="true">↓</span></a></div>
+      <div class="start-grid">
+        <div class="steps"><div class="step"><span>01</span><div><h3>准备 Python</h3><p>使用 Python 3.9 或更新版本，并安装 Tkinter。作品运行只需 Python 标准库。</p></div></div><div class="step"><span>02</span><div><h3>下载并打开画廊</h3><p>解压 ZIP。Windows 双击 <code>start.bat</code>；也可在项目目录运行右侧命令。</p></div></div><div class="step"><span>03</span><div><h3>选作品，玩一玩，再改一改</h3><p>在桌面画廊搜索作品。互动展品可按空格暂停、R 重来、H 收起说明、F11 全屏。</p></div></div></div>
+        <div class="terminal"><div class="terminal-header"><span>在项目目录中运行</span><button type="button" class="copy-button" data-copy="python run.py">复制命令</button></div><pre><span class="terminal-comment"># 打开包含 24 款作品的桌面画廊</span>
+<span class="terminal-prompt">$</span> python run.py
+
+<span class="terminal-comment"># 直接点亮一场烟花</span>
+<span class="terminal-prompt">$</span> python run.py --demo 01
+
+<span class="terminal-comment"># 查看列表 / 检查环境</span>
+<span class="terminal-prompt">$</span> python run.py --list
+<span class="terminal-prompt">$</span> python run.py --check</pre><p>系统使用 <code>python3</code> 时，请替换命令中的 <code>python</code>。</p></div>
+      </div>
+      <p class="platform-note">桌面界面已在 Windows 验证。macOS / Linux 需要支持 Tk 的 Python 和桌面显示环境，完整界面体验尚待这些平台验证。<a href="https://github.com/zjh-b/turtle-gallery#开始体验">查看运行说明 ↗</a></p>
+    </section>
+  </main>
+
+  <footer class="site-footer shell"><div><a class="footer-brand" href="#top">Turtle Gallery <span>· 海龟画廊</span></a><p>用 Python，把灵感画出来。</p></div><nav aria-label="页脚导航"><a href="https://github.com/zjh-b/turtle-gallery">源码 ↗</a><a href="https://github.com/zjh-b/turtle-gallery/issues">分享一个想法 ↗</a><a href="https://github.com/zjh-b/turtle-gallery/blob/main/README.en.md" lang="en">English ↗</a></nav><small>Created by <a href="https://github.com/zjh-b">zjh-b</a></small></footer>
+  <div id="copy-status" class="copy-status" role="status" aria-live="polite" hidden></div>
+</body>
+</html>

@@ -1,0 +1,16 @@
+name: Creative idea / 新创意
+description: Suggest a new work, interaction, or visual improvement.
+title: "[Idea] "
+body:
+  - type: textarea
+    id: idea
+    attributes:
+      label: 想看到什么？/ What would you like to see?
+      description: Describe the scene and how people would interact with it.
+    validations:
+      required: true
+  - type: textarea
+    id: references
+    attributes:
+      label: 草图、公式或参考 / Sketch, formula, or reference
+      description: Optional references or a small code sketch.

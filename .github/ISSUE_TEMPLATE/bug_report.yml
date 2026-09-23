@@ -1,0 +1,30 @@
+name: Bug report / 运行问题
+description: Report a problem with a work or the gallery launcher.
+title: "[Bug] "
+body:
+  - type: input
+    id: environment
+    attributes:
+      label: 系统和 Python 版本 / Environment
+      placeholder: Windows 11, Python 3.12
+    validations:
+      required: true
+  - type: input
+    id: work
+    attributes:
+      label: 作品编号或启动命令 / Work ID or command
+      placeholder: python run.py --demo 10
+    validations:
+      required: true
+  - type: textarea
+    id: reproduce
+    attributes:
+      label: 重现步骤和实际结果 / Steps and result
+      description: Include the action that triggered the issue and what you expected.
+    validations:
+      required: true
+  - type: textarea
+    id: details
+    attributes:
+      label: 截图或错误信息 / Screenshot or error
+      description: Optional screenshots, terminal output, or relevant .runtime log lines.
