@@ -6,7 +6,9 @@
 
 10 interactive exhibits · 14 original experiments · Python Turtle / Tkinter
 
-[中文](README.md) · [Get started](#get-started) · [Explore](#explore-the-gallery) · [Creative guide](docs/CREATIVE_GUIDE.md)
+[Online gallery](https://zjh-b.github.io/turtle-gallery/) · [中文](README.md) · [Get started](#get-started) · [Explore](#explore-the-gallery) · [Creative guide](docs/CREATIVE_GUIDE.md)
+
+[![Project checks](https://github.com/zjh-b/turtle-gallery/actions/workflows/checks.yml/badge.svg)](https://github.com/zjh-b/turtle-gallery/actions/workflows/checks.yml)
 
 ![Turtle Gallery: fireworks, planets, koi and generative art](docs/assets/hero.png)
 
@@ -15,6 +17,8 @@
 Click to launch fireworks, turn a brush stroke into a kaleidoscope, or watch a recursive tree grow through four seasons. Turtle Gallery brings together animated scenes, small games and the original drawings and experiments that started the collection.
 
 Made for club demonstrations, learning Python and trying out visual ideas. The artwork is drawn by code at runtime. **No third-party runtime packages, downloaded art assets or network connection required.**
+
+**[Browse the online gallery →](https://zjh-b.github.io/turtle-gallery/)** Search, filter and explore every work on desktop or mobile. The website shows previews; download the project to run the interactive Python programs on your computer.
 
 ## Get started
 

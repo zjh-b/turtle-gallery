@@ -6,7 +6,9 @@
 
 10 款互动展品 · 14 个创意原作 · 一个可以逛、可以玩、可以改的代码画廊
 
-[English](README.en.md) · [开始体验](#开始体验) · [全部作品](#逛一逛画廊) · [创作指南](docs/CREATIVE_GUIDE.md)
+[在线逛画廊](https://zjh-b.github.io/turtle-gallery/) · [English](README.en.md) · [开始体验](#开始体验) · [全部作品](#逛一逛画廊) · [创作指南](docs/CREATIVE_GUIDE.md)
+
+[![项目检查](https://github.com/zjh-b/turtle-gallery/actions/workflows/checks.yml/badge.svg)](https://github.com/zjh-b/turtle-gallery/actions/workflows/checks.yml)
 
 ![海龟画廊：烟花、星系、锦鲤与生成艺术的运行画面](docs/assets/hero.png)
 
@@ -15,6 +17,8 @@
 点一下，夜空开出烟花；画一笔，线条变成花瓣；换个参数，树梢走过四季。这里收录了用 **Python Turtle / Tkinter** 制作的绘画、动画和小游戏，也保留了从爱心、雨伞、时钟到月饼计算的小创意。
 
 适合社团展示、编程入门和创意实验。画面由代码实时绘制，运行只用 Python 标准库，无需下载素材或连接网络。
+
+**[先在线逛一逛 →](https://zjh-b.github.io/turtle-gallery/)** 支持手机浏览、作品搜索、分类筛选和源码直达。网页展示预览；下载项目后，即可在电脑上运行互动作品。
 
 ## 开始体验
 
