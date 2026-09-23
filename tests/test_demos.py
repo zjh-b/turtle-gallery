@@ -16,6 +16,7 @@ from unittest.mock import Mock, patch
 
 
 DEMO_DIR = Path(__file__).resolve().parents[1] / "社团展示"
+sys.path.insert(0, str(DEMO_DIR))
 
 
 def load_source(name, path):
@@ -28,22 +29,9 @@ def load_source(name, path):
 
 
 STAGE = load_source("gallery_stage_tests", DEMO_DIR / "舞台.py")
-DEMO_CLASSES = {
-    "01_点击烟花.py": "Fireworks",
-    "02_旋转星系.py": "Galaxy",
-    "03_鼠标万花筒.py": "Kaleidoscope",
-    "04_互动鱼塘.py": "Pond",
-    "05_接住星星.py": "StarGame",
-    "06_四季分形树.py": "SeasonTree",
-    "07_深海水母.py": "Jellyfish",
-    "08_山水画卷.py": "Landscape",
-    "09_几何绘图仪.py": "Spirograph",
-    "10_霓虹弹球.py": "Breakout",
-    "25_星空彼岸花.py": "StarryLily",
-    "26_怦然心动.py": "ParticleHeart",
-    "27_星河玫瑰.py": "GalaxyRose",
-    "28_霓光蝶舞.py": "NeonButterfly",
-}
+CATALOG = load_source("gallery_scene_catalog", DEMO_DIR / "作品目录.py")
+DEMO_CLASSES = {Path(work["filename"]).name: work["entry_class"]
+                for work in CATALOG.WORKS if work["collection"] == "interactive"}
 with patch.dict(sys.modules, {"舞台": STAGE}):
     DEMOS = {
         class_name: load_source("gallery_test_" + class_name, DEMO_DIR / filename)
@@ -114,6 +102,9 @@ class Canvas:
 
     def bind(self, event, callback, add=None):
         self.bindings[event] = callback
+
+    def tag_bind(self, item, event, callback):
+        self.bindings[item, event] = callback
 
     def canvasx(self, x):
         return x

@@ -3,6 +3,7 @@ import math
 import random
 
 from 舞台 import Paint, Stage, mix
+from 创作配方 import default_parameters, validate_parameters
 
 
 THEMES = [
@@ -39,19 +40,57 @@ def smoothstep(value):
 
 
 class StarryLily:
+    WORK_ID = 25
+
     def __init__(self):
-        self.stage = Stage("星空彼岸花", "点击 落下一颗流星    G 重播绽放    C 切换花色    ↑↓ 调整速度", accent="#F299AA")
+        self.stage = Stage("星空彼岸花", "点击 流星    G 重播绽放    C 花色    ↑↓ 速度    E 创作面板", accent="#F299AA")
         self.paint = Paint(self.stage, "starry-lily")
-        rng = random.Random(2506)
+        self.apply_parameters(default_parameters(self.WORK_ID))
+        self.stage.screen.onclick(self.meteor)
+        for key in ("c", "C"):
+            self.stage.screen.onkey(self.change_theme, key)
+        for key in ("g", "G"):
+            self.stage.screen.onkey(self.replay, key)
+        self.stage.screen.onkey(lambda: self.change_speed(0.25), "Up")
+        self.stage.screen.onkey(lambda: self.change_speed(-0.25), "Down")
+        self.stage.enable_creation(self)
+
+    def get_parameters(self):
+        """Return a fresh recipe, including changes made with the keyboard."""
+        return {key: getattr(self, key) for key in default_parameters(self.WORK_ID)}
+
+    def apply_parameters(self, parameters):
+        # Validation happens before any state changes, so rejected recipes are safe.
+        parameters = validate_parameters(self.WORK_ID, parameters)
+        rebuild = any(getattr(self, key, None) != parameters[key]
+                      for key in ("seed", "curvature", "star_count"))
+        for key, value in parameters.items():
+            setattr(self, key, value)
+        if rebuild:
+            self.build_geometry()
+        if not hasattr(self, "time"):
+            self.reset()
+
+    def build_geometry(self):
+        # Independent streams keep the flower shape stable when star density changes.
+        rng = random.Random(self.seed)
         self.stars = [(rng.uniform(-495, 495), rng.uniform(-252, 255),
-                       rng.uniform(0.55, 1.65), rng.uniform(0, math.tau)) for _ in range(115)]
+                       rng.uniform(0.55, 1.65), rng.uniform(0, math.tau))
+                      for _ in range(self.star_count)]
+        rng = random.Random(self.seed + 101)
         self.dust = []
         for _ in range(130):
             x = rng.uniform(-495, 495)
             y = 135 + 0.24*x + rng.gauss(0, 28)
             if -245 < y < 248:
                 self.dust.append((x, y, rng.uniform(0.45, 1.05), rng.random()))
+        self.dust_colors = [mix("#10152F", "#9B98CF", .18 + shade*.22)
+                            for _, _, _, shade in self.dust]
+        self.star_colors = [mix("#202741", "#D5E1FA", .31 + .28*i/63) for i in range(64)]
+        self.star_cross_colors = [mix("#182039", color, .6) for color in self.star_colors]
+        rng = random.Random(self.seed + 211)
         self.florets = []
+        self.branches = []
         # An umbel of six flowers, each with six recurved ribbon petals.
         for index, (x, y, angle, size) in enumerate([
             (-43, 113, 0.21, 0.80), (36, 123, -0.22, 0.84),
@@ -62,30 +101,37 @@ class StarryLily:
             for j in range(6):
                 a = angle + j*math.tau/6 + rng.uniform(-0.12, 0.12)
                 length = rng.uniform(0.84, 1.14) * size
-                curve = bezier((0, 0), (23, 9), (49, 36), (68, 23), 17)
-                curve += bezier((68, 23), (91, 4), (69, -17), (50, -3), 12)[1:]
+                curl = self.curvature
+                curve = bezier((0, 0), (23, 9*curl), (49, 36*curl), (68, 23*curl), 17)
+                curve += bezier((68, 23*curl), (91, 4*curl),
+                                (69, -17*curl), (50, -3*curl), 12)[1:]
                 ca, sa = math.cos(a), math.sin(a)
                 curve = [((px*ca-py*sa)*length, (px*sa+py*ca)*length*0.85) for px, py in curve]
-                petals.append((ribbon(curve, 4.3*size), curve, j))
+                depth = .5 - .5*sa
+                petals.append((ribbon(curve, (3.4 + depth*1.8)*size), curve, j, depth))
             for j in range(7):
                 a = math.pi * (0.06 + 0.89*j/6) + angle*0.5
                 reach = rng.uniform(89, 119)*size
                 dx, dy = math.cos(a)*reach, math.sin(a)*reach*0.95
                 curve = bezier((0, 0), (dx*0.16, 20), (dx*0.74, dy+19), (dx, dy), 22)
                 stamens.append((curve, rng.uniform(-0.65, 0.65)))
-            self.florets.append((x, y, size, petals, stamens, index))
+            self.florets.append((x, y, size, sorted(petals, key=lambda petal: petal[3]), stamens, index))
+            self.branches.append(bezier((20, 42), (20+x*.15, 57),
+                                        (20+x*.7, y-12), (20+x, y), 13))
         self.stem = bezier((20, -249), (14, -120), (36, 7), (20, 87), 48)
-        self.reset()
-        self.stage.screen.onclick(self.meteor)
-        for key in ("c", "C"):
-            self.stage.screen.onkey(self.change_theme, key)
-        for key in ("g", "G"):
-            self.stage.screen.onkey(self.replay, key)
-        self.stage.screen.onkey(lambda: self.change_speed(0.25), "Up")
-        self.stage.screen.onkey(lambda: self.change_speed(-0.25), "Down")
+        self.petal_colors = []
+        for _, red, light, gold in THEMES:
+            self.petal_colors.append([
+                {j: (mix("#351629", red, .45 + .49*depth),
+                     mix(red, light, .10 + .17*depth),
+                     mix(red, gold, .20 + .25*depth))
+                 for _, _, j, depth in petals}
+                for _, _, _, petals, _, _ in self.florets])
+        self.stamen_colors = [[mix(red, light, .18+.07*(j % 3)) for j in range(7)]
+                              for _, red, light, _ in THEMES]
 
     def reset(self):
-        self.time, self.bloom, self.theme, self.speed = 0.0, 0.0, 0, 1.0
+        self.time, self.bloom = 0.0, 0.0
         self.meteors = []
 
     def replay(self):
@@ -108,7 +154,7 @@ class StarryLily:
     def flower_point(self, point, cx, cy, opening):
         x, y = point
         # Petals unfold from an upright bud; whole flower bends gently in the air.
-        return (20 + cx + x*opening + math.sin(self.time*0.65)*3.2*(cy+y+250)/480,
+        return (20 + cx + x*opening + math.sin(self.time*0.65)*3.2*self.wind*(cy+y+250)/480,
                 cy + y*opening + (1-opening)*abs(x)*0.58)
 
     def frame(self, dt):
@@ -127,15 +173,15 @@ class StarryLily:
         p.circle(-310, 171, 25, "#CBC7C1")
         p.circle(-301, 178, 24, "#10172B")
         p.circle(-326, 165, 1.5, "#F2E4D0")
-        for x, y, r, shade in self.dust:
-            p.circle(x, y, r, mix("#10152F", "#9B98CF", .18 + shade*.22))
+        for (x, y, r, _), color in zip(self.dust, self.dust_colors):
+            p.circle(x, y, r, color)
         for i, (x, y, radius, phase) in enumerate(self.stars):
-            intensity = .31 + .28*(.5+.5*math.sin(self.time*.9+phase))
-            color = mix("#202741", "#D5E1FA", intensity)
+            shade = round((.5+.5*math.sin(self.time*.9+phase))*63)
+            color = self.star_colors[shade]
             p.circle(x, y, radius, color)
             if i % 23 == 0:
-                p.line([(x-3.5, y), (x+3.5, y)], mix("#182039", color, .6))
-                p.line([(x, y-3.5), (x, y+3.5)], mix("#182039", color, .6))
+                p.line([(x-3.5, y), (x+3.5, y)], self.star_cross_colors[shade])
+                p.line([(x, y-3.5), (x, y+3.5)], self.star_cross_colors[shade])
         constellation = [(293, 157), (323, 191), (372, 168), (397, 215)]
         p.line(constellation, "#26354A")
         for x, y in constellation:
@@ -149,28 +195,34 @@ class StarryLily:
         p.oval(26, -249, 61, 5, "#181B2C")
         stem_progress = smoothstep(self.bloom / 2.2)
         visible = max(2, int(len(self.stem)*stem_progress))
-        stem = [(x+math.sin(self.time*.65)*3.2*(y+250)/480, y) for x, y in self.stem[:visible]]
+        sway = math.sin(self.time*.65)*3.2*self.wind/480
+        stem = [(x+sway*(y+250), y) for x, y in self.stem[:visible]]
         p.line(stem, "#183D3F", 7)
         p.line([(x-1.3, y) for x, y in stem], "#42655B", 2)
         if self.bloom > 1.8:
             opening = smoothstep((self.bloom-1.8)/1.6)
-            for cx, cy, size, petals, stamens, index in self.florets:
-                branch = bezier((20, 42), (20+cx*.15, 57), (20+cx*.7, cy-12), (20+cx, cy), 13)
-                p.line(branch, mix("#172A35", "#759073", .6*opening), 2)
+            branch_color = mix("#172A35", "#759073", .6*opening)
+            for branch in self.branches:
+                p.line([(x+sway*(y+250), y) for x, y in branch], branch_color, 2)
         for cx, cy, size, petals, stamens, index in self.florets:
             opening = smoothstep((self.bloom-2.1-index*.15)/2.75)
             if opening <= .001:
                 continue
-            transform = lambda points: [self.flower_point(point, cx, cy, opening) for point in points]
-            for shape, curve, j in petals:
-                shade = .62 + .06*((index+j) % 4)
-                p.poly(transform(shape), mix("#3B1730", red, shade), smooth=False)
-                p.line(transform(curve), mix(red, light, .20), 1)
+            def transform(points, amount=opening):
+                return [(20+cx+x*amount+sway*(cy+y+250),
+                         cy+y*amount+(1-amount)*abs(x)*.58) for x, y in points]
+            for shape, curve, j, depth in petals:
+                progress = smoothstep((self.bloom-2.1-index*.15-j*.035)/2.55)
+                # A small overshoot settles into the mature curve at the end.
+                amount = 1 + 2*(progress-1)**3 + (progress-1)**2
+                fill, vein, edge = self.petal_colors[self.theme][index][j]
+                p.poly(transform(shape, amount), fill, smooth=False)
+                p.line(transform(curve, amount), vein, 1)
                 # A second edge catches moonlight near the recurved tip.
-                p.line(transform(curve[20:]), mix(red, light, .40), 1)
+                p.line(transform(curve[20:], amount), edge, 1)
             for j, (curve, tilt) in enumerate(stamens):
                 points = transform(curve)
-                p.line(points, mix(red, light, .22+.08*(j%3)), 1)
+                p.line(points, self.stamen_colors[self.theme][j], 1)
                 x, y = points[-1]
                 p.line([(x-2.3, y-1.2+tilt), (x+2.3, y+1.2-tilt)], gold, 2)
             x, y = self.flower_point((0, 0), cx, cy, opening)

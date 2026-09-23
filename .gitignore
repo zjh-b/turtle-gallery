@@ -10,6 +10,7 @@ htmlcov/
 # Local sessions, development captures, credentials
 .runtime/
 .work/
+creations/
 .env
 .env.*
 !.env.example

@@ -2,6 +2,7 @@
 
     python tools/render_media.py --originals --gif --compose
     python tools/render_media.py --social --compose
+    python tools/render_media.py --creator
 
 The application itself has no Pillow dependency. Capture helpers execute one work
 at a time in a separate process and write only project-owned image files.
@@ -27,7 +28,7 @@ ROOT = Path(__file__).resolve().parents[1]
 ASSETS = ROOT / "docs" / "assets"
 ORIGINALS = ASSETS / "originals"
 WORK = ROOT / ".work" / "media"
-SOCIAL_CLASSES = {25: "StarryLily", 26: "ParticleHeart", 27: "GalaxyRose", 28: "NeonButterfly"}
+SOCIAL_IDS = (25, 26, 27, 28)
 SOCIAL_FRAMES = 24
 
 
@@ -74,7 +75,7 @@ def rounded_image(destination, picture, box, radius=14, contain=False):
 def load_scene(number):
     path = ROOT / "社团展示" / "previews" / f"{number:02}.png"
     with Image.open(path) as original:
-        if number in SOCIAL_CLASSES:
+        if number in SOCIAL_IDS:
             return original.convert("RGB")
         return original.crop((4, 101, original.width - 4, original.height - 65)).convert("RGB")
 
@@ -150,7 +151,7 @@ def social_capture(number):
     module = importlib.util.module_from_spec(spec)
     spec.loader.exec_module(module)
     random.seed(2026)
-    app = getattr(module, SOCIAL_CLASSES[number])()
+    app = getattr(module, work["entry_class"])()
     WORK.mkdir(parents=True, exist_ok=True)
     try:
         app.stage.root.geometry("1000x720+20+20")
@@ -190,22 +191,68 @@ def social_capture(number):
         app.stage.close()
 
 
+def creator_capture():
+    """Capture the actual artwork and parameter window for the creation guide."""
+    work = next(work for work in works() if work["id"] == 25)
+    path = ROOT / work["filename"]
+    sys.path.insert(0, str(path.parent))
+    from 创作配方 import preset_parameters
+    spec = importlib.util.spec_from_file_location("capture_creator", path)
+    module = importlib.util.module_from_spec(spec)
+    spec.loader.exec_module(module)
+    app = getattr(module, work["entry_class"])()
+    try:
+        app.stage.root.geometry("1000x720+20+20")
+        app.stage.root.update()
+        app.stage.reset_action = app.reset
+        app.apply_parameters(preset_parameters(25, 1))
+        app.reset()
+        app.frame(8)
+        app.stage.screen.update()
+        app.stage.open_creation()
+        panel = app.stage.creator_panel
+        panel.status.set("参数随手可调，保存配方留住这一幅。")
+        app.stage.root.update()
+        artwork, controls = grab(app.stage.root), grab(panel.window)
+        board = Image.new("RGB", (1440, 930), "#0B1424")
+        draw = ImageDraw.Draw(board)
+        draw.text((40, 25), "创作工坊 / MAKE IT YOURS", font=font(34, True), fill="#EAF1F5")
+        draw.text((42, 79), "调一缕微风，换一片星河，把喜欢的参数保存下来。", font=font(19), fill="#A7BACB")
+        rounded_image(board, artwork, (30, 150, 950, 684), 12, contain=True)
+        rounded_image(board, controls, (1005, 118, 405, 771), 12, contain=True)
+        draw.text((42, 868), "25 星空彼岸花  /  26 怦然心动    ·    按 E 或点击右上角打开", font=font(18), fill="#A8E1CC")
+        board.save(ASSETS / "creator.png", optimize=True)
+        print("Captured creator.png from the artwork and live parameter panel", flush=True)
+    finally:
+        app.stage.close()
+
+
+def social_capture_is_current(work):
+    """Reuse a capture only when all its artifacts include current scene code."""
+    number = work["id"]
+    scene_directory = ROOT / "社团展示"
+    dependencies = [Path(__file__).resolve(), ROOT / work["filename"]]
+    dependencies.extend(scene_directory / name for name in
+                        ("舞台.py", "创作配方.py", "创作工坊.py", "作品目录.py"))
+    modified = max(path.stat().st_mtime_ns for path in dependencies)
+    previews = scene_directory / "previews"
+    outputs = [previews / f"{number:02}{suffix}.png" for suffix in ("", "_thumb", "_compact")]
+    outputs.append(ASSETS / "exhibits" / f"{number:02}.png")
+    outputs.extend(WORK / f"social_{number:02}_{index:02}.png" for index in range(SOCIAL_FRAMES))
+    return all(path.is_file() and path.stat().st_mtime_ns >= modified for path in outputs)
+
+
 def make_social():
-    titles = {work["id"]: work["title"] for work in works()}
-    for number in SOCIAL_CLASSES:
-        source = ROOT / next(work["filename"] for work in works() if work["id"] == number)
-        preview = ROOT / "社团展示" / "previews" / f"{number:02}.png"
-        frames = [WORK / f"social_{number:02}_{index:02}.png" for index in range(SOCIAL_FRAMES)]
-        source_modified = source.stat().st_mtime_ns
-        if (preview.is_file() and preview.stat().st_mtime_ns >= source_modified
-                and all(frame.is_file() and frame.stat().st_mtime_ns >= source_modified
-                        for frame in frames)):
+    catalog = {work["id"]: work for work in works()}
+    titles = {number: work["title"] for number, work in catalog.items()}
+    for number in SOCIAL_IDS:
+        if social_capture_is_current(catalog[number]):
             print(f"Using existing capture {number}", flush=True)
             continue
         subprocess.run([sys.executable, str(Path(__file__).resolve()), "--capture-social", str(number)],
                        check=True, timeout=120)
     frames = []
-    for number in SOCIAL_CLASSES:
+    for number in SOCIAL_IDS:
         for index in range(SOCIAL_FRAMES):
             frame = Image.new("RGB", (720, 460), "#0B1424")
             draw = ImageDraw.Draw(frame)
@@ -214,8 +261,8 @@ def make_social():
             with Image.open(WORK / f"social_{number:02}_{index:02}.png") as scene:
                 rounded_image(frame, scene, (16, 57, 688, 378), 8)
             frames.append(frame)
-    samples = Image.new("RGB", (192 * len(SOCIAL_CLASSES), 128))
-    for index in range(len(SOCIAL_CLASSES)):
+    samples = Image.new("RGB", (192 * len(SOCIAL_IDS), 128))
+    for index in range(len(SOCIAL_IDS)):
         samples.paste(frames[index * SOCIAL_FRAMES + SOCIAL_FRAMES - 1].resize((192, 128)), (index * 192, 0))
     palette = samples.quantize(colors=192)
     converted = [frame.quantize(palette=palette, dither=Image.Dither.NONE) for frame in frames]
@@ -225,7 +272,7 @@ def make_social():
     draw = ImageDraw.Draw(board)
     draw.text((42, 25), "浪漫光影 / FOUR WORLDS MADE OF LIGHT", font=font(30, True), fill="#DFE9F1")
     draw.text((44, 76), "星空彼岸花 · 怦然心动 · 星河玫瑰 · 霓光蝶舞", font=font(18), fill="#B3BCD4")
-    for index, number in enumerate(SOCIAL_CLASSES):
+    for index, number in enumerate(SOCIAL_IDS):
         x, y = 40 + index % 2 * 680, 120 + index // 2 * 402
         draw.rounded_rectangle((x, y, x + 640, y + 377), radius=14, fill="#17243B", outline="#2B3B57")
         rounded_image(board, load_scene(number), (x + 10, y + 10, 620, 320), 9)
@@ -347,9 +394,8 @@ def animation_capture(number):
     spec = importlib.util.spec_from_file_location("capture_demo", path)
     module = importlib.util.module_from_spec(spec)
     spec.loader.exec_module(module)
-    classes = {1: "Fireworks", 3: "Kaleidoscope", 4: "Pond", 6: "SeasonTree", 7: "Jellyfish", 10: "Breakout"}
     random.seed(13)
-    app = getattr(module, classes[number])()
+    app = getattr(module, work["entry_class"])()
     app.stage.root.geometry("960x700+20+20")
     app.stage.root.update()
     app.reset()
@@ -403,9 +449,10 @@ def main():
     parser.add_argument("--compose", action="store_true")
     parser.add_argument("--gif", action="store_true")
     parser.add_argument("--social", action="store_true", help="Capture the four romantic light artworks and their animation")
+    parser.add_argument("--creator", action="store_true", help="Capture the live creation panel and artwork")
     parser.add_argument("--capture-original", type=int, help=argparse.SUPPRESS)
     parser.add_argument("--capture-animation", type=int, help=argparse.SUPPRESS)
-    parser.add_argument("--capture-social", type=int, choices=SOCIAL_CLASSES, help=argparse.SUPPRESS)
+    parser.add_argument("--capture-social", type=int, choices=SOCIAL_IDS, help=argparse.SUPPRESS)
     args = parser.parse_args()
     ASSETS.mkdir(parents=True, exist_ok=True)
     if args.capture_social:
@@ -427,6 +474,8 @@ def main():
         make_gif()
     if args.social:
         make_social()
+    if args.creator:
+        creator_capture()
     if args.compose:
         compose()
 

@@ -14,7 +14,7 @@ def main():
     repository = "https://github.com/zjh-b/turtle-gallery"
     works = []
     for work in catalog().WORKS:
-        item = {key: work[key] for key in ("id", "number", "title", "subtitle", "collection", "category", "controls", "description", "featured", "tags")}
+        item = {key: work[key] for key in ("id", "number", "title", "subtitle", "collection", "category", "controls", "description", "featured", "tags", "creation")}
         item["preview"] = (f"assets/exhibits/{work['number']}.png" if work["collection"] == "interactive" else
                            f"assets/originals/{work['number']}.png")
         item["source"] = f"{repository}/blob/main/{quote(work['filename'], safe='/')}"

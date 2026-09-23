@@ -64,6 +64,7 @@ class Paint:
                 self.canvas.itemconfigure(item, **options)
             old[2], old[3] = coords, options
         self.index += 1
+        return item
 
     def end(self):
         for old in self.items[self.index:]:
@@ -97,8 +98,8 @@ class Paint:
                   smooth=smooth, splinesteps=16)
 
     def text(self, x, y, text, color, size=12, anchor="center", bold=False):
-        self._put("text", (x, y), text=text, fill=color, anchor=anchor,
-                  font=(FONT, max(8, round(size * self.scale)), "bold" if bold else "normal"))
+        return self._put("text", (x, y), text=text, fill=color, anchor=anchor,
+                         font=(FONT, max(8, round(size * self.scale)), "bold" if bold else "normal"))
 
     def star(self, x, y, r, color, angle=math.pi / 2, outline=""):
         self.poly(star_points(x, y, r, angle), color, outline)
@@ -130,6 +131,8 @@ class Stage:
         self.background = background
         self.paused = self.closed = self.fullscreen = False
         self.show_hud = True
+        self.creator_app = self.creator_panel = None
+        self._creator_button_id = None
         self.frame = self.reset_action = None
         self._last_time = time.perf_counter()
         self.header = Paint(self, "hud")
@@ -171,6 +174,20 @@ class Stage:
     def toggle_hud(self):
         self.show_hud = not self.show_hud
 
+    def enable_creation(self, app):
+        """Register a creator without opening another window during scene loading."""
+        self.creator_app = app
+        for key in ("e", "E"):
+            self.screen.onkey(self.open_creation, key)
+
+    def open_creation(self):
+        if self.closed or self.creator_app is None:
+            return
+        if self.creator_panel is None:
+            from 创作工坊 import CreatorPanel
+            self.creator_panel = CreatorPanel(self, self.creator_app)
+        self.creator_panel.show()
+
     def hud(self, status=""):
         if not self.show_hud:
             self.canvas.itemconfigure("hud", state="hidden")
@@ -190,7 +207,15 @@ class Stage:
         p.text(-w / 2 + 47, h / 2 - 38, self.title, fg, 21, "w", True)
         p.text(-w / 2 + 47, h / 2 - 68, ("已暂停  ·  " if self.paused else "") + status, muted, 10, "w")
         p.text(w / 2 - 30, h / 2 - 35, "TURTLE GALLERY", self.accent, 10, "e")
-        p.text(w / 2 - 30, h / 2 - 57, "PYTHON  /  TURTLE", muted, 8, "e")
+        if self.creator_app is None:
+            p.text(w / 2 - 30, h / 2 - 57, "PYTHON  /  TURTLE", muted, 8, "e")
+        else:
+            item = p.text(w / 2 - 30, h / 2 - 57, "创作面板  E  ↗", self.accent, 10, "e")
+            if item != self._creator_button_id:
+                self.canvas.tag_bind(item, "<Button-1>", lambda event: self.open_creation())
+                self.canvas.tag_bind(item, "<Enter>", lambda event: self.canvas.configure(cursor="hand2"))
+                self.canvas.tag_bind(item, "<Leave>", lambda event: self.canvas.configure(cursor=""))
+                self._creator_button_id = item
         p.rect(-w / 2, -h / 2 + 62, w / 2, -h / 2, panel)
         p.line([(-w / 2 + 30, -h / 2 + 62), (w / 2 - 30, -h / 2 + 62)],
                mix(panel, self.accent, 0.23))
@@ -213,6 +238,8 @@ class Stage:
     def close(self):
         if not self.closed:
             self.closed = True
+            if self.creator_panel is not None:
+                self.creator_panel.close()
             self.screen.bye()
 
     def tick(self):

@@ -1,0 +1,13 @@
+{
+  "format": "turtle-gallery/recipe",
+  "version": 1,
+  "work_id": 26,
+  "scene_version": 1,
+  "parameters": {
+    "theme": 2,
+    "rate": 1.2,
+    "particle_count": 820,
+    "size": 1.05,
+    "seed": 260
+  }
+}

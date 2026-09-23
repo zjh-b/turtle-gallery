@@ -78,7 +78,15 @@ These ten exhibits and the four above make up the 14 interactive works.
 | 09 | [Circles Drawing Flowers](社团展示/09_几何绘图仪.py) | Pick a curve with 1–4; C redraws it with the moving pen |
 | 10 | [Neon Breakout](社团展示/10_霓虹弹球.py) | Move with the mouse or arrows; A toggles automatic play |
 
-Shared controls for all 14 exhibits: **Space** pause · **R** reset · **H** show/hide instructions · **F11** fullscreen · **Esc** exit the exhibit. When launched from the gallery, closing an exhibit lets you choose another. [Full controls in Chinese →](社团展示/README.md)
+Shared controls for all 14 exhibits: **Space** pause · **R** restart · **H** show/hide instructions · **F11** fullscreen · **Esc** exit the exhibit. In works 25 and 26, R keeps your current creation settings. When launched from the gallery, closing an exhibit lets you choose another. [Full controls in Chinese →](社团展示/README.md)
+
+### Make the lily and heart your own
+
+In **25 Starry Spider Lily** or **26 A Heart Made of Light**, press **E** or click **创作面板** at the top right to open the creation panel. Choose a preset, then adjust petal curvature, breeze and stars, or heart size and particle count with live sliders. **换一幅** generates a new composition while keeping the other settings. Save a JSON recipe and load it in the same exhibit next time.
+
+![Starry Spider Lily with the live creation panel](docs/assets/creator.png)
+
+Recipes store parameters and a composition seed; loading starts the work from the beginning. Animation progress and click history are not saved. **恢复默认** restores defaults, while **重播作品** restarts your current settings. The panel and [creation guide, sample recipes and measurements](docs/CREATION_GUIDE.md) are in Chinese.
 
 ### 14 original experiments
 
@@ -105,4 +113,4 @@ Start by changing the heart's fill color in [xin.py](xin.py), or compare the [or
 
 For code entry points and small experiments, see the [creative guide](docs/CREATIVE_GUIDE.md). To add a work or report a problem, see [contributing](docs/CONTRIBUTING.md) and [Issues](https://github.com/zjh-b/turtle-gallery/issues). These detailed guides are currently in Chinese.
 
-The [development roadmap](docs/ROADMAP.md) prioritizes parameter controls, saved creations, exports, exhibition playlists, and browser interaction. It records proposed work and acceptance criteria; these features are planned. The first proposed milestone uses the spider lily and particle heart as pilot exhibits.
+The [development roadmap](docs/ROADMAP.md) records completed and planned work with acceptance criteria. M1 now provides creation panels and saved recipes for the spider lily and particle heart, with refined lily rendering. User image exports, exhibition playlists and browser interaction remain planned.

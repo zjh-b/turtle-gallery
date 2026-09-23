@@ -1,0 +1,14 @@
+{
+  "format": "turtle-gallery/recipe",
+  "version": 1,
+  "work_id": 25,
+  "scene_version": 1,
+  "parameters": {
+    "theme": 1,
+    "speed": 0.75,
+    "star_count": 145,
+    "curvature": 1.15,
+    "wind": 0.6,
+    "seed": 2506
+  }
+}

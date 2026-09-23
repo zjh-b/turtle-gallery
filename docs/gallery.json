@@ -17,6 +17,7 @@
         "粒子",
         "fireworks"
       ],
+      "creation": false,
       "preview": "assets/exhibits/01.png",
       "source": "https://github.com/zjh-b/turtle-gallery/blob/main/%E7%A4%BE%E5%9B%A2%E5%B1%95%E7%A4%BA/01_%E7%82%B9%E5%87%BB%E7%83%9F%E8%8A%B1.py"
     },
@@ -35,6 +36,7 @@
         "宇宙",
         "solar"
       ],
+      "creation": false,
       "preview": "assets/exhibits/02.png",
       "source": "https://github.com/zjh-b/turtle-gallery/blob/main/%E7%A4%BE%E5%9B%A2%E5%B1%95%E7%A4%BA/02_%E6%97%8B%E8%BD%AC%E6%98%9F%E7%B3%BB.py"
     },
@@ -53,6 +55,7 @@
         "对称",
         "kaleidoscope"
       ],
+      "creation": false,
       "preview": "assets/exhibits/03.png",
       "source": "https://github.com/zjh-b/turtle-gallery/blob/main/%E7%A4%BE%E5%9B%A2%E5%B1%95%E7%A4%BA/03_%E9%BC%A0%E6%A0%87%E4%B8%87%E8%8A%B1%E7%AD%92.py"
     },
@@ -71,6 +74,7 @@
         "锦鲤",
         "pond"
       ],
+      "creation": false,
       "preview": "assets/exhibits/04.png",
       "source": "https://github.com/zjh-b/turtle-gallery/blob/main/%E7%A4%BE%E5%9B%A2%E5%B1%95%E7%A4%BA/04_%E4%BA%92%E5%8A%A8%E9%B1%BC%E5%A1%98.py"
     },
@@ -89,6 +93,7 @@
         "游戏",
         "stars"
       ],
+      "creation": false,
       "preview": "assets/exhibits/05.png",
       "source": "https://github.com/zjh-b/turtle-gallery/blob/main/%E7%A4%BE%E5%9B%A2%E5%B1%95%E7%A4%BA/05_%E6%8E%A5%E4%BD%8F%E6%98%9F%E6%98%9F.py"
     },
@@ -107,6 +112,7 @@
         "递归",
         "tree"
       ],
+      "creation": false,
       "preview": "assets/exhibits/06.png",
       "source": "https://github.com/zjh-b/turtle-gallery/blob/main/%E7%A4%BE%E5%9B%A2%E5%B1%95%E7%A4%BA/06_%E5%9B%9B%E5%AD%A3%E5%88%86%E5%BD%A2%E6%A0%91.py"
     },
@@ -125,6 +131,7 @@
         "海洋",
         "jellyfish"
       ],
+      "creation": false,
       "preview": "assets/exhibits/07.png",
       "source": "https://github.com/zjh-b/turtle-gallery/blob/main/%E7%A4%BE%E5%9B%A2%E5%B1%95%E7%A4%BA/07_%E6%B7%B1%E6%B5%B7%E6%B0%B4%E6%AF%8D.py"
     },
@@ -143,6 +150,7 @@
         "风景",
         "landscape"
       ],
+      "creation": false,
       "preview": "assets/exhibits/08.png",
       "source": "https://github.com/zjh-b/turtle-gallery/blob/main/%E7%A4%BE%E5%9B%A2%E5%B1%95%E7%A4%BA/08_%E5%B1%B1%E6%B0%B4%E7%94%BB%E5%8D%B7.py"
     },
@@ -161,6 +169,7 @@
         "内旋轮线",
         "spirograph"
       ],
+      "creation": false,
       "preview": "assets/exhibits/09.png",
       "source": "https://github.com/zjh-b/turtle-gallery/blob/main/%E7%A4%BE%E5%9B%A2%E5%B1%95%E7%A4%BA/09_%E5%87%A0%E4%BD%95%E7%BB%98%E5%9B%BE%E4%BB%AA.py"
     },
@@ -179,6 +188,7 @@
         "游戏",
         "breakout"
       ],
+      "creation": false,
       "preview": "assets/exhibits/10.png",
       "source": "https://github.com/zjh-b/turtle-gallery/blob/main/%E7%A4%BE%E5%9B%A2%E5%B1%95%E7%A4%BA/10_%E9%9C%93%E8%99%B9%E5%BC%B9%E7%90%83.py"
     },
@@ -197,6 +207,7 @@
         "圆",
         "fractal"
       ],
+      "creation": false,
       "preview": "assets/originals/11.png",
       "source": "https://github.com/zjh-b/turtle-gallery/blob/main/2.py"
     },
@@ -215,6 +226,7 @@
         "方块",
         "spiral"
       ],
+      "creation": false,
       "preview": "assets/originals/12.png",
       "source": "https://github.com/zjh-b/turtle-gallery/blob/main/import%20turtle.py"
     },
@@ -232,6 +244,7 @@
         "爱心",
         "heart"
       ],
+      "creation": false,
       "preview": "assets/originals/13.png",
       "source": "https://github.com/zjh-b/turtle-gallery/blob/main/xin.py"
     },
@@ -250,6 +263,7 @@
         "圆弧",
         "leaf"
       ],
+      "creation": false,
       "preview": "assets/originals/14.png",
       "source": "https://github.com/zjh-b/turtle-gallery/blob/main/yeizi.py"
     },
@@ -267,6 +281,7 @@
         "雨伞",
         "umbrella"
       ],
+      "creation": false,
       "preview": "assets/originals/15.png",
       "source": "https://github.com/zjh-b/turtle-gallery/blob/main/yusan.py"
     },
@@ -285,6 +300,7 @@
         "动画",
         "bounce"
       ],
+      "creation": false,
       "preview": "assets/originals/16.png",
       "source": "https://github.com/zjh-b/turtle-gallery/blob/main/%E4%B8%8B%E8%90%BD%E7%9A%84%E5%B0%8F%E7%90%83.py"
     },
@@ -303,6 +319,7 @@
         "递归",
         "random"
       ],
+      "creation": false,
       "preview": "assets/originals/17.png",
       "source": "https://github.com/zjh-b/turtle-gallery/blob/main/%E5%88%86%E5%BD%A2%E6%A0%91.py"
     },
@@ -321,6 +338,7 @@
         "头像",
         "doraemon"
       ],
+      "creation": false,
       "preview": "assets/originals/18.png",
       "source": "https://github.com/zjh-b/turtle-gallery/blob/main/%E5%93%86%E5%95%A6A%E6%A2%A6.py"
     },
@@ -339,6 +357,7 @@
         "旋转",
         "yin yang"
       ],
+      "creation": false,
       "preview": "assets/originals/19.png",
       "source": "https://github.com/zjh-b/turtle-gallery/blob/main/%E5%A4%AA%E6%9E%81.py"
     },
@@ -357,6 +376,7 @@
         "文字",
         "notes"
       ],
+      "creation": false,
       "preview": "assets/originals/20.png",
       "source": "https://github.com/zjh-b/turtle-gallery/blob/main/%E5%BC%B9%E7%AA%97.py"
     },
@@ -374,6 +394,7 @@
         "时间",
         "clock"
       ],
+      "creation": false,
       "preview": "assets/originals/21.png",
       "source": "https://github.com/zjh-b/turtle-gallery/blob/main/%E6%97%B6%E9%92%9F.py"
     },
@@ -392,6 +413,7 @@
         "月饼",
         "console"
       ],
+      "creation": false,
       "preview": "assets/originals/22.png",
       "source": "https://github.com/zjh-b/turtle-gallery/blob/main/%E6%B5%8B%E8%AF%95.py"
     },
@@ -410,6 +432,7 @@
         "点击",
         "needle"
       ],
+      "creation": false,
       "preview": "assets/originals/23.png",
       "source": "https://github.com/zjh-b/turtle-gallery/blob/main/%E8%A7%81%E7%BC%9D%E6%8F%92%E9%92%88.py"
     },
@@ -428,6 +451,7 @@
         "旋转",
         "windmill"
       ],
+      "creation": false,
       "preview": "assets/originals/24.png",
       "source": "https://github.com/zjh-b/turtle-gallery/blob/main/%E9%A3%8E%E8%BD%A6.py"
     },
@@ -438,8 +462,8 @@
       "subtitle": "星河流光 · 卷曲花瓣 · 花丝绽放",
       "collection": "interactive",
       "category": "风景动画",
-      "controls": "点击落下流星；C 切换花色；G 重播绽放；↑↓ 调整速度。",
-      "description": "细长的卷曲花瓣与舒展花丝在星空下盛放，让一朵彼岸花慢慢长成光。",
+      "controls": "点击落下流星；C 切换花色；G 重播绽放；↑↓ 调整速度；E 打开创作工坊。",
+      "description": "细长的卷曲花瓣与舒展花丝在星空下盛放；在创作工坊中调整参数与种子，保存自己的花朵配方。",
       "featured": true,
       "tags": [
         "浪漫光影",
@@ -449,6 +473,7 @@
         "彼岸花",
         "starry lily"
       ],
+      "creation": true,
       "preview": "assets/exhibits/25.png",
       "source": "https://github.com/zjh-b/turtle-gallery/blob/main/%E7%A4%BE%E5%9B%A2%E5%B1%95%E7%A4%BA/25_%E6%98%9F%E7%A9%BA%E5%BD%BC%E5%B2%B8%E8%8A%B1.py"
     },
@@ -459,8 +484,8 @@
       "subtitle": "粒子爱心 · 呼吸光晕 · 星点聚合",
       "collection": "interactive",
       "category": "几何绘画",
-      "controls": "点击让爱心散成星尘再相聚；C 切换色彩；↑↓ 调整心跳。",
-      "description": "散落的光点聚成有层次的爱心，随着双拍节奏轻轻跳动，把数学曲线变成浪漫的瞬间。",
+      "controls": "点击让爱心散成星尘再相聚；C 切换色彩；↑↓ 调整心跳；E 打开创作工坊。",
+      "description": "光点聚成有层次的爱心，随着双拍节奏轻轻跳动；在创作工坊中调整参数与种子，保存自己的粒子配方。",
       "featured": true,
       "tags": [
         "浪漫光影",
@@ -471,6 +496,7 @@
         "粒子",
         "particle heart"
       ],
+      "creation": true,
       "preview": "assets/exhibits/26.png",
       "source": "https://github.com/zjh-b/turtle-gallery/blob/main/%E7%A4%BE%E5%9B%A2%E5%B1%95%E7%A4%BA/26_%E6%80%A6%E7%84%B6%E5%BF%83%E5%8A%A8.py"
     },
@@ -493,6 +519,7 @@
         "rose",
         "galaxy"
       ],
+      "creation": false,
       "preview": "assets/exhibits/27.png",
       "source": "https://github.com/zjh-b/turtle-gallery/blob/main/%E7%A4%BE%E5%9B%A2%E5%B1%95%E7%A4%BA/27_%E6%98%9F%E6%B2%B3%E7%8E%AB%E7%91%B0.py"
     },
@@ -515,6 +542,7 @@
         "butterfly",
         "neon"
       ],
+      "creation": false,
       "preview": "assets/exhibits/28.png",
       "source": "https://github.com/zjh-b/turtle-gallery/blob/main/%E7%A4%BE%E5%9B%A2%E5%B1%95%E7%A4%BA/28_%E9%9C%93%E5%85%89%E8%9D%B6%E8%88%9E.py"
     }

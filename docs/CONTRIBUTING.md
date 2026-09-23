@@ -26,11 +26,13 @@ python run.py
 
 1. 先完成一个可以单独运行的 `.py` 文件，给出明确的作品名和操作方式。
 2. 互动展品参考 `社团展示/` 下已有结构，复用 `舞台.py` 的窗口、动画与通用按键。
-3. 在 [作品目录.py](../社团展示/作品目录.py) 中登记标题、编号、分类、文件位置和简介。确保 `python run.py --list` 与菜单都能找到它。
+3. 在 [作品目录.py](../社团展示/作品目录.py) 中登记标题、编号、分类、文件位置和简介。互动作品还需填写 `entry_class`，让基础测试与媒体工具找到场景类。确保 `python run.py --list` 与菜单都能找到它。
 4. 添加真实运行截图，执行 `python tools/export_gallery.py` 更新网页作品目录，并更新中英文 README 的介绍及操作说明。
 5. 实际打开作品，确认输入、退出与从画廊再次启动的流程。
 
 动画尽量使用定时回调，并按经过的时间更新位置。粒子、笔画和其他持续增加的对象需要数量上限；这样长时间投影展示也能维持稳定的响应。
+
+25、26 已接入共用创作面板。扩展时参考 [创作指南](CREATION_GUIDE.md)，为作品实现 `get_parameters()` / `apply_parameters()`，先验证完整参数再改变场景状态；配方中的种子使用场景独立的随机数生成器。登记 `creation=True` 前，确认面板、预设、重播和配方恢复均可用。个人配方默认保存在被 Git 忽略的 `creations/`；精选示例可放入 `examples/recipes/`。
 
 ## 更新展示图片
 
@@ -40,6 +42,7 @@ python run.py
 python -m pip install -r requirements-media.txt
 python tools/render_media.py --originals --gif --compose
 python tools/render_media.py --social --compose
+python tools/render_media.py --creator
 ```
 
 抓取运行画面需要可用的桌面显示；仅重新排版已有截图时可使用 `python tools/render_media.py --compose`。更新后检查生成图片中的文字、构图和 GIF 播放效果。预览中的温柔便签为原文排版示意，月饼计算展示实际程序输出；其他原作使用运行截图。
@@ -64,7 +67,7 @@ python run.py --check
 python -m unittest discover -s tests -v
 ```
 
-[自动检查流程](../.github/workflows/checks.yml) 使用同一组命令，并检查 Python 文件能否编译。测试使用模拟窗口检查逻辑，仍需实际观察画面和操作；环境检查本身不会打开 GUI。
+[自动检查流程](../.github/workflows/checks.yml) 使用同一组命令，并检查 Python 文件能否编译、网页目录是否与源目录一致。测试使用模拟窗口检查逻辑，仍需实际观察画面和操作；环境检查本身不会打开 GUI。
 
 若改动共用舞台或画廊，检查不同分类中的作品、小窗口布局、作品结束后返回画廊，以及连续启动不同作品。涉及 14 款互动展品时，验证暂停、重置、说明开关、全屏和 Esc 退出；原作按各自操作验证。
 

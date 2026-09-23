@@ -1,0 +1,61 @@
+{
+  "method": "Windows desktop; 1000x720; mature scene, 12 warmup frames then 80 frames, dt=.025. Measures frame() plus screen.update(), excludes frame scheduling. Local observations, not guaranteed FPS.",
+  "results": [
+    {
+      "scene": 25,
+      "label": "before",
+      "python": "3.12.4",
+      "tk": "8.6.14",
+      "window": [
+        1000,
+        720
+      ],
+      "sample_frames": 80,
+      "median_ms": 21.28,
+      "p95_ms": 24.18,
+      "canvas_items": 532
+    },
+    {
+      "scene": 25,
+      "label": "after",
+      "python": "3.12.4",
+      "tk": "8.6.14",
+      "window": [
+        1000,
+        720
+      ],
+      "sample_frames": 80,
+      "median_ms": 16.71,
+      "p95_ms": 19.41,
+      "canvas_items": 532
+    },
+    {
+      "scene": 26,
+      "label": "before",
+      "python": "3.12.4",
+      "tk": "8.6.14",
+      "window": [
+        1000,
+        720
+      ],
+      "sample_frames": 80,
+      "median_ms": 40.19,
+      "p95_ms": 43.54,
+      "canvas_items": 875
+    },
+    {
+      "scene": 26,
+      "label": "after",
+      "python": "3.12.4",
+      "tk": "8.6.14",
+      "window": [
+        1000,
+        720
+      ],
+      "sample_frames": 80,
+      "median_ms": 37.9,
+      "p95_ms": 40.26,
+      "canvas_items": 875
+    }
+  ]
+}
