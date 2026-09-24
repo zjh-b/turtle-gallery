@@ -688,6 +688,22 @@ class StageAndPaintTests(unittest.TestCase):
         self.stage.frame.assert_not_called()
         self.assertFalse(self.stage.screen.timers)
 
+    def test_tour_transition_stops_before_drawing_on_closed_window(self):
+        events = []
+        class Tour:
+            def tick(inner):
+                events.append("advance")
+                self.stage.close()
+            def close(inner):
+                events.append("closed")
+            def draw(inner):
+                self.fail("Tour drew after closing window")
+        self.stage.tour = Tour()
+        self.stage.frame = lambda dt: self.fail("Scene drew after tour transition")
+        self.stage.tick()
+        self.assertEqual(events, ["advance", "closed"])
+        self.assertFalse(self.stage.screen.timers)
+
     def test_color_interpolation_clamps_and_hue_wraps(self):
         self.assertEqual(STAGE.mix("#000000", "#FFFFFF", -1), "#000000")
         self.assertEqual(STAGE.mix("#000000", "#FFFFFF", 2), "#ffffff")

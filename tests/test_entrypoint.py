@@ -115,6 +115,22 @@ class EntrypointTests(unittest.TestCase):
             self.assertEqual(ENTRY.main([]), 0)
         execute.assert_called_once_with(ROOT / "社团展示" / "启动展示.py")
 
+    def test_tour_validates_order_and_passes_configuration_to_gallery(self):
+        with patch.object(ENTRY, "execute", return_value=0) as execute:
+            self.assertEqual(ENTRY.main(["--tour", "27,25,26", "--seconds", "45"]), 0)
+        execute.assert_called_once_with(ROOT / "社团展示" / "启动展示.py",
+                                       init_globals={"START_TOUR": {"order": "27,25,26", "seconds": 45}})
+
+    def test_invalid_tour_arguments_fail_before_opening_gallery(self):
+        for arguments in (["--seconds", "30"], ["--tour", "28"], ["--tour", "25,26", "--seconds", "9"],
+                          ["--tour", "25,26", "--seconds", "601"], ["--tour", "25,"],
+                          ["--demo", "25", "--tour", "25,26"]):
+            with self.subTest(arguments=arguments), contextlib.redirect_stderr(io.StringIO()), \
+                    patch.object(ENTRY, "execute") as execute, self.assertRaises(SystemExit) as failure:
+                ENTRY.main(arguments)
+            self.assertEqual(failure.exception.code, 2)
+            execute.assert_not_called()
+
     def test_unknown_demo_has_actionable_parser_error(self):
         output = io.StringIO()
         with patch.object(ENTRY, "execute") as execute, contextlib.redirect_stderr(output):

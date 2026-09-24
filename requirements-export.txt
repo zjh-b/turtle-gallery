@@ -1,0 +1,2 @@
+# Optional Windows PNG export; regular gallery use needs only the standard library.
+Pillow>=11.2.1

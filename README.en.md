@@ -16,7 +16,7 @@
 
 Click to grow a spider lily beneath the stars, turn a brush stroke into a kaleidoscope, or watch a recursive tree move through four seasons. Turtle Gallery brings together animated scenes, small games and the original drawings and experiments that started the collection.
 
-Made for club demonstrations, learning Python and trying out visual ideas. The artwork is drawn by code at runtime. **No third-party runtime packages, downloaded art assets or network connection required.**
+Made for club demonstrations, learning Python and trying out visual ideas. The artwork is drawn by code at runtime. **Running works, saving recipes and touring need only the Python standard library**, with no downloaded art assets or network connection. Optional PNG export requires Pillow.
 
 **[Browse the online gallery →](https://zjh-b.github.io/turtle-gallery/)** Search, filter and explore every work on desktop or mobile. The website shows previews; download the project to run the interactive Python programs on your computer.
 
@@ -37,6 +37,7 @@ python run.py --list       # List all 28 works and their IDs
 python run.py --demo 25    # Grow the starry spider lily
 python run.py --demo 01    # Open the fireworks exhibit
 python run.py --demo 18    # Watch the original Doraemon drawing
+python run.py --tour 25,26,27 --seconds 30  # Loop through three works, 30 seconds each
 python run.py --check      # Check dependencies and files without opening a window
 ```
 
@@ -88,6 +89,8 @@ In **25 Starry Spider Lily** or **26 A Heart Made of Light**, press **E** or cli
 
 Recipes store parameters and a composition seed; loading starts the work from the beginning. Animation progress and click history are not saved. **恢复默认** restores defaults, while **重播作品** restarts your current settings. The panel and [creation guide, sample recipes and measurements](docs/CREATION_GUIDE.md) are in Chinese.
 
+To keep the current frame, click **导出当前画面 PNG…** in the panel. PNG export initially supports Windows and saves the artwork area at its current window resolution, reporting the actual dimensions and path. See the [optional dependency, steps and limits](docs/EXHIBITION_GUIDE.md#把当前画面保存为-png) in Chinese.
+
 ### 14 original experiments
 
 ![Original works: drawings, geometry and small creative experiments](docs/assets/originals.png)
@@ -109,8 +112,10 @@ Original scripts have their own controls. The needle game uses mouse clicks, the
 
 Try **fireworks → a growing seasonal tree → audience doodles in the kaleidoscope → a breakout challenge → one small source edit**. H hides the instructions, F11 fills the screen, and Space pauses an interactive exhibit for explanation.
 
+For an unattended display, use the desktop gallery to arrange a looping tour of **25, 26 and 27**, with 10–600 seconds per work (30 by default). Clicking or using regular artwork keys pauses automatic switching; **P** resumes the tour, **PgDn** advances, and **Esc** ends it. The gallery also has tour controls. See the [tour and PNG guide](docs/EXHIBITION_GUIDE.md) in Chinese.
+
 Start by changing the heart's fill color in [xin.py](xin.py), or compare the [original fractal tree](分形树.py) with its [seasonal exhibit](社团展示/06_四季分形树.py) to see how one recursive idea grows into a scene.
 
 For code entry points and small experiments, see the [creative guide](docs/CREATIVE_GUIDE.md). To add a work or report a problem, see [contributing](docs/CONTRIBUTING.md) and [Issues](https://github.com/zjh-b/turtle-gallery/issues). These detailed guides are currently in Chinese.
 
-The [development roadmap](docs/ROADMAP.md) records completed and planned work with acceptance criteria. M1 now provides creation panels and saved recipes for the spider lily and particle heart, with refined lily rendering. User image exports, exhibition playlists and browser interaction remain planned.
+The [development roadmap](docs/ROADMAP.md) records completed and planned work with acceptance criteria. M1 provides creation panels, saved recipes and refined lily rendering. M2 is in progress with exhibition playlists and PNG snapshots; additional aspect ratios, large images redrawn at their target size, video export and browser interaction remain planned.

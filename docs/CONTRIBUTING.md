@@ -34,6 +34,10 @@ python run.py
 
 25、26 已接入共用创作面板。扩展时参考 [创作指南](CREATION_GUIDE.md)，为作品实现 `get_parameters()` / `apply_parameters()`，先验证完整参数再改变场景状态；配方中的种子使用场景独立的随机数生成器。登记 `creation=True` 前，确认面板、预设、重播和配方恢复均可用。个人配方默认保存在被 Git 忽略的 `creations/`；精选示例可放入 `examples/recipes/`。
 
+25、26、27 已登记 `autoplay=True`，可参与[自动巡展](EXHIBITION_GUIDE.md)。扩展前先确认作品无人操作时也能展示完整内容，并使用共用 `Stage.run()`。实际检查自动切换、点击或键盘接管、继续计时、窗口关闭和画廊关闭。Canvas 按钮涉及销毁窗口时，使用 `after_idle()` 在当前鼠标事件处理完后执行；读取完旧进程输出，再切换到下一件。
+
+PNG 导出是独立可选能力，依赖在 [requirements-export.txt](../requirements-export.txt) 中声明。改动截图边界后，实际检查窗口尺寸、面板遮挡、隐藏说明与最小化提示；改动保存流程后，检查取消和写入失败是否保留旧文件。用户图片默认保存在被 Git 忽略的 `exports/`。
+
 ## 更新展示图片
 
 [tools/render_media.py](../tools/render_media.py) 用于生成 README 的预览素材。这是可选的维护工具，所需 Pillow 与作品运行依赖分开记录在 [requirements-media.txt](../requirements-media.txt)。在 Windows 桌面环境、仓库根目录执行：
@@ -68,6 +72,8 @@ python -m unittest discover -s tests -v
 ```
 
 [自动检查流程](../.github/workflows/checks.yml) 使用同一组命令，并检查 Python 文件能否编译、网页目录是否与源目录一致。测试使用模拟窗口检查逻辑，仍需实际观察画面和操作；环境检查本身不会打开 GUI。
+
+常规六组系统 / Python 检查保持仅标准库；另有一个 Windows 任务安装可选 Pillow，验证 PNG 编码、元数据和原子保存。新增导出逻辑应同时在有、无 Pillow 的环境检查，不能让普通作品因缺少可选依赖而无法运行。
 
 若改动共用舞台或画廊，检查不同分类中的作品、小窗口布局、作品结束后返回画廊，以及连续启动不同作品。涉及 14 款互动展品时，验证暂停、重置、说明开关、全屏和 Esc 退出；原作按各自操作验证。
 

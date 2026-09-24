@@ -1,2 +1,2 @@
 # Optional: only needed to rebuild README images / GIFs, not to run the gallery.
-Pillow>=10.0
+-r requirements-export.txt

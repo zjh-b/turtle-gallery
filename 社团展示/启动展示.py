@@ -1,15 +1,18 @@
 """Turtle Gallery: searchable desktop gallery and isolated work processes."""
 from fractions import Fraction
 import math
+import json
 import os
 from pathlib import Path
 import queue
 import subprocess
 import sys
 import threading
+import time
 import tkinter as tk
 from tkinter import messagebox
 from 作品目录 import CATEGORIES, COLLECTIONS, PROJECT_ROOT, WORKS, get_work
+from 巡展 import DEFAULT_ORDER, DEFAULT_SECONDS, ENVIRONMENT, PREFIX, parse_playlist, validate_seconds
 
 ROOT = Path(__file__).resolve().parent
 PAGE_SIZE = 6
@@ -21,7 +24,7 @@ FONT = 'Microsoft YaHei'
 
 
 class Launcher:
-    def __init__(self):
+    def __init__(self, start_tour=None):
         self.root = tk.Tk()
         self.root.title('Turtle Gallery · 海龟画廊')
         width = min(1060, self.root.winfo_screenwidth() - 60)
@@ -37,7 +40,12 @@ class Launcher:
         self.child = self.active_work = self.console = self.reader = None
         self.output = queue.Queue()
         self.output_tail = ''
+        self.protocol_buffer = ''
         self.stopping = False
+        self.closing = False
+        self.stop_deadline = self.start_deadline = None
+        self.tour_active = self.tour_paused = self.tour_ready = self.tour_next_requested = False
+        self.tour_works, self.tour_index, self.tour_duration = [], 0, DEFAULT_SECONDS
         self.resize_job = self.watch_job = None
         self.fullscreen = False
         header = tk.Frame(self.root, bg=BG)
@@ -77,6 +85,31 @@ class Launcher:
                                    lambda: self.select_collection('romantic'), small=True)
             featured.pack(side='right')
             self.tabs['romantic'] = featured
+        tour_row = tk.Frame(self.root, bg=BG)
+        tour_row.pack(fill='x', padx=28, pady=(8, 0))
+        tk.Label(tour_row, text='巡展顺序', bg=BG, fg=MUTED, font=(FONT, 9)).pack(side='left')
+        self.tour_order = tk.Entry(tour_row, width=12, bg=PANEL, fg=TEXT, insertbackground=GREEN,
+                                   disabledbackground=PANEL, disabledforeground=MUTED,
+                                   highlightthickness=1, highlightbackground=LINE, highlightcolor=GREEN,
+                                   relief='flat', font=(FONT, 9))
+        self.tour_order.insert(0, DEFAULT_ORDER)
+        self.tour_order.pack(side='left', padx=7, ipady=5)
+        self.tour_seconds = tk.Spinbox(tour_row, from_=10, to=600, width=4, bg=PANEL, fg=TEXT,
+                                      buttonbackground=PANEL, insertbackground=GREEN,
+                                      disabledbackground=PANEL, disabledforeground=MUTED,
+                                      highlightthickness=1, highlightbackground=LINE, highlightcolor=GREEN,
+                                      relief='flat', font=(FONT, 9))
+        self.tour_seconds.delete(0, 'end')
+        self.tour_seconds.insert(0, str(DEFAULT_SECONDS))
+        self.tour_seconds.pack(side='left', ipady=4)
+        tk.Label(tour_row, text='秒 / 件', bg=BG, fg=MUTED, font=(FONT, 9)).pack(side='left', padx=7)
+        self.tour_start_button = self.button(tour_row, '开始巡展', self.start_tour, small=True)
+        self.tour_start_button.pack(side='left', padx=(0, 7))
+        self.tour_pause_button = self.button(tour_row, '暂停巡展', self.pause_tour, small=True)
+        self.tour_pause_button.pack(side='left', padx=(0, 7))
+        self.tour_next_button = self.button(tour_row, '下一件 →', self.next_tour, small=True)
+        self.tour_next_button.pack(side='left')
+        self.tour_controls()
         self.canvas = tk.Canvas(self.root, bg=BG, highlightthickness=0, takefocus=True)
         self.canvas.pack(fill='both', expand=True, padx=20, pady=(7, 0))
         footer = tk.Frame(self.root, bg=BG)
@@ -106,6 +139,8 @@ class Launcher:
         self.root.bind('<Escape>', self.escape)
         self.root.protocol('WM_DELETE_WINDOW', self.close)
         self.root.after_idle(self.draw_cards)
+        if start_tour:
+            self.root.after_idle(lambda: self.start_tour(start_tour['order'], start_tour['seconds']))
 
     @staticmethod
     def button(parent, text, command, small=False):
@@ -116,7 +151,7 @@ class Launcher:
                          highlightcolor=GREEN, padx=10, pady=4 if small else 7, cursor='hand2')
 
     def typing(self, event):
-        return isinstance(event.widget, (tk.Entry, tk.Text))
+        return isinstance(event.widget, (tk.Entry, tk.Text, tk.Spinbox))
 
     def shortcut(self, event, slot):
         if not self.typing(event) and slot < len(self.displayed):
@@ -137,7 +172,9 @@ class Launcher:
         return 'break'
 
     def escape(self, event=None):
-        if self.fullscreen:
+        if self.tour_active:
+            self.stop()
+        elif self.fullscreen:
             self.fullscreen = False
             self.root.attributes('-fullscreen', False)
         elif self.query.get():
@@ -302,10 +339,60 @@ class Launcher:
         popup.bind('<Escape>', lambda event: popup.destroy())
         button.focus_set()
 
-    def launch(self, work, confirmed=False):
+    def tour_controls(self):
+        state = 'normal' if self.tour_active else 'disabled'
+        self.tour_pause_button.configure(state=state, text='继续巡展' if self.tour_paused else '暂停巡展')
+        self.tour_next_button.configure(state=state)
+        self.tour_start_button.configure(state='disabled' if self.tour_active else 'normal')
+        for entry in (self.tour_order, self.tour_seconds):
+            entry.configure(state='disabled' if self.tour_active else 'normal')
+
+    def start_tour(self, order=None, seconds=None):
+        if self.child is not None or self.tour_active:
+            self.status.set('请先结束当前作品，再开始巡展。')
+            return
+        try:
+            works = parse_playlist(self.tour_order.get() if order is None else order, WORKS)
+            duration = validate_seconds(self.tour_seconds.get() if seconds is None else seconds)
+        except ValueError as exc:
+            messagebox.showerror('巡展设置', str(exc), parent=self.root)
+            return
+        for entry, value in ((self.tour_order, ','.join(str(work['id']) for work in works)),
+                             (self.tour_seconds, str(duration))):
+            entry.delete(0, 'end')
+            entry.insert(0, value)
+        self.tour_works, self.tour_duration, self.tour_index = works, duration, 0
+        self.tour_active = True
+        self.tour_paused = False
+        self.tour_controls()
+        self.launch(works[0], touring=True)
+
+    def send_tour_command(self, command):
+        if not self.tour_active or self.child is None or self.child.poll() is not None:
+            return False
+        try:
+            self.child.stdin.write(json.dumps({'command': command}) + '\n')
+            self.child.stdin.flush()
+            return True
+        except (BrokenPipeError, OSError, ValueError):
+            self.status.set('作品正在退出，巡展将停止。')
+            self.tour_active = False
+            self.tour_controls()
+            return False
+
+    def pause_tour(self):
+        self.send_tour_command('resume' if self.tour_paused else 'pause')
+
+    def next_tour(self):
+        self.send_tour_command('next')
+
+    def launch(self, work, confirmed=False, touring=False):
         if not isinstance(work, dict):
             work = get_work(work) or next((w for w in WORKS if Path(w['filename']).name == work), None)
         if work is None:
+            return
+        if self.closing or (self.tour_active and not touring):
+            self.status.set('巡展进行中；可使用“下一件”切换，或结束巡展后自由选择作品。')
             return
         if work['id'] == 20 and not confirmed:
             self.details(work)
@@ -318,32 +405,46 @@ class Launcher:
         if self.child is not None:
             self.watch()
             if self.child is not None:
-                self.root.after(60, lambda: self.launch(work, confirmed=confirmed))
+                self.root.after(60, lambda: self.launch(work, confirmed=confirmed, touring=touring))
                 return
         if self.console and self.console.winfo_exists():
             self.console.destroy()
             self.console = None
         self.output = queue.Queue()
         self.output_tail = ''
+        self.protocol_buffer = ''
         self.stopping = False
+        self.stop_deadline = None
+        self.tour_ready = self.tour_next_requested = False
+        self.tour_paused = False
         environment = os.environ.copy()
+        environment.pop(ENVIRONMENT, None)
         environment['PYTHONIOENCODING'] = 'utf-8'
         environment['PYTHONUNBUFFERED'] = '1'
+        if touring:
+            environment[ENVIRONMENT] = json.dumps({'duration': self.tour_duration,
+                                                  'index': self.tour_index + 1, 'count': len(self.tour_works)})
         command = [sys.executable, '-u', str(PROJECT_ROOT / 'run.py'), '--demo', str(work['id'])]
         try:
             self.child = subprocess.Popen(command, cwd=str(PROJECT_ROOT), env=environment,
-                                          stdin=subprocess.PIPE if work['console'] else subprocess.DEVNULL,
+                                          stdin=subprocess.PIPE if work['console'] or touring else subprocess.DEVNULL,
                                           stdout=subprocess.PIPE, stderr=subprocess.STDOUT,
                                           text=True, encoding='utf-8', errors='replace', bufsize=0,
                                           creationflags=getattr(subprocess, 'CREATE_NO_WINDOW', 0))
         except OSError as exc:
+            self.tour_active = False
+            self.tour_controls()
+            self.status.set('作品启动失败，巡展已停止。' if touring else '作品启动失败。')
             messagebox.showerror('启动失败', str(exc), parent=self.root)
             return
+        self.start_deadline = time.monotonic() + 30 if touring else None
         self.active_work = work
         self.reader = threading.Thread(target=self.read_output, args=(self.child.stdout, self.output), daemon=True)
         self.reader.start()
         self.stop_button.configure(state='normal')
         self.status.set(f"正在展示  {work['number']} · {work['title']}  /  关闭作品窗口或点击“结束作品”返回")
+        self.stop_button.configure(text='结束巡展' if touring else '结束作品')
+        self.tour_controls()
         if work['console']:
             self.open_console(work)
         self.watch_job = self.root.after(120, self.watch)
@@ -358,6 +459,8 @@ class Launcher:
                 messages.put(character)
         except (OSError, ValueError):
             pass
+        finally:
+            stream.close()
 
     def open_console(self, work):
         if self.console and self.console.winfo_exists():
@@ -416,8 +519,11 @@ class Launcher:
         if self.watch_job:
             self.root.after_cancel(self.watch_job)
             self.watch_job = None
+        # Use one exit snapshot: a process exiting while we drain the queue
+        # must get another watch cycle so its reader can deliver the last line.
+        exit_code = self.child.poll() if self.child is not None else None
         # 等读取线程收完进程退出前的最后一段输出，再展示状态和关闭管道。
-        if self.child is not None and self.child.poll() is not None and self.reader.is_alive():
+        if self.child is not None and exit_code is not None and self.reader.is_alive():
             self.watch_job = self.root.after(50, self.watch)
             return
         chunks = []
@@ -429,20 +535,42 @@ class Launcher:
         text = ''.join(chunks)
         self.output_tail = (self.output_tail + text)[-5000:]
         self.console_append(text)
-        if self.child is not None and self.child.poll() is None:
+        self.read_tour_events(text)
+        if self.child is not None and exit_code is None:
+            if self.start_deadline and not self.tour_ready and time.monotonic() > self.start_deadline:
+                self.stop()
+                messagebox.showerror('巡展未就绪', '作品未能完成启动，巡展已停止。', parent=self.root)
+            if self.stop_deadline and time.monotonic() > self.stop_deadline:
+                self.reap_child()
             self.watch_job = self.root.after(120, self.watch)
             return
         if self.child is None:
             return
-        code = self.child.returncode
+        code = exit_code
         for stream in (self.child.stdin, self.child.stdout):
             if stream:
-                stream.close()
+                try:
+                    stream.close()
+                except (OSError, ValueError):
+                    pass
         title = self.active_work['title']
         was_console = self.active_work['console']
         self.child = self.active_work = None
+        self.reader = None
+        self.start_deadline = self.stop_deadline = None
         self.stop_button.configure(state='disabled')
+        advance = self.tour_active and self.tour_ready and self.tour_next_requested and code == 0 and not self.stopping
+        if advance:
+            self.tour_index = (self.tour_index + 1) % len(self.tour_works)
+            self.launch(self.tour_works[self.tour_index], touring=True)
+            return
+        was_tour = self.tour_active
+        self.tour_active = self.tour_paused = False
+        self.tour_controls()
+        self.stop_button.configure(text='结束作品')
         self.status.set(f'「{title}」已结束 · 继续探索下一款，或用搜索找到感兴趣的创意。')
+        if was_tour:
+            self.status.set(f'巡展已停止 · 「{title}」已关闭。可重新开始巡展或自由选择作品。')
         if was_console:
             self.console_append('\n— 本次运行已结束，可关闭此窗口。 —\n')
         if code and not self.stopping:
@@ -450,21 +578,79 @@ class Launcher:
                                  parent=self.root)
         self.stopping = False
 
+    def read_tour_events(self, text):
+        self.protocol_buffer += text
+        while '\n' in self.protocol_buffer:
+            line, self.protocol_buffer = self.protocol_buffer.split('\n', 1)
+            if not line.startswith(PREFIX) or not self.tour_active:
+                continue
+            try:
+                message = json.loads(line[len(PREFIX):])
+            except ValueError:
+                continue
+            if not isinstance(message, dict):
+                continue
+            state = message.get('state')
+            if state == 'ready':
+                self.tour_ready = True
+                self.start_deadline = None
+            elif state in ('paused', 'running'):
+                self.tour_paused = state == 'paused'
+            elif state == 'next':
+                self.tour_next_requested = True
+            elif state == 'closed' and message.get('reason') != 'next':
+                self.tour_next_requested = False
+            self.tour_controls()
+            action = '已接管 · 点击“继续巡展”重新计时' if self.tour_paused else f'{self.tour_duration} 秒 / 件 · 循环播放'
+            self.status.set(f"巡展 {self.tour_index + 1}/{len(self.tour_works)} · {self.active_work['title']} · {action}")
+        # Keep a partial protocol line while bounding output from noisy works.
+        self.protocol_buffer = self.protocol_buffer[-8192:]
+
     def stop(self):
+        touring = self.tour_active
+        if touring:
+            self.send_tour_command('stop')
+        self.tour_active = self.tour_paused = False
+        self.tour_controls()
         if self.child is not None and self.child.poll() is None:
             self.stopping = True
-            self.child.terminate()
+            self.start_deadline = None
+            if not touring:
+                self.child.terminate()
+            self.stop_deadline = time.monotonic() + 2
             self.status.set('正在结束作品…')
 
+    def reap_child(self):
+        """Bound shutdown and reap the OS process before releasing its pipes."""
+        if self.child is None:
+            return
+        if self.child.poll() is None:
+            self.child.terminate()
+        try:
+            self.child.wait(timeout=2)
+        except subprocess.TimeoutExpired:
+            self.child.kill()
+            self.child.wait(timeout=2)
+        if self.child.stdin:
+            try:
+                self.child.stdin.close()
+            except (OSError, ValueError):
+                pass
+        if self.reader:
+            self.reader.join(timeout=2)
+        if self.child.stdout and (not self.reader or not self.reader.is_alive()):
+            self.child.stdout.close()
+
     def close(self):
+        self.closing = True
+        self.tour_active = False
         if self.watch_job:
             self.root.after_cancel(self.watch_job)
         if self.resize_job:
             self.root.after_cancel(self.resize_job)
-        if self.child is not None and self.child.poll() is None:
-            self.child.terminate()
+        self.reap_child()
         self.root.destroy()
 
 
 if __name__ == '__main__':
-    Launcher().root.mainloop()
+    Launcher(start_tour=globals().get('START_TOUR')).root.mainloop()

@@ -132,6 +132,7 @@ class Stage:
         self.paused = self.closed = self.fullscreen = False
         self.show_hud = True
         self.creator_app = self.creator_panel = None
+        self.tour = None
         self._creator_button_id = None
         self.frame = self.reset_action = None
         self._last_time = time.perf_counter()
@@ -238,6 +239,8 @@ class Stage:
     def close(self):
         if not self.closed:
             self.closed = True
+            if self.tour is not None:
+                self.tour.close()
             if self.creator_panel is not None:
                 self.creator_panel.close()
             self.screen.bye()
@@ -249,8 +252,14 @@ class Stage:
         dt = min(started - self._last_time, 0.05)
         self._last_time = started
         try:
+            if self.tour is not None:
+                self.tour.tick()
+                if self.closed:
+                    return
             if self.frame:
                 self.frame(0 if self.paused else dt)
+            if self.tour is not None:
+                self.tour.draw()
             self.screen.update()
             if not self.closed:
                 delay = max(1, round(1000 / 40 - (time.perf_counter() - started) * 1000))
@@ -262,5 +271,7 @@ class Stage:
     def run(self, frame, reset):
         self.frame, self.reset_action = frame, reset
         self.reset()
+        from 巡展 import attach_tour
+        self.tour = attach_tour(self)
         self.tick()
         self.screen.mainloop()

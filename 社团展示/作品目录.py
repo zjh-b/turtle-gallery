@@ -8,13 +8,13 @@ CATEGORIES = ("全部主题", "风景动画", "几何绘画", "趣味挑战", "�
 
 def _work(number, title, subtitle, filename, category, controls, description,
           accent="#7FE3CF", motif="orbit", tags=(), console=False, collection="interactive", featured=False,
-          entry_class=None, creation=False):
+          entry_class=None, creation=False, autoplay=False):
     original = collection == "original"
     return {
         "id": number, "number": f"{number:02d}", "title": title, "subtitle": subtitle,
         "filename": filename if original else "社团展示/" + filename,
         "collection": collection, "featured": featured,
-        "entry_class": entry_class, "creation": creation,
+        "entry_class": entry_class, "creation": creation, "autoplay": autoplay,
         "category": category, "controls": controls, "description": description,
         "accent": accent, "motif": motif, "console": console,
         "preview": (f"docs/assets/originals/{number:02d}.png" if original else
@@ -102,14 +102,14 @@ WORKS = [
     _work(25, "星空彼岸花", "星河流光 · 卷曲花瓣 · 花丝绽放", "25_星空彼岸花.py", "风景动画",
           "点击落下流星；C 切换花色；G 重播绽放；↑↓ 调整速度；E 打开创作工坊。", "细长的卷曲花瓣与舒展花丝在星空下盛放；在创作工坊中调整参数与种子，保存自己的花朵配方。",
           "#FF809F", "flower", ("浪漫光影", "短视频", "抖音", "tiktok", "彼岸花", "starry lily"), featured=True,
-          entry_class="StarryLily", creation=True),
+          entry_class="StarryLily", creation=True, autoplay=True),
     _work(26, "怦然心动", "粒子爱心 · 呼吸光晕 · 星点聚合", "26_怦然心动.py", "几何绘画",
           "点击让爱心散成星尘再相聚；C 切换色彩；↑↓ 调整心跳；E 打开创作工坊。", "光点聚成有层次的爱心，随着双拍节奏轻轻跳动；在创作工坊中调整参数与种子，保存自己的粒子配方。",
           "#FFA7C3", "heart", ("浪漫光影", "短视频", "抖音", "tiktok", "爱心", "粒子", "particle heart"), featured=True,
-          entry_class="ParticleHeart", creation=True),
+          entry_class="ParticleHeart", creation=True, autoplay=True),
     _work(27, "星河玫瑰", "层叠花瓣 · 星空微光 · 逐瓣盛开", "27_星河玫瑰.py", "风景动画",
           "点击洒下星尘；C 切换花色；G 重播生长；↑↓ 调整速度。", "从层叠的花心到向外舒展的花瓣，一朵带着星河微光的玫瑰在深色夜幕中展开。",
-          "#F2A6D4", "flower", ("浪漫光影", "短视频", "抖音", "tiktok", "玫瑰", "rose", "galaxy"), featured=True, entry_class="GalaxyRose"),
+          "#F2A6D4", "flower", ("浪漫光影", "短视频", "抖音", "tiktok", "玫瑰", "rose", "galaxy"), featured=True, entry_class="GalaxyRose", autoplay=True),
     _work(28, "霓光蝶舞", "对称蝶翼 · 渐变鳞片 · 点击追光", "28_霓光蝶舞.py", "几何绘画",
           "点击引蝶追光；C 切换色彩；M 切换悬停与漫游。", "渐变蝶翼、细密翅脉与星点鳞片组成一只发光的蝶，随着呼吸般的振翅追逐你留下的光。",
           "#ADAEFF", "butterfly", ("浪漫光影", "短视频", "抖音", "tiktok", "蝴蝶", "butterfly", "neon"), featured=True, entry_class="NeonButterfly"),

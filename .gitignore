@@ -11,6 +11,7 @@ htmlcov/
 .runtime/
 .work/
 creations/
+exports/
 .env
 .env.*
 !.env.example

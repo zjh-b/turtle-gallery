@@ -1,0 +1,63 @@
+{
+  "platform": "Windows",
+  "python": "3.12.4",
+  "tk": "8.6.14",
+  "tour": {
+    "observed_seconds": 355.1,
+    "observed_launches": 34,
+    "work_ids": [
+      25,
+      26,
+      27
+    ],
+    "seconds_per_work": 10,
+    "status": "interrupted_before_10_minute_completion",
+    "checked_interactions": [
+      "artwork keyboard takeover",
+      "launcher resume",
+      "launcher next",
+      "launcher pause"
+    ],
+    "separate_gui_checks": [
+      "Canvas pause/resume",
+      "Canvas next/end",
+      "Escape end",
+      "panel P/Escape isolation",
+      "760x580 and hidden HUD"
+    ]
+  },
+  "png": {
+    "work_ids": [
+      25,
+      26
+    ],
+    "window_and_output_sizes": [
+      {
+        "window": [
+          1000,
+          720
+        ],
+        "png": [
+          990,
+          550
+        ]
+      },
+      {
+        "window": [
+          760,
+          580
+        ],
+        "png": [
+          750,
+          417
+        ]
+      }
+    ],
+    "panel_overlap_pixels_identical": true,
+    "save_cancel_pause_and_metadata_checked": true
+  },
+  "limitations": [
+    "Continuous 10-minute tour acceptance remains incomplete.",
+    "Mixed-DPI multiple monitors, remote desktop and locked desktop were not tested."
+  ]
+}

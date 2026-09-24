@@ -42,12 +42,12 @@ def environment_check(works):
     return 0
 
 
-def execute(path):
+def execute(path, init_globals=None):
     sys.path.insert(0, str(path.parent))
     # Individual works should see their own argv, just as when run directly.
     sys.argv = [str(path)]
     try:
-        runpy.run_path(str(path), run_name="__main__")
+        runpy.run_path(str(path), run_name="__main__", init_globals=init_globals)
         return 0
     except KeyboardInterrupt:
         return 0
@@ -76,8 +76,22 @@ def main(argv=None):
     group.add_argument("--list", action="store_true", help="List all works without opening a window")
     group.add_argument("--demo", metavar="ID", help="Run a specific work; use --list to see available IDs")
     group.add_argument("--check", action="store_true", help="Check Python, Tkinter and source files without opening a window")
+    group.add_argument("--tour", metavar="IDS", help="Start a looping tour, e.g. 25,26,27")
+    parser.add_argument("--seconds", type=int, metavar="N", help="Seconds per tour work (10–600; default 30)")
     args = parser.parse_args(argv)
     data = catalog()
+    if args.seconds is not None and args.tour is None:
+        parser.error("--seconds requires --tour.")
+    if args.tour is not None:
+        sys.path.insert(0, str(GALLERY))
+        from 巡展 import parse_playlist, validate_seconds
+        try:
+            playlist = parse_playlist(args.tour, data.WORKS)
+            seconds = validate_seconds(30 if args.seconds is None else args.seconds)
+        except ValueError as exc:
+            parser.error(str(exc))
+        return execute(GALLERY / "启动展示.py", init_globals={"START_TOUR": {
+            "order": ",".join(str(work["id"]) for work in playlist), "seconds": seconds}})
     if args.list:
         for work in data.WORKS:
             print(f"{work['number']}  {work['title']}  [{work['collection']}]  {work['filename']}")

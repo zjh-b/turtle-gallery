@@ -1,5 +1,7 @@
 """两款试点作品的可视化创作面板；配方的验证与读写由纯数据模块负责。"""
 from pathlib import Path
+from datetime import datetime
+import json
 import random
 import tkinter as tk
 from tkinter import filedialog, ttk
@@ -21,12 +23,12 @@ class CreatorPanel:
         self.window.configure(bg=BG)
         self.window.transient(stage.root)
         self.window.minsize(380, 540)
-        height = min(800, self.window.winfo_screenheight() - 90)
+        height = min(850, self.window.winfo_screenheight() - 90)
         x = min(stage.root.winfo_rootx() + stage.root.winfo_width() - 100,
                 self.window.winfo_screenwidth() - 445)
         self.window.geometry(f"420x{height}+{max(0, x)}+40")
         self.window.protocol("WM_DELETE_WINDOW", self.close)
-        self.window.bind("<Escape>", lambda event: self.close())
+        self.window.bind("<Escape>", lambda event: self.close() or "break")
         self._closed, self._syncing = False, False
         self._apply_job = self._poll_job = None
         self.variables, self.value_labels = {}, {}
@@ -64,9 +66,12 @@ class CreatorPanel:
                                        ("恢复默认", self.restore_defaults, "重播作品", self.restart))):
             self.button(footer, actions[0], actions[1]).grid(row=row, column=0, sticky="ew", padx=(0, 5), pady=4)
             self.button(footer, actions[2], actions[3]).grid(row=row, column=1, sticky="ew", padx=(5, 0), pady=4)
+        export_button = self.button(footer, "导出当前画面 PNG…", self.export_png)
+        export_button.configure(bg=ACCENT, fg=BG, activebackground="#C5EFDF", activeforeground=BG)
+        export_button.grid(row=2, column=0, columnspan=2, sticky="ew", pady=(8, 4))
         status_label = tk.Label(footer, textvariable=self.status, bg=BG, fg=MUTED, justify="left",
                                width=1, wraplength=340, anchor="w", font=(FONT, 9))
-        status_label.grid(row=2, column=0, columnspan=2, sticky="ew", pady=(8, 0))
+        status_label.grid(row=3, column=0, columnspan=2, sticky="ew", pady=(8, 0))
         status_label.bind("<Configure>", lambda event: status_label.configure(wraplength=max(240, event.width)))
 
         viewport = tk.Frame(self.window, bg=BG)
@@ -169,6 +174,10 @@ class CreatorPanel:
     def schedule_apply(self, *_):
         if self._syncing or self._closed:
             return
+        # Scale arrow keys consume their event before the global tour binding.
+        # Editing a parameter must still keep this work on screen.
+        if getattr(self.stage, "tour", None) is not None:
+            self.stage.tour.pause()
         for key, label in self.value_labels.items():
             label.set(f"{self.variables[key].get():g}")
         if self._apply_job is not None:
@@ -275,6 +284,34 @@ class CreatorPanel:
                 self.use_parameters(recipe["parameters"], "已载入：" + Path(path).name + " · 从头播放")
         except (OSError, ValueError) as exc:
             self.status.set("载入失败：" + str(exc))
+
+    def export_png(self):
+        if not self.apply_now():
+            return
+        try:
+            from 作品导出 import capture_artwork, save_png
+            # Snapshot before the modal dialog, while the clicked frame is current.
+            # No event-loop reentry or change to the user's pause state is needed.
+            if self.stage.frame:
+                self.stage.frame(0)
+            picture = capture_artwork(self.stage)
+            parameters = self.app.get_parameters()
+            directory = ROOT / "exports"
+            directory.mkdir(exist_ok=True)
+            name = f"{self.work_id}-{datetime.now():%Y%m%d-%H%M%S}.png"
+            path = filedialog.asksaveasfilename(parent=self.window, title="导出当前画面",
+                initialdir=str(directory), initialfile=name, defaultextension=".png",
+                filetypes=[("PNG 图片", "*.png")])
+            if not path:
+                self.status.set("已取消导出，作品继续保留当前设置。")
+                return
+            width, height = save_png(picture, path, metadata={
+                "Software": "Turtle Gallery", "Work": str(self.work_id),
+                "Parameters": json.dumps(parameters, ensure_ascii=False),
+            })
+            self.status.set(f"已保存 {width} × {height} px：{Path(path).resolve()}")
+        except (OSError, ValueError, RuntimeError, tk.TclError) as exc:
+            self.status.set("导出失败：" + str(exc))
 
     def close(self):
         if self._closed:
