@@ -44,7 +44,7 @@ class StarryLily:
 
     def __init__(self):
         self.stage = Stage("星空彼岸花", "点击 流星    G 重播绽放    C 花色    ↑↓ 速度    E 创作面板", accent="#F299AA")
-        self.paint = Paint(self.stage, "starry-lily")
+        self.paint = Paint(self.stage.artwork, "starry-lily")
         self.apply_parameters(default_parameters(self.WORK_ID))
         self.stage.screen.onclick(self.meteor)
         for key in ("c", "C"):
@@ -66,6 +66,7 @@ class StarryLily:
                       for key in ("seed", "curvature", "star_count"))
         for key, value in parameters.items():
             setattr(self, key, value)
+        self.stage.artwork.aspect = self.aspect
         if rebuild:
             self.build_geometry()
         if not hasattr(self, "time"):
@@ -147,9 +148,36 @@ class StarryLily:
     def meteor(self, x, y):
         if self.stage.paused:
             return
-        x, y = self.stage.point(x, y)
-        if self.stage.in_scene(x, y):
+        x, y = self.stage.artwork.point(x, y)
+        if self.stage.artwork.in_scene(x, y):
             self.meteors = (self.meteors + [[x, y, 0.0]])[-5:]
+
+    def sky_point(self, x, y):
+        """Spread the same seeded sky across the frame; keep stars circular."""
+        if not self.aspect:
+            return x, y
+        width, height = self.stage.artwork.view
+        return x/495*(width/2-12), (y-1.5)/253.5*(height/2-12)
+
+    def lettering(self):
+        p = self.paint
+        if self.aspect == 2:
+            p.text(0, 335, "彼岸有星河", "#D5C4CC", 30)
+            p.text(0, 294, "LYCORIS · UNDER THE STARS", "#7B809C", 10)
+            p.line([(-37, -344), (37, -344)], "#76505D")
+            p.text(0, -369, "花开一瞬，星河长明。", "#89839C", 14)
+        elif self.aspect == 3:
+            p.text(-300, 289, "彼岸有星河", "#D5C4CC", 26, "w")
+            p.text(-297, 249, "LYCORIS · UNDER THE STARS", "#7B809C", 9, "w")
+            p.line([(-297, 225), (-223, 225)], "#76505D")
+            p.text(0, -272, "花开一瞬，星河长明。", "#89839C", 12)
+        else:
+            # Landscape lettering has a 6% inset; native placement is unchanged.
+            left = -410 if self.aspect else -422
+            p.text(left, 67, "彼岸有星河", "#D5C4CC", 24, "w")
+            p.text(left+3, 31, "LYCORIS · UNDER THE STARS", "#7B809C", 8, "w")
+            p.line([(left+3, 9), (left+77, 9)], "#76505D")
+            p.text(left+3, -17, "花开一瞬，星河长明。", "#89839C", 10, "w")
 
     def flower_point(self, point, cx, cy, opening):
         x, y = point
@@ -168,14 +196,21 @@ class StarryLily:
         p.begin()
         p.gradient("#070E23", "#17142B")
         # Softly layered moon halo and a fine diagonal milky way.
+        if self.aspect == 2:
+            p.transform(x=145, y=39)
+        elif self.aspect == 3:
+            p.transform(x=560, y=89)
         for radius, amount in [(75, .018), (58, .025), (45, .045), (34, .085)]:
             p.circle(-310, 171, radius, mix("#0A1024", "#E3D4BF", amount))
         p.circle(-310, 171, 25, "#CBC7C1")
         p.circle(-301, 178, 24, "#10172B")
         p.circle(-326, 165, 1.5, "#F2E4D0")
+        p.transform()
         for (x, y, r, _), color in zip(self.dust, self.dust_colors):
+            x, y = self.sky_point(x, y)
             p.circle(x, y, r, color)
         for i, (x, y, radius, phase) in enumerate(self.stars):
+            x, y = self.sky_point(x, y)
             shade = round((.5+.5*math.sin(self.time*.9+phase))*63)
             color = self.star_colors[shade]
             p.circle(x, y, radius, color)
@@ -183,13 +218,22 @@ class StarryLily:
                 p.line([(x-3.5, y), (x+3.5, y)], self.star_cross_colors[shade])
                 p.line([(x, y-3.5), (x, y+3.5)], self.star_cross_colors[shade])
         constellation = [(293, 157), (323, 191), (372, 168), (397, 215)]
+        if self.aspect == 2:
+            p.transform(scale=.75, x=-100, y=64)
+        elif self.aspect == 3:
+            p.transform(x=-573, y=-27)
         p.line(constellation, "#26354A")
         for x, y in constellation:
             p.circle(x, y, 2.0, "#8391B0")
-        p.text(-422, 67, "彼岸有星河", "#D5C4CC", 24, "w")
-        p.text(-419, 31, "LYCORIS · UNDER THE STARS", "#7B809C", 8, "w")
-        p.line([(-419, 9), (-345, 9)], "#76505D")
-        p.text(-419, -17, "花开一瞬，星河长明。", "#89839C", 10, "w")
+        p.transform()
+        self.lettering()
+        # Move the whole flower uniformly, preserving its seeded curves and sway.
+        if self.aspect == 1:
+            p.transform(y=10)
+        elif self.aspect == 2:
+            p.transform(scale=1.1, x=-22, y=-40)
+        elif self.aspect == 3:
+            p.transform(scale=.94, x=40)
         # The ground is kept quiet: one shadow and a few points of fallen light.
         p.oval(29, -251, 111, 12, "#111425")
         p.oval(26, -249, 61, 5, "#181B2C")
@@ -233,15 +277,23 @@ class StarryLily:
             y = -238 + (i*41+self.time*(7+i%3)) % 419
             if y < 207:
                 p.circle(x, y, .7+(i%3)*.2, mix("#2B243B", gold, .25+.2*math.sin(phase+self.time)**2))
+        p.transform()
         for x, y, age in self.meteors:
             xx, yy = x-125*age, y-66*age
-            if -250 < yy < 243:
+            if self.aspect or -250 < yy < 243:
                 fade = max(0, 1-age/1.65)
                 for j in range(6):
                     p.line([(xx+j*10, yy+j*5.3), (xx+(j+1)*10, yy+(j+1)*5.3)],
                            mix("#12192D", "#F5E3D8", fade*(1-j/6)), 1.6)
                 p.circle(xx, yy, 2, mix("#12192D", "#FFF2DC", fade))
-        p.text(414, -259, "25 / STARRY LYCORIS", "#77677E", 8, "e")
+        if self.aspect == 2:
+            p.text(0, -400, "25 / STARRY LYCORIS", "#77677E", 10)
+        elif self.aspect == 3:
+            p.text(0, -300, "25 / STARRY LYCORIS", "#77677E", 9)
+        elif self.aspect == 1:
+            p.text(410, -219, "25 / STARRY LYCORIS", "#77677E", 8, "e")
+        else:
+            p.text(414, -259, "25 / STARRY LYCORIS", "#77677E", 8, "e")
         p.end()
         self.stage.hud(f"{name}   ·   {'正在绽放' if self.bloom < 6 else '花已盛开'}   ·   速度 × {self.speed:.2f}")
 

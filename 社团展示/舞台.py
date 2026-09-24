@@ -36,16 +36,29 @@ class Paint:
         self.index = 0
         self.order_changed = False
         self.scale = stage.scale
+        self.offset = getattr(stage, "offset", (0, 0))
 
     def begin(self):
         self.index = 0
         self.order_changed = False
-        self.scale = self.stage.scale
+        self.transform()
+
+    def transform(self, scale=1, x=0, y=0):
+        """Set a uniform group transform in this painter's logical viewport."""
+        base = self.stage.scale
+        ox, oy = getattr(self.stage, "offset", (0, 0))
+        self.scale = base * scale
+        self.offset = ox + x * base, oy + y * base
 
     def _put(self, kind, points, **options):
         scale = self.scale
-        coords = tuple(round(value * scale * (1 if i % 2 == 0 else -1), 2)
-                       for i, value in enumerate(points))
+        offset = self.offset
+        if offset == (0, 0):
+            coords = tuple(round(value * scale * (1 if i % 2 == 0 else -1), 2)
+                           for i, value in enumerate(points))
+        else:
+            coords = tuple(round((value * scale + offset[i % 2]) * (1 if i % 2 == 0 else -1), 2)
+                           for i, value in enumerate(points))
         options["state"] = "normal"
         if self.index == len(self.items):
             self.items.append(None)
@@ -99,7 +112,8 @@ class Paint:
 
     def text(self, x, y, text, color, size=12, anchor="center", bold=False):
         return self._put("text", (x, y), text=text, fill=color, anchor=anchor,
-                         font=(FONT, max(8, round(size * self.scale)), "bold" if bold else "normal"))
+                         font=(FONT, max(getattr(self.stage, "font_min", 8), round(size * self.scale)),
+                               "bold" if bold else "normal"))
 
     def star(self, x, y, r, color, angle=math.pi / 2, outline=""):
         self.poly(star_points(x, y, r, angle), color, outline)
@@ -113,6 +127,97 @@ class Paint:
         for i in range(32):
             self.rect(-w / 2 - 2, h / 2 - i * h / 32 + 1,
                       w / 2 + 2, h / 2 - (i + 1) * h / 32 - 1, mix(top, bottom, i / 31))
+
+
+class Artwork:
+    """Opt-in content viewport, independent of the window's HUD coordinates.
+
+    Bounds use Turtle's physical coordinates (left, top, right, bottom). The
+    same rectangle drives preview masking, pointer input and PNG cropping.
+    """
+    SIZES = {1: (960, 540), 2: (540, 960), 3: (720, 720)}
+    RATIOS = {1: (16, 9), 2: (9, 16), 3: (1, 1)}
+
+    def __init__(self, stage):
+        self.stage, self.canvas = stage, stage.canvas
+        self.aspect = 0
+        self.show_safe_area = False
+        self.matte = Paint(stage, "artwork-matte")
+        self.guides = Paint(stage, "artwork-guide")
+
+    @property
+    def view(self):
+        return self.SIZES[self.aspect] if self.aspect else self.stage.view
+
+    @property
+    def ratio(self):
+        return self.RATIOS.get(self.aspect)
+
+    @property
+    def bounds(self):
+        stage = self.stage
+        if not self.aspect:
+            return -stage.width/2, 265*stage.scale, stage.width/2, -285*stage.scale
+        width, height = stage.width, stage.height
+        top = math.floor(height/2 - 100*stage.scale)
+        bottom = math.ceil(-height/2 + 78*stage.scale)
+        rw, rh = self.ratio
+        units = max(1, math.floor(min((width-48*stage.scale)/rw, (top-bottom)/rh)))
+        w, h = units*rw, units*rh
+        left = math.floor(-w/2)
+        upper = math.floor((top+bottom+h)/2)
+        return left, upper, left+w, upper-h
+
+    @property
+    def scale(self):
+        if not self.aspect:
+            return self.stage.scale
+        left, _, right, _ = self.bounds
+        return (right-left) / self.view[0]
+
+    @property
+    def offset(self):
+        if not self.aspect:
+            return 0, 0
+        left, top, right, bottom = self.bounds
+        return (left+right)/2, (top+bottom)/2
+
+    @property
+    def font_min(self):
+        return 6 if self.aspect else 8
+
+    def point(self, x, y):
+        ox, oy = self.offset
+        return (x-ox)/self.scale, (y-oy)/self.scale
+
+    def in_scene(self, x, y):
+        if not self.aspect:
+            return self.stage.in_scene(x, y)
+        width, height = self.view
+        return -width/2 < x < width/2 and -height/2 < y < height/2
+
+    def draw_guides(self, visible=True):
+        p = self.guides
+        p.begin()
+        if self.aspect and self.show_safe_area and visible:
+            left, top, right, bottom = (value/self.stage.scale for value in self.bounds)
+            dx, dy = (right-left)*.06, (top-bottom)*.06
+            p.line([(left+dx, top-dy), (right-dx, top-dy), (right-dx, bottom+dy),
+                    (left+dx, bottom+dy), (left+dx, top-dy)], "#64798E", dash=(4, 6))
+        p.end()
+
+    def finish(self):
+        p = self.matte
+        p.begin()
+        if self.aspect:
+            w, h = self.stage.view
+            left, top, right, bottom = (value/self.stage.scale for value in self.bounds)
+            for box in ((-w/2-2, h/2+2, w/2+2, top),
+                        (-w/2-2, bottom, w/2+2, -h/2-2),
+                        (-w/2-2, top, left, bottom), (right, top, w/2+2, bottom)):
+                p.rect(*box, "#080F1C", width=0)
+        p.end()
+        self.draw_guides()
 
 
 class Stage:
@@ -137,6 +242,7 @@ class Stage:
         self.frame = self.reset_action = None
         self._last_time = time.perf_counter()
         self.header = Paint(self, "hud")
+        self.artwork = Artwork(self)
         self.screen.onkey(self.toggle_pause, "space")
         for key in ("r", "R"):
             self.screen.onkey(self.reset, key)
@@ -190,6 +296,7 @@ class Stage:
         self.creator_panel.show()
 
     def hud(self, status=""):
+        self.artwork.finish()
         if not self.show_hud:
             self.canvas.itemconfigure("hud", state="hidden")
             # 同步缓存，恢复说明时才能重新显示原有图形。

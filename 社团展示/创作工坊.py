@@ -108,6 +108,12 @@ class CreatorPanel:
                                       state="readonly", font=(FONT, 10), style="Creator.TCombobox")
                 widget.pack(fill="x", pady=(6, 0), ipady=3)
                 widget.bind("<<ComboboxSelected>>", self.schedule_apply)
+                if spec.key == "aspect":
+                    self.safe_area = tk.BooleanVar(value=stage.artwork.show_safe_area)
+                    tk.Checkbutton(row, text="显示 6% 题字安全区（仅预览）", variable=self.safe_area,
+                                   command=self.toggle_safe_area, bg=BG, fg=MUTED, selectcolor=PANEL,
+                                   activebackground=BG, activeforeground=TEXT, font=(FONT, 9),
+                                   anchor="w", highlightthickness=0).pack(fill="x", pady=(6, 0))
             elif spec.key == "seed":
                 variable = tk.StringVar()
                 line = tk.Frame(row, bg=BG)
@@ -234,7 +240,20 @@ class CreatorPanel:
         self.status.set(message)
 
     def choose_preset(self, event=None):
-        self.use_parameters(preset_parameters(self.work_id, self.presets.current()), "预设已载入，作品从头播放。")
+        index = self.presets.current()
+        values = preset_parameters(self.work_id, index)
+        # A preset replaces unfinished/invalid edits, including an empty seed.
+        # Keep only the selected (possibly still debouncing) composition.
+        aspect = next(spec for spec in parameter_specs(self.work_id) if spec.key == "aspect")
+        values["aspect"] = aspect.choices.index(self.variables["aspect"].get())
+        self.use_parameters(values, "预设已载入，画幅已保留 · 作品从头播放。")
+
+    def toggle_safe_area(self):
+        self.stage.artwork.show_safe_area = self.safe_area.get()
+        if self.stage.tour is not None:
+            self.stage.tour.pause()
+        if self.stage.frame:
+            self.stage.frame(0)
 
     def new_seed(self):
         if not self.apply_now():

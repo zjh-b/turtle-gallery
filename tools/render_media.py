@@ -3,6 +3,7 @@
     python tools/render_media.py --originals --gif --compose
     python tools/render_media.py --social --compose
     python tools/render_media.py --creator
+    python tools/render_media.py --aspects
 
 The application itself has no Pillow dependency. Capture helpers execute one work
 at a time in a separate process and write only project-owned image files.
@@ -242,6 +243,58 @@ def social_capture_is_current(work):
     return all(path.is_file() and path.stat().st_mtime_ns >= modified for path in outputs)
 
 
+def aspect_capture(number):
+    """Capture the same frozen scene in each composition, using public export."""
+    work = next(work for work in works() if work["id"] == number)
+    path = ROOT / work["filename"]
+    sys.path.insert(0, str(path.parent))
+    from 创作配方 import preset_parameters
+    from 作品导出 import capture_artwork
+    spec = importlib.util.spec_from_file_location("capture_aspect", path)
+    module = importlib.util.module_from_spec(spec)
+    spec.loader.exec_module(module)
+    app = getattr(module, work["entry_class"])()
+    WORK.mkdir(parents=True, exist_ok=True)
+    try:
+        app.stage.root.geometry("1100x900+20+20")
+        app.stage.root.update()
+        parameters = preset_parameters(number, 1 if number == 25 else 2)
+        app.apply_parameters(parameters)
+        app.frame(8)
+        for aspect in (1, 2, 3):
+            parameters["aspect"] = aspect
+            app.apply_parameters(parameters)
+            app.frame(0)
+            app.stage.screen.update()
+            picture = capture_artwork(app.stage)
+            rw, rh = app.stage.artwork.ratio
+            assert picture.width*rh == picture.height*rw, picture.size
+            picture.save(WORK / f"aspect-{number}-{aspect}.png")
+            print(f"Captured {number} / {rw}:{rh}: {picture.width} x {picture.height}", flush=True)
+    finally:
+        app.stage.close()
+
+
+def make_aspects():
+    for number in (25, 26):
+        subprocess.run([sys.executable, str(Path(__file__).resolve()), "--capture-aspect", str(number)],
+                       check=True, timeout=45)
+    board = Image.new("RGB", (1320, 990), "#0B1424")
+    draw = ImageDraw.Draw(board)
+    draw.text((40, 28), "一幅心意，三种构图", font=font(34, True), fill="#EDF1F5")
+    draw.text((42, 83), "横屏展示 · 竖屏分享 · 方形收藏   /   实际运行画面", font=font(19), fill="#A7BACB")
+    for x, text in ((42, "16:9 / 横屏"), (650, "9:16 / 竖屏"), (906, "1:1 / 方形")):
+        draw.text((x, 128), text, font=font(16), fill="#A8E1CC")
+    for row, (number, title) in enumerate(((25, "星空彼岸花"), (26, "怦然心动"))):
+        y = 170 + row*400
+        for aspect, x, width, height in ((1, 40, 560, 315), (2, 650, 180, 320), (3, 906, 320, 320)):
+            with Image.open(WORK / f"aspect-{number}-{aspect}.png") as picture:
+                board.paste(picture.resize((width, height), Image.Resampling.LANCZOS), (x, y))
+        draw.text((42, y+338), f"{number} / {title}", font=font(18), fill="#B9C6D5")
+    draw.text((42, 944), "按 E 选择画幅  ·  配方保存构图  ·  PNG 按所选比例导出", font=font(17), fill="#A8E1CC")
+    board.save(ASSETS / "aspect-compositions.png", optimize=True)
+
+
 def make_social():
     catalog = {work["id"]: work for work in works()}
     titles = {number: work["title"] for number, work in catalog.items()}
@@ -450,11 +503,16 @@ def main():
     parser.add_argument("--gif", action="store_true")
     parser.add_argument("--social", action="store_true", help="Capture the four romantic light artworks and their animation")
     parser.add_argument("--creator", action="store_true", help="Capture the live creation panel and artwork")
+    parser.add_argument("--aspects", action="store_true", help="Capture the six aspect compositions and comparison board")
+    parser.add_argument("--capture-aspect", type=int, choices=(25, 26), help=argparse.SUPPRESS)
     parser.add_argument("--capture-original", type=int, help=argparse.SUPPRESS)
     parser.add_argument("--capture-animation", type=int, help=argparse.SUPPRESS)
     parser.add_argument("--capture-social", type=int, choices=SOCIAL_IDS, help=argparse.SUPPRESS)
     args = parser.parse_args()
     ASSETS.mkdir(parents=True, exist_ok=True)
+    if args.capture_aspect:
+        aspect_capture(args.capture_aspect)
+        return
     if args.capture_social:
         social_capture(args.capture_social)
         return
@@ -476,6 +534,8 @@ def main():
         make_social()
     if args.creator:
         creator_capture()
+    if args.aspects:
+        make_aspects()
     if args.compose:
         compose()
 

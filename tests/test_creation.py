@@ -23,12 +23,69 @@ class RecipeTests(unittest.TestCase):
     def test_saved_recipe_round_trips_and_rejects_other_work(self):
         with tempfile.TemporaryDirectory() as folder:
             path = Path(folder) / "creation.json"
-            values = recipes.preset_parameters(25, 1)
-            values["seed"] = 1234567
-            recipes.save_recipe(path, 25, values)
-            self.assertEqual(recipes.load_recipe(path, 25)["parameters"], values)
-            with self.assertRaises(ValueError):
-                recipes.load_recipe(path, 26)
+            for work_id in (25, 26):
+                for aspect in range(4):
+                    with self.subTest(work=work_id, aspect=aspect):
+                        values = recipes.preset_parameters(work_id, 1)
+                        values.update(seed=1234567, aspect=aspect)
+                        saved = recipes.save_recipe(path, work_id, values)
+                        self.assertEqual(saved["version"], 1)
+                        self.assertEqual(saved["scene_version"], 2)
+                        self.assertEqual(json.loads(path.read_text(encoding="utf-8")), saved)
+                        self.assertEqual(recipes.load_recipe(path, work_id)["parameters"], values)
+                        with self.assertRaises(ValueError):
+                            recipes.load_recipe(path, 26 if work_id == 25 else 25)
+
+    def test_legacy_examples_migrate_to_original_aspect_and_save_as_version_two(self):
+        examples = Path(__file__).resolve().parents[1] / "examples" / "recipes"
+        with tempfile.TemporaryDirectory() as folder:
+            saved_path = Path(folder) / "migrated.json"
+            for filename in ("25-blue-night.json", "26-champagne.json"):
+                with self.subTest(recipe=filename):
+                    path = examples / filename
+                    before = path.read_bytes()
+                    legacy = json.loads(before)
+                    self.assertEqual(legacy["scene_version"], 1)
+                    self.assertNotIn("aspect", legacy["parameters"])
+                    migrated = recipes.load_recipe(path, legacy["work_id"])
+                    self.assertEqual(migrated["scene_version"], 2)
+                    self.assertEqual(migrated["parameters"], {"aspect": 0, **legacy["parameters"]})
+                    recipes.save_recipe(saved_path, migrated["work_id"], migrated["parameters"])
+                    self.assertEqual(recipes.load_recipe(saved_path), migrated)
+                    self.assertEqual(json.loads(saved_path.read_text(encoding="utf-8")), migrated)
+                    self.assertEqual(path.read_bytes(), before)
+
+    def test_legacy_recipe_requires_exact_old_schema_and_valid_values(self):
+        examples = Path(__file__).resolve().parents[1] / "examples" / "recipes"
+        with tempfile.TemporaryDirectory() as folder:
+            path = Path(folder) / "legacy.json"
+            for filename in ("25-blue-night.json", "26-champagne.json"):
+                legacy = json.loads((examples / filename).read_text(encoding="utf-8"))
+                values = legacy["parameters"]
+                invalid = (None, [], {}, {key: value for key, value in values.items() if key != "seed"},
+                           dict(values, unknown=1), dict(values, aspect=0), dict(values, aspect=2),
+                           dict(values, seed=True), dict(values, theme=4), dict(values, seed=-1))
+                for parameters in invalid:
+                    with self.subTest(recipe=filename, parameters=parameters):
+                        path.write_text(json.dumps({**legacy, "parameters": parameters}), encoding="utf-8")
+                        with self.assertRaises(ValueError):
+                            recipes.load_recipe(path)
+
+    def test_version_two_requires_aspect_and_rejects_invalid_choices(self):
+        with tempfile.TemporaryDirectory() as folder:
+            path = Path(folder) / "aspect.json"
+            for work_id in (25, 26):
+                valid = recipes.make_recipe(work_id, recipes.default_parameters(work_id))
+                valid["scene_version"] = 2
+                values = dict(valid["parameters"], aspect=0)
+                invalid = [{key: value for key, value in values.items() if key != "aspect"},
+                           dict(values, unknown=1)]
+                invalid.extend(dict(values, aspect=value) for value in (-1, 4, True, 1.0, None, "1"))
+                for parameters in invalid:
+                    with self.subTest(work=work_id, parameters=parameters):
+                        path.write_text(json.dumps({**valid, "parameters": parameters}), encoding="utf-8")
+                        with self.assertRaises(ValueError):
+                            recipes.load_recipe(path)
 
     def test_invalid_parameters_never_mutate_the_scene(self):
         for name in ("StarryLily", "ParticleHeart"):
@@ -58,7 +115,8 @@ class RecipeTests(unittest.TestCase):
         valid = recipes.make_recipe(25, recipes.default_parameters(25))
         invalid = ["not json", "[]", "{}", '{"format":1,"format":2}', "[" * 2000 + "0" + "]" * 2000,
                    " " * (recipes.MAX_RECIPE_BYTES + 1)]
-        for field, value in (("version", 2), ("version", True), ("scene_version", 2),
+        for field, value in (("version", 2), ("version", True), ("scene_version", 3),
+                             ("scene_version", True), ("scene_version", 1.0), ("scene_version", 0),
                              ("work_id", 27), ("work_id", True), ("parameters", None)):
             invalid.append(json.dumps({**valid, field: value}))
         with tempfile.TemporaryDirectory() as folder:
@@ -91,7 +149,8 @@ class RecipeTests(unittest.TestCase):
 class CreationSceneTests(unittest.TestCase):
     def test_example_recipe_reopens_in_a_new_instance_with_same_state(self):
         folder = Path(__file__).resolve().parents[1] / "examples" / "recipes"
-        for name, filename in (("StarryLily", "25-blue-night.json"), ("ParticleHeart", "26-champagne.json")):
+        for name, filename in (("StarryLily", "25-blue-night.json"), ("ParticleHeart", "26-champagne.json"),
+                               ("StarryLily", "25-portrait-night.json"), ("ParticleHeart", "26-square-heart.json")):
             values = recipes.load_recipe(folder / filename)["parameters"]
             first = make_app(name)
             first.apply_parameters(values)
@@ -102,6 +161,7 @@ class CreationSceneTests(unittest.TestCase):
             first.stage.close()
             second = make_app(name)
             second.apply_parameters(values)
+            self.assertEqual(second.get_parameters(), values, filename)
             second.reset()
             second.frame(.05)
             second.frame(.05)

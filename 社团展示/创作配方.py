@@ -21,6 +21,7 @@ class Parameter:
 
 SPECIFICATIONS = {
     25: (
+        Parameter("aspect", "画幅", "choice", 0, choices=("原始画幅", "横屏 16:9", "竖屏 9:16", "方形 1:1")),
         Parameter("theme", "花色", "choice", 0, choices=("赤色彼岸", "蓝紫星梦", "鎏金月夜")),
         Parameter("speed", "绽放速度", "float", 1.0, .25, 2.5, .05),
         Parameter("star_count", "星空密度", "int", 115, 40, 180, 5),
@@ -29,6 +30,7 @@ SPECIFICATIONS = {
         Parameter("seed", "构图种子", "int", 2506, 0, 2147483647),
     ),
     26: (
+        Parameter("aspect", "画幅", "choice", 0, choices=("原始画幅", "横屏 16:9", "竖屏 9:16", "方形 1:1")),
         Parameter("theme", "星尘色彩", "choice", 0, choices=("玫瑰星尘", "冰蓝心跳", "香槟暮光")),
         Parameter("rate", "心跳速度", "float", 1.0, .45, 1.8, .05),
         Parameter("particle_count", "粒子数量", "int", 680, 240, 1000, 20),
@@ -51,7 +53,7 @@ PRESETS = {
 }
 FORMAT = "turtle-gallery/recipe"
 FORMAT_VERSION = 1
-SCENE_VERSION = 1
+SCENE_VERSION = 2
 MAX_RECIPE_BYTES = 65536
 
 
@@ -140,10 +142,16 @@ def load_recipe(path, expected_work_id=None):
         raise ValueError("这不是海龟画廊的创作配方。")
     if type(data.get("version")) is not int or data["version"] != FORMAT_VERSION:
         raise ValueError("暂不支持这个配方格式版本。")
-    if type(data.get("scene_version")) is not int or data["scene_version"] != SCENE_VERSION:
+    if type(data.get("scene_version")) is not int or data["scene_version"] not in (1, SCENE_VERSION):
         raise ValueError("配方对应的作品版本不同，请使用兼容版本。")
     work_id = data.get("work_id")
-    parameter_specs(work_id)
+    specs = parameter_specs(work_id)
     if expected_work_id is not None and work_id != expected_work_id:
         raise ValueError(f"这是「{TITLES[work_id]}」的配方，请在对应作品中载入。")
-    return make_recipe(work_id, data.get("parameters"))
+    parameters = data.get("parameters")
+    if data["scene_version"] == 1:
+        legacy_keys = {spec.key for spec in specs if spec.key != "aspect"}
+        if not isinstance(parameters, dict) or set(parameters) != legacy_keys:
+            raise ValueError("旧版配方参数不完整或含有未知参数，请使用对应版本的作品配方。")
+        parameters = {"aspect": 0, **parameters}
+    return make_recipe(work_id, parameters)

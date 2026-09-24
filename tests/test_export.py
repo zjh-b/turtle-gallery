@@ -79,6 +79,9 @@ class Canvas:
     def canvasy(self, value):
         return value - self.height / 2
 
+    def canvasx(self, value):
+        return value - self.width / 2
+
 
 class Snapshot:
     def __init__(self, size, box=None):
@@ -136,6 +139,38 @@ class ExportCaptureTests(unittest.TestCase):
                         {"canvas_bounds": (1200, 1, 998, 718)}):
             with self.subTest(options=options), self.assertRaises(RuntimeError):
                 self.capture(**options)
+
+    def test_explicit_viewport_crops_exact_ratios_at_fractional_dpi(self):
+        canvas = Canvas()
+        for numerator, denominator, bounds in ((16, 9, (-464, 250, 464, -272)),
+                                               (9, 16, (-144, 245, 144, -267)),
+                                               (1, 1, (-260, 249, 260, -271))):
+            for dpi in (1, 1.25, 1.5, 2):
+                with self.subTest(ratio=(numerator, denominator), dpi=dpi):
+                    box = export._artwork_box(canvas, 1, (int(1000*dpi), int(720*dpi)),
+                        (1000, 720), (1, 1, 998, 718), bounds=bounds,
+                        ratio=(numerator, denominator))
+                    left, top, right, bottom = box
+                    self.assertEqual((right-left)*denominator, (bottom-top)*numerator)
+                    # Every output pixel is inside the requested artwork rectangle.
+                    self.assertGreaterEqual(left, (500+bounds[0])*dpi)
+                    self.assertLessEqual(right, (500+bounds[2])*dpi)
+                    self.assertGreaterEqual(top, (360-bounds[1])*dpi)
+                    self.assertLessEqual(bottom, (360-bounds[3])*dpi)
+
+    def test_capture_restores_preview_guides_after_failure(self):
+        visibility = []
+        art = SimpleNamespace(aspect=2, bounds=(-144, 245, 144, -267), ratio=(9, 16),
+                              draw_guides=visibility.append)
+        stage = SimpleNamespace(closed=False, artwork=art, scale=1,
+                                root=SimpleNamespace(update_idletasks=lambda: None), canvas=Canvas())
+        pil = SimpleNamespace(ImageGrab=SimpleNamespace(grab=lambda **kwargs: None))
+        with patch.object(export, "export_support", return_value=(True, "")), \
+                patch.object(export, "_window_info", side_effect=RuntimeError("capture failed")), \
+                patch.dict(sys.modules, {"PIL": pil}):
+            with self.assertRaisesRegex(RuntimeError, "capture failed"):
+                export.capture_artwork(stage)
+        self.assertEqual(visibility, [False, True])
 
     def test_capture_rejects_unsupported_system_before_touching_stage(self):
         with patch.object(export, "export_support", return_value=(False, "Windows required")):

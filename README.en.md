@@ -91,6 +91,8 @@ Recipes store parameters and a composition seed; loading starts the work from th
 
 To keep the current frame, click **导出当前画面 PNG…** in the panel. PNG export initially supports Windows and saves the artwork area at its current window resolution, reporting the actual dimensions and path. See the [optional dependency, steps and limits](docs/EXHIBITION_GUIDE.md#把当前画面保存为-png) in Chinese.
 
+Choose **16:9 landscape, 9:16 portrait or 1:1 square** in the panel to rearrange the artwork and lettering. Preview guides mark a 6% inset and stay out of exported PNGs. Recipes remember the selected composition; existing recipes keep their original layout. [See all six compositions](docs/assets/aspect-compositions.png).
+
 ### 14 original experiments
 
 ![Original works: drawings, geometry and small creative experiments](docs/assets/originals.png)
@@ -118,4 +120,4 @@ Start by changing the heart's fill color in [xin.py](xin.py), or compare the [or
 
 For code entry points and small experiments, see the [creative guide](docs/CREATIVE_GUIDE.md). To add a work or report a problem, see [contributing](docs/CONTRIBUTING.md) and [Issues](https://github.com/zjh-b/turtle-gallery/issues). These detailed guides are currently in Chinese.
 
-The [development roadmap](docs/ROADMAP.md) records completed and planned work with acceptance criteria. M1 provides creation panels, saved recipes and refined lily rendering. M2 is in progress with exhibition playlists and PNG snapshots; additional aspect ratios, large images redrawn at their target size, video export and browser interaction remain planned.
+The [development roadmap](docs/ROADMAP.md) records completed and planned work with acceptance criteria. M1 provides creation panels, saved recipes and refined lily rendering. M2 is in progress with exhibition playlists, PNG snapshots and three aspect ratios. Large images redrawn at their target size, video export and browser interaction remain planned.

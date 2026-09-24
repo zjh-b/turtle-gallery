@@ -26,8 +26,9 @@ class ParticleHeart:
 
     def __init__(self):
         self.stage = Stage("怦然心动", "点击 散成星尘再相聚    C 切换色彩    ↑↓ 调整心跳    E 创作面板", accent="#FF91B5")
-        self.paint = Paint(self.stage, "particle-heart")
+        self.paint = Paint(self.stage.artwork, "particle-heart")
         parameters = default_parameters(self.WORK_ID)
+        self.stage.artwork.aspect = parameters["aspect"]
         self.seed = parameters["seed"]
         self.theme = parameters["theme"]
         self.rate = parameters["rate"]
@@ -83,13 +84,15 @@ class ParticleHeart:
                        star_rng.uniform(0.6, 1.7), star_rng.random() * math.tau) for _ in range(78)]
 
     def get_parameters(self):
-        return {"seed": self.seed, "theme": self.theme, "rate": self.rate,
+        return {"aspect": self.stage.artwork.aspect,
+                "seed": self.seed, "theme": self.theme, "rate": self.rate,
                 "particle_count": self.particle_count, "size": self.size}
 
     def apply_parameters(self, parameters):
         parameters = validate_parameters(self.WORK_ID, parameters)
         geometry_changed = (parameters["seed"] != self.seed
                             or parameters["particle_count"] != self.particle_count)
+        self.stage.artwork.aspect = parameters["aspect"]
         self.seed = parameters["seed"]
         self.theme = parameters["theme"]
         self.rate = parameters["rate"]
@@ -118,7 +121,8 @@ class ParticleHeart:
     def burst(self, x, y):
         if self.stage.paused:
             return
-        if self.stage.in_scene(*self.stage.point(x, y)):
+        artwork = self.stage.artwork
+        if artwork.in_scene(*artwork.point(x, y)):
             self.burst_age = 0.0
 
     def frame(self, dt):
@@ -134,23 +138,47 @@ class ParticleHeart:
         pulse = 1 + beat * 0.055
         name, core, light, accent = THEMES[self.theme]
         colors = self.colors[self.theme]
+        artwork = self.stage.artwork
+        aspect = artwork.aspect
+        # Each composition places a uniformly scaled heart, orbit and atmosphere.
+        # The native layout keeps its original coordinates and typography.
+        group_scale, group_y = ((1, 0), (.86, -4), (.66, -20), (.9, -4))[aspect]
+        # Pull back smoothly during a burst so even the largest supported heart
+        # stays in the composition. Shapes, orbit and particles scale together.
+        group_scale *= 1 - (0, .45, .16, .16)[aspect] * spread
         p = self.paint
         p.begin()
         p.gradient("#070D20", "#180C23")
         # The nested, low-contrast ovals form a soft coloured atmosphere.
+        p.transform(group_scale, y=group_y)
         for index in range(17):
             radius = 298 - index * 11
             p.oval(0, 5, radius, radius * 0.75, colors["atmosphere"][index])
+        p.transform()
         for x, y, radius, star_phase in self.stars:
             twinkle = 0.55 + 0.3 * math.sin(self.time * 0.7 + star_phase)
+            if aspect:
+                width, height = artwork.view
+                x = x / 475 * (width / 2 - 18)
+                y = (y + 7.5) / 255.5 * (height / 2 - 22)
             p.circle(x, y, radius, colors["star"][round(twinkle * 31)])
         for side in (-1, 1):
-            dots = [(side * 396, 115), (side * 419, 53), (side * 364, 5), (side * 405, -75)]
+            if aspect == 2:
+                # Staggered constellations frame a tall poster without squeezing
+                # the heart's surrounding orbit into its silhouette.
+                dots = [(side * x, y - (304 if side == 1 else 0))
+                        for x, y in ((190, 210), (214, 160), (170, 118), (202, 58))]
+            elif aspect == 3:
+                dots = [(side * x, y)
+                        for x, y in ((281, 132), (305, 81), (268, 20), (291, -49))]
+            else:
+                dots = [(side * 396, 115), (side * 419, 53), (side * 364, 5), (side * 405, -75)]
             p.line(dots, "#28243E", 1)
             for x, y in dots:
                 p.circle(x, y, 2.3, colors["constellation"])
                 p.circle(x, y, 6, "", "#302B46")
         # An inclined ellipse passes behind the heart, then returns in front.
+        p.transform(group_scale, y=group_y)
         orbit_angle = self.time * 0.27
         p.line(self.orbit_back, colors["orbit_back"], 1)
         # Faint concentric outlines help the thousands-of-stars illusion without
@@ -186,8 +214,25 @@ class ParticleHeart:
             x, y = self.orbit(orbit_angle + shift)
             p.glow(x, y, 8, accent, "#15112A", 3)
             p.circle(x, y, 2, light)
-        p.text(0, -250, "把一瞬的心动，写成漫长的星光。", "#A27D9F", 11)
-        p.text(0, 233, "E V E R Y   B E A T   I S   A   L I T T L E   U N I V E R S E", "#77657F", 8)
+        p.transform()
+        if aspect == 0:
+            p.text(0, -250, "把一瞬的心动，写成漫长的星光。", "#A27D9F", 11)
+            p.text(0, 233, "E V E R Y   B E A T   I S   A   L I T T L E   U N I V E R S E", "#77657F", 8)
+        elif aspect == 1:
+            p.text(0, 214, "怦然心动", light, 20)
+            p.text(0, 184, "EVERY BEAT, A LITTLE UNIVERSE", "#77657F", 9)
+            p.text(0, -220, "把一瞬的心动，写成漫长的星光。", "#A27D9F", 12)
+        elif aspect == 2:
+            p.text(0, 340, "怦然心动", light, 32)
+            p.text(0, 289, "A LITTLE UNIVERSE", "#77657F", 13)
+            p.text(0, -292, "把一瞬的心动，", "#A27D9F", 17)
+            p.text(0, -327, "写成漫长的星光。", "#A27D9F", 17)
+            p.text(0, -392, "26  /  EVERY BEAT", "#665974", 11)
+        else:
+            p.text(0, 278, "怦然心动", light, 29)
+            p.text(0, 234, "EVERY BEAT, A LITTLE UNIVERSE", "#77657F", 10)
+            p.text(0, -266, "把一瞬的心动，写成漫长的星光。", "#A27D9F", 14)
+            p.text(0, -299, "26  /  PARTICLE HEART", "#665974", 9)
         p.end()
         self.stage.hud(f"{name}   ·   心跳 × {self.rate:.2f}   ·   {len(self.particles)} 粒星尘 / 散开后会再次相聚")
 

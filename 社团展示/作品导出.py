@@ -68,8 +68,8 @@ def _window_info(root, canvas):
     return hwnd, size, bounds
 
 
-def _artwork_box(canvas, scale, image_size, client_size, canvas_bounds):
-    """Map Turtle's y=+265..-285 scene to existing screenshot pixels."""
+def _artwork_box(canvas, scale, image_size, client_size, canvas_bounds, *, bounds=None, ratio=None):
+    """Map the original scene or an explicit artwork viewport to actual pixels."""
     image_width, image_height = image_size
     client_width, client_height = client_size
     x, y, width, height = canvas_bounds
@@ -83,14 +83,31 @@ def _artwork_box(canvas, scale, image_size, client_size, canvas_bounds):
     tk_x, tk_y = width / tk_width, height / tk_height
     border = sum(canvas.winfo_pixels(canvas.cget(option))
                  for option in ("borderwidth", "highlightthickness"))
-    top = max(border, -265 * scale - canvas.canvasy(0))
-    bottom = min(tk_height - border, 285 * scale - canvas.canvasy(0))
-    left = max(0, math.ceil((x + border * tk_x) * pixel_x))
-    right = min(image_width, math.floor((x + width - border * tk_x) * pixel_x))
+    if bounds is None:
+        left, right = border, tk_width-border
+        top, bottom = -265*scale - canvas.canvasy(0), 285*scale - canvas.canvasy(0)
+    else:
+        left, top, right, bottom = bounds
+        left, right = left-canvas.canvasx(0), right-canvas.canvasx(0)
+        top, bottom = -top-canvas.canvasy(0), -bottom-canvas.canvasy(0)
+    left, right = max(border, left), min(tk_width-border, right)
+    top, bottom = max(border, top), min(tk_height-border, bottom)
+    left = max(0, math.ceil((x + left * tk_x) * pixel_x))
+    right = min(image_width, math.floor((x + right * tk_x) * pixel_x))
     top = max(0, math.ceil((y + top * tk_y) * pixel_y))
     bottom = min(image_height, math.floor((y + bottom * tk_y) * pixel_y))
     if left >= right or top >= bottom:
         raise RuntimeError("作品窗口没有可导出的绘图区。")
+    if ratio is not None:
+        rw, rh = ratio
+        units = min((right-left)//rw, (bottom-top)//rh)
+        if units < 1:
+            raise RuntimeError("画幅太小，无法按所选比例导出。")
+        # Inward rounding can lose a pixel at fractional desktop scaling. Keep
+        # exact output proportions by trimming, never resampling the snapshot.
+        left += (right-left-units*rw)//2
+        top += (bottom-top-units*rh)//2
+        right, bottom = left+units*rw, top+units*rh
     return left, top, right, bottom
 
 
@@ -108,12 +125,22 @@ def capture_artwork(stage):
         raise RuntimeError("作品窗口已关闭，无法导出。")
     from PIL import ImageGrab
 
-    stage.root.update_idletasks()
-    canvas = getattr(stage.canvas, "_canvas", stage.canvas)
-    hwnd, client_size, canvas_bounds = _window_info(stage.root, canvas)
-    picture = ImageGrab.grab(window=hwnd)
-    box = _artwork_box(canvas, stage.scale, picture.size, client_size, canvas_bounds)
-    return picture.crop(box).convert("RGB")
+    artwork = getattr(stage, "artwork", None)
+    try:
+        if artwork is not None:
+            artwork.draw_guides(False)
+        stage.root.update_idletasks()
+        canvas = getattr(stage.canvas, "_canvas", stage.canvas)
+        hwnd, client_size, canvas_bounds = _window_info(stage.root, canvas)
+        picture = ImageGrab.grab(window=hwnd)
+        framing = ({"bounds": artwork.bounds, "ratio": artwork.ratio}
+                   if artwork is not None and artwork.aspect else {})
+        box = _artwork_box(canvas, stage.scale, picture.size, client_size, canvas_bounds, **framing)
+        return picture.crop(box).convert("RGB")
+    finally:
+        if artwork is not None and not stage.closed:
+            artwork.draw_guides(True)
+            stage.root.update_idletasks()
 
 
 def save_png(image, path, metadata=None):

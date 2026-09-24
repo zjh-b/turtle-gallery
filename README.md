@@ -93,6 +93,10 @@ python run.py --check      # 检查环境和作品文件，不打开窗口
 
 想保存眼前这一帧，可以在面板点击“导出当前画面 PNG…”。首批支持 Windows，按当前窗口绘图区像素保存，成功后显示尺寸与路径。[安装可选依赖、导出步骤与限制 →](docs/EXHIBITION_GUIDE.md#把当前画面保存为-png)
 
+**一幅作品，三种构图。** 在面板选择 **横屏 16:9、竖屏 9:16 或方形 1:1**，主体与题字会重新排布；可打开题字安全区参考线。PNG 按所选比例导出，配方也会记住画幅。原有配方继续按原始构图载入。
+
+![彼岸花与粒子爱心的横屏、竖屏和方形真实画面](docs/assets/aspect-compositions.png)
+
 ### 14 个创意原作
 
 ![原作画廊：早期绘画、几何实验与小创意](docs/assets/originals.png)
@@ -122,7 +126,7 @@ python run.py --check      # 检查环境和作品文件，不打开窗口
 
 - [创作面板与配方](docs/CREATION_GUIDE.md)：为彼岸花、粒子爱心调参，保存、分享和恢复自己的构图。
 - [巡展与 PNG 导出](docs/EXHIBITION_GUIDE.md)：设置三作品循环展示，人工接管，再带走当前画面。
-- [升级路线](docs/ROADMAP.md)：M1 已完成；M2 正推进巡展与当前画面 PNG，后续还有画幅、短片与在线试玩。
+- [升级路线](docs/ROADMAP.md)：M1 已完成；M2 已接入巡展、PNG 和三种画幅，后续还有大尺寸重绘、短片与在线试玩。
 - [创作指南](docs/CREATIVE_GUIDE.md)：28 款作品的代码入口、原作操作和几个可以立刻动手的改法。
 - [贡献指南](docs/CONTRIBUTING.md)：添加作品、报告问题和提交改进。
 - [Issues](https://github.com/zjh-b/turtle-gallery/issues)：分享运行问题或你想看到的下一个小世界。

@@ -9,7 +9,7 @@ from unittest.mock import patch
 ROOT = Path(__file__).resolve().parents[1]
 sys.path.insert(0, str(ROOT / "社团展示"))
 from 创作工坊 import CreatorPanel
-from 创作配方 import parameter_specs
+from 创作配方 import parameter_specs, preset_parameters
 from 巡展 import TourClock
 
 
@@ -19,6 +19,34 @@ class Status:
 
 
 class CreatorExportTests(unittest.TestCase):
+    def test_palette_preset_keeps_the_selected_aspect(self):
+        panel = CreatorPanel.__new__(CreatorPanel)
+        panel.work_id = 25
+        panel.presets = SimpleNamespace(current=lambda: 1)
+        panel.apply_now = lambda: self.fail("A preset must replace invalid fields without applying them")
+        panel.variables = {"aspect": SimpleNamespace(get=lambda: "竖屏 9:16"),
+                           "seed": SimpleNamespace(get=lambda: "")}
+        panel.app = SimpleNamespace(get_parameters=lambda: {"aspect": 0})
+        applied = []
+        panel.use_parameters = lambda values, message: applied.append(values)
+        panel.choose_preset()
+        expected = preset_parameters(25, 1)
+        expected["aspect"] = 2
+        self.assertEqual(applied, [expected])
+
+    def test_safe_area_toggle_takes_over_tour_without_advancing_animation(self):
+        panel = CreatorPanel.__new__(CreatorPanel)
+        clock = TourClock(30)
+        frames = []
+        panel.stage = SimpleNamespace(artwork=SimpleNamespace(show_safe_area=False),
+            tour=SimpleNamespace(pause=clock.pause), frame=frames.append, paused=True)
+        panel.safe_area = SimpleNamespace(get=lambda: True)
+        panel.toggle_safe_area()
+        self.assertTrue(panel.stage.artwork.show_safe_area)
+        self.assertTrue(clock.paused)
+        self.assertEqual(frames, [0])
+        self.assertTrue(panel.stage.paused)
+
     def test_keyboard_slider_takes_over_even_when_binding_stops_propagation(self):
         class Variable:
             value = 1.0

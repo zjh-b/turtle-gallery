@@ -1,0 +1,199 @@
+{
+  "platform": "Windows",
+  "python": "3.12.4",
+  "tk": "8.6.14",
+  "pillow": "12.3.0",
+  "window_capture": "Pillow HWND client-area capture",
+  "works": [
+    {
+      "work_id": 25,
+      "cases": [
+        {
+          "window": [
+            760,
+            580
+          ],
+          "aspect": "16:9",
+          "png": [
+            720,
+            405
+          ],
+          "texts": 4
+        },
+        {
+          "window": [
+            760,
+            580
+          ],
+          "aspect": "9:16",
+          "png": [
+            243,
+            432
+          ],
+          "texts": 4
+        },
+        {
+          "window": [
+            760,
+            580
+          ],
+          "aspect": "1:1",
+          "png": [
+            444,
+            444
+          ],
+          "texts": 4
+        },
+        {
+          "window": [
+            1100,
+            900
+          ],
+          "aspect": "16:9",
+          "png": [
+            1040,
+            585
+          ],
+          "texts": 4
+        },
+        {
+          "window": [
+            1100,
+            900
+          ],
+          "aspect": "9:16",
+          "png": [
+            396,
+            704
+          ],
+          "texts": 4
+        },
+        {
+          "window": [
+            1100,
+            900
+          ],
+          "aspect": "1:1",
+          "png": [
+            704,
+            704
+          ],
+          "texts": 4
+        }
+      ],
+      "checks": [
+        "all text inside 6% safe area",
+        "no text overlap",
+        "guides absent from export and restored",
+        "preset retains ratio",
+        "paused export retains time",
+        "saved metadata retains aspect",
+        "no Tk callback errors"
+      ]
+    },
+    {
+      "work_id": 26,
+      "cases": [
+        {
+          "window": [
+            760,
+            580
+          ],
+          "aspect": "16:9",
+          "png": [
+            720,
+            405
+          ],
+          "texts": 3
+        },
+        {
+          "window": [
+            760,
+            580
+          ],
+          "aspect": "9:16",
+          "png": [
+            243,
+            432
+          ],
+          "texts": 5
+        },
+        {
+          "window": [
+            760,
+            580
+          ],
+          "aspect": "1:1",
+          "png": [
+            444,
+            444
+          ],
+          "texts": 4
+        },
+        {
+          "window": [
+            1100,
+            900
+          ],
+          "aspect": "16:9",
+          "png": [
+            1040,
+            585
+          ],
+          "texts": 3
+        },
+        {
+          "window": [
+            1100,
+            900
+          ],
+          "aspect": "9:16",
+          "png": [
+            396,
+            704
+          ],
+          "texts": 5
+        },
+        {
+          "window": [
+            1100,
+            900
+          ],
+          "aspect": "1:1",
+          "png": [
+            704,
+            704
+          ],
+          "texts": 4
+        }
+      ],
+      "checks": [
+        "all text inside 6% safe area",
+        "no text overlap",
+        "guides absent from export and restored",
+        "preset retains ratio",
+        "paused export retains time",
+        "saved metadata retains aspect",
+        "no Tk callback errors"
+      ]
+    }
+  ],
+  "additional_checks": [
+    "fractional pixel mapping: 100%, 125%, 150%, 200% (simulated)",
+    "original layouts preserved",
+    "legacy recipe migration and all-aspect recipe round trips",
+    "mobile gallery: 390px, no overflow or JavaScript errors",
+    "largest heart burst stays in all new frames: size 1.1, 1000 particles, seeds 0/MAX, five dispersion stages",
+    "preset replaces invalid seed while retaining pending aspect choice"
+  ],
+  "limitations": [
+    "Output resolution is limited to current window pixels; no target-size redraw.",
+    "Real mixed-DPI multiple monitors, remote desktop and locked desktop were not tested.",
+    "This composition check does not complete the separate continuous 10-minute tour acceptance."
+  ],
+  "local_test_suite": {
+    "tests": 115,
+    "passed": 115,
+    "gui_font_check_enabled": true
+  }
+}

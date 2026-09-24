@@ -34,9 +34,17 @@ python run.py
 
 25、26 已接入共用创作面板。扩展时参考 [创作指南](CREATION_GUIDE.md)，为作品实现 `get_parameters()` / `apply_parameters()`，先验证完整参数再改变场景状态；配方中的种子使用场景独立的随机数生成器。登记 `creation=True` 前，确认面板、预设、重播和配方恢复均可用。个人配方默认保存在被 Git 忽略的 `creations/`；精选示例可放入 `examples/recipes/`。
 
+两件作品的画幅参数为 `aspect`：`0` 原始画幅（默认）、`1` 横屏 16:9、`2` 竖屏 9:16、`3` 方形 1:1。切换画幅应调整主体、背景与题字的布局；在创作面板切换配色预设时保留当前画幅。题字安全区参考线距四边各 6%，仅用于所选比例的预览，不写入配方，也不导出。
+
+配方保持 `version: 1`，当前 `scene_version: 2`。加载作品版本 1 时，先确认参数恰好符合旧版结构，再补上 `aspect: 0` 并验证全部值；旧文件含 `aspect`、未知参数或缺失旧参数时必须拒绝。新版文件必须提供完整参数，包括有效画幅。再次保存统一写作品版本 2。保留 [25-blue-night.json](../examples/recipes/25-blue-night.json) 与 [26-champagne.json](../examples/recipes/26-champagne.json) 的旧版结构作为迁移样例；新版示例为 [25-portrait-night.json](../examples/recipes/25-portrait-night.json) 和 [26-square-heart.json](../examples/recipes/26-square-heart.json)。
+
+画幅绘制复用 `Stage.artwork`，通过 `Paint(stage.artwork, tag)` 使用画幅自己的逻辑尺寸、缩放和平移；舞台工具栏仍使用舞台坐标。`artwork.bounds` 是 Turtle 物理坐标中的 `(left, top, right, bottom)`，预览遮罩与 PNG 裁剪共用此范围。鼠标坐标先经 `artwork.point(x, y)` 转为画幅坐标，再用 `artwork.in_scene(x, y)` 判断，避免画幅外留白触发作品互动。
+
+`Paint.transform(scale=1, x=0, y=0)` 设置当前画笔的一致缩放与平移，参数使用所属视口的逻辑坐标。它替换当前变换，不累积；`begin()` 会恢复默认变换，绘完局部图形后也可调用 `transform()` 恢复。按画幅布局时保留场景的独立随机序列，避免仅切换比例就重新生成无关几何。
+
 25、26、27 已登记 `autoplay=True`，可参与[自动巡展](EXHIBITION_GUIDE.md)。扩展前先确认作品无人操作时也能展示完整内容，并使用共用 `Stage.run()`。实际检查自动切换、点击或键盘接管、继续计时、窗口关闭和画廊关闭。Canvas 按钮涉及销毁窗口时，使用 `after_idle()` 在当前鼠标事件处理完后执行；读取完旧进程输出，再切换到下一件。
 
-PNG 导出是独立可选能力，依赖在 [requirements-export.txt](../requirements-export.txt) 中声明。改动截图边界后，实际检查窗口尺寸、面板遮挡、隐藏说明与最小化提示；改动保存流程后，检查取消和写入失败是否保留旧文件。用户图片默认保存在被 Git 忽略的 `exports/`。
+PNG 导出是独立可选能力，依赖在 [requirements-export.txt](../requirements-export.txt) 中声明。选择固定比例时，以当前窗口像素裁出严格对应 16:9、9:16 或 1:1 的图片；原始画幅沿用原有范围，尚不支持按目标大尺寸重新绘制。捕获前临时隐藏安全区参考线，成功或失败后都应恢复其预览状态。改动截图边界后，实际检查所有画幅、窗口尺寸、面板遮挡、隐藏说明与最小化提示；改动保存流程后，检查取消和写入失败是否保留旧文件。用户图片默认保存在被 Git 忽略的 `exports/`。
 
 ## 更新展示图片
 
@@ -47,6 +55,7 @@ python -m pip install -r requirements-media.txt
 python tools/render_media.py --originals --gif --compose
 python tools/render_media.py --social --compose
 python tools/render_media.py --creator
+python tools/render_media.py --aspects
 ```
 
 抓取运行画面需要可用的桌面显示；仅重新排版已有截图时可使用 `python tools/render_media.py --compose`。更新后检查生成图片中的文字、构图和 GIF 播放效果。预览中的温柔便签为原文排版示意，月饼计算展示实际程序输出；其他原作使用运行截图。
@@ -74,6 +83,14 @@ python -m unittest discover -s tests -v
 [自动检查流程](../.github/workflows/checks.yml) 使用同一组命令，并检查 Python 文件能否编译、网页目录是否与源目录一致。测试使用模拟窗口检查逻辑，仍需实际观察画面和操作；环境检查本身不会打开 GUI。
 
 常规六组系统 / Python 检查保持仅标准库；另有一个 Windows 任务安装可选 Pillow，验证 PNG 编码、元数据和原子保存。新增导出逻辑应同时在有、无 Pillow 的环境检查，不能让普通作品因缺少可选依赖而无法运行。
+
+画幅题字另有可选的真实 Tk 字体边界检查，常规无窗口测试会跳过它。在可用桌面上用 PowerShell 执行以下命令，检查两件作品在最小窗口和较大窗口中的 6% 安全区与文字间距：
+
+```powershell
+$env:TURTLE_GALLERY_GUI_TESTS = '1'
+python -m unittest discover -s tests -p test_aspect.py -v
+Remove-Item Env:TURTLE_GALLERY_GUI_TESTS
+```
 
 若改动共用舞台或画廊，检查不同分类中的作品、小窗口布局、作品结束后返回画廊，以及连续启动不同作品。涉及 14 款互动展品时，验证暂停、重置、说明开关、全屏和 Esc 退出；原作按各自操作验证。
 
