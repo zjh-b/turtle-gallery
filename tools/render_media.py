@@ -4,6 +4,7 @@
     python tools/render_media.py --social --compose
     python tools/render_media.py --creator
     python tools/render_media.py --aspects
+    python tools/render_media.py --hd
 
 The application itself has no Pillow dependency. Capture helpers execute one work
 at a time in a separate process and write only project-owned image files.
@@ -295,6 +296,63 @@ def make_aspects():
     board.save(ASSETS / "aspect-compositions.png", optimize=True)
 
 
+def make_hd():
+    """Compare a small-window snapshot with the same frame redrawn at 4K."""
+    work = next(work for work in works() if work["id"] == 25)
+    path = ROOT / work["filename"]
+    sys.path.insert(0, str(path.parent))
+    from 创作配方 import preset_parameters
+    from 作品导出 import capture_artwork
+    from 高清导出 import ExportJob, freeze_artwork
+    spec = importlib.util.spec_from_file_location("capture_hd", path)
+    module = importlib.util.module_from_spec(spec)
+    spec.loader.exec_module(module)
+    app = getattr(module, work["entry_class"])()
+    try:
+        app.stage.root.geometry("760x580+20+20")
+        app.stage.root.update()
+        app.apply_parameters(dict(preset_parameters(25, 1), aspect=1))
+        app.frame(8)
+        app.stage.screen.update()
+        window = capture_artwork(app.stage)
+        destination = ASSETS / "export-lily-4k.png"
+        job = ExportJob(freeze_artwork(app), destination, 2160)
+        job.thread.join(15)
+        if job.thread.is_alive():
+            job.cancel()
+            job.thread.join()
+            raise RuntimeError("HD sample export timed out")
+        result = job.poll()
+        if result["state"] != "saved":
+            raise RuntimeError(result["message"])
+        with Image.open(destination) as source:
+            hd = source.convert("RGB")
+        board = Image.new("RGB", (1400, 1000), "#0B1424")
+        draw = ImageDraw.Draw(board)
+        draw.text((40, 28), "从小窗口，导出大作品", font=font(34, True), fill="#EDF1F5")
+        draw.text((42, 84), "同一构图 · 同一动画瞬间 · 按目标分辨率重新绘制", font=font(19), fill="#A7BACB")
+        board.paste(hd.resize((780, 439), Image.Resampling.LANCZOS), (40, 140))
+        region = (.38, .14, .69, .365)
+        x1,y1,x2,y2 = region
+        draw.rectangle((40+x1*780,140+y1*439,40+x2*780,140+y2*439), outline="#A8E1CC", width=2)
+        for y, title, detail in ((158,"预览窗口","760 × 580"),
+                                (280,"当前窗口 PNG",f"{window.width} × {window.height}"),
+                                (402,"2160 高清重绘",f"{hd.width} × {hd.height}")):
+            draw.text((870,y),title,font=font(20),fill="#A7BACB")
+            draw.text((870,y+37),detail,font=font(30,True),fill="#ECF1F5")
+        draw.text((42,610),"窗口图局部放大（双三次）",font=font(20),fill="#A7BACB")
+        draw.text((722,610),"高清重绘图 · 同一区域",font=font(20),fill="#A8E1CC")
+        for picture,x,method in ((window,40,Image.Resampling.BICUBIC),(hd,720,Image.Resampling.LANCZOS)):
+            crop=picture.crop((round(x1*picture.width),round(y1*picture.height),
+                               round(x2*picture.width),round(y2*picture.height)))
+            board.paste(crop.resize((640,260),method),(x,656))
+        draw.text((42,954),"按 E → 选择固定画幅 → PNG 导出尺寸 → 高清重绘",font=font(18),fill="#A8E1CC")
+        board.save(ASSETS / "hd-export-comparison.png", optimize=True)
+        print("Created 3840x2160 PNG and authentic detail comparison", flush=True)
+    finally:
+        app.stage.close()
+
+
 def make_social():
     catalog = {work["id"]: work for work in works()}
     titles = {number: work["title"] for number, work in catalog.items()}
@@ -504,6 +562,7 @@ def main():
     parser.add_argument("--social", action="store_true", help="Capture the four romantic light artworks and their animation")
     parser.add_argument("--creator", action="store_true", help="Capture the live creation panel and artwork")
     parser.add_argument("--aspects", action="store_true", help="Capture the six aspect compositions and comparison board")
+    parser.add_argument("--hd", action="store_true", help="Export a 4K sample and compare actual detail with a window PNG")
     parser.add_argument("--capture-aspect", type=int, choices=(25, 26), help=argparse.SUPPRESS)
     parser.add_argument("--capture-original", type=int, help=argparse.SUPPRESS)
     parser.add_argument("--capture-animation", type=int, help=argparse.SUPPRESS)
@@ -534,6 +593,8 @@ def main():
         make_social()
     if args.creator:
         creator_capture()
+    if args.hd:
+        make_hd()
     if args.aspects:
         make_aspects()
     if args.compose:

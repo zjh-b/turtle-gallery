@@ -13,6 +13,7 @@ from 创作配方 import (PRESETS, TITLES, default_parameters, load_recipe,
 BG, PANEL, TEXT, MUTED, ACCENT = "#0B1424", "#17263B", "#ECF1F5", "#9AACC3", "#A8E1CC"
 FONT = "Microsoft YaHei"
 ROOT = Path(__file__).resolve().parent.parent
+EXPORT_QUALITIES = {"当前窗口像素": 0, "高清重绘 · 1080": 1080, "高清重绘 · 2160": 2160}
 
 
 class CreatorPanel:
@@ -31,6 +32,7 @@ class CreatorPanel:
         self.window.bind("<Escape>", lambda event: self.close() or "break")
         self._closed, self._syncing = False, False
         self._apply_job = self._poll_job = None
+        self._export_job = self._export_poll_job = None
         self.variables, self.value_labels = {}, {}
         self._seen = None
         style = ttk.Style(self.window)
@@ -66,12 +68,24 @@ class CreatorPanel:
                                        ("恢复默认", self.restore_defaults, "重播作品", self.restart))):
             self.button(footer, actions[0], actions[1]).grid(row=row, column=0, sticky="ew", padx=(0, 5), pady=4)
             self.button(footer, actions[2], actions[3]).grid(row=row, column=1, sticky="ew", padx=(5, 0), pady=4)
-        export_button = self.button(footer, "导出当前画面 PNG…", self.export_png)
-        export_button.configure(bg=ACCENT, fg=BG, activebackground="#C5EFDF", activeforeground=BG)
-        export_button.grid(row=2, column=0, columnspan=2, sticky="ew", pady=(8, 4))
+        self.label(footer, "PNG 导出尺寸", color=MUTED, size=9).grid(
+            row=2, column=0, sticky="w", pady=(10, 4))
+        self.export_quality = tk.StringVar(value="当前窗口像素")
+        quality = ttk.Combobox(footer, textvariable=self.export_quality,
+            values=list(EXPORT_QUALITIES), state="readonly", width=19,
+            font=(FONT, 9), style="Creator.TCombobox")
+        quality.grid(row=2, column=1, sticky="ew", pady=(10, 4))
+        quality.bind("<<ComboboxSelected>>", self.update_export_hint)
+        self.export_hint = tk.StringVar()
+        tk.Label(footer, textvariable=self.export_hint, bg=BG, fg=MUTED,
+                 anchor="w", justify="left", wraplength=340, font=(FONT, 9)).grid(
+                     row=3, column=0, columnspan=2, sticky="ew", pady=(0, 3))
+        self.export_button = self.button(footer, "导出 PNG…", self.export_png)
+        self.export_button.configure(bg=ACCENT, fg=BG, activebackground="#C5EFDF", activeforeground=BG)
+        self.export_button.grid(row=4, column=0, columnspan=2, sticky="ew", pady=(8, 4))
         status_label = tk.Label(footer, textvariable=self.status, bg=BG, fg=MUTED, justify="left",
                                width=1, wraplength=340, anchor="w", font=(FONT, 9))
-        status_label.grid(row=3, column=0, columnspan=2, sticky="ew", pady=(8, 0))
+        status_label.grid(row=5, column=0, columnspan=2, sticky="ew", pady=(8, 0))
         status_label.bind("<Configure>", lambda event: status_label.configure(wraplength=max(240, event.width)))
 
         viewport = tk.Frame(self.window, bg=BG)
@@ -168,6 +182,7 @@ class CreatorPanel:
                                    if preset_parameters(self.work_id, index) == values), "自定义参数"))
         finally:
             self._syncing = False
+        self.update_export_hint()
 
     def poll(self):
         self._poll_job = None
@@ -186,6 +201,7 @@ class CreatorPanel:
             self.stage.tour.pause()
         for key, label in self.value_labels.items():
             label.set(f"{self.variables[key].get():g}")
+        self.update_export_hint()
         if self._apply_job is not None:
             self.window.after_cancel(self._apply_job)
         self._apply_job = self.window.after(85, self.apply_now)
@@ -227,6 +243,7 @@ class CreatorPanel:
                 self.presets.set("自定义参数")
                 self.status.set("已映入画面 · 保存配方可以留住这组参数。")
             self._seen = self.app.get_parameters()
+            self.update_export_hint()
             return True
         except (ValueError, tk.TclError) as exc:
             self.status.set(str(exc))
@@ -304,8 +321,45 @@ class CreatorPanel:
         except (OSError, ValueError) as exc:
             self.status.set("载入失败：" + str(exc))
 
+    def export_resolution(self):
+        quality = getattr(self, "export_quality", None)
+        return EXPORT_QUALITIES.get(quality.get(), 0) if quality is not None else 0
+
+    def update_export_hint(self, *_):
+        hint = getattr(self, "export_hint", None)
+        if hint is None:
+            return
+        resolution = self.export_resolution()
+        if not resolution:
+            hint.set("按当前窗口绘图区的实际像素保存。")
+            return
+        aspect = self.app.get_parameters().get("aspect", 0)
+        variable = self.variables.get("aspect")
+        if variable is not None:
+            spec = next(spec for spec in parameter_specs(self.work_id) if spec.key == "aspect")
+            try:
+                aspect = spec.choices.index(variable.get())
+            except ValueError:
+                aspect = 0
+        if not aspect:
+            hint.set("高清重绘请先选择横屏、竖屏或方形画幅。")
+            return
+        from 高清导出 import target_size
+        width, height = target_size(aspect, resolution)
+        hint.set(f"输出 {width} × {height} px · 保留当前画面的构图与进度")
+
     def export_png(self):
+        if getattr(self, "_closed", False):
+            return
+        if getattr(self, "_export_job", None) is not None:
+            self._export_job.cancel()
+            self.status.set("正在取消导出…")
+            return
         if not self.apply_now():
+            return
+        resolution = self.export_resolution()
+        if resolution:
+            self.export_hires(resolution)
             return
         try:
             from 作品导出 import capture_artwork, save_png
@@ -332,13 +386,70 @@ class CreatorPanel:
         except (OSError, ValueError, RuntimeError, tk.TclError) as exc:
             self.status.set("导出失败：" + str(exc))
 
+    def export_hires(self, resolution):
+        try:
+            from 高清导出 import ExportJob, freeze_artwork, redraw_support, target_size
+            aspect = self.app.get_parameters()["aspect"]
+            if not aspect:
+                self.status.set("高清重绘请先选择横屏、竖屏或方形画幅。")
+                return
+            available, reason = redraw_support()
+            if not available:
+                raise RuntimeError(reason)
+            width, height = target_size(aspect, resolution)
+            # Copy scene state before the modal picker can advance animation.
+            # The worker receives only this frozen state and never calls Tk.
+            snapshot = freeze_artwork(self.app)
+            directory = ROOT / "exports"
+            directory.mkdir(exist_ok=True)
+            name = f"{self.work_id}-{datetime.now():%Y%m%d-%H%M%S}-{width}x{height}.png"
+            path = filedialog.asksaveasfilename(parent=self.window, title="导出高清 PNG",
+                initialdir=str(directory), initialfile=name, defaultextension=".png",
+                filetypes=[("PNG 图片", "*.png")])
+            if self._closed:
+                return
+            if not path:
+                self.status.set("已取消导出，作品继续保留当前设置。")
+                return
+            self._export_job = ExportJob(snapshot, path, resolution)
+            self.export_button.configure(text="取消导出")
+            self.status.set(f"正在绘制 {width} × {height} px，可继续调整作品。")
+            self._export_poll_job = self.window.after(100, self.poll_export)
+        except (OSError, ValueError, RuntimeError, tk.TclError) as exc:
+            if not self._closed:
+                self.status.set("导出失败：" + str(exc))
+
+    def poll_export(self):
+        self._export_poll_job = None
+        if self._closed or self._export_job is None:
+            return
+        result = self._export_job.poll()
+        if result is None:
+            self._export_poll_job = self.window.after(100, self.poll_export)
+            return
+        self._export_job = None
+        self.export_button.configure(text="导出 PNG…")
+        if result["state"] == "saved":
+            width, height = result["size"]
+            self.status.set(f"已保存 {width} × {height} px：{Path(result['path']).resolve()}")
+        elif result["state"] == "cancelled":
+            self.status.set("已取消导出，作品继续保留当前设置。")
+        else:
+            self.status.set("导出失败：" + result["message"])
+
     def close(self):
         if self._closed:
             return
+        self._closed = True
+        if getattr(self, "_export_job", None) is not None:
+            self._export_job.cancel()
+            self._export_job = None
+        if getattr(self, "_export_poll_job", None) is not None:
+            self.window.after_cancel(self._export_poll_job)
+            self._export_poll_job = None
         self.cancel_pending()
         if self._poll_job is not None:
             self.window.after_cancel(self._poll_job)
-        self._closed = True
         self.stage.creator_panel = None
         self.window.destroy()
         if not self.stage.closed:

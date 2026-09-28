@@ -1,0 +1,179 @@
+{
+  "platform": "Windows",
+  "python": "3.12.4",
+  "tk": "8.6.14",
+  "pillow": "12.3.0",
+  "method": "Real Tk creation panel; snapshot frozen before file dialog; background vector redraw and atomic PNG save; 2x supersampling.",
+  "preset": {
+    "25": "blue night (preset index 1)",
+    "26": "champagne (preset index 2)"
+  },
+  "animation": "Paused at scene time 8; pause, parameters and time checked after each export.",
+  "timing": "One local sample per combination, measured from the panel action until its completion status, including UI polling. Not a hardware-independent performance guarantee.",
+  "responsiveness": "A 10 ms Tk callback continued to execute while each export was pending; callback counts are observations, not a frame-rate measurement.",
+  "aspect_ids": {
+    "1": "16:9",
+    "2": "9:16",
+    "3": "1:1"
+  },
+  "works": [
+    {
+      "work_id": 25,
+      "window": [
+        760,
+        580
+      ],
+      "cases": [
+        {
+          "aspect": 1,
+          "resolution": 1080,
+          "size": [
+            1920,
+            1080
+          ],
+          "seconds": 0.253,
+          "ui_callbacks": 21
+        },
+        {
+          "aspect": 1,
+          "resolution": 2160,
+          "size": [
+            3840,
+            2160
+          ],
+          "seconds": 0.547,
+          "ui_callbacks": 47
+        },
+        {
+          "aspect": 2,
+          "resolution": 1080,
+          "size": [
+            1080,
+            1920
+          ],
+          "seconds": 0.247,
+          "ui_callbacks": 21
+        },
+        {
+          "aspect": 2,
+          "resolution": 2160,
+          "size": [
+            2160,
+            3840
+          ],
+          "seconds": 0.55,
+          "ui_callbacks": 47
+        },
+        {
+          "aspect": 3,
+          "resolution": 1080,
+          "size": [
+            1080,
+            1080
+          ],
+          "seconds": 0.148,
+          "ui_callbacks": 12
+        },
+        {
+          "aspect": 3,
+          "resolution": 2160,
+          "size": [
+            2160,
+            2160
+          ],
+          "seconds": 0.341,
+          "ui_callbacks": 28
+        }
+      ],
+      "cancel_preserves_file": true,
+      "panel_close_cancels": true,
+      "state_and_metadata_preserved": true,
+      "tk_errors": []
+    },
+    {
+      "work_id": 26,
+      "window": [
+        760,
+        580
+      ],
+      "cases": [
+        {
+          "aspect": 1,
+          "resolution": 1080,
+          "size": [
+            1920,
+            1080
+          ],
+          "seconds": 0.234,
+          "ui_callbacks": 17
+        },
+        {
+          "aspect": 1,
+          "resolution": 2160,
+          "size": [
+            3840,
+            2160
+          ],
+          "seconds": 0.666,
+          "ui_callbacks": 52
+        },
+        {
+          "aspect": 2,
+          "resolution": 1080,
+          "size": [
+            1080,
+            1920
+          ],
+          "seconds": 0.23,
+          "ui_callbacks": 17
+        },
+        {
+          "aspect": 2,
+          "resolution": 2160,
+          "size": [
+            2160,
+            3840
+          ],
+          "seconds": 0.569,
+          "ui_callbacks": 43
+        },
+        {
+          "aspect": 3,
+          "resolution": 1080,
+          "size": [
+            1080,
+            1080
+          ],
+          "seconds": 0.237,
+          "ui_callbacks": 18
+        },
+        {
+          "aspect": 3,
+          "resolution": 2160,
+          "size": [
+            2160,
+            2160
+          ],
+          "seconds": 0.439,
+          "ui_callbacks": 34
+        }
+      ],
+      "cancel_preserves_file": true,
+      "panel_close_cancels": true,
+      "state_and_metadata_preserved": true,
+      "tk_errors": []
+    }
+  ],
+  "additional_checks": [
+    "Cancel and panel closure stop the background worker, preserve the previous target bytes and remove temporary files.",
+    "PNG dimensions, Recipe, Animation and Resolution metadata match the frozen state.",
+    "Export button visible at the minimum creation panel size, 380 x 540.",
+    "An automated real-render test makes ImageGrab.grab fail if called; high-resolution export still succeeds."
+  ],
+  "limitations": [
+    "Only Windows was tested; high-resolution entry requires Pillow and Microsoft YaHei.",
+    "Pillow and Tk font and antialiasing output may differ; no pixel-exact equivalence is claimed.",
+    "Mixed DPI displays, remote desktop and locked sessions were not tested.",
+    "The uninterrupted ten-minute exhibition acceptance check remains pending; this record covers PNG redraw only."
+  ]
+}

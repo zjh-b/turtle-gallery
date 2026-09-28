@@ -11,6 +11,15 @@ import tempfile
 INSTALL_COMMAND = "python -m pip install -r requirements-export.txt"
 
 
+class ExportCancelled(RuntimeError):
+    """Cancellation before the new PNG replaces the destination."""
+
+
+def _check_cancel(cancel):
+    if cancel is not None and cancel.is_set():
+        raise ExportCancelled("已取消导出。")
+
+
 def export_support():
     """Report whether this system has the optional window-capture dependency."""
     if sys.platform != "win32":
@@ -143,8 +152,9 @@ def capture_artwork(stage):
             stage.root.update_idletasks()
 
 
-def save_png(image, path, metadata=None):
+def save_png(image, path, metadata=None, cancel=None):
     """Atomically write the frozen image; metadata describes only this snapshot."""
+    _check_cancel(cancel)
     pnginfo = None
     if metadata is not None:
         from PIL.PngImagePlugin import PngInfo
@@ -157,8 +167,10 @@ def save_png(image, path, metadata=None):
                                          suffix=".tmp", delete=False) as stream:
             temporary = Path(stream.name)
             image.save(stream, format="PNG", pnginfo=pnginfo)
+            _check_cancel(cancel)
             stream.flush()
             os.fsync(stream.fileno())
+        _check_cancel(cancel)
         os.replace(temporary, path)
     finally:
         if temporary is not None:

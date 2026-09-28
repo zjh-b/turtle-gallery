@@ -89,9 +89,23 @@ In **25 Starry Spider Lily** or **26 A Heart Made of Light**, press **E** or cli
 
 Recipes store parameters and a composition seed; loading starts the work from the beginning. Animation progress and click history are not saved. **恢复默认** restores defaults, while **重播作品** restarts your current settings. The panel and [creation guide, sample recipes and measurements](docs/CREATION_GUIDE.md) are in Chinese.
 
-To keep the current frame, click **导出当前画面 PNG…** in the panel. PNG export initially supports Windows and saves the artwork area at its current window resolution, reporting the actual dimensions and path. See the [optional dependency, steps and limits](docs/EXHIBITION_GUIDE.md#把当前画面保存为-png) in Chinese.
-
 Choose **16:9 landscape, 9:16 portrait or 1:1 square** in the panel to rearrange the artwork and lettering. Preview guides mark a 6% inset and stay out of exported PNGs. Recipes remember the selected composition; existing recipes keep their original layout. [See all six compositions](docs/assets/aspect-compositions.png).
+
+To save a PNG, choose an option under **PNG 导出尺寸** and click **导出 PNG…**. The default, **当前窗口像素**, saves the artwork at its current window resolution. With a fixed aspect ratio, **高清重绘 · 1080** and **高清重绘 · 2160** redraw the current geometry and animation frame at these sizes:
+
+| Composition | 1080 | 2160 |
+| --- | --- | --- |
+| Landscape 16:9 | 1920 × 1080 | 3840 × 2160 |
+| Portrait 9:16 | 1080 × 1920 | 2160 × 3840 |
+| Square 1:1 | 1080 × 1080 | 2160 × 2160 |
+
+The original layout supports current window pixels only. Export resolution is a panel setting and is not stored in recipes. PNG export initially supports Windows and requires optional Pillow 11.2.1 or newer; install it with `python -m pip install -r requirements-export.txt`. High resolution redraw also needs the Windows Microsoft YaHei font, usually `msyh.ttc`. If that font is missing, current window export remains available.
+
+![Current window pixels compared with high resolution redraw](docs/assets/hd-export-comparison.png)
+
+The frame is fixed before the save dialog opens. High resolution drawing runs in the background while you continue using the artwork; click **取消导出** or close the creation panel to cancel an unfinished export. A failed or cancelled save preserves an existing destination file. The result includes the artwork's lettering, with the controls and preview guides omitted, and the panel reports the saved dimensions and path.
+
+High resolution PNGs use drawing at twice the output dimensions followed by downsampling. Font rendering and antialiasing can differ from Tk, so the result is not guaranteed to match the preview pixel for pixel. These PNGs include `Recipe`, `Animation` and `Resolution` metadata, but the panel cannot load a PNG as a recipe or resume its saved animation state. SVG and video export remain unavailable. See the [export steps and limits](docs/EXHIBITION_GUIDE.md#把当前画面保存为-png) in Chinese; mixed DPI displays have not yet been tested.
 
 ### 14 original experiments
 
@@ -120,4 +134,4 @@ Start by changing the heart's fill color in [xin.py](xin.py), or compare the [or
 
 For code entry points and small experiments, see the [creative guide](docs/CREATIVE_GUIDE.md). To add a work or report a problem, see [contributing](docs/CONTRIBUTING.md) and [Issues](https://github.com/zjh-b/turtle-gallery/issues). These detailed guides are currently in Chinese.
 
-The [development roadmap](docs/ROADMAP.md) records completed and planned work with acceptance criteria. M1 provides creation panels, saved recipes and refined lily rendering. M2 is in progress with exhibition playlists, PNG snapshots and three aspect ratios. Large images redrawn at their target size, video export and browser interaction remain planned.
+The [development roadmap](docs/ROADMAP.md) records completed and planned work with acceptance criteria. M1 provides creation panels, saved recipes and refined lily rendering. M2 is in progress with exhibition playlists, PNG snapshots, three aspect ratios and high resolution redraw. A full uninterrupted ten minute tour check is still pending. Video export and browser interaction remain planned.

@@ -4,6 +4,7 @@ import json
 import subprocess
 import sys
 import tempfile
+import threading
 from types import SimpleNamespace
 import unittest
 from unittest.mock import patch
@@ -202,6 +203,28 @@ class WritableImage:
 
 
 class ExportSaveTests(unittest.TestCase):
+    def test_cancellation_during_encoding_preserves_existing_file(self):
+        cancel = threading.Event()
+        class CancelImage(WritableImage):
+            def save(self, stream, **kwargs):
+                super().save(stream, **kwargs)
+                cancel.set()
+        with tempfile.TemporaryDirectory() as folder:
+            path = Path(folder)/"keep.png"
+            path.write_bytes(b"previous image")
+            with self.assertRaises(export.ExportCancelled):
+                export.save_png(CancelImage(), path, cancel=cancel)
+            self.assertEqual(path.read_bytes(),b"previous image")
+            self.assertEqual(list(Path(folder).iterdir()),[path])
+
+    def test_already_cancelled_export_never_creates_a_temporary_file(self):
+        cancel = threading.Event()
+        cancel.set()
+        with tempfile.TemporaryDirectory() as folder:
+            with self.assertRaises(export.ExportCancelled):
+                export.save_png(WritableImage(),Path(folder)/"art.png",cancel=cancel)
+            self.assertFalse(list(Path(folder).iterdir()))
+
     def test_encoding_failure_preserves_original_and_removes_temp(self):
         with tempfile.TemporaryDirectory() as folder:
             path = Path(folder) / "art.png"

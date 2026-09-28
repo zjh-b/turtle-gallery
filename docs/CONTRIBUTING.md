@@ -44,7 +44,13 @@ python run.py
 
 25、26、27 已登记 `autoplay=True`，可参与[自动巡展](EXHIBITION_GUIDE.md)。扩展前先确认作品无人操作时也能展示完整内容，并使用共用 `Stage.run()`。实际检查自动切换、点击或键盘接管、继续计时、窗口关闭和画廊关闭。Canvas 按钮涉及销毁窗口时，使用 `after_idle()` 在当前鼠标事件处理完后执行；读取完旧进程输出，再切换到下一件。
 
-PNG 导出是独立可选能力，依赖在 [requirements-export.txt](../requirements-export.txt) 中声明。选择固定比例时，以当前窗口像素裁出严格对应 16:9、9:16 或 1:1 的图片；原始画幅沿用原有范围，尚不支持按目标大尺寸重新绘制。捕获前临时隐藏安全区参考线，成功或失败后都应恢复其预览状态。改动截图边界后，实际检查所有画幅、窗口尺寸、面板遮挡、隐藏说明与最小化提示；改动保存流程后，检查取消和写入失败是否保留旧文件。用户图片默认保存在被 Git 忽略的 `exports/`。
+PNG 导出是独立可选能力，依赖在 [requirements-export.txt](../requirements-export.txt) 中声明。默认的“当前窗口像素”沿用窗口捕获：固定画幅裁出严格对应 16:9、9:16 或 1:1 的图片，原始画幅沿用原有范围。捕获前临时隐藏安全区参考线，成功或失败后都应恢复其预览状态。25、26 的固定画幅另外支持 1080 / 2160 高清重绘，具体输出尺寸见 [导出指南](EXHIBITION_GUIDE.md#png-保存什么)。导出尺寸属于面板状态，不加入配方参数；原始画幅不能进入高清流程。用户图片默认保存在被 Git 忽略的 `exports/`。
+
+高清流程位于 [高清导出.py](../社团展示/高清导出.py)：主线程在文件对话框前调用 `freeze_artwork(app)`，记录当前场景的几何、参数、动画进度与字体缩放；它不推进动画、不重置随机数，也不修改正在运行的场景。`ExportJob(snapshot, path, resolution)` 在后台执行 `render_snapshot()` 与保存，通过 `poll()` 回传结果，工作线程不得调用 Tk。扩展支持作品时，要检查场景的 `frame(0)` 是否会修改共享对象；当前的场景副本与绘图记录器只针对 25、26 的行为实现。
+
+[离屏绘制.py](../社团展示/离屏绘制.py) 提供可独立测试的 `render_commands(commands, view, size, *, font_paths, font_scale=4/3, cancel=None)`，接收按顺序排列的图形指令，在目标尺寸的两倍分辨率绘制后缩小。它不需要 Tk 窗口或屏幕捕获，Pillow 在实际绘制时才导入。应用入口目前支持 Windows，并检查微软雅黑字体；Pillow 与 Tk 的文字和抗锯齿差异不应被描述为逐像素一致，也不能把最终 PNG 宣称为 SVG 矢量文件。
+
+高清 PNG 保存 `Recipe`、`Animation` 与 `Resolution` 元数据，当前 UI 仍只支持载入 JSON 配方。面板关闭和取消按钮都应通知后台任务取消，绘制和保存都需要检查取消信号。保存经临时文件完成后原子替换目标；失败或取消应清理临时文件并保留已有目标。改动保存流程后，检查这些行为及面板关闭后没有遗留 Tk 回调；改动截图边界后，实际检查所有画幅、窗口尺寸、面板遮挡、隐藏说明与最小化提示。
 
 ## 更新展示图片
 
@@ -56,6 +62,7 @@ python tools/render_media.py --originals --gif --compose
 python tools/render_media.py --social --compose
 python tools/render_media.py --creator
 python tools/render_media.py --aspects
+python tools/render_media.py --hd
 ```
 
 抓取运行画面需要可用的桌面显示；仅重新排版已有截图时可使用 `python tools/render_media.py --compose`。更新后检查生成图片中的文字、构图和 GIF 播放效果。预览中的温柔便签为原文排版示意，月饼计算展示实际程序输出；其他原作使用运行截图。
@@ -82,7 +89,15 @@ python -m unittest discover -s tests -v
 
 [自动检查流程](../.github/workflows/checks.yml) 使用同一组命令，并检查 Python 文件能否编译、网页目录是否与源目录一致。测试使用模拟窗口检查逻辑，仍需实际观察画面和操作；环境检查本身不会打开 GUI。
 
-常规六组系统 / Python 检查保持仅标准库；另有一个 Windows 任务安装可选 Pillow，验证 PNG 编码、元数据和原子保存。新增导出逻辑应同时在有、无 Pillow 的环境检查，不能让普通作品因缺少可选依赖而无法运行。
+常规六组系统 / Python 检查保持仅标准库；另有一个 Windows 任务安装可选 Pillow，验证 PNG 编码、图形重绘、快照、元数据和原子保存。新增导出逻辑应同时在有、无 Pillow 的环境检查，不能让普通作品因缺少可选依赖而无法运行。
+
+高清导出的窗口无关检查分别位于 `test_redraw.py`（快照、尺寸与后台任务）、`test_raster.py`（图形渲染与可选依赖）和 `test_hires_ui.py`（对话框前固定画面、取消与面板关闭）。可用以下命令独立运行；涉及 Pillow 或字体的检查需要相应可选依赖，不能用无窗口测试替代真实窗口的视觉检查。
+
+```bash
+python -m unittest discover -s tests -p test_redraw.py -v
+python -m unittest discover -s tests -p test_raster.py -v
+python -m unittest discover -s tests -p test_hires_ui.py -v
+```
 
 画幅题字另有可选的真实 Tk 字体边界检查，常规无窗口测试会跳过它。在可用桌面上用 PowerShell 执行以下命令，检查两件作品在最小窗口和较大窗口中的 6% 安全区与文字间距：
 
