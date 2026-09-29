@@ -61,7 +61,7 @@
       ],
       "creation": false,
       "autoplay": false,
-      "web_play": null,
+      "web_play": "play/kaleidoscope.html",
       "preview": "assets/exhibits/03.png",
       "source": "https://github.com/zjh-b/turtle-gallery/blob/main/%E7%A4%BE%E5%9B%A2%E5%B1%95%E7%A4%BA/03_%E9%BC%A0%E6%A0%87%E4%B8%87%E8%8A%B1%E7%AD%92.py"
     },

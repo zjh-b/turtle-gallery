@@ -1,0 +1,53 @@
+<!doctype html>
+<html lang="zh-CN">
+<head>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <meta name="theme-color" content="#0b1518">
+  <meta name="description" content="拖动一笔，让对称开出一朵花。海龟画廊在线万花筒：调整旋转份数、三套配色、整笔撤销，保存自己的 PNG 图案。">
+  <meta property="og:title" content="一笔生花 · 海龟画廊在线万花筒">
+  <meta property="og:description" content="旋转与镜像，把你的一笔变成一朵花。无需安装，画好即可保存。">
+  <meta property="og:image" content="https://zjh-b.github.io/turtle-gallery/assets/exhibits/03.png">
+  <meta property="og:type" content="website">
+  <title>一笔生花 · 海龟画廊在线万花筒</title>
+  <link rel="canonical" href="https://zjh-b.github.io/turtle-gallery/play/kaleidoscope.html">
+  <link rel="icon" type="image/svg+xml" href="../assets/favicon.svg">
+  <link rel="stylesheet" href="../gallery.css">
+  <link rel="stylesheet" href="fireworks.css">
+  <link rel="stylesheet" href="kaleidoscope.css">
+  <script type="module" src="kaleidoscope.js"></script>
+</head>
+<body class="kaleidoscope-page">
+  <a class="skip-link" href="#play-controls">跳到创作控制</a>
+  <header class="site-header"><div class="header-inner shell"><a class="brand" href="../index.html">Turtle Gallery<small>海龟画廊 / 在线创作</small></a><nav aria-label="主导航"><a href="fireworks.html">放烟花</a><a href="../index.html#gallery">返回画廊</a></nav></div></header>
+  <main class="shell play-main">
+    <section aria-labelledby="play-title">
+      <div class="play-heading"><div><p class="eyebrow">03 / SYMMETRY IN BLOOM</p><h1 id="play-title">一笔，<span>生花。</span></h1></div><p>画下一条线，<br>看它在每个方向回应你。</p></div>
+      <div class="play-layout kaleido-layout">
+        <div class="play-stage">
+          <div class="play-topline"><span>旋转 · 镜像 · 你的笔迹</span><span>CREATIVE CANVAS / 03</span></div>
+          <div class="canvas-wrap"><img id="kaleidoscope-fallback" src="../assets/exhibits/03.png" alt="桌面万花筒预览：层层花瓣在圆形边框内形成对称纹样" width="800" height="464"><canvas id="kaleidoscope-canvas" width="560" height="560" tabindex="0" role="img" aria-label="万花筒创作画布，先点击开始手绘，再在圆内拖动画笔" aria-describedby="canvas-help" hidden>浏览器暂不支持绘画，可以查看静态预览或下载 Python 作品。</canvas><p id="draw-hint" hidden>在圆内画一笔<br><small>你的线条会同时旋转与镜像</small></p></div>
+          <div class="play-caption"><p id="play-status" role="status" aria-live="polite">正在准备画笔，也可以先欣赏静态预览。</p><span id="stroke-count" class="canvas-note">灵感示例</span></div>
+          <p id="canvas-help" class="canvas-help">开始手绘后在圆内拖动；结束手绘后可在画布上滑动页面。改变份数与配色会更新整幅图案。</p>
+          <noscript><p class="play-fallback-note">开启 JavaScript 即可创作；下方仍可查看源码与下载作品。</p></noscript>
+        </div>
+        <fieldset id="play-controls" class="play-controls" disabled>
+          <legend>设计你的纹样</legend>
+          <label for="symmetry">对称份数 <span>ROTATION</span></label>
+          <select id="symmetry"><option>3</option><option>4</option><option>5</option><option>6</option><option>7</option><option>8</option><option>9</option><option selected>10</option><option>11</option><option>12</option><option>13</option><option>14</option><option>15</option><option>16</option></select>
+          <label for="palette">配色 <span>PALETTE</span></label>
+          <select id="palette"><option value="0">柔彩 · 花间渐变</option><option value="1">青瓷 · 薄荷微光</option><option value="2">落日 · 暖金珊瑚</option></select>
+          <button id="draw-mode" class="play-primary" type="button" aria-pressed="false">开始手绘 ↗</button>
+          <div class="play-toggles"><button id="undo" type="button" disabled>撤销一笔</button><button id="clear" type="button">清空画布</button></div>
+          <button id="example" type="button">换回示例</button>
+          <button id="save-png" type="button">保存 PNG ↓</button>
+          <div class="drawing-note"><p>一笔，同时走向多个方向。</p><p>先试试短短的弧线，再换成 6 或 12 份对称。也可直接调整示例，保存自己喜欢的配色。</p></div>
+          <p class="control-note">保存为 1080 × 1080 图片，不含控制面板。画作仅在当前页面保留，刷新前记得保存。</p>
+        </fieldset>
+      </div>
+    </section>
+    <section class="play-notes" aria-label="创作提示"><div><p class="eyebrow">A LITTLE LINE, MANY POSSIBILITIES</p><h2>对称，让一笔拥有很多种可能。</h2><p>同一条曲线先做镜像，再绕圆心旋转。每次换一个角度、留一处空白，都能长出不同的纹样。</p><div class="play-links"><a href="https://github.com/zjh-b/turtle-gallery/blob/main/%E7%A4%BE%E5%9B%A2%E5%B1%95%E7%A4%BA/03_%E9%BC%A0%E6%A0%87%E4%B8%87%E8%8A%B1%E7%AD%92.py">打开 Python 源码 ↗</a><a href="fireworks.html">再放一束烟花 →</a></div></div><details class="keyboard-help"><summary>键盘、触摸与保存</summary><p>Tab 可逐个访问控制按钮与选择框。不用画笔也能调整示例的份数和配色，保存新的图案。</p><p>绘画模式内，单指或鼠标拖动即可画线；第二个触点、移出圆形边界、失焦或切换页面会取消尚未完成的一笔。已完成的笔迹保留。</p><p>最多 60 笔、2400 个点，每笔最多 400 点。达到上限后可撤销或清空；不会自动删掉旧笔迹。“换回示例”会替换当前手绘。图片由浏览器在本地生成并下载。</p></details></section>
+  </main>
+  <footer class="site-footer shell"><p>把一条线，画成自己的花。</p><a href="../index.html">回到海龟画廊 →</a></footer>
+</body>
+</html>

@@ -76,7 +76,7 @@ python tools/export_gallery.py
 python -m http.server 8000 --bind 127.0.0.1 --directory docs
 ```
 
-用浏览器访问 `http://127.0.0.1:8000`，检查搜索、分类、手机宽度、预览图、源码链接和启动命令复制，以及首页和 01 作品卡上的试玩入口。网页通过 HTTP 加载 `gallery.json`，请使用本地服务器预览。GitHub Pages 使用 `main` 分支的 `/docs` 目录。
+用浏览器访问 `http://127.0.0.1:8000`，检查搜索、分类、手机宽度、预览图、源码链接和启动命令复制，以及首页和 01、03 作品卡上的试玩入口。网页通过 HTTP 加载 `gallery.json`，请使用本地服务器预览。GitHub Pages 使用 `main` 分支的 `/docs` 目录。
 
 ### 维护在线烟花
 
@@ -106,6 +106,38 @@ python tools/check_browser.py --browser chromium
 
 改动后检查点击与键盘、配色、暂停和重置、减少动态效果、后台停止绘制、尺寸与 DPI 变化，以及配置加载失败时的静态预览。触摸检查需覆盖滑动、取消、多点触摸和移出画布，避免滚动时误发射。自动检查包含移动设备模拟；手机实机报告应另记设备、系统、浏览器版本和实际操作结果。
 
+### 维护在线万花筒
+
+本地入口为 `http://127.0.0.1:8000/play/kaleidoscope.html`，用户玩法见[一笔生花说明](BROWSER_PLAY.md#03-一笔生花)。页面使用原生 JavaScript 模块和 Canvas，无需 `npm install`、构建步骤或第三方浏览器运行库；通过上面的 HTTP 服务器预览。
+
+[万花筒参数.py](../社团展示/万花筒参数.py) 提供桌面与网页共用的画幅、半径、对称份数范围和 `mirror_points(points, count)` 旋转镜像公式。修改后执行 `python tools/export_gallery.py`，更新并提交 `docs/gallery.json`、`docs/play/fireworks-config.json` 和 `docs/play/kaleidoscope-config.json` 中的相应变化。万花筒配置包含数量上限和固定公式样例，供 JavaScript 模型与 Python 结果比较；调整公式时也应验证桌面作品原有的镜像坐标。
+
+`docs/play/kaleidoscope-model.js` 管理笔画、示例、参数与数量上限，`kaleidoscope-view.js` 共用同一绘制函数生成预览和 PNG，`kaleidoscope.js` 管理绘画模式、输入与下载。使用 Node 24 的内置测试同时检查烟花与万花筒模型：
+
+```bash
+node --test tests/web/*.test.mjs
+```
+
+可选浏览器检查沿用 `requirements-browser.txt`，工具自行启动临时本地服务器，截图、PNG 与结果写入 `.work/kaleidoscope/`。Windows 默认使用已安装的 Edge：
+
+```bash
+python -m pip install -r requirements-browser.txt
+python tools/check_kaleidoscope.py
+```
+
+也可安装 Playwright 管理的 Chromium 后指定浏览器：
+
+```bash
+python -m playwright install chromium
+python tools/check_kaleidoscope.py --browser chromium
+```
+
+检查首次静态示例、3–16 份对称、三种配色、整笔撤销，以及 60 笔、合计 2400 点、每笔 400 点的上限。进入手绘只清除示例，重新进入时保留已有手绘；“清空”和“换回示例”直接替换当前作品。确认圆形越界、第二触点、系统取消、失焦和页面隐藏会取消当前未完成的一笔，已完成笔迹保留；退出绘画模式后恢复滚动与缩放。下载的 PNG 应为 1080 × 1080，含作品和边框，并检查实际图像内容。还应检查键盘操作、窄屏布局、01 / 03 互访入口，以及无脚本或配置加载失败时的静态预览与源码入口。
+
+移动设备模拟仅用于复现触摸流程，不能作为实体手机验收；实机记录应包含设备、系统、浏览器版本，以及绘画、滚动、横竖屏切换和后台返回的结果。
+
+绘图层为每个画布缓存一张已完成笔迹底图；当前一笔单独叠加。已完成的点列按不可变数据使用，修改参数、完成或撤销笔画、清空、换回示例、调整画布尺寸时更新缓存。浏览器检查的 `render-cache` 组比较缓存与新画布的图像结果，并确认拖动时不会再次逐点描绘全部历史。像素比较使用 PNG 快照，避免频繁读取 `getImageData` 触发浏览器绘制方式变化。
+
 ## 验证改动
 
 提交前运行环境检查与现有测试，再直接体验改动涉及的作品：
@@ -115,7 +147,7 @@ python run.py --check
 python -m unittest discover -s tests -v
 ```
 
-[自动检查流程](../.github/workflows/checks.yml) 使用同一组命令，并检查 Python 文件能否编译、`docs/gallery.json` 与 `docs/play/fireworks-config.json` 是否与源数据一致。独立的 Node 24 任务运行烟花模型测试。Python 测试使用模拟窗口检查逻辑，仍需实际观察画面和操作；环境检查本身不会打开 GUI。
+[自动检查流程](../.github/workflows/checks.yml) 使用同一组命令，并检查 Python 文件能否编译，以及 `docs/gallery.json`、`docs/play/fireworks-config.json`、`docs/play/kaleidoscope-config.json` 是否与源数据一致。独立的 Node 24 任务通过 `node --test tests/web/*.test.mjs` 运行烟花与万花筒模型测试。Python 测试使用模拟窗口检查逻辑，仍需实际观察画面和操作；环境检查本身不会打开 GUI。
 
 常规六组系统 / Python 检查保持仅标准库；另有一个 Windows 任务安装可选 Pillow，验证 PNG 编码、图形重绘、快照、元数据和原子保存。新增导出逻辑应同时在有、无 Pillow 的环境检查，不能让普通作品因缺少可选依赖而无法运行。
 

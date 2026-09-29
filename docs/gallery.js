@@ -86,7 +86,7 @@
     copy.setAttribute("aria-label", "复制「" + work.title + "」运行命令");
     actions.append(source, copy);
     if (work.web_play) {
-      const play = element("a", "browser-play-link", "在线放烟花 ↗");
+      const play = element("a", "browser-play-link", "在线试玩 ↗");
       play.href = work.web_play;
       play.setAttribute("aria-label", "在线试玩「" + work.title + "」");
       actions.prepend(play);

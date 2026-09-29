@@ -1,0 +1,22 @@
+.kaleidoscope-page .play-heading, .kaleidoscope-page .play-layout, .kaleidoscope-page .play-notes { max-width: 1000px; margin-inline: auto; }
+.kaleidoscope-page .play-heading h1 span { color: #dab4ec; }
+.kaleido-layout { grid-template-columns: minmax(0,640px) 268px; gap: 32px; }
+.kaleidoscope-page .canvas-wrap { aspect-ratio: 1; background: #0d1125; }
+.kaleidoscope-page .canvas-wrap img { object-fit: contain; }
+#kaleidoscope-canvas { touch-action: pan-y pinch-zoom; cursor: default; }
+#kaleidoscope-canvas.is-drawing { touch-action: none; cursor: crosshair; }
+#draw-hint { position: absolute; top: 50%; left: 50%; transform: translate(-50%,-50%); color: #c4b4d5; text-align: center; font-size: 17px; pointer-events: none; width: 80%; }
+#draw-hint small { color: #9b90b0; font-size: 11px; }
+#draw-mode[aria-pressed="true"] { background: #dab4ec; border-color: #dab4ec; }
+#save-png { color: var(--mint); border-color: #70967e; margin-top: 9px; }
+.drawing-note { border-top: 1px solid var(--line); padding-top: 20px; margin-top: 15px; }
+.drawing-note p { font-size: 12px; margin-bottom: 8px; }
+.drawing-note p:first-child { color: #dab4ec; }
+@media (max-width: 1000px) {
+  .kaleido-layout { grid-template-columns: minmax(0,1fr); max-width: 640px!important; }
+  .kaleidoscope-page .play-controls label[for="symmetry"] { grid-area: 1 / 1; }
+  .kaleidoscope-page #symmetry { grid-area: 2 / 1; }
+  .kaleidoscope-page #draw-mode, .kaleidoscope-page .drawing-note { grid-column: 1 / -1; }
+  .kaleidoscope-page .play-toggles { grid-column: 1 / -1; }
+  .kaleidoscope-page #save-png { margin-top: 0; }
+}

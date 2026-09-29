@@ -1,0 +1,89 @@
+{
+  "checked_at": "2026-09-29T06:50:52.598914+00:00",
+  "browser": "msedge",
+  "mobile_scope": "Chromium device emulation; no physical-device claim",
+  "checks": [
+    {
+      "name": "desktop",
+      "status": "passed",
+      "seconds": 2.44
+    },
+    {
+      "name": "lifecycle",
+      "status": "passed",
+      "seconds": 2.05
+    },
+    {
+      "name": "render-cache",
+      "status": "passed",
+      "seconds": 0.95
+    },
+    {
+      "name": "mobile",
+      "status": "passed",
+      "seconds": 2.36
+    },
+    {
+      "name": "limits",
+      "status": "passed",
+      "seconds": 1.61
+    },
+    {
+      "name": "fallback",
+      "status": "passed",
+      "seconds": 2.36
+    },
+    {
+      "name": "gallery",
+      "status": "passed",
+      "seconds": 0.95
+    }
+  ],
+  "browser_version": "154.0.4258.37",
+  "platform": "Windows",
+  "python": "3.12.4",
+  "method": "tools/check_kaleidoscope.py over a local Python HTTP server, headless Edge and native CDP touch emulation.",
+  "coverage": {
+    "desktop": "Static initial example; 3/16 symmetry; three palettes; mouse drawing; whole-stroke undo; clear; keyboard controls; 1080x1080 PNG dimensions and nonblank decoded content.",
+    "lifecycle": "Pointer cancel, circle exit, blur, hidden page, pagehide, resize and parameter changes discard only the unfinished stroke; idle drawing schedules no frames.",
+    "render_cache": "Reused and fresh canvases produce identical PNGs across parameter changes, same-count stroke replacement, active/cancelled strokes, undo, resize and example. Warm drawing traces fewer than half as many line segments as a fresh draw.",
+    "mobile": "390x844 DPR3 and 844x390 Chromium emulation; DPR2 cap; scroll before/after drawing; single-finger drawing; tap without a stroke; system cancellation; second-finger cancellation and subsequent drawing.",
+    "limits": "60 complete strokes fit; excess input preserves old work and shows guidance; undo releases capacity. Node tests cover total and per-stroke point budgets.",
+    "fallback": "No JavaScript, unavailable config and unavailable Canvas retain preview, disabled controls and source links.",
+    "gallery": "28 works; home and artwork03 card open the playable page; reciprocal links between fireworks and kaleidoscope."
+  },
+  "other_checks": {
+    "node_model_tests": {
+      "total": 24,
+      "passed": 24,
+      "kaleidoscope": 13,
+      "fireworks": 11
+    },
+    "python_suite": {
+      "run": 152,
+      "passed": 151,
+      "skipped": 1,
+      "skip_reason": "Optional existing Tk font-boundary desktop check was not enabled."
+    },
+    "fireworks_browser_regression": "6/6 groups passed after adding the navigation link.",
+    "desktop_formula": "Two Python tests verify cardinal coordinates and unchanged desktop scale, y direction and line style; Node geometry matches generated Python fixtures.",
+    "existing_gallery_smoke": "28 cards, featured/search, controls, GIF and 390px mobile layout passed without JavaScript errors."
+  },
+  "limits": {
+    "max_strokes": 60,
+    "max_points": 2400,
+    "max_stroke_points": 400,
+    "max_dpr": 2,
+    "png_size": [
+      1080,
+      1080
+    ]
+  },
+  "limitations": [
+    "Mobile checks emulate Chromium; physical Android and iOS devices were not tested.",
+    "Safari and Firefox were not tested.",
+    "Browser and desktop share mirror geometry, but their rendering and interfaces differ.",
+    "Test-group seconds describe checker runtime, not rendering performance.",
+    "Drawings are kept only in the current page; users must download PNG before refreshing."
+  ]
+}

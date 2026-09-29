@@ -32,7 +32,7 @@ WORKS = [
           "#A8B8FF", "orbit", ("星系", "宇宙", "solar"), entry_class="Galaxy"),
     _work(3, "一笔生花", "旋转对称 · 镜像手绘 · 三种配色", "03_鼠标万花筒.py", "几何绘画",
           "拖动画画；↑↓ 调整对称份数；P 换色；C 清空；D 自动。", "鼠标的一笔同时出现在多个方向，手绘线条生长成旋转花瓣。",
-          "#EDA7D8", "flower", ("万花筒", "对称", "kaleidoscope"), entry_class="Kaleidoscope"),
+          "#EDA7D8", "flower", ("万花筒", "对称", "kaleidoscope"), entry_class="Kaleidoscope", web_play="play/kaleidoscope.html"),
     _work(4, "清浅荷塘", "锦鲤摆尾 · 鱼群避让 · 点击投喂", "04_互动鱼塘.py", "风景动画",
           "点击水面投喂；F 添加锦鲤，最多 14 尾。", "荷花、涟漪和锦鲤组成一池小景，鱼群会追逐食物并避开同伴。",
           "#9BD9B7", "fish", ("鱼塘", "锦鲤", "pond"), entry_class="Pond"),

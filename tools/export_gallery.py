@@ -28,6 +28,21 @@ def export_fireworks():
     print("Exported shared fireworks formulas to docs/play/fireworks-config.json")
 
 
+def export_kaleidoscope():
+    """Keep browser mirror geometry and its numerical fixtures in sync."""
+    sys.path.insert(0, str(ROOT / "社团展示"))
+    from 万花筒参数 import MAX_COUNT, MIN_COUNT, RADIUS, VIEW, mirror_points
+    points = [(10, 20), (-30, 40), (122, -72)]
+    data = dict(version=1, view=VIEW, radius=RADIUS, min_count=MIN_COUNT, max_count=MAX_COUNT,
+                max_strokes=60, max_points=2400, max_stroke_points=400,
+                fixtures=[dict(points=points, count=count, result=mirror_points(points, count))
+                          for count in (3, 4, 10, 16)])
+    destination = ROOT / "docs/play/kaleidoscope-config.json"
+    destination.parent.mkdir(exist_ok=True)
+    destination.write_text(json.dumps(data, ensure_ascii=False, indent=2) + "\n", encoding="utf-8")
+    print("Exported shared kaleidoscope geometry to docs/play/kaleidoscope-config.json")
+
+
 def main():
     sys.path.insert(0, str(ROOT))
     from run import catalog
@@ -46,6 +61,7 @@ def main():
     destination.write_text(json.dumps(data, ensure_ascii=False, indent=2) + "\n", encoding="utf-8")
     print(f"Exported {len(works)} works to docs/gallery.json")
     export_fireworks()
+    export_kaleidoscope()
 
 
 if __name__ == "__main__":

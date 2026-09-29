@@ -6,7 +6,7 @@
 
 14 interactive exhibits · 14 original experiments · Python Turtle / Tkinter
 
-[Play fireworks](https://zjh-b.github.io/turtle-gallery/play/fireworks.html) · [Online gallery](https://zjh-b.github.io/turtle-gallery/) · [中文](README.md) · [Get started](#get-started) · [Explore](#explore-the-gallery) · [Creative guide](docs/CREATIVE_GUIDE.md)
+[Play fireworks](https://zjh-b.github.io/turtle-gallery/play/fireworks.html) · [Draw a kaleidoscope](https://zjh-b.github.io/turtle-gallery/play/kaleidoscope.html) · [Online gallery](https://zjh-b.github.io/turtle-gallery/) · [中文](README.md) · [Get started](#get-started) · [Explore](#explore-the-gallery) · [Creative guide](docs/CREATIVE_GUIDE.md)
 
 [![Project checks](https://github.com/zjh-b/turtle-gallery/actions/workflows/checks.yml/badge.svg)](https://github.com/zjh-b/turtle-gallery/actions/workflows/checks.yml)
 
@@ -16,11 +16,13 @@
 
 Click to grow a spider lily beneath the stars, turn a brush stroke into a kaleidoscope, or watch a recursive tree move through four seasons. Turtle Gallery brings together animated scenes, small games and the original drawings and experiments that started the collection.
 
-Made for club demonstrations, learning Python and trying out visual ideas. The artwork is drawn by code at runtime. **Running works, saving recipes and touring need only the Python standard library**, with no downloaded art assets or network connection. Optional PNG export requires Pillow.
+Made for club demonstrations, learning Python and trying out visual ideas. The artwork is drawn by code at runtime. **Running desktop works, saving recipes and touring need only the Python standard library**, with no downloaded art assets or network connection. Optional desktop PNG export requires Pillow.
 
 **[Play fireworks in your browser →](https://zjh-b.github.io/turtle-gallery/play/fireworks.html)** No installation needed. Click or tap the sky, choose from four shapes and palettes, or use the keyboard. The page opens with a still scene; automatic play is off until you enable it. Pause, reset and reduced motion controls are included. With the canvas focused, use Enter to launch, F for a finale, Space to pause, A for automatic play and R to reset. [Full guide in Chinese →](docs/BROWSER_PLAY.md)
 
-[Browse the online gallery](https://zjh-b.github.io/turtle-gallery/) to search, filter and explore every work on desktop or mobile. Only artwork 01 currently supports browser play; the other works have previews. Download the project to run all 28 Python programs on your computer.
+**[Draw a kaleidoscope in your browser →](https://zjh-b.github.io/turtle-gallery/play/kaleidoscope.html)** A Stroke in Bloom opens with a still example flower. Select “开始手绘” (Start drawing) to clear the example and draw with a mouse, pen or one finger. Returning to drawing mode keeps your existing strokes. Choose 3–16 symmetry segments and three palettes, undo a whole stroke, clear the canvas or replace it with the example. Download a 1080 × 1080 PNG directly in your browser, with no extra dependencies or image upload. Exit drawing mode to scroll over the canvas again. The work only changes when you interact; there is no automatic animation. [Full guide in Chinese →](docs/BROWSER_PLAY.md#03-一笔生花)
+
+[Browse the online gallery](https://zjh-b.github.io/turtle-gallery/) to search, filter and explore every work on desktop or mobile. Artworks 01 (fireworks) and 03 (kaleidoscope) support browser play; the other works have previews. Download the project to run all 28 Python programs on your computer.
 
 ## Get started
 
@@ -72,7 +74,7 @@ These ten exhibits and the four above make up the 14 interactive works.
 | --- | --- | --- |
 | 01 | [Light Up the Night](社团展示/01_点击烟花.py) · [Play online](https://zjh-b.github.io/turtle-gallery/play/fireworks.html) | Click for fireworks; on desktop, C changes the pattern and F launches a five-rocket finale |
 | 02 | [Pocket Universe](社团展示/02_旋转星系.py) | Select planets, inspect rings and moons, change speed with ↑↓ |
-| 03 | [A Stroke in Bloom](社团展示/03_鼠标万花筒.py) | Drag to draw mirrored patterns; P changes colors, D toggles automatic drawing |
+| 03 | [A Stroke in Bloom](社团展示/03_鼠标万花筒.py) · [Play online](https://zjh-b.github.io/turtle-gallery/play/kaleidoscope.html) | Draw mirrored patterns; undo and download PNG in the browser; on desktop, P changes colors and D toggles automatic drawing |
 | 04 | [Quiet Koi Pond](社团展示/04_互动鱼塘.py) | Click to feed koi and watch them steer around one another |
 | 05 | [Catch the Starlight](社团展示/05_接住星星.py) | Move with arrow keys; M toggles mouse control |
 | 06 | [A Tree, Four Seasons](社团展示/06_四季分形树.py) | Choose a season with 1–4; G regrows the recursive branches |
@@ -136,4 +138,4 @@ Start by changing the heart's fill color in [xin.py](xin.py), or compare the [or
 
 For code entry points and small experiments, see the [creative guide](docs/CREATIVE_GUIDE.md). To add a work or report a problem, see [contributing](docs/CONTRIBUTING.md) and [Issues](https://github.com/zjh-b/turtle-gallery/issues). These detailed guides are currently in Chinese.
 
-The [development roadmap](docs/ROADMAP.md) records completed and planned work with acceptance criteria. M1 provides creation panels, saved recipes and refined lily rendering. M2 is in progress with exhibition playlists, PNG snapshots, three aspect ratios and high resolution redraw; a full uninterrupted ten minute tour check and video export are still pending. M3 now includes browser fireworks. Physical phone validation is still pending; mobile browser emulation does not complete that check.
+The [development roadmap](docs/ROADMAP.md) records completed and planned work with acceptance criteria. M1 provides creation panels, saved recipes and refined lily rendering. M2 is in progress with exhibition playlists, PNG snapshots, three aspect ratios and high resolution redraw; a full uninterrupted ten minute tour check and video export are still pending. M3 now includes browser fireworks and kaleidoscope drawing; artwork 26 is still pending. Physical phone validation, Safari and Firefox checks are still pending; mobile browser emulation does not complete phone validation.

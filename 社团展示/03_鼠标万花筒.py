@@ -3,6 +3,7 @@ import math
 from collections import deque
 
 from 舞台 import Paint, Stage, hsv, mix, polar
+from 万花筒参数 import mirror_points
 
 
 class Kaleidoscope:
@@ -96,16 +97,10 @@ class Kaleidoscope:
         a, b, color, count = stroke
         scale = self.stage.scale
         items = []
-        for i in range(count):
-            angle = i * math.tau / count
-            c, s = math.cos(angle), math.sin(angle)
-            for mirror in (-1, 1):
-                coords = []
-                for x, y in (a, b):
-                    coords.extend(((x * c - y * mirror * s) * scale,
-                                   -(x * s + y * mirror * c) * scale))
-                items.append(self.stage.canvas.create_line(*coords, fill=color, width=max(1, 1.5 * scale),
-                                                           capstyle="round", tags=("ink",)))
+        for points in mirror_points((a, b), count):
+            coords = [value for x, y in points for value in (x * scale, -y * scale)]
+            items.append(self.stage.canvas.create_line(*coords, fill=color, width=max(1, 1.5 * scale),
+                                                       capstyle="round", tags=("ink",)))
         self.ink.append(items)
 
     def petal(self, p, angle, inner, outer, spread, color):
