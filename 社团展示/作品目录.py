@@ -8,13 +8,13 @@ CATEGORIES = ("全部主题", "风景动画", "几何绘画", "趣味挑战", "�
 
 def _work(number, title, subtitle, filename, category, controls, description,
           accent="#7FE3CF", motif="orbit", tags=(), console=False, collection="interactive", featured=False,
-          entry_class=None, creation=False, autoplay=False):
+          entry_class=None, creation=False, autoplay=False, web_play=None):
     original = collection == "original"
     return {
         "id": number, "number": f"{number:02d}", "title": title, "subtitle": subtitle,
         "filename": filename if original else "社团展示/" + filename,
         "collection": collection, "featured": featured,
-        "entry_class": entry_class, "creation": creation, "autoplay": autoplay,
+        "entry_class": entry_class, "creation": creation, "autoplay": autoplay, "web_play": web_play,
         "category": category, "controls": controls, "description": description,
         "accent": accent, "motif": motif, "console": console,
         "preview": (f"docs/assets/originals/{number:02d}.png" if original else
@@ -26,7 +26,7 @@ def _work(number, title, subtitle, filename, category, controls, description,
 WORKS = [
     _work(1, "把夜空点亮", "烟花齐放 · 四种花型 · 湖面倒影", "01_点击烟花.py", "风景动画",
           "点击发射；A 自动；C 切换花型；F 烟花齐放。", "从升空拖尾，到绽放的爱心与金柳，把城市和湖面一起点亮。",
-          "#F7C887", "fireworks", ("烟花", "粒子", "fireworks"), entry_class="Fireworks"),
+          "#F7C887", "fireworks", ("烟花", "粒子", "fireworks"), entry_class="Fireworks", web_play="play/fireworks.html"),
     _work(2, "口袋里的宇宙", "星球点选 · 行星环 · 公转轨道", "02_旋转星系.py", "风景动画",
           "点击星球查看介绍；↑↓ 调整速度；O 显示/隐藏轨道。", "看地球、卫星与带环行星在轨道上运行；大小与距离采用艺术化比例。",
           "#A8B8FF", "orbit", ("星系", "宇宙", "solar"), entry_class="Galaxy"),

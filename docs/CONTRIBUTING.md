@@ -76,7 +76,35 @@ python tools/export_gallery.py
 python -m http.server 8000 --bind 127.0.0.1 --directory docs
 ```
 
-用浏览器访问 `http://127.0.0.1:8000`，检查搜索、分类、手机宽度、预览图、源码链接和启动命令复制。网页通过 HTTP 加载 `gallery.json`，请使用本地服务器预览。GitHub Pages 使用 `main` 分支的 `/docs` 目录。
+用浏览器访问 `http://127.0.0.1:8000`，检查搜索、分类、手机宽度、预览图、源码链接和启动命令复制，以及首页和 01 作品卡上的试玩入口。网页通过 HTTP 加载 `gallery.json`，请使用本地服务器预览。GitHub Pages 使用 `main` 分支的 `/docs` 目录。
+
+### 维护在线烟花
+
+本地入口为 `http://127.0.0.1:8000/play/fireworks.html`，用户玩法见[在线烟花说明](BROWSER_PLAY.md)。页面采用原生 JavaScript 模块和 Canvas，不需要 `npm install`、构建步骤或浏览器第三方库。配置通过同源请求加载，请勿直接用 `file://` 打开。
+
+[烟花参数.py](../社团展示/烟花参数.py) 是桌面烟花常量、粒子初速和阻力轨迹公式的共同来源。修改参数后运行 `python tools/export_gallery.py`，同时提交 `docs/gallery.json` 与 `docs/play/fireworks-config.json` 的相应变化。后者包含固定公式样例，供浏览器模型测试比较；随机分布和绘制细节无需与 Python 逐帧一致。
+
+`docs/play/` 中的 `fireworks-model.js` 管理状态与运动，`fireworks-view.js` 绘制画面，`fireworks.js` 管理输入和播放状态。该目录的 `package.json` 仅声明模块类型。使用 Node 24 运行内置测试，无需安装测试包：
+
+```bash
+node --test tests/web/*.test.mjs
+```
+
+可选的真实浏览器检查独立于 Python 作品运行依赖。Windows 默认使用已安装的 Edge，工具自行启动临时本地服务器；截图和结果写入 `.work/browser/`：
+
+```bash
+python -m pip install -r requirements-browser.txt
+python tools/check_browser.py
+```
+
+也可安装 Playwright 管理的 Chromium 后运行：
+
+```bash
+python -m playwright install chromium
+python tools/check_browser.py --browser chromium
+```
+
+改动后检查点击与键盘、配色、暂停和重置、减少动态效果、后台停止绘制、尺寸与 DPI 变化，以及配置加载失败时的静态预览。触摸检查需覆盖滑动、取消、多点触摸和移出画布，避免滚动时误发射。自动检查包含移动设备模拟；手机实机报告应另记设备、系统、浏览器版本和实际操作结果。
 
 ## 验证改动
 
@@ -87,7 +115,7 @@ python run.py --check
 python -m unittest discover -s tests -v
 ```
 
-[自动检查流程](../.github/workflows/checks.yml) 使用同一组命令，并检查 Python 文件能否编译、网页目录是否与源目录一致。测试使用模拟窗口检查逻辑，仍需实际观察画面和操作；环境检查本身不会打开 GUI。
+[自动检查流程](../.github/workflows/checks.yml) 使用同一组命令，并检查 Python 文件能否编译、`docs/gallery.json` 与 `docs/play/fireworks-config.json` 是否与源数据一致。独立的 Node 24 任务运行烟花模型测试。Python 测试使用模拟窗口检查逻辑，仍需实际观察画面和操作；环境检查本身不会打开 GUI。
 
 常规六组系统 / Python 检查保持仅标准库；另有一个 Windows 任务安装可选 Pillow，验证 PNG 编码、图形重绘、快照、元数据和原子保存。新增导出逻辑应同时在有、无 Pillow 的环境检查，不能让普通作品因缺少可选依赖而无法运行。
 

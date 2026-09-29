@@ -1,0 +1,66 @@
+{
+  "checked_at": "2026-09-29T01:43:10.130923+00:00",
+  "browser": "msedge",
+  "mobile_scope": "Chromium device emulation; no physical-device claim",
+  "checks": [
+    {
+      "name": "desktop",
+      "status": "passed",
+      "seconds": 4.67
+    },
+    {
+      "name": "reduced-motion",
+      "status": "passed",
+      "seconds": 3.05
+    },
+    {
+      "name": "lifecycle",
+      "status": "passed",
+      "seconds": 1.95
+    },
+    {
+      "name": "mobile",
+      "status": "passed",
+      "seconds": 2.94
+    },
+    {
+      "name": "fallback",
+      "status": "passed",
+      "seconds": 2.39
+    },
+    {
+      "name": "gallery",
+      "status": "passed",
+      "seconds": 0.95
+    }
+  ],
+  "browser_version": "154.0.4258.37",
+  "platform": "Windows",
+  "python": "3.12.4",
+  "method": "tools/check_browser.py over an unmodified Python SimpleHTTPRequestHandler, headless Edge, native CDP touch emulation.",
+  "coverage": {
+    "desktop": "Static initial view; all controls; canvas-only keyboard shortcuts; pause/reset; responsive resize.",
+    "reduced_motion": "System preference on initial load; four shape/palette combinations; static clicks/finale; toggle while playing.",
+    "lifecycle": "Visibility and pagehide/pageshow transitions; preserve manual pause; no duplicate animation frame chains after rapid toggles.",
+    "mobile": "390x844 DPR3 and 844x390 emulation; backing store capped at DPR2; tap, touch cancel, multi-touch, vertical scroll and long press.",
+    "fallback": "No JavaScript, missing config and unavailable Canvas retain preview and source links with controls disabled.",
+    "gallery": "28 cards; home and artwork01 card both open the playable page."
+  },
+  "other_checks": {
+    "node_model_tests": 11,
+    "python_suite": {
+      "run": 150,
+      "passed": 149,
+      "skipped": 1,
+      "skip_reason": "Optional existing Tk font-boundary desktop check was not enabled in this run."
+    },
+    "desktop_formula_review": "12 seeded bursts across all four shapes and 4032 trajectory evaluations equal original desktop code.",
+    "existing_gallery_smoke": "Featured/search, desktop controls, GIF and mobile layout pass."
+  },
+  "limitations": [
+    "Mobile checks emulate Chromium; physical Android and iOS phones were not tested.",
+    "Safari and Firefox were not tested.",
+    "Browser and Python share formulas but use different random generators and rendering; pixel identity is not claimed.",
+    "Test-group seconds describe checker runtime, not rendering performance."
+  ]
+}

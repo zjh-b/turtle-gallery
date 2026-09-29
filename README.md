@@ -6,7 +6,7 @@
 
 14 款互动展品 · 14 个创意原作 · 一个可以逛、可以玩、可以改的代码画廊
 
-[在线逛画廊](https://zjh-b.github.io/turtle-gallery/) · [English](README.en.md) · [开始体验](#开始体验) · [全部作品](#逛一逛画廊) · [创作指南](docs/CREATIVE_GUIDE.md) · [升级路线](docs/ROADMAP.md)
+[在线放烟花](https://zjh-b.github.io/turtle-gallery/play/fireworks.html) · [在线逛画廊](https://zjh-b.github.io/turtle-gallery/) · [English](README.en.md) · [开始体验](#开始体验) · [全部作品](#逛一逛画廊) · [创作指南](docs/CREATIVE_GUIDE.md) · [升级路线](docs/ROADMAP.md)
 
 [![项目检查](https://github.com/zjh-b/turtle-gallery/actions/workflows/checks.yml/badge.svg)](https://github.com/zjh-b/turtle-gallery/actions/workflows/checks.yml)
 
@@ -18,7 +18,9 @@
 
 适合社团展示、编程入门和创意实验。画面由代码实时绘制，作品、配方和巡展只用 Python 标准库，无需下载素材或连接网络；可选 PNG 导出需另装 Pillow。
 
-**[先在线逛一逛 →](https://zjh-b.github.io/turtle-gallery/)** 支持手机浏览、作品搜索、分类筛选和源码直达。网页展示预览；下载项目后，即可在电脑上运行互动作品。
+**[直接在线放烟花 →](https://zjh-b.github.io/turtle-gallery/play/fireworks.html)** 无需安装，点击或轻触夜空，选择四种花型与配色，也可用键盘操作。首次打开呈现静态烟花，自动表演需手动开启；提供暂停、重置和减少动态效果。[玩法说明 →](docs/BROWSER_PLAY.md)
+
+[在线画廊](https://zjh-b.github.io/turtle-gallery/) 支持手机浏览、作品搜索、分类筛选和源码直达。目前 01 烟花支持在线试玩，其余作品提供预览；下载项目后可在电脑上运行全部 28 款作品。
 
 ## 开始体验
 
@@ -70,7 +72,7 @@ python run.py --check      # 检查环境和作品文件，不打开窗口
 
 | 编号 | 作品 / 源码 | 可以怎么玩 |
 | --- | --- | --- |
-| 01 | [把夜空点亮](社团展示/01_点击烟花.py) | 点击放烟花；C 换花型，F 五束齐放，看湖面倒影 |
+| 01 | [把夜空点亮](社团展示/01_点击烟花.py) · [在线试玩](https://zjh-b.github.io/turtle-gallery/play/fireworks.html) | 点击放烟花；桌面版 C 换花型，F 五束齐放，看湖面倒影 |
 | 02 | [口袋里的宇宙](社团展示/02_旋转星系.py) | 点选星球，观察星环与卫星，↑↓ 调整公转速度 |
 | 03 | [一笔生花](社团展示/03_鼠标万花筒.py) | 拖动画出对称图案，P 换配色，D 切换自动绘画 |
 | 04 | [清浅荷塘](社团展示/04_互动鱼塘.py) | 点击投喂，观察锦鲤摆尾与鱼群避让 |
@@ -134,7 +136,8 @@ python run.py --check      # 检查环境和作品文件，不打开窗口
 
 - [创作面板与配方](docs/CREATION_GUIDE.md)：为彼岸花、粒子爱心调参，保存、分享和恢复自己的构图。
 - [巡展与 PNG 导出](docs/EXHIBITION_GUIDE.md)：设置三作品循环展示，人工接管，再带走当前画面。
-- [升级路线](docs/ROADMAP.md)：M1 已完成；M2 已接入巡展、三种画幅和高清 PNG，短片与在线试玩继续分阶段推进。
+- [在线烟花玩法](docs/BROWSER_PLAY.md)：点击、触摸或键盘放烟花，选择花型与配色。
+- [升级路线](docs/ROADMAP.md)：M1 已完成；M2 已接入巡展、三种画幅和高清 PNG，十分钟连续验收与短片仍待完成；M3 烟花试玩已实现，手机实机验收待完成。
 - [创作指南](docs/CREATIVE_GUIDE.md)：28 款作品的代码入口、原作操作和几个可以立刻动手的改法。
 - [贡献指南](docs/CONTRIBUTING.md)：添加作品、报告问题和提交改进。
 - [Issues](https://github.com/zjh-b/turtle-gallery/issues)：分享运行问题或你想看到的下一个小世界。

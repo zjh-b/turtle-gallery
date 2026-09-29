@@ -3,10 +3,7 @@ import math
 import random
 
 from 舞台 import Paint, Stage, hsv, mix
-
-PALETTES = [("#FFC976", "#FF7B87"), ("#7ADFFF", "#AF9BFF"),
-            ("#FF91CB", "#FFD7F0"), ("#A1F2C9", "#FFE8A8")]
-SHAPES = ("礼花", "星环", "爱心", "金柳")
+from 烟花参数 import PALETTES, PHYSICS, SHAPES, initial_velocity, location
 
 
 class Fireworks:
@@ -58,40 +55,24 @@ class Fireworks:
 
     def launch(self, x, y, kind):
         self.rockets.append(dict(x=x * 0.7, target=(x, y), age=0, kind=kind))
-        self.rockets = self.rockets[-8:]
+        self.rockets = self.rockets[-PHYSICS["rocket_cap"]:]
 
     def burst(self, x, y, kind=None, age=0):
         kind = self.kind if kind is None else kind
         colors = PALETTES[kind]
         self.blooms.append(dict(x=x, y=y, age=age, color=colors[0]))
-        for i in range(84):
-            a = i * math.tau / 84
-            speed = random.uniform(95, 145)
-            vx, vy = math.cos(a) * speed, math.sin(a) * speed
-            if kind == 1:
-                vx *= 1.2
-                vy *= 0.65
-                if i % 3 == 0:
-                    vx *= 0.45
-                    vy *= 0.45
-            elif kind == 2:
-                vx = 9 * 16 * math.sin(a) ** 3
-                vy = 9 * (13 * math.cos(a) - 5 * math.cos(2 * a) - 2 * math.cos(3 * a) - math.cos(4 * a))
-            elif kind == 3:
-                vy = abs(vy) * 1.2
-            elif i % 4 == 0:
-                vx *= 0.55
-                vy *= 0.55
-            self.particles.append(dict(x=x, y=y, vx=vx, vy=vy, age=age, life=random.uniform(1.65, 2.5),
-                                       color=colors[i % 2], gravity=75 if kind == 3 else 46, phase=a))
-        self.particles = self.particles[-600:]
-        self.blooms = self.blooms[-8:]
+        for i in range(PHYSICS["particle_count"]):
+            a = i * math.tau / PHYSICS["particle_count"]
+            speed = random.uniform(PHYSICS["speed_min"], PHYSICS["speed_max"])
+            vx, vy = initial_velocity(kind, i, speed)
+            self.particles.append(dict(x=x, y=y, vx=vx, vy=vy, age=age,
+                                       life=random.uniform(PHYSICS["life_min"], PHYSICS["life_max"]),
+                                       color=colors[i % 2], gravity=PHYSICS["willow_gravity" if kind == 3 else "gravity"], phase=a))
+        self.particles = self.particles[-PHYSICS["particle_cap"]:]
+        self.blooms = self.blooms[-PHYSICS["bloom_cap"]:]
 
     def location(self, particle, age):
-        age = max(0, age)
-        travel = (1 - math.exp(-0.65 * age)) / 0.65
-        return (particle["x"] + particle["vx"] * travel,
-                particle["y"] + particle["vy"] * travel - particle["gravity"] * age * age / 2)
+        return location(particle, age)
 
     def background(self, p):
         w, h = self.stage.view
@@ -124,7 +105,7 @@ class Fireworks:
                 self.timer = random.uniform(0.75, 1.1)
             for rocket in self.rockets[:]:
                 rocket["age"] += dt
-                if rocket["age"] >= 0.85:
+                if rocket["age"] >= PHYSICS["rocket_duration"]:
                     self.burst(*rocket["target"], rocket["kind"])
                     self.rockets.remove(rocket)
             for particle in self.particles:
@@ -132,12 +113,12 @@ class Fireworks:
             for bloom in self.blooms:
                 bloom["age"] += dt
             self.particles = [p for p in self.particles if p["age"] < p["life"]]
-            self.blooms = [b for b in self.blooms if b["age"] < 2.5]
+            self.blooms = [b for b in self.blooms if b["age"] < PHYSICS["bloom_life"]]
         p = self.paint
         p.begin()
         self.background(p)
         for bloom in self.blooms:
-            fade = max(0, 1 - bloom["age"] / 2.5)
+            fade = max(0, 1 - bloom["age"] / PHYSICS["bloom_life"])
             for i in range(15):
                 y = -161 - i * 8
                 width = (12 + i * 2.8) * fade
@@ -146,7 +127,7 @@ class Fireworks:
             if bloom["age"] < 0.3:
                 p.glow(bloom["x"], bloom["y"], 38 * (1 - bloom["age"] / 0.3), bloom["color"], "#10182D", 5)
         for rocket in self.rockets:
-            t = min(1, rocket["age"] / 0.85)
+            t = min(1, rocket["age"] / PHYSICS["rocket_duration"])
             x = rocket["x"] + (rocket["target"][0] - rocket["x"]) * t
             y = -150 + (rocket["target"][1] + 150) * (1 - (1 - t) ** 1.5)
             p.line([(x - 5, y - 42), (x - 2, y - 17), (x, y)], "#786256", 3, True)

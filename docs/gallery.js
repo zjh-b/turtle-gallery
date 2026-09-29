@@ -85,6 +85,12 @@
     copy.dataset.copy = "python run.py --demo " + work.number;
     copy.setAttribute("aria-label", "复制「" + work.title + "」运行命令");
     actions.append(source, copy);
+    if (work.web_play) {
+      const play = element("a", "browser-play-link", "在线放烟花 ↗");
+      play.href = work.web_play;
+      play.setAttribute("aria-label", "在线试玩「" + work.title + "」");
+      actions.prepend(play);
+    }
     body.append(meta, title, element("p", "art-subtitle", work.subtitle), element("p", "art-description", work.description), controls, actions);
     article.append(preview, body);
     return article;
@@ -158,6 +164,7 @@
     return work && Number.isInteger(work.id) && work.id > 0
       && ["interactive", "original"].includes(work.collection)
       && typeof work.featured === "boolean"
+      && (work.web_play == null || /^play\/[a-z0-9-]+\.html$/.test(work.web_play))
       && Array.isArray(work.tags) && work.tags.every(tag => typeof tag === "string")
       && ["number", "title", "subtitle", "category", "controls", "description", "preview", "source"].every(key => typeof work[key] === "string")
       && /^assets\/(exhibits|originals)\/\d{2}\.png$/.test(work.preview)

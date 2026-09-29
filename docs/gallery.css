@@ -803,11 +803,20 @@ nav a:hover {
 
 .art-actions {
   display: flex;
+  flex-wrap: wrap;
   align-items: center;
   justify-content: space-between;
   gap: 10px;
   padding-top: 14px;
   font-size: 10px;
+}
+
+.art-actions .browser-play-link {
+  flex-basis: 100%;
+  color: var(--mint);
+  font-size: 13px;
+  padding-block: 5px;
+  font-weight: 600;
 }
 
 .source-link {

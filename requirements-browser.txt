@@ -1,0 +1,2 @@
+# Optional developer checks only; running the Python gallery needs no browser package.
+playwright>=1.40,<2

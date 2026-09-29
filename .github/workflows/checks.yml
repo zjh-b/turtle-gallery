@@ -30,12 +30,23 @@ jobs:
         run: python run.py --check
       - name: Test without opening windows
         run: python -m unittest discover -s tests -v
-      - name: Check published catalog matches source
+      - name: Check published catalog and fireworks config match source
         run: |
           python tools/export_gallery.py
-          git diff --exit-code -- docs/gallery.json
+          git diff --exit-code -- docs/gallery.json docs/play/fireworks-config.json
       - name: Compile tracked Python sources
         run: python -c "import pathlib, subprocess; paths = subprocess.check_output(['git', 'ls-files', '-z', '*.py']).decode('utf-8').split('\0'); [compile(pathlib.Path(p).read_bytes(), p, 'exec') for p in paths if p]"
+
+  browser-model:
+    name: Browser model / Node 24
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v7
+      - uses: actions/setup-node@v4
+        with:
+          node-version: '24'
+      - name: Test fireworks model with Node built-in runner
+        run: node --test tests/web/*.test.mjs
 
   optional-export:
     name: Windows / optional PNG export

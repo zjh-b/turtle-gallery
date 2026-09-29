@@ -1,0 +1,64 @@
+<!doctype html>
+<html lang="zh-CN">
+<head>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <meta name="theme-color" content="#0b1518">
+  <meta name="description" content="点击夜空，放一束属于你的烟花。海龟画廊在线试玩：四种花型、湖面倒影、自动表演，手机和电脑直接打开。">
+  <meta property="og:title" content="把夜空点亮 · 海龟画廊在线试玩">
+  <meta property="og:description" content="点一下，让烟花在月夜与湖面之间绽放。无需安装，打开就能玩。">
+  <meta property="og:image" content="https://zjh-b.github.io/turtle-gallery/assets/exhibits/01.png">
+  <meta property="og:type" content="website">
+  <title>把夜空点亮 · 海龟画廊在线试玩</title>
+  <link rel="canonical" href="https://zjh-b.github.io/turtle-gallery/play/fireworks.html">
+  <link rel="icon" type="image/svg+xml" href="../assets/favicon.svg">
+  <link rel="stylesheet" href="../gallery.css">
+  <link rel="stylesheet" href="fireworks.css">
+  <script type="module" src="fireworks.js"></script>
+</head>
+<body>
+  <a class="skip-link" href="#play-controls">跳到烟花控制</a>
+  <header class="site-header"><div class="header-inner shell">
+    <a class="brand" href="../index.html">Turtle Gallery<small>海龟画廊 / 在线试玩</small></a>
+    <nav aria-label="主导航"><a href="../index.html#gallery">返回画廊</a><a href="https://github.com/zjh-b/turtle-gallery">GitHub ↗</a></nav>
+  </div></header>
+
+  <main class="shell play-main">
+    <section aria-labelledby="play-title">
+      <div class="play-heading"><div><p class="eyebrow">01 / A SKY OF YOUR OWN</p><h1 id="play-title">把夜空<span>点亮。</span></h1></div><p>给夜空一个坐标，<br>让光在湖面留一会儿。</p></div>
+      <div class="play-layout">
+        <div class="play-stage">
+          <div class="play-topline"><span>月夜 · 城市 · 一束光</span><span>LIVE CANVAS / 01</span></div>
+          <div class="canvas-wrap">
+            <img id="fireworks-fallback" src="../assets/exhibits/01.png" alt="桌面版烟花预览：金色礼花、星环与爱心在城市上空绽放，湖面映出光影" width="800" height="464">
+            <canvas id="fireworks-canvas" width="1020" height="580" tabindex="0" role="img" aria-label="互动烟花画布，点击夜空发射；键盘操作见下方说明" aria-describedby="canvas-help" hidden>当前浏览器无法显示互动烟花，可查看静态预览或下载 Python 作品。</canvas>
+          </div>
+          <div class="play-caption"><p id="play-status" role="status" aria-live="polite">正在准备在线试玩；也可以先欣赏静态预览。</p><span class="canvas-note">无需安装 · 无声烟花</span></div>
+          <p id="canvas-help" class="canvas-help">点击或轻触夜空发射；滑动可继续浏览页面。也可使用控制按钮。</p>
+          <noscript><p class="play-fallback-note">开启 JavaScript 即可在线放烟花；下方仍可查看 Python 源码与下载作品。</p></noscript>
+        </div>
+
+        <fieldset id="play-controls" class="play-controls" disabled>
+          <legend>今晚的烟花</legend>
+          <label for="shape">花型 <span>SHAPE</span></label>
+          <select id="shape"><option value="0">礼花 · 向四面绽放</option><option value="1">星环 · 一圈星光</option><option value="2">爱心 · 浪漫一瞬</option><option value="3">金柳 · 缓缓垂落</option></select>
+          <label for="palette">配色 <span>PALETTE</span></label>
+          <select id="palette"><option value="-1">随花型配色</option><option value="0">暖金与珊瑚</option><option value="1">冰蓝与星紫</option><option value="2">玫瑰与浅粉</option><option value="3">薄荷与月光</option></select>
+          <button id="launch" class="play-primary" type="button">放一束烟花 <span aria-hidden="true">↗</span></button>
+          <button id="finale" type="button">让烟花齐放</button>
+          <div class="play-toggles"><button id="pause" type="button" aria-pressed="true">播放动画</button><button id="auto" type="button" aria-pressed="false">自动表演</button></div>
+          <button id="reset" class="play-reset" type="button">重置夜空</button>
+          <label class="motion-choice" for="reduced-motion"><input id="reduced-motion" type="checkbox"><span>减少动态效果<small>每次点击直接呈现静态绽放</small></span></label>
+          <p class="control-note">选择花型与配色，下一束烟花就会用上。</p>
+        </fieldset>
+      </div>
+    </section>
+
+    <section class="play-notes" aria-label="玩法与创作">
+      <div><p class="eyebrow">YOUR NEXT SPARK</p><h2>从一束光，到自己的代码。</h2><p>这是 01 烟花的浏览器版本，与 Python 作品共用花型参数和运动公式。想改城市、调整轨迹，或把它带去社团展示，可以从源码继续创作。</p><div class="play-links"><a href="https://github.com/zjh-b/turtle-gallery/blob/main/%E7%A4%BE%E5%9B%A2%E5%B1%95%E7%A4%BA/01_%E7%82%B9%E5%87%BB%E7%83%9F%E8%8A%B1.py">打开 Python 源码 ↗</a><a href="../index.html#start">下载完整画廊 →</a></div></div>
+      <details class="keyboard-help"><summary>键盘玩法与小提示</summary><p>Tab 移到画布后：Enter 放一束，F 烟花齐放，Space 播放 / 暂停，A 自动表演，R 重置。每个按钮也能直接用键盘操作。</p><p>自动表演初始关闭，离开页面后停止绘制。减少动态模式下不播放升空、闪烁或拖尾动画。</p><p>浏览器版保留烟花主题与运动规律，随机分布及绘制细节与桌面版可能不同。</p></details>
+    </section>
+  </main>
+  <footer class="site-footer shell"><p>用代码，为今晚添一束光。</p><a href="../index.html">逛逛另外 27 个小世界 →</a></footer>
+</body>
+</html>
