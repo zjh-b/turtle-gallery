@@ -60,13 +60,13 @@
       "fireworks": 11
     },
     "python_suite": {
-      "run": 152,
-      "passed": 151,
+      "run": 153,
+      "passed": 152,
       "skipped": 1,
       "skip_reason": "Optional existing Tk font-boundary desktop check was not enabled."
     },
     "fireworks_browser_regression": "6/6 groups passed after adding the navigation link.",
-    "desktop_formula": "Two Python tests verify cardinal coordinates and unchanged desktop scale, y direction and line style; Node geometry matches generated Python fixtures.",
+    "desktop_formula": "Two Python tests verify cardinal coordinates and unchanged desktop scale, y direction and line style; Node geometry matches generated Python fixtures. A third regression verifies export stability under platform floating-point roundoff; fixture coordinates use 9 decimal places, runtime geometry keeps full precision.",
     "existing_gallery_smoke": "28 cards, featured/search, controls, GIF and 390px mobile layout passed without JavaScript errors."
   },
   "limits": {

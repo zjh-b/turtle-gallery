@@ -4,7 +4,9 @@ import importlib.util
 from pathlib import Path
 from types import SimpleNamespace
 import sys
+import tempfile
 import unittest
+from unittest.mock import patch
 
 ROOT = Path(__file__).resolve().parents[1]
 sys.path.insert(0, str(ROOT / "社团展示"))
@@ -12,6 +14,23 @@ from 万花筒参数 import mirror_points
 
 
 class KaleidoscopeFormulaTests(unittest.TestCase):
+    def test_export_ignores_platform_trigonometry_roundoff(self):
+        spec = importlib.util.spec_from_file_location("gallery_export", ROOT / "tools/export_gallery.py")
+        module = importlib.util.module_from_spec(spec)
+        spec.loader.exec_module(module)
+        with tempfile.TemporaryDirectory() as directory, patch.object(module, "ROOT", Path(directory)):
+            (Path(directory) / "docs").mkdir()
+            destination = Path(directory) / "docs/play/kaleidoscope-config.json"
+            module.export_kaleidoscope()
+            expected = destination.read_bytes()
+            for delta in (-1e-13, 1e-13):
+                def perturbed(points, count):
+                    return [[tuple(value + delta for value in point) for point in stroke]
+                            for stroke in mirror_points(points, count)]
+                with patch("万花筒参数.mirror_points", side_effect=perturbed):
+                    module.export_kaleidoscope()
+                self.assertEqual(destination.read_bytes(), expected)
+
     def test_cardinal_reflections_and_rotations_keep_original_point_order(self):
         actual = mirror_points([(10, 20)], 4)
         expected = [(10, -20), (10, 20), (20, 10), (-20, 10),

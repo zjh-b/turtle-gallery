@@ -33,10 +33,16 @@ def export_kaleidoscope():
     sys.path.insert(0, str(ROOT / "社团展示"))
     from 万花筒参数 import MAX_COUNT, MIN_COUNT, RADIUS, VIEW, mirror_points
     points = [(10, 20), (-30, 40), (122, -72)]
+    # libm differs in its last bits across Windows and Linux. Only fixtures
+    # are rounded; runtime geometry retains full precision. Error < 1e-9.
+    fixtures = []
+    for count in (3, 4, 10, 16):
+        result = [[[round(value, 9) or 0.0 for value in point] for point in stroke]
+                  for stroke in mirror_points(points, count)]
+        fixtures.append(dict(points=points, count=count, result=result))
     data = dict(version=1, view=VIEW, radius=RADIUS, min_count=MIN_COUNT, max_count=MAX_COUNT,
                 max_strokes=60, max_points=2400, max_stroke_points=400,
-                fixtures=[dict(points=points, count=count, result=mirror_points(points, count))
-                          for count in (3, 4, 10, 16)])
+                fixtures=fixtures)
     destination = ROOT / "docs/play/kaleidoscope-config.json"
     destination.parent.mkdir(exist_ok=True)
     destination.write_text(json.dumps(data, ensure_ascii=False, indent=2) + "\n", encoding="utf-8")
