@@ -1,0 +1,53 @@
+<!doctype html>
+<html lang="zh-CN">
+<head>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <meta name="theme-color" content="#0b1518">
+  <meta name="description" content="轻触，让一颗粒子心散成星尘，再慢慢相聚。调整三种配色、心跳和星尘密度，将这一刻保存为 PNG。">
+  <meta property="og:title" content="怦然心动 · 海龟画廊在线粒子爱心">
+  <meta property="og:description" content="每一次心跳，都是一个小小的宇宙。无需安装，轻触即可互动。">
+  <meta property="og:image" content="https://zjh-b.github.io/turtle-gallery/assets/exhibits/26.png">
+  <meta property="og:type" content="website">
+  <title>怦然心动 · 海龟画廊在线粒子爱心</title>
+  <link rel="canonical" href="https://zjh-b.github.io/turtle-gallery/play/heart.html">
+  <link rel="icon" type="image/svg+xml" href="../assets/favicon.svg">
+  <link rel="stylesheet" href="../gallery.css">
+  <link rel="stylesheet" href="fireworks.css">
+  <link rel="stylesheet" href="heart.css">
+  <script type="module" src="heart.js"></script>
+</head>
+<body class="heart-page">
+  <a class="skip-link" href="#play-controls">跳到心跳控制</a>
+  <header class="site-header"><div class="header-inner shell"><a class="brand" href="../index.html">Turtle Gallery<small>海龟画廊 / 在线互动</small></a><nav aria-label="主导航"><a href="kaleidoscope.html">一笔生花</a><a href="../index.html#gallery">返回画廊</a></nav></div></header>
+  <main class="shell play-main">
+    <section aria-labelledby="play-title">
+      <div class="play-heading"><div><p class="eyebrow">26 / EVERY BEAT, A LITTLE UNIVERSE</p><h1 id="play-title">怦然，<span>心动。</span></h1></div><p>轻触，让星尘散开。<br>等一颗心慢慢回来。</p></div>
+      <div class="play-layout heart-layout">
+        <div class="play-stage">
+          <div class="play-topline"><span>星尘 · 心跳 · 再次相聚</span><span>PARTICLE STUDY / 26</span></div>
+          <div class="canvas-wrap"><img id="heart-fallback" src="../assets/exhibits/26.png" alt="桌面怦然心动预览：玫瑰色粒子组成爱心，周围环绕星光与轨道" width="800" height="464"><canvas id="heart-canvas" width="640" height="640" tabindex="0" role="img" aria-label="粒子爱心画布，点击或按 Enter 散开星尘，Space 播放或暂停" aria-describedby="canvas-help" hidden>浏览器暂不支持粒子绘图，可以查看静态预览或下载 Python 作品。</canvas></div>
+          <div class="play-caption"><p id="play-status" role="status" aria-live="polite">正在准备星尘，也可以先欣赏静态预览。</p><span id="particle-count" class="canvas-note">680 粒星尘</span></div>
+          <p id="canvas-help" class="canvas-help">点击或轻触散开，星尘会重新聚成爱心。手机上滑动可浏览页面；开启减少动态后，点击切换静态散开与聚合。</p>
+          <noscript><p class="play-fallback-note">开启 JavaScript 即可互动；下方仍可查看源码与下载作品。</p></noscript>
+        </div>
+        <fieldset id="play-controls" class="play-controls" disabled>
+          <legend>调一调心动的频率</legend>
+          <label for="theme">星尘色彩 <span>PALETTE</span></label>
+          <select id="theme"><option value="0">玫瑰星尘</option><option value="1">冰蓝心跳</option><option value="2">香槟暮光</option></select>
+          <label for="density">星尘密度 <span>PARTICLES</span></label>
+          <select id="density"><option value="420">轻盈 · 420 粒</option><option value="680" selected>丰盈 · 680 粒</option><option value="1000">繁星 · 1000 粒</option></select>
+          <div class="heart-rate"><label for="rate">心跳速度 <output id="rate-value" for="rate">× 1.00</output></label><input id="rate" type="range" min="0.45" max="1.8" step="0.05" value="1" aria-valuetext="1.00 倍"><div class="rate-scale"><span>缓缓呼吸</span><span>雀跃心跳</span></div></div>
+          <button id="burst" class="play-primary" type="button">散成星尘，再相聚 <span aria-hidden="true">↗</span></button>
+          <div class="play-toggles"><button id="pause" type="button" aria-pressed="true">播放心跳</button><button id="reset" type="button">重置画面</button></div>
+          <button id="save-png" type="button">保存这一刻 PNG ↓</button>
+          <label class="motion-choice"><input id="reduced-motion" type="checkbox"><span>减少动态效果<small>停止心跳，点击切换静态构图。</small></span></label>
+          <p class="control-note">保存 1080 × 1080 方形图片，保留当前星尘与画面文字。图片在浏览器中生成，无需安装或上传。</p>
+        </fieldset>
+      </div>
+    </section>
+    <section class="play-notes" aria-label="互动提示"><div><p class="eyebrow">SCATTER, AND FIND EACH OTHER AGAIN</p><h2>散开之后，还会再次相遇。</h2><p>同一群星尘沿着固定轨迹散开，又回到心形轮廓。明暗来自粒子的深浅，双拍节奏让心跳有轻重。试试冰蓝色的慢心跳，或把繁星停在半空。</p><div class="play-links"><a href="https://github.com/zjh-b/turtle-gallery/blob/main/社团展示/26_怦然心动.py">打开 Python 源码 ↗</a><a href="fireworks.html">放一束烟花 →</a><a href="kaleidoscope.html">画一朵花 →</a></div></div><details class="keyboard-help"><summary>键盘、播放与保存</summary><p>Tab 可访问所有控制。画布聚焦时，Enter 散开星尘，Space 播放或暂停，C 换色，R 重置。快捷键不会影响选择框和滑块。</p><p>首次打开保持静态。主动播放或散开后开始心跳；切换到其他页面会停止绘制，返回后保持原有播放或暂停状态。重置画面会暂停，并保留所选配色、速度和密度。</p><p>减少动态开启后，点击在静态散开与聚合之间切换；关闭后仍保持暂停。保存 PNG 捕获当前画面，不改变播放状态。连续点击会重新开始散开，不会增加粒子数量。</p></details></section>
+  </main>
+  <footer class="site-footer shell"><p>把一瞬的心动，写成漫长的星光。</p><a href="../index.html">回到海龟画廊 →</a></footer>
+</body>
+</html>

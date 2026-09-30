@@ -4,20 +4,7 @@ import random
 
 from 舞台 import Paint, Stage, mix
 from 创作配方 import default_parameters, validate_parameters
-
-
-THEMES = [
-    ("玫瑰星尘", "#FF528E", "#FFCADC", "#957DFF"),
-    ("冰蓝心跳", "#53DCEB", "#DCF9FF", "#8397FF"),
-    ("香槟暮光", "#FFB66D", "#FFF0CF", "#E688AE"),
-]
-
-
-def heart_point(angle):
-    """The classic parametric heart, centred in the artwork's safe area."""
-    return (16 * math.sin(angle) ** 3,
-            13 * math.cos(angle) - 5 * math.cos(2 * angle)
-            - 2 * math.cos(3 * angle) - math.cos(4 * angle))
+from 爱心参数 import THEMES, heart_point, heartbeat, spread_at
 
 
 class ParticleHeart:
@@ -132,9 +119,8 @@ class ParticleHeart:
             self.burst_age += dt
             if self.burst_age >= 3.6:
                 self.burst_age = None
-        spread = 0.0 if self.burst_age is None else math.sin(math.pi * self.burst_age / 3.6) ** 2
-        phase = (self.beat_time % 1.55) / 1.55
-        beat = math.exp(-((phase - 0.18) / 0.06) ** 2) + 0.58 * math.exp(-((phase - 0.34) / 0.09) ** 2)
+        spread = spread_at(self.burst_age)
+        beat = heartbeat(self.beat_time)
         pulse = 1 + beat * 0.055
         name, core, light, accent = THEMES[self.theme]
         colors = self.colors[self.theme]

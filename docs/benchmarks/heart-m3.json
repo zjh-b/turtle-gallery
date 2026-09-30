@@ -1,0 +1,139 @@
+{
+  "checked_at": "2026-09-30T01:48:36.101422+00:00",
+  "browser": "msedge",
+  "mobile_scope": "Chromium device emulation; no physical-device claim",
+  "checks": [
+    {
+      "name": "desktop",
+      "status": "passed",
+      "seconds": 4.47
+    },
+    {
+      "name": "reduced-motion",
+      "status": "passed",
+      "seconds": 3.5
+    },
+    {
+      "name": "lifecycle",
+      "status": "passed",
+      "seconds": 2.2
+    },
+    {
+      "name": "inputs",
+      "status": "passed",
+      "seconds": 2.34
+    },
+    {
+      "name": "mobile",
+      "status": "passed",
+      "seconds": 3.02
+    },
+    {
+      "name": "export",
+      "status": "passed",
+      "seconds": 2.39
+    },
+    {
+      "name": "fallback",
+      "status": "passed",
+      "seconds": 2.53
+    },
+    {
+      "name": "gallery",
+      "status": "passed",
+      "seconds": 2.2
+    }
+  ],
+  "browser_version": "154.0.4258.37",
+  "platform": "Windows",
+  "python": "3.12.4",
+  "method": "tools/check_heart.py with an ephemeral local HTTP server, headless Edge and native CDP touch emulation.",
+  "coverage": {
+    "desktop": "Static initial scene, three themes and densities, rate limits, scatter/play/pause, reset retaining settings, canvas-only shortcuts and modifier guards, resize.",
+    "reduced_motion": "System preference on load and while playing; static scatter/regroup; disabled playback; leaving reduced motion stays paused.",
+    "lifecycle": "Visibility and pagehide/pageshow stop frames; first restored frame retains frozen pixels; manual pause survives; rapid toggles keep one RAF chain.",
+    "inputs": "Release-only click, pointer cancellation, blur, hidden, pagehide, movement, long press, canvas exit and resize; fresh click recovers.",
+    "mobile": "390x844 DPR3 and 844x390 Chromium emulation; DPR2 cap; native touch scatter/regroup, cancel, multi-touch, scroll and long press.",
+    "export": "Real nonblank 1080x1080 PNG, theme/spread affect image; paused state preserved; asynchronous encoder retains captured pixels while playing; null encoding result allows retry.",
+    "fallback": "JavaScript disabled, failed config and unavailable Canvas retain preview and desktop source with controls disabled.",
+    "gallery": "28 cards, home and artwork26 entry, reciprocal fireworks/kaleidoscope links, 390px homepage layout."
+  },
+  "other_checks": {
+    "node_model_tests": {
+      "total": 33,
+      "passed": 33,
+      "heart": 9,
+      "fireworks": 11,
+      "kaleidoscope": 13
+    },
+    "python_suite": {
+      "run": 156,
+      "passed": 155,
+      "skipped": 1,
+      "skip_reason": "Optional existing Tk font-boundary desktop check was not enabled."
+    },
+    "desktop_preservation": "36 drawing snapshots across four aspects, three themes and three scatter states match the published desktop implementation exactly after formula extraction.",
+    "portable_fixtures": "Three Python heart tests cover cardinal coordinates, motion and export stability under positive/negative floating-point perturbations.",
+    "browser_regressions": {
+      "fireworks_groups_passed": 6,
+      "kaleidoscope_groups_passed": 7
+    },
+    "existing_gallery_smoke": "Featured/search, 28 cards, controls, GIF and mobile layout passed without JavaScript errors.",
+    "independent_review": "No actionable findings in model, controller, renderer, desktop extraction or integration."
+  },
+  "drawing_bounds": {
+    "view": [
+      640,
+      640
+    ],
+    "method": "Default seed 260, each density through 74 steps of .05 seconds; bounds include particle radii multiplied by 3 for glow.",
+    "results": [
+      {
+        "count": 420,
+        "minX": -290.4695994984022,
+        "maxX": 295.33255524241713,
+        "minY": -238.6540944055671,
+        "maxY": 194.16915534291462
+      },
+      {
+        "count": 680,
+        "minX": -290.4695994984022,
+        "maxX": 295.33255524241713,
+        "minY": -238.6540944055671,
+        "maxY": 197.25118489371718
+      },
+      {
+        "count": 1000,
+        "minX": -290.4695994984022,
+        "maxX": 299.037437511725,
+        "minY": -238.6540944055671,
+        "maxY": 200.50878635263038
+      }
+    ]
+  },
+  "limits": {
+    "densities": [
+      420,
+      680,
+      1000
+    ],
+    "rate": [
+      0.45,
+      1.8
+    ],
+    "burst_seconds": 3.6,
+    "max_step_seconds": 0.05,
+    "max_dpr": 2,
+    "png_size": [
+      1080,
+      1080
+    ]
+  },
+  "limitations": [
+    "Mobile checks emulate Chromium; physical Android and iOS devices were not tested.",
+    "Safari and Firefox were not tested.",
+    "Browser and desktop share heart and motion formulas, but random generators and rendering differ.",
+    "Check-group seconds describe checker runtime, not animation frame rate.",
+    "PNG encoders may produce different file bytes for identical pixels; snapshot fidelity is checked after decoding."
+  ]
+}

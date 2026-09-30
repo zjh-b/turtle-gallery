@@ -6,7 +6,7 @@
 
 14 款互动展品 · 14 个创意原作 · 一个可以逛、可以玩、可以改的代码画廊
 
-[在线放烟花](https://zjh-b.github.io/turtle-gallery/play/fireworks.html) · [在线一笔生花](https://zjh-b.github.io/turtle-gallery/play/kaleidoscope.html) · [在线逛画廊](https://zjh-b.github.io/turtle-gallery/) · [English](README.en.md) · [开始体验](#开始体验) · [全部作品](#逛一逛画廊) · [创作指南](docs/CREATIVE_GUIDE.md) · [升级路线](docs/ROADMAP.md)
+[在线放烟花](https://zjh-b.github.io/turtle-gallery/play/fireworks.html) · [在线一笔生花](https://zjh-b.github.io/turtle-gallery/play/kaleidoscope.html) · [在线怦然心动](https://zjh-b.github.io/turtle-gallery/play/heart.html) · [在线逛画廊](https://zjh-b.github.io/turtle-gallery/) · [English](README.en.md) · [开始体验](#开始体验) · [全部作品](#逛一逛画廊) · [创作指南](docs/CREATIVE_GUIDE.md) · [升级路线](docs/ROADMAP.md)
 
 [![项目检查](https://github.com/zjh-b/turtle-gallery/actions/workflows/checks.yml/badge.svg)](https://github.com/zjh-b/turtle-gallery/actions/workflows/checks.yml)
 
@@ -22,7 +22,9 @@
 
 **[在线一笔生花 →](https://zjh-b.github.io/turtle-gallery/play/kaleidoscope.html)** 先看一朵静态示例花，再点“开始手绘”，用鼠标、触笔或单指画出对称图案。选择 3–16 份对称与三种配色，按整笔撤销，或将作品下载为 1080 × 1080 PNG；浏览器内完成，无需安装依赖。[玩法与触摸说明 →](docs/BROWSER_PLAY.md#03-一笔生花)
 
-[在线画廊](https://zjh-b.github.io/turtle-gallery/) 支持手机浏览、作品搜索、分类筛选和源码直达。目前 01 烟花、03 万花筒支持在线试玩，其余作品提供预览；下载项目后可在电脑上运行全部 28 款作品。
+**[在线怦然心动 →](https://zjh-b.github.io/turtle-gallery/play/heart.html)** 轻触，让粒子爱心散成星尘，再慢慢相聚。选择三种主题、420 / 680 / 1000 粒星尘与 0.45–1.8 倍心跳，暂停在喜欢的一刻，保存 1080 × 1080 PNG。首次打开保持静态，主动播放或点击后开始心跳；开启减少动态效果后，点击切换静态散开与聚合。重置会暂停并保留参数，保存图片不改变播放状态。[玩法与保存说明 →](docs/BROWSER_PLAY.md#26-怦然心动)
+
+[在线画廊](https://zjh-b.github.io/turtle-gallery/) 支持手机浏览、作品搜索、分类筛选和源码直达。目前 01 烟花、03 万花筒、26 粒子爱心支持在线试玩，其余作品提供预览；下载项目后可在电脑上运行全部 28 款作品。
 
 ## 开始体验
 
@@ -62,7 +64,7 @@ python run.py --check      # 检查环境和作品文件，不打开窗口
 | 编号 | 作品 / 源码 | 可以怎么玩 |
 | --- | --- | --- |
 | 25 | [星空彼岸花](社团展示/25_星空彼岸花.py) | 点击落下一颗流星；G 重播花朵绽放，C 换花色 |
-| 26 | [怦然心动](社团展示/26_怦然心动.py) | 点击让粒子爱心散开再聚合；C 换色，↑↓ 调心跳 |
+| 26 | [怦然心动](社团展示/26_怦然心动.py) · [在线试玩](https://zjh-b.github.io/turtle-gallery/play/heart.html) | 点击让粒子爱心散开再聚合；网页可调色、调速与保存 PNG；桌面版 C 换色，↑↓ 调心跳 |
 | 27 | [星河玫瑰](社团展示/27_星河玫瑰.py) | 点击洒星尘；G 看花瓣生长，C 换花色 |
 | 28 | [霓光蝶舞](社团展示/28_霓光蝶舞.py) | 点击引蝶追光；M 切换悬停与漫游，C 换色 |
 
@@ -138,8 +140,8 @@ python run.py --check      # 检查环境和作品文件，不打开窗口
 
 - [创作面板与配方](docs/CREATION_GUIDE.md)：为彼岸花、粒子爱心调参，保存、分享和恢复自己的构图。
 - [巡展与 PNG 导出](docs/EXHIBITION_GUIDE.md)：设置三作品循环展示，人工接管，再带走当前画面。
-- [在线试玩玩法](docs/BROWSER_PLAY.md)：点击、触摸或键盘放烟花；画一笔万花筒，调整对称与配色并下载 PNG。
-- [升级路线](docs/ROADMAP.md)：M1 已完成；M2 已接入巡展、三种画幅和高清 PNG，十分钟连续验收与短片仍待完成；M3 已接入烟花与万花筒，26 爱心与手机实机验收待完成。
+- [在线试玩玩法](docs/BROWSER_PLAY.md)：打开网页放烟花、画万花筒，或让粒子爱心散开再相聚；万花筒与爱心可保存 PNG。
+- [升级路线](docs/ROADMAP.md)：M1 已完成；M2 已接入巡展、三种画幅和高清 PNG，十分钟连续验收与短片仍待完成；M3 已接入烟花、万花筒与粒子爱心，手机实机、Safari 与 Firefox 验收待完成。
 - [创作指南](docs/CREATIVE_GUIDE.md)：28 款作品的代码入口、原作操作和几个可以立刻动手的改法。
 - [贡献指南](docs/CONTRIBUTING.md)：添加作品、报告问题和提交改进。
 - [Issues](https://github.com/zjh-b/turtle-gallery/issues)：分享运行问题或你想看到的下一个小世界。

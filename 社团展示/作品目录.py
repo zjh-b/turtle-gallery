@@ -106,7 +106,7 @@ WORKS = [
     _work(26, "怦然心动", "粒子爱心 · 呼吸光晕 · 星点聚合", "26_怦然心动.py", "几何绘画",
           "点击让爱心散成星尘再相聚；C 切换色彩；↑↓ 调整心跳；E 打开创作工坊。", "光点聚成有层次的爱心，随着双拍节奏轻轻跳动；在创作工坊中调整参数与种子，保存自己的粒子配方。",
           "#FFA7C3", "heart", ("浪漫光影", "短视频", "抖音", "tiktok", "爱心", "粒子", "particle heart"), featured=True,
-          entry_class="ParticleHeart", creation=True, autoplay=True),
+          entry_class="ParticleHeart", creation=True, autoplay=True, web_play="play/heart.html"),
     _work(27, "星河玫瑰", "层叠花瓣 · 星空微光 · 逐瓣盛开", "27_星河玫瑰.py", "风景动画",
           "点击洒下星尘；C 切换花色；G 重播生长；↑↓ 调整速度。", "从层叠的花心到向外舒展的花瓣，一朵带着星河微光的玫瑰在深色夜幕中展开。",
           "#F2A6D4", "flower", ("浪漫光影", "短视频", "抖音", "tiktok", "玫瑰", "rose", "galaxy"), featured=True, entry_class="GalaxyRose", autoplay=True),

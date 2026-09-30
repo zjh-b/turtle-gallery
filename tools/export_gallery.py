@@ -1,5 +1,6 @@
 """Export the shared work catalog for the static website. Uses only the standard library."""
 import json
+import math
 from pathlib import Path
 import sys
 from urllib.parse import quote
@@ -49,6 +50,28 @@ def export_kaleidoscope():
     print("Exported shared kaleidoscope geometry to docs/play/kaleidoscope-config.json")
 
 
+def export_heart():
+    """Export bounded browser settings and portable shared-motion fixtures."""
+    sys.path.insert(0, str(ROOT / "社团展示"))
+    from 爱心参数 import THEMES, heart_point, heartbeat, spread_at
+    def rounded(value):
+        return round(value, 9) or 0.0
+    fixtures = dict(
+        heart=[dict(angle=angle, result=[rounded(value) for value in heart_point(angle)])
+               for angle in (0, .4, math.pi/2, math.pi, math.pi*1.5, math.tau)],
+        beat=[dict(time=time, result=rounded(heartbeat(time)))
+              for time in (0, .15, .279, .527, 1.1625, 1.55, 1.829)],
+        spread=[dict(age=age, result=rounded(spread_at(age)))
+                for age in (None, 0, .45, .9, 1.8, 2.7, 3.6)])
+    data = dict(version=1, view=[640, 640], themes=THEMES, densities=[420, 680, 1000],
+                default_count=680, max_step=.05, burst_duration=3.6,
+                rate_min=.45, rate_max=1.8, fixtures=fixtures)
+    destination = ROOT / "docs/play/heart-config.json"
+    destination.parent.mkdir(exist_ok=True)
+    destination.write_text(json.dumps(data, ensure_ascii=False, indent=2) + "\n", encoding="utf-8")
+    print("Exported shared heart geometry and motion to docs/play/heart-config.json")
+
+
 def main():
     sys.path.insert(0, str(ROOT))
     from run import catalog
@@ -68,6 +91,7 @@ def main():
     print(f"Exported {len(works)} works to docs/gallery.json")
     export_fireworks()
     export_kaleidoscope()
+    export_heart()
 
 
 if __name__ == "__main__":

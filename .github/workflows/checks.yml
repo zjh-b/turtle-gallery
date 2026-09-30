@@ -33,7 +33,7 @@ jobs:
       - name: Check published catalog and browser configs match source
         run: |
           python tools/export_gallery.py
-          git diff --exit-code -- docs/gallery.json docs/play/fireworks-config.json docs/play/kaleidoscope-config.json
+          git diff --exit-code -- docs/gallery.json docs/play/fireworks-config.json docs/play/kaleidoscope-config.json docs/play/heart-config.json
       - name: Compile tracked Python sources
         run: python -c "import pathlib, subprocess; paths = subprocess.check_output(['git', 'ls-files', '-z', '*.py']).decode('utf-8').split('\0'); [compile(pathlib.Path(p).read_bytes(), p, 'exec') for p in paths if p]"
 

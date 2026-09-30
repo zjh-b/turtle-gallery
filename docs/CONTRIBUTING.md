@@ -76,13 +76,15 @@ python tools/export_gallery.py
 python -m http.server 8000 --bind 127.0.0.1 --directory docs
 ```
 
-用浏览器访问 `http://127.0.0.1:8000`，检查搜索、分类、手机宽度、预览图、源码链接和启动命令复制，以及首页和 01、03 作品卡上的试玩入口。网页通过 HTTP 加载 `gallery.json`，请使用本地服务器预览。GitHub Pages 使用 `main` 分支的 `/docs` 目录。
+用浏览器访问 `http://127.0.0.1:8000`，检查搜索、分类、手机宽度、预览图、源码链接和启动命令复制，以及首页和 01、03、26 作品卡上的试玩入口。网页通过 HTTP 加载 `gallery.json`，请使用本地服务器预览。GitHub Pages 使用 `main` 分支的 `/docs` 目录。
+
+导出工具统一生成四份数据：`docs/gallery.json`、`docs/play/fireworks-config.json`、`docs/play/kaleidoscope-config.json` 和 `docs/play/heart-config.json`。修改共用目录或绘图参数后，重新导出并提交相应变化；生成文件不直接手改。
 
 ### 维护在线烟花
 
 本地入口为 `http://127.0.0.1:8000/play/fireworks.html`，用户玩法见[在线烟花说明](BROWSER_PLAY.md)。页面采用原生 JavaScript 模块和 Canvas，不需要 `npm install`、构建步骤或浏览器第三方库。配置通过同源请求加载，请勿直接用 `file://` 打开。
 
-[烟花参数.py](../社团展示/烟花参数.py) 是桌面烟花常量、粒子初速和阻力轨迹公式的共同来源。修改参数后运行 `python tools/export_gallery.py`，同时提交 `docs/gallery.json` 与 `docs/play/fireworks-config.json` 的相应变化。后者包含固定公式样例，供浏览器模型测试比较；随机分布和绘制细节无需与 Python 逐帧一致。
+[烟花参数.py](../社团展示/烟花参数.py) 是桌面烟花常量、粒子初速和阻力轨迹公式的共同来源。修改参数后运行 `python tools/export_gallery.py`，检查四份生成数据中的相应变化。`docs/play/fireworks-config.json` 包含固定公式样例，供浏览器模型测试比较；随机分布和绘制细节无需与 Python 逐帧一致。
 
 `docs/play/` 中的 `fireworks-model.js` 管理状态与运动，`fireworks-view.js` 绘制画面，`fireworks.js` 管理输入和播放状态。该目录的 `package.json` 仅声明模块类型。使用 Node 24 运行内置测试，无需安装测试包：
 
@@ -110,9 +112,9 @@ python tools/check_browser.py --browser chromium
 
 本地入口为 `http://127.0.0.1:8000/play/kaleidoscope.html`，用户玩法见[一笔生花说明](BROWSER_PLAY.md#03-一笔生花)。页面使用原生 JavaScript 模块和 Canvas，无需 `npm install`、构建步骤或第三方浏览器运行库；通过上面的 HTTP 服务器预览。
 
-[万花筒参数.py](../社团展示/万花筒参数.py) 提供桌面与网页共用的画幅、半径、对称份数范围和 `mirror_points(points, count)` 旋转镜像公式。修改后执行 `python tools/export_gallery.py`，更新并提交 `docs/gallery.json`、`docs/play/fireworks-config.json` 和 `docs/play/kaleidoscope-config.json` 中的相应变化。万花筒配置包含数量上限和固定公式样例，供 JavaScript 模型与 Python 结果比较；调整公式时也应验证桌面作品原有的镜像坐标。
+[万花筒参数.py](../社团展示/万花筒参数.py) 提供桌面与网页共用的画幅、半径、对称份数范围和 `mirror_points(points, count)` 旋转镜像公式。修改后执行 `python tools/export_gallery.py`，更新四份生成数据中的相应变化。`docs/play/kaleidoscope-config.json` 包含数量上限和固定公式样例，供 JavaScript 模型与 Python 结果比较；调整公式时也应验证桌面作品原有的镜像坐标。
 
-`docs/play/kaleidoscope-model.js` 管理笔画、示例、参数与数量上限，`kaleidoscope-view.js` 共用同一绘制函数生成预览和 PNG，`kaleidoscope.js` 管理绘画模式、输入与下载。使用 Node 24 的内置测试同时检查烟花与万花筒模型：
+`docs/play/kaleidoscope-model.js` 管理笔画、示例、参数与数量上限，`kaleidoscope-view.js` 共用同一绘制函数生成预览和 PNG，`kaleidoscope.js` 管理绘画模式、输入与下载。使用 Node 24 的内置测试检查全部浏览器模型：
 
 ```bash
 node --test tests/web/*.test.mjs
@@ -132,11 +134,46 @@ python -m playwright install chromium
 python tools/check_kaleidoscope.py --browser chromium
 ```
 
-检查首次静态示例、3–16 份对称、三种配色、整笔撤销，以及 60 笔、合计 2400 点、每笔 400 点的上限。进入手绘只清除示例，重新进入时保留已有手绘；“清空”和“换回示例”直接替换当前作品。确认圆形越界、第二触点、系统取消、失焦和页面隐藏会取消当前未完成的一笔，已完成笔迹保留；退出绘画模式后恢复滚动与缩放。下载的 PNG 应为 1080 × 1080，含作品和边框，并检查实际图像内容。还应检查键盘操作、窄屏布局、01 / 03 互访入口，以及无脚本或配置加载失败时的静态预览与源码入口。
+检查首次静态示例、3–16 份对称、三种配色、整笔撤销，以及 60 笔、合计 2400 点、每笔 400 点的上限。进入手绘只清除示例，重新进入时保留已有手绘；“清空”和“换回示例”直接替换当前作品。确认圆形越界、第二触点、系统取消、失焦和页面隐藏会取消当前未完成的一笔，已完成笔迹保留；退出绘画模式后恢复滚动与缩放。下载的 PNG 应为 1080 × 1080，含作品和边框，并检查实际图像内容。还应检查键盘操作、窄屏布局、01 / 03 / 26 互访入口，以及无脚本或配置加载失败时的静态预览与源码入口。
 
 移动设备模拟仅用于复现触摸流程，不能作为实体手机验收；实机记录应包含设备、系统、浏览器版本，以及绘画、滚动、横竖屏切换和后台返回的结果。
 
 绘图层为每个画布缓存一张已完成笔迹底图；当前一笔单独叠加。已完成的点列按不可变数据使用，修改参数、完成或撤销笔画、清空、换回示例、调整画布尺寸时更新缓存。浏览器检查的 `render-cache` 组比较缓存与新画布的图像结果，并确认拖动时不会再次逐点描绘全部历史。像素比较使用 PNG 快照，避免频繁读取 `getImageData` 触发浏览器绘制方式变化。
+
+### 维护在线粒子爱心
+
+本地入口为 `http://127.0.0.1:8000/play/heart.html`，玩法见[怦然心动说明](BROWSER_PLAY.md#26-怦然心动)。沿用原生 JavaScript 模块与 Canvas，通过 HTTP 加载配置，无需安装浏览器运行库或执行构建。
+
+[爱心参数.py](../社团展示/爱心参数.py) 提供三套 `THEMES` 及 `heart_point(angle)`、`heartbeat(beat_time)`、`spread_at(age)` 公式，桌面 26 继续调用这些函数。`python tools/export_gallery.py` 将配置与固定公式样例写入 `docs/play/heart-config.json`，同时检查四份生成数据。Node 测试比较 Python 导出的公式结果；浏览器使用自己的确定性随机序列，不能由公式一致推出与 Python 的粒子位置或逐帧像素完全一致。
+
+`docs/play/heart-model.js` 管理时间、心跳、散开阶段与固定粒子池，校验三种主题、420 / 680 / 1000 的密度和 0.45–1.8 的速度；`heart-view.js` 共用 `drawHeart()` 绘制预览与 PNG；`heart.js` 管理播放、输入、减少动态与下载。改动公式和参数时同时检查桌面作品回归与全部浏览器模型：
+
+```bash
+python -m unittest discover -s tests -p test_heart.py -v
+node --test tests/web/*.test.mjs
+```
+
+可选浏览器检查复用 `requirements-browser.txt`。检查脚本自动启动并关闭临时本地服务器；Windows 默认使用已安装的 Edge，输出保存在 `.work/heart/`：
+
+```bash
+python -m pip install -r requirements-browser.txt
+python tools/check_heart.py
+```
+
+也可使用 Playwright 管理的 Chromium：
+
+```bash
+python -m playwright install chromium
+python tools/check_heart.py --browser chromium
+```
+
+脚本分为 `desktop`、`reduced-motion`、`lifecycle`、`inputs`、`mobile`、`export`、`fallback`、`gallery` 八组。默认运行全部；可用 `--only export lifecycle` 定位相关问题，用 `--output .work/heart-review` 指定输出目录。`results.json` 记录各组结果、耗时和浏览器版本，截图与下载图片用于核对实际画面。局部分组结果不能代替本轮完整验收。
+
+检查默认静态、主动播放、3.6 秒散开再聚合、连续点击后粒子数量保持不变，以及暂停时画面不变。重置应暂停并保留主题、速度和密度；改变参数时保留动画阶段。减少动态时点击只切换静态构图，关闭后仍暂停；隐藏和离开页面时停止动画回调，恢复后不追赶后台时间。每步时间上限为 0.05 秒，画布 DPR 上限为 2。
+
+画布聚焦时检查无修饰键的 Enter、Space、C、R，并确认快捷键不会干扰其他控件。点击在松手后触发，超过 12 CSS 像素的拖动、超过 700 毫秒的长按、离开画布、第二触点、取消、失焦、隐藏或 resize 都应取消候选点击；手机滑动和双指缩放仍可使用。
+
+PNG 应为 1080 × 1080，包含当前主题、动画阶段与题字，不含网页控件。保存先同步绘入独立画布再异步编码，不能暂停或重置当前模型；检查下载失败后能重试。另需检查最高密度与完全散开时的画面边界、窄屏布局、三个在线作品互访，以及无脚本、配置失败时的预览和源码入口。实测记录放在 [heart-m3.json](benchmarks/heart-m3.json)，真实浏览器截图放在 [browser-heart.png](assets/browser-heart.png)。移动模拟不能替代实体手机验收；Safari、Firefox 与实体手机结果应分别记录。
 
 ## 验证改动
 
@@ -147,7 +184,7 @@ python run.py --check
 python -m unittest discover -s tests -v
 ```
 
-[自动检查流程](../.github/workflows/checks.yml) 使用同一组命令，并检查 Python 文件能否编译，以及 `docs/gallery.json`、`docs/play/fireworks-config.json`、`docs/play/kaleidoscope-config.json` 是否与源数据一致。独立的 Node 24 任务通过 `node --test tests/web/*.test.mjs` 运行烟花与万花筒模型测试。Python 测试使用模拟窗口检查逻辑，仍需实际观察画面和操作；环境检查本身不会打开 GUI。
+[自动检查流程](../.github/workflows/checks.yml) 使用同一组命令，并检查 Python 文件能否编译，以及 `docs/gallery.json`、`docs/play/fireworks-config.json`、`docs/play/kaleidoscope-config.json`、`docs/play/heart-config.json` 是否与源数据一致。独立的 Node 24 任务通过 `node --test tests/web/*.test.mjs` 运行烟花、万花筒与爱心模型测试。Python 测试使用模拟窗口检查逻辑，仍需实际观察画面和操作；环境检查本身不会打开 GUI。
 
 常规六组系统 / Python 检查保持仅标准库；另有一个 Windows 任务安装可选 Pillow，验证 PNG 编码、图形重绘、快照、元数据和原子保存。新增导出逻辑应同时在有、无 Pillow 的环境检查，不能让普通作品因缺少可选依赖而无法运行。
 

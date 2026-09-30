@@ -6,7 +6,7 @@
 
 14 interactive exhibits · 14 original experiments · Python Turtle / Tkinter
 
-[Play fireworks](https://zjh-b.github.io/turtle-gallery/play/fireworks.html) · [Draw a kaleidoscope](https://zjh-b.github.io/turtle-gallery/play/kaleidoscope.html) · [Online gallery](https://zjh-b.github.io/turtle-gallery/) · [中文](README.md) · [Get started](#get-started) · [Explore](#explore-the-gallery) · [Creative guide](docs/CREATIVE_GUIDE.md)
+[Play fireworks](https://zjh-b.github.io/turtle-gallery/play/fireworks.html) · [Draw a kaleidoscope](https://zjh-b.github.io/turtle-gallery/play/kaleidoscope.html) · [Play the particle heart](https://zjh-b.github.io/turtle-gallery/play/heart.html) · [Online gallery](https://zjh-b.github.io/turtle-gallery/) · [中文](README.md) · [Get started](#get-started) · [Explore](#explore-the-gallery) · [Creative guide](docs/CREATIVE_GUIDE.md)
 
 [![Project checks](https://github.com/zjh-b/turtle-gallery/actions/workflows/checks.yml/badge.svg)](https://github.com/zjh-b/turtle-gallery/actions/workflows/checks.yml)
 
@@ -22,7 +22,9 @@ Made for club demonstrations, learning Python and trying out visual ideas. The a
 
 **[Draw a kaleidoscope in your browser →](https://zjh-b.github.io/turtle-gallery/play/kaleidoscope.html)** A Stroke in Bloom opens with a still example flower. Select “开始手绘” (Start drawing) to clear the example and draw with a mouse, pen or one finger. Returning to drawing mode keeps your existing strokes. Choose 3–16 symmetry segments and three palettes, undo a whole stroke, clear the canvas or replace it with the example. Download a 1080 × 1080 PNG directly in your browser, with no extra dependencies or image upload. Exit drawing mode to scroll over the canvas again. The work only changes when you interact; there is no automatic animation. [Full guide in Chinese →](docs/BROWSER_PLAY.md#03-一笔生花)
 
-[Browse the online gallery](https://zjh-b.github.io/turtle-gallery/) to search, filter and explore every work on desktop or mobile. Artworks 01 (fireworks) and 03 (kaleidoscope) support browser play; the other works have previews. Download the project to run all 28 Python programs on your computer.
+**[Play the particle heart in your browser →](https://zjh-b.github.io/turtle-gallery/play/heart.html)** Tap to scatter the heart into stardust and watch it gather again over 3.6 seconds of animation. Choose three themes, 420 / 680 / 1000 particles and a heartbeat rate of 0.45–1.8×. The page starts still; play or scatter to begin, then pause at a moment you like. Reduced motion switches between still scattered and gathered compositions. Save the current picture as a 1080 × 1080 PNG without changing playback. Reset pauses the heart while keeping your theme, rate and density. With the canvas focused, use Enter to scatter, Space to play or pause, C to change the theme and R to reset; shortcuts require no modifier keys. Swipe over the canvas to scroll on mobile. [Full guide in Chinese →](docs/BROWSER_PLAY.md#26-怦然心动)
+
+[Browse the online gallery](https://zjh-b.github.io/turtle-gallery/) to search, filter and explore every work on desktop or mobile. Artworks 01 (fireworks), 03 (kaleidoscope) and 26 (particle heart) support browser play; the other works have previews. Download the project to run all 28 Python programs on your computer.
 
 ## Get started
 
@@ -60,7 +62,7 @@ Four new, interactive Python drawings explore visual themes familiar from short 
 | ID | Exhibit / source | Try this |
 | --- | --- | --- |
 | 25 | [Starry Spider Lily](社团展示/25_星空彼岸花.py) | Click to send a meteor across the sky; G replays the bloom, C changes the flower color |
-| 26 | [A Heart Made of Light](社团展示/26_怦然心动.py) | Click to scatter and regather the particle heart; C changes its colors, ↑↓ changes the beat |
+| 26 | [A Heart Made of Light](社团展示/26_怦然心动.py) · [Play online](https://zjh-b.github.io/turtle-gallery/play/heart.html) | Click to scatter and regather the heart; adjust colors, rate and save PNG in the browser; on desktop, C changes colors and ↑↓ changes the beat |
 | 27 | [A Rose in the Galaxy](社团展示/27_星河玫瑰.py) | Click to cast stardust; G replays growth, C changes the rose color |
 | 28 | [Wings of Light](社团展示/28_霓光蝶舞.py) | Click to guide the butterfly toward light; M switches hovering and wandering, C changes colors |
 
@@ -138,4 +140,4 @@ Start by changing the heart's fill color in [xin.py](xin.py), or compare the [or
 
 For code entry points and small experiments, see the [creative guide](docs/CREATIVE_GUIDE.md). To add a work or report a problem, see [contributing](docs/CONTRIBUTING.md) and [Issues](https://github.com/zjh-b/turtle-gallery/issues). These detailed guides are currently in Chinese.
 
-The [development roadmap](docs/ROADMAP.md) records completed and planned work with acceptance criteria. M1 provides creation panels, saved recipes and refined lily rendering. M2 is in progress with exhibition playlists, PNG snapshots, three aspect ratios and high resolution redraw; a full uninterrupted ten minute tour check and video export are still pending. M3 now includes browser fireworks and kaleidoscope drawing; artwork 26 is still pending. Physical phone validation, Safari and Firefox checks are still pending; mobile browser emulation does not complete phone validation.
+The [development roadmap](docs/ROADMAP.md) records completed and planned work with acceptance criteria. M1 provides creation panels, saved recipes and refined lily rendering. M2 is in progress with exhibition playlists, PNG snapshots, three aspect ratios and high resolution redraw; a full uninterrupted ten minute tour check and video export are still pending. M3 now includes browser fireworks, kaleidoscope drawing and the particle heart. Physical phone validation, Safari and Firefox checks are still pending; mobile browser emulation does not complete phone validation.
