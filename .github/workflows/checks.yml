@@ -28,6 +28,8 @@ jobs:
           python-version: ${{ matrix.python }}
       - name: Check environment and catalog
         run: python run.py --check
+      - name: Validate catalog and published resources without rewriting files
+        run: python tools/check_catalog.py
       - name: Test without opening windows
         run: python -m unittest discover -s tests -v
       - name: Check published catalog and browser configs match source

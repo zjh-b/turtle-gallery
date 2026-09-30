@@ -27,7 +27,7 @@ python run.py
 1. 先完成一个可以单独运行的 `.py` 文件，给出明确的作品名和操作方式。
 2. 互动展品参考 `社团展示/` 下已有结构，复用 `舞台.py` 的窗口、动画与通用按键。
 3. 在 [作品目录.py](../社团展示/作品目录.py) 中登记标题、编号、分类、文件位置和简介。互动作品还需填写 `entry_class`，让基础测试与媒体工具找到场景类。确保 `python run.py --list` 与菜单都能找到它。
-4. 添加真实运行截图，执行 `python tools/export_gallery.py` 更新网页作品目录，并更新中英文 README 的介绍及操作说明。
+4. 添加桌面与网页需要的真实运行截图，执行 `python tools/export_gallery.py` 更新网页作品目录，再运行 `python tools/check_catalog.py` 检查登记与资源；更新中英文 README 的介绍及操作说明。
 5. 实际打开作品，确认输入、退出与从画廊再次启动的流程。
 
 动画尽量使用定时回调，并按经过的时间更新位置。粒子、笔画和其他持续增加的对象需要数量上限；这样长时间投影展示也能维持稳定的响应。
@@ -79,6 +79,25 @@ python -m http.server 8000 --bind 127.0.0.1 --directory docs
 用浏览器访问 `http://127.0.0.1:8000`，检查搜索、分类、手机宽度、预览图、源码链接和启动命令复制，以及首页和 01、03、26 作品卡上的试玩入口。网页通过 HTTP 加载 `gallery.json`，请使用本地服务器预览。GitHub Pages 使用 `main` 分支的 `/docs` 目录。
 
 导出工具统一生成四份数据：`docs/gallery.json`、`docs/play/fireworks-config.json`、`docs/play/kaleidoscope-config.json` 和 `docs/play/heart-config.json`。修改共用目录或绘图参数后，重新导出并提交相应变化；生成文件不直接手改。
+
+### 检查目录与资源
+
+```bash
+python tools/check_catalog.py
+```
+
+这是只读的标准库检查，不打开窗口、不运行作品，也不重写导出文件。成功返回 0；失败返回 1，并列出作品编号、字段和资源路径。可从任意工作目录使用脚本的绝对路径运行。
+
+检查覆盖：
+
+- `id`、规范的两位 `number` 与源文件路径唯一，编号逐条对应；当前网页预览使用两位编号，支持 01–99。
+- 标题等必需字段、分类、标签与功能开关的类型正确。
+- 源 `.py` 文件、目录登记的桌面预览、网页 `assets/exhibits` / `assets/originals` 预览与 `web_play` 在线页面存在。路径必须留在对应资源目录内，并使用大小写完全一致的正斜杠相对路径。
+- 预览有 PNG 文件头和非零尺寸；已发布的 `docs/gallery.json` 与源目录投影一致，包括顺序、说明、预览、源码及在线链接。
+
+例如把 01 与 03 的 `number` 交换、忘记提交截图或修改标题却没有重新导出，都会在检查中报错。先修正登记和资源，若提示 JSON 与源数据不同，再运行 `python tools/export_gallery.py` 并复查。GitHub 的六组 Windows / Linux Python 检查会在重新生成数据前运行此命令，避免重写文件掩盖目录漂移。
+
+对应回归测试为 `tests/test_catalog_integrity.py`，使用临时目录模拟丢失资源与错误登记。PNG 文件头检查不能判断截图是否过期、画面是否正确，也不验证整个 PNG 的解码；视觉验收和浏览器交互检查仍需单独完成。
 
 ### 维护在线烟花
 
@@ -197,6 +216,7 @@ python tools/check_gallery.py --browser chromium
 
 ```bash
 python run.py --check
+python tools/check_catalog.py
 python -m unittest discover -s tests -v
 ```
 

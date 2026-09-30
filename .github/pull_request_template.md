@@ -9,3 +9,5 @@ Include the launch command and relevant controls. For visual changes, attach a s
 ## Validation / 验证
 
 Describe what you tested. Run `python -m unittest discover -s tests -v` for changes to shared behavior.
+
+Run `python tools/check_catalog.py` when changing catalog entries, previews, or online pages. If generated data is stale, run `python tools/export_gallery.py` and include the updated files.

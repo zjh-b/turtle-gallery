@@ -72,23 +72,29 @@ def export_heart():
     print("Exported shared heart geometry and motion to docs/play/heart-config.json")
 
 
-def main():
-    sys.path.insert(0, str(ROOT))
-    from run import catalog
+def build_gallery(catalog_works):
+    """Project catalog metadata into JSON-ready website data without writing files."""
     repository = "https://github.com/zjh-b/turtle-gallery"
     works = []
-    for work in catalog().WORKS:
+    for work in catalog_works:
         item = {key: work[key] for key in ("id", "number", "title", "subtitle", "collection", "category", "controls", "description", "featured", "tags", "creation", "autoplay")}
+        item["tags"] = list(work["tags"])
         item["web_play"] = work.get("web_play")
         item["preview"] = (f"assets/exhibits/{work['number']}.png" if work["collection"] == "interactive" else
                            f"assets/originals/{work['number']}.png")
         item["source"] = f"{repository}/blob/main/{quote(work['filename'], safe='/')}"
         works.append(item)
-    data = {"project": "Turtle Gallery", "repository": repository, "works": works}
+    return {"project": "Turtle Gallery", "repository": repository, "works": works}
+
+
+def main():
+    sys.path.insert(0, str(ROOT))
+    from run import catalog
+    data = build_gallery(catalog().WORKS)
     destination = ROOT / "docs" / "gallery.json"
     destination.parent.mkdir(exist_ok=True)
     destination.write_text(json.dumps(data, ensure_ascii=False, indent=2) + "\n", encoding="utf-8")
-    print(f"Exported {len(works)} works to docs/gallery.json")
+    print(f"Exported {len(data['works'])} works to docs/gallery.json")
     export_fireworks()
     export_kaleidoscope()
     export_heart()
