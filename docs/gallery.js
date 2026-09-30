@@ -11,7 +11,11 @@
   const messageDetail = document.querySelector("#message-detail");
   const messageAction = document.querySelector("#message-action");
   const status = document.querySelector("#copy-status");
+  const share = document.querySelector("#share-gallery");
+  const shareFallback = document.querySelector("#share-fallback");
+  const manualLink = shareFallback.querySelector("input");
   const filters = [...document.querySelectorAll("[data-collection]")];
+  const collections = new Set(filters.map(button => button.dataset.collection));
   let works = [];
   let collection = "all";
   let statusTimer;
@@ -28,6 +32,57 @@
     status.textContent = text;
     status.hidden = false;
     statusTimer = setTimeout(() => { status.hidden = true; }, 4200);
+  }
+
+  function galleryURL(value = collection, query = search.value, anchor = false) {
+    const url = new URL(window.location.href);
+    if (value === "all") url.searchParams.delete("collection");
+    else url.searchParams.set("collection", value);
+    const normalized = query.trim().slice(0, 100);
+    if (normalized) url.searchParams.set("q", normalized);
+    else url.searchParams.delete("q");
+    if (anchor) url.hash = "gallery";
+    return url;
+  }
+
+  function remember(mode, anchor = false) {
+    const url = galleryURL(collection, search.value, anchor);
+    if (url.href === window.location.href) return;
+    // Restricted history access must not stop searching or sharing.
+    try { window.history[mode + "State"](null, "", url); } catch (_) { /* UI remains usable. */ }
+  }
+
+  function restoreLocation() {
+    const params = new URLSearchParams(window.location.search);
+    search.value = (params.get("q") || "").slice(0, 100);
+    const value = params.get("collection");
+    setCollection(collections.has(value) ? value : "all", null);
+  }
+
+  function visitGallery() {
+    const gallery = document.querySelector("#gallery");
+    gallery.focus({ preventScroll: true });
+    gallery.scrollIntoView();
+  }
+
+  async function shareGallery() {
+    const url = galleryURL(collection, search.value, true).href;
+    share.disabled = true;
+    try {
+      if (!navigator.clipboard || !window.isSecureContext) throw new Error("Clipboard unavailable");
+      await navigator.clipboard.writeText(url);
+      shareFallback.hidden = true;
+      announce("已复制筛选链接，打开即可看到这些作品。");
+    } catch (_) {
+      // A permission prompt may outlive a filter change: offer the current link.
+      manualLink.value = galleryURL(collection, search.value, true).href;
+      shareFallback.hidden = false;
+      manualLink.focus();
+      manualLink.select();
+      announce("浏览器未允许自动复制。链接已显示并选中，可手动复制。");
+    } finally {
+      share.disabled = false;
+    }
   }
 
   async function copyCommand(button, command) {
@@ -98,7 +153,7 @@
 
   function featuredCard(work) {
     const link = element("a", "featured-card");
-    link.href = "#gallery";
+    link.href = galleryURL("romantic", work.number, true).href;
     link.setAttribute("aria-label", "查看「" + work.title + "」的预览与运行方式");
     const preview = element("div", "featured-preview");
     const image = element("img");
@@ -113,9 +168,12 @@
                    element("strong", "", work.title),
                    element("span", "featured-arrow", "↗"));
     link.append(preview, caption);
-    link.addEventListener("click", () => {
+    link.addEventListener("click", event => {
+      if (event.button !== 0 || event.ctrlKey || event.metaKey || event.shiftKey || event.altKey) return;
+      event.preventDefault();
       search.value = work.number;
-      setCollection("romantic");
+      setCollection("romantic", "push", true);
+      visitGallery();
     });
     return link;
   }
@@ -132,7 +190,7 @@
     const query = search.value.trim().toLocaleLowerCase();
     const filtered = works.filter(work => {
       const inCollection = collection === "all" || work.collection === collection
-        || (collection === "romantic" && work.featured);
+        || (collection === "romantic" && work.featured) || (collection === "online" && work.web_play);
       const haystack = [work.number, work.id, work.title, work.subtitle, work.category,
         work.description, work.controls, ...(work.tags || []),
         work.collection === "interactive" ? "互动展品 动画" : "创意原作",
@@ -150,14 +208,16 @@
     });
   }
 
-  function setCollection(value) {
+  function setCollection(value, mode = "push", anchor = false) {
     collection = value;
     filters.forEach(button => {
       const active = button.dataset.collection === value;
       button.classList.toggle("is-active", active);
       button.setAttribute("aria-pressed", String(active));
     });
-    render();
+    shareFallback.hidden = true;
+    if (mode) remember(mode, anchor);
+    if (works.length) render();
   }
 
   function validWork(work) {
@@ -185,9 +245,11 @@
       works = data.works;
       featuredGrid.replaceChildren(...works.filter(work => work.featured).map(featuredCard));
       tools.hidden = false;
+      share.hidden = false;
       filters.forEach(button => {
         const number = button.querySelector("span");
         number.textContent = button.dataset.collection === "all" ? works.length
+          : button.dataset.collection === "online" ? works.filter(work => work.web_play).length
           : button.dataset.collection === "romantic" ? works.filter(work => work.featured).length
             : works.filter(work => work.collection === button.dataset.collection).length;
       });
@@ -195,7 +257,7 @@
         const value = node.dataset.count;
         node.textContent = value === "all" ? works.length : works.filter(work => work.collection === value).length;
       });
-      render();
+      restoreLocation();
     } catch (_) {
       grid.setAttribute("aria-busy", "false");
       count.textContent = "作品目录暂未加载";
@@ -206,11 +268,24 @@
   }
 
   filters.forEach(button => button.addEventListener("click", () => setCollection(button.dataset.collection)));
-  document.querySelector("[data-show-featured]").addEventListener("click", () => {
+  const showFeatured = document.querySelector("[data-show-featured]");
+  showFeatured.href = galleryURL("romantic", "", true).href;
+  showFeatured.addEventListener("click", event => {
+    if (event.button !== 0 || event.ctrlKey || event.metaKey || event.shiftKey || event.altKey) return;
+    event.preventDefault();
     search.value = "";
-    setCollection("romantic");
+    setCollection("romantic", "push", true);
+    visitGallery();
   });
-  search.addEventListener("input", render);
+  function searchChanged() {
+    shareFallback.hidden = true;
+    remember("replace");
+    render();
+  }
+  search.addEventListener("input", event => { if (!event.isComposing) searchChanged(); });
+  search.addEventListener("compositionend", searchChanged);
+  window.addEventListener("popstate", restoreLocation);
+  share.addEventListener("click", shareGallery);
   document.addEventListener("click", event => {
     const button = event.target.closest("button[data-copy]");
     if (button) copyCommand(button, button.dataset.copy);

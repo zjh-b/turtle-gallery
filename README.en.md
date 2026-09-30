@@ -26,6 +26,8 @@ Made for club demonstrations, learning Python and trying out visual ideas. The a
 
 [Browse the online gallery](https://zjh-b.github.io/turtle-gallery/) to search, filter and explore every work on desktop or mobile. Artworks 01 (fireworks), 03 (kaleidoscope) and 26 (particle heart) support browser play; the other works have previews. Download the project to run all 28 Python programs on your computer.
 
+Open the **[online collection →](https://zjh-b.github.io/turtle-gallery/?collection=online#gallery)** to see all playable works. Search or choose a collection, then use “复制当前筛选链接” to share those results. Reload, Back and Forward restore the filters; if clipboard access is unavailable, a selected link is provided for manual copying.
+
 ## Get started
 
 Use **Python 3.9+ with Tkinter**. Download and extract the repository ZIP, then double-click **[start.bat](start.bat)** on Windows, or run:

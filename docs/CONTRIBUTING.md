@@ -175,6 +175,22 @@ python tools/check_heart.py --browser chromium
 
 PNG 应为 1080 × 1080，包含当前主题、动画阶段与题字，不含网页控件。保存先同步绘入独立画布再异步编码，不能暂停或重置当前模型；检查下载失败后能重试。另需检查最高密度与完全散开时的画面边界、窄屏布局、三个在线作品互访，以及无脚本、配置失败时的预览和源码入口。实测记录放在 [heart-m3.json](benchmarks/heart-m3.json)，真实浏览器截图放在 [browser-heart.png](assets/browser-heart.png)。移动模拟不能替代实体手机验收；Safari、Firefox 与实体手机结果应分别记录。
 
+## 维护首页筛选与分享
+
+`docs/gallery.js` 从生成的 `gallery.json` 读取作品；“在线试玩”依据 `web_play` 自动筛选和计数，新增网页作品后无需再维护一份编号列表。分类与搜索分别使用 URL 的 `collection` 和 `q`，不依赖账号或本地存储。
+
+支持 `all`、`romantic`、`interactive`、`original`、`online`；未知分类回退到全部，搜索最多 100 个字符。分类切换新增历史记录，输入搜索替换当前记录。默认值从生成的链接中省略，其他 URL 参数保留；分享链接定位到 `#gallery`。精选作品也提供可在新标签打开的真实筛选链接。
+
+安装 `requirements-browser.txt` 后运行：
+
+```bash
+python tools/check_gallery.py
+# 使用 Playwright Chromium 时先执行 python -m playwright install chromium
+python tools/check_gallery.py --browser chromium
+```
+
+检查覆盖合集数量、搜索与空态、深链接、刷新与前进后退、分享成功与剪贴板拒绝、触屏模拟和键盘操作。支持 `--only` 选择分组，`--output` 指定截图和 JSON 记录目录（默认 `.work/gallery`）。手机宽度检查不能替代手机实机验收。
+
 ## 验证改动
 
 提交前运行环境检查与现有测试，再直接体验改动涉及的作品：

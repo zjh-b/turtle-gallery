@@ -551,10 +551,12 @@ nav a:hover {
 
 .gallery-tools {
   display: flex;
+  flex-wrap: wrap;
   gap: 20px;
   justify-content: space-between;
   align-items: center;
   margin-top: 32px;
+  margin-bottom: 17px;
 }
 
 .collection-filters {
@@ -638,8 +640,38 @@ nav a:hover {
 .result-count {
   min-height: 20px;
   font-size: 11px;
-  margin: 16px 0 17px;
+  margin: 0;
   color: #93aaa6;
+}
+
+.gallery-result-bar {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  flex-wrap: wrap;
+  gap: 8px 16px;
+  width: 100%;
+  margin: 16px 0 17px;
+}
+
+.share-fallback {
+  display: block;
+  width: 100%;
+  margin-bottom: 17px;
+  color: var(--muted);
+  font-size: 12px;
+}
+
+.manual-link {
+  display: block;
+  width: 100%;
+  margin-top: 8px;
+  padding: 12px;
+  border: 1px solid var(--mint);
+  border-radius: 9px;
+  background: #0e1b1f;
+  color: var(--text);
+  font: inherit;
 }
 
 .gallery-grid {
@@ -1570,6 +1602,8 @@ nav a:hover {
   }
 
   .collection-filters {
+    display: grid;
+    grid-template-columns: repeat(3, minmax(0, 1fr));
     width: 100%;
     gap: 3px;
     padding: 4px;
