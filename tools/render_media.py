@@ -5,6 +5,7 @@
     python tools/render_media.py --creator
     python tools/render_media.py --aspects
     python tools/render_media.py --hd
+    python tools/render_media.py --exhibits 2 6 9
 
 The application itself has no Pillow dependency. Capture helpers execute one work
 at a time in a separate process and write only project-owned image files.
@@ -189,6 +190,45 @@ def social_capture(number):
         ImageOps.fit(still, (800, 464), method=Image.Resampling.LANCZOS).save(
             destination / f"{number:02}.png", optimize=True)
         print(f"Captured new work {number}", flush=True)
+    finally:
+        app.stage.close()
+
+
+def exhibit_capture(number):
+    """Refresh one registered interactive work at a fixed two-second pose."""
+    work = next(work for work in works() if work["id"] == number)
+    if work["collection"] != "interactive" or not work.get("entry_class"):
+        raise ValueError("--exhibits requires registered interactive work IDs")
+    path = ROOT / work["filename"]
+    sys.path.insert(0, str(path.parent))
+    from 作品导出 import capture_artwork
+    spec = importlib.util.spec_from_file_location("capture_exhibit", path)
+    module = importlib.util.module_from_spec(spec)
+    spec.loader.exec_module(module)
+    random.seed(2026)
+    app = getattr(module, work["entry_class"])()
+    try:
+        app.stage.root.geometry("1000x720+20+20")
+        app.stage.root.update()
+        app.reset()
+        for _ in range(50):
+            app.frame(.04)
+        app.stage.screen.update()
+        artwork = capture_artwork(app.stage)
+        previews = ROOT / "社团展示" / "previews"
+        previews.mkdir(exist_ok=True)
+        # Legacy previews include the window; the newer romantic series uses
+        # artwork-only previews. Keep load_scene()'s existing framing contract.
+        (artwork if number in SOCIAL_IDS else grab(app.stage.root)).save(
+            previews / f"{number:02}.png", optimize=True)
+        for suffix, size in (("thumb", (244, 154)), ("compact", (220, 126))):
+            ImageOps.pad(artwork, size, method=Image.Resampling.LANCZOS, color="#101A2A").save(
+                previews / f"{number:02}_{suffix}.png", optimize=True)
+        destination = ASSETS / "exhibits"
+        destination.mkdir(exist_ok=True)
+        ImageOps.fit(artwork, (800, 464), method=Image.Resampling.LANCZOS).save(
+            destination / f"{number:02}.png", optimize=True)
+        print(f"Captured exhibit {number:02} at t=2s", flush=True)
     finally:
         app.stage.close()
 
@@ -544,11 +584,19 @@ def make_gif():
                 x = 314 + dot * 18
                 d.ellipse((x, 455, x + 5, 460), fill="#B6E5D1" if sequence == dot else "#3B5164")
             frames.append(frame)
-    samples = Image.new("RGB", (192 * 6, 128))
-    for i in range(6):
-        samples.paste(frames[i * 16].resize((192, 128)), (i * 192, 0))
-    palette = samples.quantize(colors=160)
-    converted = [frame.quantize(palette=palette, dither=Image.Dither.NONE) for frame in frames]
+    converted = []
+    for sequence in range(len(selected)):
+        # A shared palette across six unrelated scenes shifted the pale tree's
+        # bark toward blue. Keep a stable local palette for each 16-frame clip,
+        # sampled throughout its motion so colors remain consistent in time.
+        clip = frames[sequence * 16:(sequence + 1) * 16]
+        samples = Image.new("RGB", (360 * 4, 238))
+        for index, sample in enumerate((0, 5, 10, 15)):
+            samples.paste(clip[sample].resize((360, 238), Image.Resampling.LANCZOS),
+                          (index * 360, 0))
+        palette = samples.quantize(colors=256)
+        converted.extend(frame.quantize(palette=palette, dither=Image.Dither.NONE)
+                         for frame in clip)
     converted[0].save(ASSETS / "showcase.gif", save_all=True, append_images=converted[1:], duration=120,
                       loop=0, optimize=True, disposal=1)
     print(f"Wrote showcase.gif ({(ASSETS / 'showcase.gif').stat().st_size / 1024 / 1024:.2f} MiB)")
@@ -556,9 +604,12 @@ def make_gif():
 
 def main():
     parser = argparse.ArgumentParser(description=__doc__)
+    interactive_ids = tuple(work["id"] for work in works() if work["collection"] == "interactive")
     parser.add_argument("--originals", action="store_true")
     parser.add_argument("--compose", action="store_true")
     parser.add_argument("--gif", action="store_true")
+    parser.add_argument("--exhibits", nargs="+", type=int, choices=interactive_ids,
+                        help="Refresh selected interactive previews at a fixed two-second pose")
     parser.add_argument("--social", action="store_true", help="Capture the four romantic light artworks and their animation")
     parser.add_argument("--creator", action="store_true", help="Capture the live creation panel and artwork")
     parser.add_argument("--aspects", action="store_true", help="Capture the six aspect compositions and comparison board")
@@ -567,8 +618,12 @@ def main():
     parser.add_argument("--capture-original", type=int, help=argparse.SUPPRESS)
     parser.add_argument("--capture-animation", type=int, help=argparse.SUPPRESS)
     parser.add_argument("--capture-social", type=int, choices=SOCIAL_IDS, help=argparse.SUPPRESS)
+    parser.add_argument("--capture-exhibit", type=int, choices=interactive_ids, help=argparse.SUPPRESS)
     args = parser.parse_args()
     ASSETS.mkdir(parents=True, exist_ok=True)
+    if args.capture_exhibit:
+        exhibit_capture(args.capture_exhibit)
+        return
     if args.capture_aspect:
         aspect_capture(args.capture_aspect)
         return
@@ -587,6 +642,10 @@ def main():
                 subprocess.run([sys.executable, str(Path(__file__).resolve()), "--capture-original", str(work["id"])],
                                check=True, timeout=60)
                 print(f"Captured original {work['number']}", flush=True)
+    if args.exhibits:
+        for number in dict.fromkeys(args.exhibits):
+            subprocess.run([sys.executable, str(Path(__file__).resolve()), "--capture-exhibit", str(number)],
+                           check=True, timeout=90)
     if args.gif:
         make_gif()
     if args.social:

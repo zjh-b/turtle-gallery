@@ -58,12 +58,15 @@ PNG 导出是独立可选能力，依赖在 [requirements-export.txt](../require
 
 ```bash
 python -m pip install -r requirements-media.txt
+python tools/render_media.py --exhibits 2 6 9
 python tools/render_media.py --originals --gif --compose
 python tools/render_media.py --social --compose
 python tools/render_media.py --creator
 python tools/render_media.py --aspects
 python tools/render_media.py --hd
 ```
+
+`--exhibits` 按编号重新运行互动作品，更新桌面预览、两种卡片缩略图和网页展品图片；调整已有作品画面后用它同步画廊，避免预览仍显示旧画面。例如上面的命令只刷新 02、06、09。若涉及 README 动画中的作品，再运行 `python tools/render_media.py --gif` 更新动画片段。
 
 抓取运行画面需要可用的桌面显示；仅重新排版已有截图时可使用 `python tools/render_media.py --compose`。更新后检查生成图片中的文字、构图和 GIF 播放效果。预览中的温柔便签为原文排版示意，月饼计算展示实际程序输出；其他原作使用运行截图。
 

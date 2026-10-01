@@ -1,0 +1,90 @@
+{
+  "date": "2026-10-01",
+  "platform": "Windows 11 10.0.26200",
+  "python": "3.12.4",
+  "tk": "8.6.14",
+  "pillow_for_captures": "12.3.0",
+  "settings": "Default reset state; spring tree; completed five-layer twenty-petal spirograph",
+  "warmup": {
+    "frames": 50,
+    "simulation_dt_seconds": 0.04
+  },
+  "measurement": {
+    "clock": "time.perf_counter",
+    "simulation_dt_seconds": 0.025,
+    "timed_operations": [
+      "app.frame(dt)",
+      "app.stage.screen.update()"
+    ],
+    "p95": "Sorted sample at ceil(0.95 * 120), one-based",
+    "scope": "Local frame drawing plus Tk update. Excludes startup, timer scheduling and capture; not an end-to-end FPS measurement."
+  },
+  "results": [
+    {
+      "number": 2,
+      "window": [
+        1000,
+        720
+      ],
+      "samples": 120,
+      "median_ms": 30.15,
+      "p95_ms": 42.72,
+      "items": 1047,
+      "scope": "Local frame drawing plus Tk update; not an end-to-end FPS measurement"
+    },
+    {
+      "number": 6,
+      "window": [
+        1000,
+        720
+      ],
+      "samples": 120,
+      "median_ms": 30.56,
+      "p95_ms": 36.32,
+      "items": 1072,
+      "scope": "Local frame drawing plus Tk update; not an end-to-end FPS measurement"
+    },
+    {
+      "number": 9,
+      "window": [
+        1000,
+        720
+      ],
+      "samples": 120,
+      "median_ms": 16.95,
+      "p95_ms": 24.02,
+      "items": 262,
+      "scope": "Local frame drawing plus Tk update; not an end-to-end FPS measurement"
+    }
+  ],
+  "capture": {
+    "method": "Pillow HWND capture of live Tk windows; crop and resize only",
+    "before_commit": "aa6d4e3",
+    "simulation_seconds": 2,
+    "window": [
+      1000,
+      720
+    ],
+    "spirograph_before_preset": 3,
+    "spirograph_after_preset": 3
+  },
+  "visual_checks": {
+    "small_window": [
+      760,
+      580
+    ],
+    "galaxy": [
+      "default scene",
+      "Saturn selection at small window"
+    ],
+    "tree": [
+      "four seasons",
+      "left gust at small window"
+    ],
+    "spirograph": [
+      "four curve presets",
+      "three palettes",
+      "single-layer redraw with gears at small window"
+    ]
+  }
+}

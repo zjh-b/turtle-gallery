@@ -53,6 +53,14 @@ Developed and checked on Windows. macOS and Linux need a Python build with Tk an
 
 ## Explore the gallery
 
+### Three visual upgrades
+
+![Before and after: real running scenes from the galaxy, seasonal tree and spirograph](docs/assets/visual-upgrades.png)
+
+**02 Pocket Universe** adds nebula dust, a moving solar corona and detailed planet surfaces. **06 A Tree, Four Seasons** frames a layered canopy with distant hills and a meadow; click to send a gust through the leaves. **09 Circles Drawing Flowers** opens with a five-layer, twenty-petal pattern: **P** cycles three palettes, **L** compares a single curve with its decorative layers, and **G** reveals the rolling-circle mechanism.
+
+Run `python run.py --demo 02`, `--demo 06` or `--demo 09` on your computer. [Visual comparison and presentation guide in Chinese →](docs/VISUAL_UPGRADES.md)
+
 ![Four new romantic light artworks](docs/assets/romantic.png)
 
 ### Romantic Light · four new exhibits
@@ -77,14 +85,14 @@ These ten exhibits and the four above make up the 14 interactive works.
 | ID | Exhibit / source | Try this |
 | --- | --- | --- |
 | 01 | [Light Up the Night](社团展示/01_点击烟花.py) · [Play online](https://zjh-b.github.io/turtle-gallery/play/fireworks.html) | Click for fireworks; on desktop, C changes the pattern and F launches a five-rocket finale |
-| 02 | [Pocket Universe](社团展示/02_旋转星系.py) | Select planets, inspect rings and moons, change speed with ↑↓ |
+| 02 | [Pocket Universe](社团展示/02_旋转星系.py) | Select planets, inspect the corona, clouds and layered rings; change speed with ↑↓ |
 | 03 | [A Stroke in Bloom](社团展示/03_鼠标万花筒.py) · [Play online](https://zjh-b.github.io/turtle-gallery/play/kaleidoscope.html) | Draw mirrored patterns; undo and download PNG in the browser; on desktop, P changes colors and D toggles automatic drawing |
 | 04 | [Quiet Koi Pond](社团展示/04_互动鱼塘.py) | Click to feed koi and watch them steer around one another |
 | 05 | [Catch the Starlight](社团展示/05_接住星星.py) | Move with arrow keys; M toggles mouse control |
-| 06 | [A Tree, Four Seasons](社团展示/06_四季分形树.py) | Choose a season with 1–4; G regrows the recursive branches |
+| 06 | [A Tree, Four Seasons](社团展示/06_四季分形树.py) | Choose blossoms, foliage, golden leaves or snow with 1–4; click for a gust, G regrows the tree |
 | 07 | [Letters from the Deep](社团展示/07_深海水母.py) | Place a light for jellyfish to follow; C changes the palette |
 | 08 | [Echoes in the Landscape](社团展示/08_山水画卷.py) | D switches day and night; click the lake to add a boat |
-| 09 | [Circles Drawing Flowers](社团展示/09_几何绘图仪.py) | Pick a curve with 1–4; C redraws it with the moving pen |
+| 09 | [Circles Drawing Flowers](社团展示/09_几何绘图仪.py) | 1–4 select curves; P changes colors, L toggles layers, C redraws and G reveals the rolling circles |
 | 10 | [Neon Breakout](社团展示/10_霓虹弹球.py) | Move with the mouse or arrows; A toggles automatic play |
 
 Shared controls for all 14 exhibits: **Space** pause · **R** restart · **H** show/hide instructions · **F11** fullscreen · **Esc** exit the exhibit. In works 25 and 26, R keeps your current creation settings. When launched from the gallery, closing an exhibit lets you choose another. [Full controls in Chinese →](社团展示/README.md)
