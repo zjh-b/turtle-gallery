@@ -137,6 +137,12 @@ The original filenames and themes remain in the repository root, with selected w
 
 Run `python yeizi.py`, `python yusan.py` or `python 风车.py` from the project root. Keep the shared `社团展示/` directory with these scripts. [Comparison and controls in Chinese →](docs/ORIGINAL_UPGRADES.md)
 
+**Three more originals refreshed: 16 Bouncing Balls, 19 Rotating Yin-Yang and 21 Analog Clock.** Push pearl shaded balls with a click or enable gravity; change the speed and direction of a paper and brass yin-yang disc; compare live local time with an accelerated clock demonstration. Each work has three palettes.
+
+![Before and after: real running scenes from the upgraded balls, yin-yang and clock](docs/assets/original-motion.png)
+
+Run `python 下落的小球.py`, `python 太极.py` or `python 时钟.py`. [Comparison, controls and code notes in Chinese →](docs/ORIGINAL_MOTION.md)
+
 | Theme | Originals / source |
 | --- | --- |
 | Geometry and lines | 11 [Recursive Circles](2.py) · 12 [Rainbow Square Spiral](import%20turtle.py) · 14 [Arc Leaves](yeizi.py) · 15 [Arc Umbrella](yusan.py) |
@@ -144,7 +150,7 @@ Run `python yeizi.py`, `python yusan.py` or `python 风车.py` from the project 
 | Make it move | 16 [Bouncing Balls](下落的小球.py) · 19 [Rotating Yin-Yang](太极.py) · 21 [Analog Clock](时钟.py) · 24 [Pinwheel](风车.py) |
 | Everyday ideas and games | 20 [Kind Notes](弹窗.py) · 22 [Mooncake Packing Calculator](测试.py) · 23 [Needle Timing Game](见缝插针.py) |
 
-Works 14, 15 and 24 remain in the original collection with shared stage controls: click a leaf to add dew, click the water below the umbrella for ripples, or click the pinwheel scene for a gust. Other originals have their own controls. The needle game uses mouse clicks, the calculator accepts text input, and Kind Notes opens several small windows. Use the gallery's stop control to end an original. [Individual controls and editing ideas in Chinese →](docs/CREATIVE_GUIDE.md#14-个创意原作)
+The six upgraded works—14, 15, 16, 19, 21 and 24—remain in the original collection and share palette, pause, reset, instruction visibility and fullscreen controls. Other originals have their own controls. The needle game uses mouse clicks, the calculator accepts text input, and Kind Notes opens several small windows. Use the gallery's stop control to end an original. [Individual controls and editing ideas in Chinese →](docs/CREATIVE_GUIDE.md#14-个创意原作)
 
 ## Bring it to your club
 
