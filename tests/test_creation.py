@@ -138,12 +138,14 @@ class RecipeTests(unittest.TestCase):
             self.assertEqual(list(Path(folder).iterdir()), [path])
 
     def test_catalog_registers_only_supported_creators_and_all_scene_entries(self):
+        from test_original_art import ORIGINALS
+        original_entries = dict(ORIGINALS)
         self.assertEqual({w["id"] for w in CATALOG.WORKS if w["creation"]}, set(recipes.SPECIFICATIONS))
         for work in CATALOG.WORKS:
             if work["collection"] == "interactive":
                 self.assertIn(work["entry_class"], DEMOS)
             else:
-                self.assertIsNone(work["entry_class"])
+                self.assertEqual(work["entry_class"], original_entries.get(work["filename"]))
 
 
 class CreationSceneTests(unittest.TestCase):

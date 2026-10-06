@@ -18,7 +18,7 @@ python run.py
 
 ## 改进已有作品
 
-先阅读对应作品与 [创作指南](CREATIVE_GUIDE.md)，保持改动聚焦。根目录中的原作保留早期创作的画法和文件名；修复兼容问题时尽量小改，若要重新设计视觉或玩法，适合另做一个作品。
+先阅读对应作品与 [创作指南](CREATIVE_GUIDE.md)，保持改动聚焦。根目录中的原作也可以直接优化画面和玩法，保留作品主题、原文件名与编号；早期版本通过 Git 历史查看。14、15、24 的升级可作为参考：复用共用舞台、定时更新动画、限制互动对象数量，并用 `if __name__ == "__main__"` 保护运行入口，避免导入时打开窗口。
 
 提交时说明具体行为，例如“鱼群接近窗口边缘时转向更平缓”，并给出修改前后的截图或简短运行片段。新素材如果不是你制作的，请附上来源与使用依据。
 
@@ -59,6 +59,7 @@ PNG 导出是独立可选能力，依赖在 [requirements-export.txt](../require
 ```bash
 python -m pip install -r requirements-media.txt
 python tools/render_media.py --exhibits 2 6 9
+python tools/render_media.py --original-ids 14 15 24 --compose-originals
 python tools/render_media.py --originals --gif --compose
 python tools/render_media.py --social --compose
 python tools/render_media.py --creator
@@ -67,6 +68,8 @@ python tools/render_media.py --hd
 ```
 
 `--exhibits` 按编号重新运行互动作品，更新桌面预览、两种卡片缩略图和网页展品图片；调整已有作品画面后用它同步画廊，避免预览仍显示旧画面。例如上面的命令只刷新 02、06、09。若涉及 README 动画中的作品，再运行 `python tools/render_media.py --gif` 更新动画片段。
+
+`--original-ids` 只复拍指定原作，`--compose-originals` 用现有原作截图更新原作总览；例如上面的命令刷新 14、15、24 并重排总览。[原文件升级记录 →](ORIGINAL_UPGRADES.md)
 
 抓取运行画面需要可用的桌面显示；仅重新排版已有截图时可使用 `python tools/render_media.py --compose`。更新后检查生成图片中的文字、构图和 GIF 播放效果。预览中的温柔便签为原文排版示意，月饼计算展示实际程序输出；其他原作使用运行截图。
 
@@ -243,7 +246,7 @@ python -m unittest discover -s tests -p test_aspect.py -v
 Remove-Item Env:TURTLE_GALLERY_GUI_TESTS
 ```
 
-若改动共用舞台或画廊，检查不同分类中的作品、小窗口布局、作品结束后返回画廊，以及连续启动不同作品。涉及 14 款互动展品时，验证暂停、重置、说明开关、全屏和 Esc 退出；原作按各自操作验证。
+若改动共用舞台或画廊，检查不同分类中的作品、小窗口布局、作品结束后返回画廊，以及连续启动不同作品。14 款互动展品及已接入舞台的原作 14、15、24，均需验证暂停、重置、说明开关、全屏和 Esc 退出；其余原作按各自操作验证。
 
 项目在 Windows 上开发。若在 macOS / Linux 验证或修复了问题，请写明系统、Python / Tk 版本和实测结果，帮助补齐平台信息。
 

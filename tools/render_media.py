@@ -6,6 +6,7 @@
     python tools/render_media.py --aspects
     python tools/render_media.py --hd
     python tools/render_media.py --exhibits 2 6 9
+    python tools/render_media.py --original-ids 14 15 24 --compose-originals
 
 The application itself has no Pillow dependency. Capture helpers execute one work
 at a time in a separate process and write only project-owned image files.
@@ -114,6 +115,14 @@ def compose():
         draw.text((x + 5, y + 246), title, font=font(12, bold=True), fill="#B9C6D1")
     hero.save(ASSETS / "hero.png", optimize=True)
 
+    compose_originals()
+    print("Composed hero.png")
+
+
+def compose_originals():
+    """Update the original-work contact sheet without rewriting other collections."""
+    ASSETS.mkdir(parents=True, exist_ok=True)
+
     originals = [work for work in works() if work["collection"] == "original"]
     board = Image.new("RGB", (1440, 1200), "#101A2A")
     draw = ImageDraw.Draw(board)
@@ -128,7 +137,7 @@ def compose():
         with Image.open(source) as picture:
             # Keep the complete original composition visible in wider cards.
             picture = picture.convert("RGB")
-            if work["id"] not in (20, 22):
+            if work["id"] not in (20, 22) and not work.get("entry_class"):
                 picture = picture.crop((5, 5, picture.width - 5, picture.height - 5))
             for suffix, size in (("thumb", (244, 154)), ("compact", (220, 126))):
                 ImageOps.pad(picture, size, method=Image.Resampling.LANCZOS, color="#101A2A").save(
@@ -142,7 +151,7 @@ def compose():
     draw.text((744, 1025), "在画廊中选择「原始创意」，继续你的下一笔。", font=font(17), fill="#92ACBD")
     draw.text((40, 1160), "便签为原作提示语排版预览；月饼计算展示真实终端输出。其余为原作运行画面。", font=font(14), fill="#7F98AD")
     board.save(ASSETS / "originals.png", optimize=True)
-    print("Composed hero.png and originals.png")
+    print("Composed originals.png")
 
 
 def social_capture(number):
@@ -437,6 +446,31 @@ def original_capture(number):
     path = ROOT / work["filename"]
     ORIGINALS.mkdir(parents=True, exist_ok=True)
     destination = ORIGINALS / f"{number:02}.png"
+    if work.get("entry_class"):
+        # Refined originals now expose an import-safe scene class. Capture the
+        # live artwork directly instead of intercepting legacy Turtle loops.
+        sys.path.insert(0, str(ROOT))
+        from 社团展示.作品导出 import capture_artwork
+        spec = importlib.util.spec_from_file_location("capture_original_scene", path)
+        module = importlib.util.module_from_spec(spec)
+        spec.loader.exec_module(module)
+        app = getattr(module, work["entry_class"])()
+        try:
+            app.stage.root.geometry("1000x720+20+20")
+            app.stage.root.update()
+            app.reset()
+            for _ in range(50):
+                app.frame(.04)
+            app.stage.screen.update()
+            picture = capture_artwork(app.stage)
+            picture.save(destination, optimize=True)
+            for suffix, size in (("thumb", (244, 154)), ("compact", (220, 126))):
+                ImageOps.pad(picture, size, method=Image.Resampling.LANCZOS, color="#101A2A").save(
+                    ORIGINALS / f"{number:02}_{suffix}.png", optimize=True)
+        finally:
+            app.stage.close()
+        print(f"Captured refined original {number:02} at t=2s", flush=True)
+        return
     if number == 20:
         tree = ast.parse(path.read_text(encoding="utf-8-sig"))
         messages = next(ast.literal_eval(node.value) for node in tree.body
@@ -605,8 +639,13 @@ def make_gif():
 def main():
     parser = argparse.ArgumentParser(description=__doc__)
     interactive_ids = tuple(work["id"] for work in works() if work["collection"] == "interactive")
+    original_ids = tuple(work["id"] for work in works() if work["collection"] == "original")
     parser.add_argument("--originals", action="store_true")
+    parser.add_argument("--original-ids", nargs="+", type=int, choices=original_ids,
+                        help="Refresh selected original works without recapturing the whole collection")
     parser.add_argument("--compose", action="store_true")
+    parser.add_argument("--compose-originals", action="store_true",
+                        help="Rebuild the original-work contact sheet from existing previews")
     parser.add_argument("--gif", action="store_true")
     parser.add_argument("--exhibits", nargs="+", type=int, choices=interactive_ids,
                         help="Refresh selected interactive previews at a fixed two-second pose")
@@ -615,7 +654,7 @@ def main():
     parser.add_argument("--aspects", action="store_true", help="Capture the six aspect compositions and comparison board")
     parser.add_argument("--hd", action="store_true", help="Export a 4K sample and compare actual detail with a window PNG")
     parser.add_argument("--capture-aspect", type=int, choices=(25, 26), help=argparse.SUPPRESS)
-    parser.add_argument("--capture-original", type=int, help=argparse.SUPPRESS)
+    parser.add_argument("--capture-original", type=int, choices=original_ids, help=argparse.SUPPRESS)
     parser.add_argument("--capture-animation", type=int, help=argparse.SUPPRESS)
     parser.add_argument("--capture-social", type=int, choices=SOCIAL_IDS, help=argparse.SUPPRESS)
     parser.add_argument("--capture-exhibit", type=int, choices=interactive_ids, help=argparse.SUPPRESS)
@@ -642,6 +681,10 @@ def main():
                 subprocess.run([sys.executable, str(Path(__file__).resolve()), "--capture-original", str(work["id"])],
                                check=True, timeout=60)
                 print(f"Captured original {work['number']}", flush=True)
+    elif args.original_ids:
+        for number in dict.fromkeys(args.original_ids):
+            subprocess.run([sys.executable, str(Path(__file__).resolve()), "--capture-original", str(number)],
+                           check=True, timeout=90)
     if args.exhibits:
         for number in dict.fromkeys(args.exhibits):
             subprocess.run([sys.executable, str(Path(__file__).resolve()), "--capture-exhibit", str(number)],
@@ -658,6 +701,8 @@ def main():
         make_aspects()
     if args.compose:
         compose()
+    elif args.compose_originals:
+        compose_originals()
 
 
 if __name__ == "__main__":

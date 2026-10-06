@@ -378,7 +378,12 @@ class Stage:
     def run(self, frame, reset):
         self.frame, self.reset_action = frame, reset
         self.reset()
-        from 巡展 import attach_tour
+        # Root-level originals import 社团展示.舞台; numbered standalone
+        # scripts import 舞台. Support both without changing sys.path.
+        if __package__:
+            from .巡展 import attach_tour
+        else:
+            from 巡展 import attach_tour
         self.tour = attach_tour(self)
         self.tick()
         self.screen.mainloop()

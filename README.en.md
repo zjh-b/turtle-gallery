@@ -129,7 +129,13 @@ High resolution PNGs use drawing at twice the output dimensions followed by down
 
 Previews use runtime screenshots, with two exceptions: Kind Notes illustrates the original messages in a composed layout; the calculator card typesets actual program output.
 
-The original filenames and drawing approaches remain in the repository root. Small scripts make useful starting points for understanding how a picture or an interaction works.
+The original filenames and themes remain in the repository root, with selected works upgraded in place. Earlier versions are available in Git history.
+
+**Three originals refreshed: 14 Arc Leaves, 15 Arc Umbrella and 24 Pinwheel.** Layered leaves gain veins and dew, the umbrella sits in a rainy evening with reflections and ripples, and the pinwheel becomes folded paper in a breezy garden. All three support **C** for palettes, **Space** to pause, **R** to restart, **H** to hide instructions, **F11** for fullscreen and **Esc** to exit.
+
+![Before and after: real running scenes from the upgraded original leaves, umbrella and pinwheel](docs/assets/original-upgrades.png)
+
+Run `python yeizi.py`, `python yusan.py` or `python 风车.py` from the project root. Keep the shared `社团展示/` directory with these scripts. [Comparison and controls in Chinese →](docs/ORIGINAL_UPGRADES.md)
 
 | Theme | Originals / source |
 | --- | --- |
@@ -138,7 +144,7 @@ The original filenames and drawing approaches remain in the repository root. Sma
 | Make it move | 16 [Bouncing Balls](下落的小球.py) · 19 [Rotating Yin-Yang](太极.py) · 21 [Analog Clock](时钟.py) · 24 [Pinwheel](风车.py) |
 | Everyday ideas and games | 20 [Kind Notes](弹窗.py) · 22 [Mooncake Packing Calculator](测试.py) · 23 [Needle Timing Game](见缝插针.py) |
 
-Original scripts have their own controls. The needle game uses mouse clicks, the calculator accepts text input, and Kind Notes opens several small windows. Use the gallery's stop control to end an original. [Individual controls and editing ideas in Chinese →](docs/CREATIVE_GUIDE.md#14-个创意原作)
+Works 14, 15 and 24 remain in the original collection with shared stage controls: click a leaf to add dew, click the water below the umbrella for ripples, or click the pinwheel scene for a gust. Other originals have their own controls. The needle game uses mouse clicks, the calculator accepts text input, and Kind Notes opens several small windows. Use the gallery's stop control to end an original. [Individual controls and editing ideas in Chinese →](docs/CREATIVE_GUIDE.md#14-个创意原作)
 
 ## Bring it to your club
 

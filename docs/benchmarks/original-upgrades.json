@@ -1,0 +1,71 @@
+{
+  "date": "2026-10-01",
+  "platform": "Windows-11-10.0.26200-SP0",
+  "python": "3.12.4",
+  "tk": "8.6.14",
+  "pillow_for_captures": "12.3.0",
+  "before_commit": "7ae4832",
+  "method": {
+    "warmup_frames": 50,
+    "warmup_dt_seconds": 0.04,
+    "samples": 120,
+    "sample_dt_seconds": 0.025,
+    "clock": "time.perf_counter",
+    "timed_operations": [
+      "app.frame(dt)",
+      "app.stage.screen.update()"
+    ],
+    "p95": "114th sorted sample out of 120",
+    "scope": "Local drawing plus Tk update; excludes startup and timer scheduling; not end-to-end FPS"
+  },
+  "results": [
+    {
+      "number": 14,
+      "window": [
+        1000,
+        720
+      ],
+      "samples": 120,
+      "median_ms": 17.99,
+      "p95_ms": 20.32,
+      "items": 431,
+      "scope": "Local frame plus Tk update, not end-to-end FPS"
+    },
+    {
+      "number": 15,
+      "window": [
+        1000,
+        720
+      ],
+      "samples": 120,
+      "median_ms": 9.62,
+      "p95_ms": 11.94,
+      "items": 474,
+      "scope": "Local frame plus Tk update, not end-to-end FPS"
+    },
+    {
+      "number": 24,
+      "window": [
+        1000,
+        720
+      ],
+      "samples": 120,
+      "median_ms": 5.86,
+      "p95_ms": 7.57,
+      "items": 278,
+      "scope": "Local frame plus Tk update, not end-to-end FPS"
+    }
+  ],
+  "checks": {
+    "small_window": [
+      760,
+      580
+    ],
+    "palettes_per_work": 3,
+    "real_process_startup_and_window_close": [
+      "direct scripts from external cwd",
+      "run.py --demo from external cwd"
+    ],
+    "entrypoint_cases_passed": 6
+  }
+}
