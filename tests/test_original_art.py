@@ -12,7 +12,9 @@ from test_demos import HeadlessStage, state
 
 ROOT = Path(__file__).resolve().parents[1]
 ORIGINALS = [('yeizi.py', 'ArcLeaves'), ('yusan.py', 'RainUmbrella'), ('风车.py', 'PaperPinwheel'),
-             ('下落的小球.py', 'PrismBalls'), ('太极.py', 'YinYang'), ('时钟.py', 'GalleryClock')]
+             ('下落的小球.py', 'PrismBalls'), ('太极.py', 'YinYang'), ('时钟.py', 'GalleryClock'),
+             ('2.py', 'RecursiveCircles'), ('import turtle.py', 'SquareSpiral'),
+             ('哆啦A梦.py', 'DoraemonPortrait')]
 
 
 def load_original(filename):

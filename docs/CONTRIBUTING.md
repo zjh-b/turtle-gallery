@@ -18,7 +18,7 @@ python run.py
 
 ## 改进已有作品
 
-先阅读对应作品与 [创作指南](CREATIVE_GUIDE.md)，保持改动聚焦。根目录中的原作也可以直接优化画面和玩法，保留作品主题、原文件名与编号；早期版本通过 Git 历史查看。14、15、24 的升级可作为参考：复用共用舞台、定时更新动画、限制互动对象数量，并用 `if __name__ == "__main__"` 保护运行入口，避免导入时打开窗口。
+先阅读对应作品与 [创作指南](CREATIVE_GUIDE.md)，保持改动聚焦。根目录中的原作也可以直接优化画面和玩法，保留作品主题、原文件名与编号；早期版本通过 Git 历史查看。已有九份原作接入共用舞台，最近的 [11 圆阵、12 螺旋与 18 头像](ORIGINAL_STUDIES.md) 可作为几何缓存与局部动画的参考。使用定时更新、限制互动对象数量，并用 `if __name__ == "__main__"` 保护运行入口，避免导入时打开窗口。
 
 提交时说明具体行为，例如“鱼群接近窗口边缘时转向更平缓”，并给出修改前后的截图或简短运行片段。新素材如果不是你制作的，请附上来源与使用依据。
 
@@ -26,7 +26,7 @@ python run.py
 
 1. 先完成一个可以单独运行的 `.py` 文件，给出明确的作品名和操作方式。
 2. 互动展品参考 `社团展示/` 下已有结构，复用 `舞台.py` 的窗口、动画与通用按键。
-3. 在 [作品目录.py](../社团展示/作品目录.py) 中登记标题、编号、分类、文件位置和简介。互动作品还需填写 `entry_class`，让基础测试与媒体工具找到场景类。确保 `python run.py --list` 与菜单都能找到它。
+3. 在 [作品目录.py](../社团展示/作品目录.py) 中登记标题、编号、分类、文件位置和简介。使用共用舞台的场景需填写 `entry_class`，让基础测试与媒体工具找到场景类；升级原作继续保留 `collection="original"`，填写场景类不会改变作品集或自动开启创作面板、巡展。确保 `python run.py --list` 与菜单都能找到它。
 4. 添加桌面与网页需要的真实运行截图，执行 `python tools/export_gallery.py` 更新网页作品目录，再运行 `python tools/check_catalog.py` 检查登记与资源；更新中英文 README 的介绍及操作说明。
 5. 实际打开作品，确认输入、退出与从画廊再次启动的流程。
 
@@ -59,7 +59,7 @@ PNG 导出是独立可选能力，依赖在 [requirements-export.txt](../require
 ```bash
 python -m pip install -r requirements-media.txt
 python tools/render_media.py --exhibits 2 6 9
-python tools/render_media.py --original-ids 14 15 24 --compose-originals
+python tools/render_media.py --original-ids 11 12 18 --compose-originals
 python tools/render_media.py --originals --gif --compose
 python tools/render_media.py --social --compose
 python tools/render_media.py --creator
@@ -69,7 +69,7 @@ python tools/render_media.py --hd
 
 `--exhibits` 按编号重新运行互动作品，更新桌面预览、两种卡片缩略图和网页展品图片；调整已有作品画面后用它同步画廊，避免预览仍显示旧画面。例如上面的命令只刷新 02、06、09。若涉及 README 动画中的作品，再运行 `python tools/render_media.py --gif` 更新动画片段。
 
-`--original-ids` 只复拍指定原作，`--compose-originals` 用现有原作截图更新原作总览；例如上面的命令刷新 14、15、24 并重排总览。[原文件升级记录 →](ORIGINAL_UPGRADES.md)
+`--original-ids` 只复拍指定原作，`--compose-originals` 用现有原作截图更新原作总览；例如上面的命令刷新 11、12、18 并重排总览。已登记 `entry_class` 的原作由媒体工具导入、创建场景并截取实际运行画面；因此模块导入时应不创建窗口，窗口由场景实例负责。[圆阵、螺旋与头像升级记录 →](ORIGINAL_STUDIES.md)
 
 抓取运行画面需要可用的桌面显示；仅重新排版已有截图时可使用 `python tools/render_media.py --compose`。更新后检查生成图片中的文字、构图和 GIF 播放效果。预览中的温柔便签为原文排版示意，月饼计算展示实际程序输出；其他原作使用运行截图。
 
@@ -246,7 +246,7 @@ python -m unittest discover -s tests -p test_aspect.py -v
 Remove-Item Env:TURTLE_GALLERY_GUI_TESTS
 ```
 
-若改动共用舞台或画廊，检查不同分类中的作品、小窗口布局、作品结束后返回画廊，以及连续启动不同作品。14 款互动展品及已接入舞台的原作 14、15、16、19、21、24，均需验证暂停、重置、说明开关、全屏和 Esc 退出；其余原作按各自操作验证。彩球、太极与时钟的绘制与交互可参考[第二轮原文件升级记录](ORIGINAL_MOTION.md)。
+若改动共用舞台或画廊，检查不同分类中的作品、小窗口布局、作品结束后返回画廊，以及连续启动不同作品。14 款互动展品及已接入舞台的原作 11、12、14、15、16、18、19、21、24，均需验证暂停、重置、说明开关、全屏和 Esc 退出；其余原作按各自操作验证。几何重播、分支选择和角色局部动画可参考[圆阵、螺旋与头像升级记录](ORIGINAL_STUDIES.md)，运动与时间更新可参考[彩球、太极与时钟升级记录](ORIGINAL_MOTION.md)。
 
 项目在 Windows 上开发。若在 macOS / Linux 验证或修复了问题，请写明系统、Python / Tk 版本和实测结果，帮助补齐平台信息。
 
