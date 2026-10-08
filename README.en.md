@@ -127,17 +127,17 @@ High resolution PNGs use drawing at twice the output dimensions followed by down
 
 ![Original works: drawings, geometry and small creative experiments](docs/assets/originals.png)
 
-Previews use runtime screenshots, with two exceptions: Kind Notes illustrates the original messages in a composed layout; the calculator card typesets actual program output.
+All 14 original previews are runtime screenshots of scenes drawn by Python.
 
-The original filenames and themes remain in the repository root, with selected works upgraded in place. Earlier versions are available in Git history.
+All 14 originals have now been upgraded in place, preserving their filenames and themes in the repository root. Earlier versions are available in Git history.
 
-**Latest originals refreshed: 13 Red Heart, 17 Random Fractal Tree and 23 Needle Timing Game.** Retrace an enamel heart on a paper letter and adjust its heartbeat; grow a flowering tree beside a stream, change its seed and scatter petals; time each flying needle against a mechanical dial and land 18 needles to win. Each work has three palettes.
+**Latest originals refreshed: 20 Kind Notes and 22 Mooncake Packing.** Explore the original 26 greetings on six paper notes in one illustrated window: click to reveal another greeting, select a card with the keyboard or switch the whole set. Adjust mooncake quantities on a gift box display, compare full boxes and leftovers, then replay the packing animation. Both works offer three palettes; the calculator also keeps its terminal question-and-answer mode.
 
-![Before and after: real scenes from Red Heart, Random Fractal Tree and Needle Timing Game](docs/assets/original-bloom-play.png)
+![Kind Notes and Mooncake Packing: composed previews of the old versions on the left, upgraded programs running on the right](docs/assets/original-everyday.png)
 
-Run `python xin.py`, `python 分形树.py` or `python 见缝插针.py` from the project root. Keep the shared `社团展示/` directory with these scripts. The left images are saved previews from the previous gallery; the right images show the upgraded programs running. They represent different moments. [Controls, nine palettes and code notes in Chinese →](docs/ORIGINAL_BLOOM_PLAY.md)
+Run `python 弹窗.py` or `python 测试.py` from the project root, keeping the shared `社团展示/` directory. Run `python 测试.py --console` for the terminal calculator. The left images are the previous gallery's composed note text and calculator output; the right images are runtime screenshots of the upgraded programs. [Controls, six palettes and code notes in Chinese →](docs/ORIGINAL_EVERYDAY.md)
 
-Earlier upgrades: [leaves, umbrella and pinwheel](docs/ORIGINAL_UPGRADES.md) · [balls, yin-yang and clock](docs/ORIGINAL_MOTION.md) · [circles, spiral and portrait](docs/ORIGINAL_STUDIES.md). Each record includes comparisons and controls.
+Earlier upgrades: [leaves, umbrella and pinwheel](docs/ORIGINAL_UPGRADES.md) · [balls, yin-yang and clock](docs/ORIGINAL_MOTION.md) · [circles, spiral and portrait](docs/ORIGINAL_STUDIES.md) · [heart, flowering tree and needle game](docs/ORIGINAL_BLOOM_PLAY.md). Each record includes comparisons and controls.
 
 | Theme | Originals / source |
 | --- | --- |
@@ -146,7 +146,7 @@ Earlier upgrades: [leaves, umbrella and pinwheel](docs/ORIGINAL_UPGRADES.md) · 
 | Make it move | 16 [Bouncing Balls](下落的小球.py) · 19 [Rotating Yin-Yang](太极.py) · 21 [Analog Clock](时钟.py) · 24 [Pinwheel](风车.py) |
 | Everyday ideas and games | 20 [Kind Notes](弹窗.py) · 22 [Mooncake Packing Calculator](测试.py) · 23 [Needle Timing Game](见缝插针.py) |
 
-The twelve upgraded works (11, 12, 13, 14, 15, 16, 17, 18, 19, 21, 23 and 24) remain in the original collection and share **C** for palettes, **Space** to pause, **R** to reset, **H** to hide instructions, **F11** for fullscreen and **Esc** to exit. R in the needle game keeps the palette and best score from the current window. The calculator accepts text input, and Kind Notes opens several small windows. Use the gallery's stop control to end an original. [Individual controls and editing ideas in Chinese →](docs/CREATIVE_GUIDE.md#14-个创意原作)
+All fourteen works (11–24) remain in the original collection. Their graphical modes share **C** for palettes, **Space** to pause, **R** to reset, **H** to hide instructions, **F11** for fullscreen and **Esc** to exit. R in the needle game keeps the palette and best score from the current window. Kind Notes uses one window, and the calculator opens its gift box scene by default. The gallery also offers a stop control. [Individual controls and editing ideas in Chinese →](docs/CREATIVE_GUIDE.md#14-个创意原作)
 
 ## Bring it to your club
 

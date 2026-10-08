@@ -301,7 +301,7 @@ class Launcher:
                                     anchor='nw', fill=TEXT, font=(FONT, 11, 'bold'), width=text_width, tags=tag)
             self.canvas.create_text(title_x, title_y + 25, text=work['subtitle'],
                                     anchor='nw', fill=MUTED, font=(FONT, 8), width=text_width, tags=tag)
-            action = '了解便签 →' if work['id'] == 20 else '开始作品 →'
+            action = '开始作品 →'
             self.canvas.create_text(title_x, y + ch - 16, text=f'{index + 1}  {action}',
                                     anchor='w', fill=work['accent'], font=(FONT, 9), tags=tag)
             self.canvas.create_text(x + cw - 13, y + ch - 16, text='玩法 / 源码', anchor='e',
@@ -334,7 +334,7 @@ class Launcher:
                  font=(FONT, 10), padx=14, pady=14).pack(fill='x', padx=26)
         tk.Label(popup, text='源码：' + work['filename'], bg=BG, fg=MUTED, font=(FONT, 9),
                  wraplength=490, justify='left').pack(anchor='w', padx=26, pady=12)
-        button = self.button(popup, '开始作品 →', lambda: (popup.destroy(), self.launch(work, confirmed=True)))
+        button = self.button(popup, '开始作品 →', lambda: (popup.destroy(), self.launch(work)))
         button.pack(anchor='e', padx=26, pady=(0, 18))
         popup.bind('<Escape>', lambda event: popup.destroy())
         button.focus_set()
@@ -386,16 +386,13 @@ class Launcher:
     def next_tour(self):
         self.send_tour_command('next')
 
-    def launch(self, work, confirmed=False, touring=False):
+    def launch(self, work, touring=False):
         if not isinstance(work, dict):
             work = get_work(work) or next((w for w in WORKS if Path(w['filename']).name == work), None)
         if work is None:
             return
         if self.closing or (self.tour_active and not touring):
             self.status.set('巡展进行中；可使用“下一件”切换，或结束巡展后自由选择作品。')
-            return
-        if work['id'] == 20 and not confirmed:
-            self.details(work)
             return
         if self.child is not None and self.child.poll() is None:
             self.status.set(f"正在展示「{self.active_work['title']}」；结束当前作品后可开启下一款。")
@@ -405,7 +402,7 @@ class Launcher:
         if self.child is not None:
             self.watch()
             if self.child is not None:
-                self.root.after(60, lambda: self.launch(work, confirmed=confirmed, touring=touring))
+                self.root.after(60, lambda: self.launch(work, touring=touring))
                 return
         if self.console and self.console.winfo_exists():
             self.console.destroy()

@@ -155,6 +155,24 @@ class LauncherTourTests(unittest.TestCase):
         launcher.launch = Mock()
         return launcher
 
+    def test_everyday_originals_start_directly_without_an_extra_dialog(self):
+        for number in (20, 22):
+            with self.subTest(work=number):
+                launcher = self.launcher()
+                launcher.child = None
+                launcher.tour_active = False
+                launcher.details = Mock()
+                launcher.open_console = Mock()
+                work = self.module.get_work(number)
+                with patch.object(self.module.subprocess, 'Popen') as start, \
+                        patch.object(self.module.threading, 'Thread'):
+                    self.module.Launcher.launch(launcher, work)
+                launcher.details.assert_not_called()
+                launcher.open_console.assert_not_called()
+                start.assert_called_once()
+                self.assertEqual(start.call_args.args[0][-2:], ['--demo', str(number)])
+                self.assertEqual(start.call_args.kwargs['stdin'], subprocess.DEVNULL)
+
     def test_split_protocol_line_does_not_advance_until_exit_and_reader_finish(self):
         launcher = self.launcher(code=None)
         launcher.output.put('TG_TOUR:{"state": "ne')

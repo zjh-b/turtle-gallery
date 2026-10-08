@@ -64,12 +64,14 @@ class CatalogTests(unittest.TestCase):
                 with self.subTest(identifier=identifier):
                     self.assertEqual(self.catalog.get_work(identifier), work)
 
-    def test_console_calculator_is_marked_for_terminal_execution(self):
-        console_works = [work for work in self.catalog.WORKS if work["console"]]
-        self.assertEqual(len(console_works), 1)
-        self.assertEqual(console_works[0]["id"], 22)
-        self.assertEqual(console_works[0]["filename"], "测试.py")
-        self.assertEqual(console_works[0]["collection"], "original")
+    def test_notes_and_calculator_launch_as_import_safe_visual_originals(self):
+        for number, name in ((20, 'KindNotes'), (22, 'MooncakePacking')):
+            work = self.catalog.get_work(number)
+            self.assertFalse(work['console'])
+            self.assertEqual(work['entry_class'], name)
+            self.assertEqual(work['collection'], 'original')
+            self.assertFalse(work['creation'])
+            self.assertFalse(work['autoplay'])
 
     def test_unknown_ids_and_paths_do_not_resolve(self):
         for identifier in ("", "00", "29", "-1", "no-such-work", "../舞台.py", "/tmp/demo.py"):

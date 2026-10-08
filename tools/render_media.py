@@ -12,15 +12,11 @@ The application itself has no Pillow dependency. Capture helpers execute one wor
 at a time in a separate process and write only project-owned image files.
 """
 import argparse
-import ast
-import contextlib
 import ctypes
 import importlib.util
-import io
 import math
 from pathlib import Path
 import random
-import runpy
 import subprocess
 import sys
 import time
@@ -137,8 +133,6 @@ def compose_originals():
         with Image.open(source) as picture:
             # Keep the complete original composition visible in wider cards.
             picture = picture.convert("RGB")
-            if work["id"] not in (20, 22) and not work.get("entry_class"):
-                picture = picture.crop((5, 5, picture.width - 5, picture.height - 5))
             for suffix, size in (("thumb", (244, 154)), ("compact", (220, 126))):
                 ImageOps.pad(picture, size, method=Image.Resampling.LANCZOS, color="#101A2A").save(
                     ORIGINALS / f"{work['id']:02}_{suffix}.png", optimize=True)
@@ -446,130 +440,30 @@ def original_capture(number):
     path = ROOT / work["filename"]
     ORIGINALS.mkdir(parents=True, exist_ok=True)
     destination = ORIGINALS / f"{number:02}.png"
-    if work.get("entry_class"):
-        # Refined originals now expose an import-safe scene class. Capture the
-        # live artwork directly instead of intercepting legacy Turtle loops.
-        sys.path.insert(0, str(ROOT))
-        from 社团展示.作品导出 import capture_artwork
-        spec = importlib.util.spec_from_file_location("capture_original_scene", path)
-        module = importlib.util.module_from_spec(spec)
-        spec.loader.exec_module(module)
-        app = getattr(module, work["entry_class"])()
-        try:
-            app.stage.root.geometry("1000x720+20+20")
-            app.stage.root.update()
-            app.reset()
-            for _ in range(50):
-                app.frame(.04)
-            app.stage.screen.update()
-            picture = capture_artwork(app.stage)
-            picture.save(destination, optimize=True)
-            for suffix, size in (("thumb", (244, 154)), ("compact", (220, 126))):
-                ImageOps.pad(picture, size, method=Image.Resampling.LANCZOS, color="#101A2A").save(
-                    ORIGINALS / f"{number:02}_{suffix}.png", optimize=True)
-        finally:
-            app.stage.close()
-        print(f"Captured refined original {number:02} at t=2s", flush=True)
-        return
-    if number == 20:
-        tree = ast.parse(path.read_text(encoding="utf-8-sig"))
-        messages = next(ast.literal_eval(node.value) for node in tree.body
-                        if isinstance(node, ast.Assign) and any(isinstance(t, ast.Name) and t.id == "messages" for t in node.targets))
-        picture = Image.new("RGB", (900, 560), "#EEE9E4")
-        d = ImageDraw.Draw(picture)
-        d.text((52, 42), "温柔便签", font=font(32, True), fill="#665565")
-        for i, message in enumerate((messages[1], messages[4], messages[9], messages[13])):
-            x, y = 55 + i % 2 * 410, 128 + i // 2 * 175
-            color = ["#FFCAD6", "#BBDEEE", "#E5D1F0", "#CDE6D9"][i]
-            d.rounded_rectangle((x, y, x + 378, y + 143), radius=10, fill=color)
-            d.text((x + 24, y + 18), "亲爱的你啊", font=font(16), fill="#75677B")
-            d.text((x + 24, y + 67), message, font=font(24), fill="#54465B")
-        d.text((55, 510), "原作提示语排版预览 · 运行后会在桌面生成随机便签", font=font(16), fill="#817588")
-        picture.save(destination)
-        return
-    if number == 22:
-        import builtins
-        original_input = builtins.input
-        values = iter(("", "26", "6", "q"))
-        output = io.StringIO()
-        def answer(prompt=""):
-            value = next(values)
-            print(prompt + value)
-            return value
-        try:
-            builtins.input = answer
-            with contextlib.redirect_stdout(output):
-                runpy.run_path(str(path), run_name="__main__")
-        finally:
-            builtins.input = original_input
-        picture = Image.new("RGB", (900, 560), "#102234")
-        d = ImageDraw.Draw(picture)
-        d.rounded_rectangle((35, 35, 865, 525), radius=14, fill="#152D40", outline="#3C5C6A")
-        d.text((64, 54), "PYTHON  /  月饼装盒计算", font=font(22, True), fill="#8FDBC4")
-        for index, line in enumerate(output.getvalue().splitlines()):
-            d.text((65, 120 + index * 38), line, font=font(21), fill="#E4E9DD")
-        picture.save(destination)
-        return
-
-    import turtle
-    import tkinter
-    random.seed(7)
-    screen = turtle.Screen()
-    screen.setup(1000, 740, 20, 20)
-    screen.tracer(0)
-    if number == 17:
-        # Fit the tall original tree in the capture window without changing its source.
-        width, height = screen._window_size()
-        half_width = 600
-        half_height = half_width * (height - 20) / (width - 20)
-        screen.setworldcoordinates(-half_width, 150 - half_height, half_width, 150 + half_height)
-    saved = False
-    class Captured(BaseException):
-        pass
-    def capture(*args):
-        nonlocal saved
-        if not saved:
-            saved = True
-            sys.settrace(None)
-            screen.update()
-            grab(screen.getcanvas().winfo_toplevel()).save(destination)
-        raise Captured()
-    turtle.done = capture
-    turtle.mainloop = capture
-    turtle.TurtleScreen.mainloop = capture
-    time.sleep = lambda seconds: None
-    syntax = ast.parse(path.read_text(encoding="utf-8-sig"))
-    loop = next((node.lineno for node in syntax.body if isinstance(node, ast.While)), None)
-    if number in (19, 24):
-        loop = next(node.lineno for node in syntax.body if isinstance(node, ast.For))
-    visits = 0
-    def trace(frame, event, arg):
-        nonlocal visits
-        if event == "line" and frame.f_code.co_filename == str(path) and frame.f_lineno == loop:
-            visits += 1
-            if number == 23 and visits == 1:
-                needle = frame.f_globals["Needle"]
-                for angle in range(0, 360, 45):
-                    item = needle()
-                    item.angle = angle
-                    frame.f_globals["needles"].append(item)
-            # Clock drawing happens inside the loop: capture its completed first frame.
-            if visits >= (2 if number in (16, 21, 23) else 1):
-                capture()
-        return trace if frame.f_code.co_filename == str(path) else None
+    if not work.get("entry_class"):
+        raise ValueError("Original work must register an import-safe entry_class")
+    # All originals expose a scene class; preview the same drawing as the app.
+    sys.path.insert(0, str(ROOT))
+    from 社团展示.作品导出 import capture_artwork
+    spec = importlib.util.spec_from_file_location("capture_original_scene", path)
+    module = importlib.util.module_from_spec(spec)
+    spec.loader.exec_module(module)
+    app = getattr(module, work["entry_class"])()
     try:
-        if loop:
-            sys.settrace(trace)
-        runpy.run_path(str(path), run_name="__main__")
-        capture()
-    except Captured:
-        pass
+        app.stage.root.geometry("1000x720+20+20")
+        app.stage.root.update()
+        app.reset()
+        for _ in range(50):
+            app.frame(.04)
+        app.stage.screen.update()
+        picture = capture_artwork(app.stage)
+        picture.save(destination, optimize=True)
+        for suffix, size in (("thumb", (244, 154)), ("compact", (220, 126))):
+            ImageOps.pad(picture, size, method=Image.Resampling.LANCZOS, color="#101A2A").save(
+                ORIGINALS / f"{number:02}_{suffix}.png", optimize=True)
     finally:
-        sys.settrace(None)
-        try:
-            screen.bye()
-        except (turtle.Terminator, tkinter.TclError):
-            pass
+        app.stage.close()
+    print(f"Captured refined original {number:02} at t=2s", flush=True)
 
 
 def animation_capture(number):

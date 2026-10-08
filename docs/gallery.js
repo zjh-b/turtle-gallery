@@ -115,7 +115,7 @@
     const preview = element("div", "art-preview");
     const image = element("img");
     image.src = work.preview;
-    image.alt = work.title + (work.id === 20 ? "：原文排版示意" : work.id === 22 ? "：程序文字输出" : "：程序运行预览");
+    image.alt = work.title + "：程序运行预览";
     image.loading = "lazy";
     image.decoding = "async";
     image.width = 800;

@@ -18,7 +18,7 @@ python run.py
 
 ## 改进已有作品
 
-先阅读对应作品与 [创作指南](CREATIVE_GUIDE.md)，保持改动聚焦。根目录中的原作也可以直接优化画面和玩法，保留作品主题、原文件名与编号；早期版本通过 Git 历史查看。已有十二份原作接入共用舞台，[13 红心、17 花树与 23 插针](ORIGINAL_BLOOM_PLAY.md) 可作为圆弧几何、种子复现与抵达判定的参考，[11 圆阵、12 螺旋与 18 头像](ORIGINAL_STUDIES.md) 展示几何缓存与局部动画。使用定时更新、限制互动对象数量，并用 `if __name__ == "__main__"` 保护运行入口，避免导入时打开窗口。
+先阅读对应作品与 [创作指南](CREATIVE_GUIDE.md)，保持改动聚焦。根目录中的原作也可以直接优化画面和玩法，保留作品主题、原文件名与编号；早期版本通过 Git 历史查看。十四份原作已全部接入共用舞台，[20 便签与 22 月饼](ORIGINAL_EVERYDAY.md) 展示单窗口交互、数值输入与有界绘图，[13 红心、17 花树与 23 插针](ORIGINAL_BLOOM_PLAY.md) 可作为圆弧几何、种子复现与抵达判定的参考，[11 圆阵、12 螺旋与 18 头像](ORIGINAL_STUDIES.md) 展示几何缓存与局部动画。使用定时更新、限制互动对象数量，并用 `if __name__ == "__main__"` 保护运行入口，避免导入时打开窗口。
 
 提交时说明具体行为，例如“鱼群接近窗口边缘时转向更平缓”，并给出修改前后的截图或简短运行片段。新素材如果不是你制作的，请附上来源与使用依据。
 
@@ -59,7 +59,7 @@ PNG 导出是独立可选能力，依赖在 [requirements-export.txt](../require
 ```bash
 python -m pip install -r requirements-media.txt
 python tools/render_media.py --exhibits 2 6 9
-python tools/render_media.py --original-ids 13 17 23 --compose-originals
+python tools/render_media.py --original-ids 20 22 --compose-originals
 python tools/render_media.py --originals --gif --compose
 python tools/render_media.py --social --compose
 python tools/render_media.py --creator
@@ -69,9 +69,9 @@ python tools/render_media.py --hd
 
 `--exhibits` 按编号重新运行互动作品，更新桌面预览、两种卡片缩略图和网页展品图片；调整已有作品画面后用它同步画廊，避免预览仍显示旧画面。例如上面的命令只刷新 02、06、09。若涉及 README 动画中的作品，再运行 `python tools/render_media.py --gif` 更新动画片段。
 
-`--original-ids` 只复拍指定原作，`--compose-originals` 用现有原作截图更新原作总览；例如上面的命令刷新 13、17、23 并重排总览。已登记 `entry_class` 的原作由媒体工具导入、创建场景并截取实际运行画面；因此模块导入时应不创建窗口，窗口由场景实例负责。[红心、花树与插针升级记录 →](ORIGINAL_BLOOM_PLAY.md)
+`--original-ids` 只复拍指定原作，`--compose-originals` 用现有原作截图更新原作总览；例如上面的命令刷新 20、22 并重排总览。全部十四份原作均登记了 `entry_class`，由媒体工具导入、创建场景并截取实际运行画面；因此模块导入时应不创建窗口，窗口由场景实例负责。[便签与月饼升级记录 →](ORIGINAL_EVERYDAY.md)
 
-抓取运行画面需要可用的桌面显示；仅重新排版已有截图时可使用 `python tools/render_media.py --compose`。更新后检查生成图片中的文字、构图和 GIF 播放效果。预览中的温柔便签为原文排版示意，月饼计算展示实际程序输出；其他原作使用运行截图。
+抓取运行画面需要可用的桌面显示；仅重新排版已有截图时可使用 `python tools/render_media.py --compose`。更新后检查生成图片中的文字、构图和 GIF 播放效果。当前原作预览全部使用实际运行截图；历史升级记录中的旧版排版预览应继续如实注明来源。
 
 ## 维护在线画廊
 
@@ -246,7 +246,9 @@ python -m unittest discover -s tests -p test_aspect.py -v
 Remove-Item Env:TURTLE_GALLERY_GUI_TESTS
 ```
 
-若改动共用舞台或画廊，检查不同分类中的作品、小窗口布局、作品结束后返回画廊，以及连续启动不同作品。14 款互动展品及已接入舞台的原作 11、12、13、14、15、16、17、18、19、21、23、24，均需验证暂停、重置、说明开关、全屏和 Esc 退出；其余原作按各自操作验证。红心还需检查轮廓重描与心面命中，随机树检查种子复现和换色不改树形，插针检查抵达判定、结束状态与 R 保留成绩，见[红心、花树与插针升级记录](ORIGINAL_BLOOM_PLAY.md)。几何重播与角色局部动画可参考[圆阵、螺旋与头像升级记录](ORIGINAL_STUDIES.md)，运动与时间更新可参考[彩球、太极与时钟升级记录](ORIGINAL_MOTION.md)。
+若改动共用舞台或画廊，检查不同分类中的作品、小窗口布局、作品结束后返回画廊，以及连续启动不同作品。14 款互动展品与 11～24 号原作的图形模式，均需验证暂停、重置、说明开关、全屏和 Esc 退出。便签还需检查鼠标与键盘翻换、换组及六卡数量上限；月饼检查零值、余数、大数的部分示意、输入取消和无效值保留原数，并单独验证 `python 测试.py --console` 的回车问答、错误重输、q 和 EOF 退出。两种月饼入口都需校验总数 0～999999、容量 1～99 的整数范围；3 盒、每盒 6 枚样品及 6 枚余数的图示上限不得改变计算结果或隐去未绘数量，见[便签与月饼升级记录](ORIGINAL_EVERYDAY.md)。
+
+红心需检查轮廓重描与心面命中，随机树检查种子复现和换色不改树形，插针检查抵达判定、结束状态与 R 保留成绩，见[红心、花树与插针升级记录](ORIGINAL_BLOOM_PLAY.md)。几何重播与角色局部动画可参考[圆阵、螺旋与头像升级记录](ORIGINAL_STUDIES.md)，运动与时间更新可参考[彩球、太极与时钟升级记录](ORIGINAL_MOTION.md)。
 
 项目在 Windows 上开发。若在 macOS / Linux 验证或修复了问题，请写明系统、Python / Tk 版本和实测结果，帮助补齐平台信息。
 

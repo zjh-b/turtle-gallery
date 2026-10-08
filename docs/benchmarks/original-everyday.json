@@ -1,0 +1,77 @@
+{
+  "date": "2026-10-08",
+  "platform": "Windows-11-10.0.26200-SP0",
+  "python": "3.12.4",
+  "tk": "8.6.14",
+  "before_commit": "d285e8b",
+  "before_images": "Legacy notes text-layout illustration and typeset calculator output; not runtime screenshots.",
+  "method": {
+    "warmup_frames": 50,
+    "warmup_dt_seconds": 0.04,
+    "samples": 120,
+    "sample_dt_seconds": 0.025,
+    "clock": "time.perf_counter",
+    "timed_operations": [
+      "app.frame(dt)",
+      "app.stage.screen.update()"
+    ],
+    "p95": "114th sorted sample out of 120",
+    "scope": "Local settled drawing plus Tk update; excludes startup, timer scheduling and active interaction; not end-to-end FPS"
+  },
+  "results": [
+    {
+      "number": 20,
+      "window": [
+        1000,
+        720
+      ],
+      "samples": 120,
+      "median_ms": 6.02,
+      "p95_ms": 9.02,
+      "items": 303,
+      "scope": "Local settled frame and Tk update; not end-to-end FPS"
+    },
+    {
+      "number": 22,
+      "window": [
+        1000,
+        720
+      ],
+      "samples": 120,
+      "median_ms": 13.19,
+      "p95_ms": 15.97,
+      "items": 576,
+      "scope": "Local settled frame and Tk update; not end-to-end FPS"
+    }
+  ],
+  "checks": {
+    "small_window": [
+      760,
+      580
+    ],
+    "palettes_per_work": 3,
+    "real_process_startup_and_window_close": [
+      "direct scripts from external cwd",
+      "run.py --demo from external cwd"
+    ],
+    "entrypoint_cases_passed": 4,
+    "real_dialog_cases_passed": [
+      "total accepted",
+      "capacity accepted",
+      "cancel",
+      "invalid capacity",
+      "parent close during input"
+    ],
+    "keyboard_recovery_after_dialog": true,
+    "python_tests": {
+      "total": 254,
+      "passed": 253,
+      "skipped": 1
+    },
+    "browser_groups_passed": [
+      "discovery",
+      "search",
+      "mobile"
+    ]
+  }
+}
