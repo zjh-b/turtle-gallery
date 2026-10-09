@@ -24,6 +24,17 @@ import time
 
 ROOT = Path(__file__).resolve().parents[1]
 
+
+def gallery_works():
+    """Read expected artworks from the same exported catalog served by the site."""
+    return json.loads((ROOT / "docs/gallery.json").read_text(encoding="utf-8"))["works"]
+
+
+def wait_for_gallery(page):
+    page.wait_for_function("count => document.querySelectorAll('#gallery-grid .art-card').length === count",
+                           arg=len(gallery_works()), polling=25)
+
+
 # Observe the native scheduler without exposing test hooks in the application.
 # The visibility override is limited to lifecycle checks in this test context.
 SCHEDULER_PROBE = """(() => {
@@ -375,7 +386,7 @@ def check_gallery(browser, base_url, output):
     with browser.new_context(viewport={"width": 1440, "height": 1000}) as context:
         page = context.new_page()
         page.goto(base_url + "/index.html", wait_until="networkidle")
-        page.wait_for_function("document.querySelectorAll('#gallery-grid .art-card').length === 28", polling=25)
+        wait_for_gallery(page)
         links = page.locator("a[href='play/fireworks.html']")
         require(links.count() >= 2, "Home and generated artwork card must both link to browser fireworks")
         card = page.locator(".art-card").filter(has=page.locator("#art-title-1"))

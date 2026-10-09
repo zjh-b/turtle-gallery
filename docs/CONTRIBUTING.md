@@ -65,6 +65,8 @@ python tools/render_media.py --social --compose
 python tools/render_media.py --creator
 python tools/render_media.py --aspects
 python tools/render_media.py --hd
+python tools/render_media.py --immersive --compose-hero
+python tools/render_media.py --compose-immersive
 ```
 
 `--exhibits` 按编号重新运行互动作品，更新桌面预览、两种卡片缩略图和网页展品图片；调整已有作品画面后用它同步画廊，避免预览仍显示旧画面。例如上面的命令只刷新 02、06、09。若涉及 README 动画中的作品，再运行 `python tools/render_media.py --gif` 更新动画片段。
@@ -72,6 +74,8 @@ python tools/render_media.py --hd
 `--original-ids` 只复拍指定原作，`--compose-originals` 用现有原作截图更新原作总览；例如上面的命令刷新 20、22 并重排总览。全部十四份原作均登记了 `entry_class`，由媒体工具导入、创建场景并截取实际运行画面；因此模块导入时应不创建窗口，窗口由场景实例负责。[便签与月饼升级记录 →](ORIGINAL_EVERYDAY.md)
 
 抓取运行画面需要可用的桌面显示；仅重新排版已有截图时可使用 `python tools/render_media.py --compose`。更新后检查生成图片中的文字、构图和 GIF 播放效果。当前原作预览全部使用实际运行截图；历史升级记录中的旧版排版预览应继续如实注明来源。
+
+`--immersive` 依次运行 29～31，更新三件作品的预览及沉浸艺术总览；`--compose-immersive` 只重排现有截图，`--compose-hero` 只更新首页图和作品计数。仅运行 `--compose` 不会重建沉浸艺术总览。
 
 ## 维护在线画廊
 
@@ -246,7 +250,7 @@ python -m unittest discover -s tests -p test_aspect.py -v
 Remove-Item Env:TURTLE_GALLERY_GUI_TESTS
 ```
 
-若改动共用舞台或画廊，检查不同分类中的作品、小窗口布局、作品结束后返回画廊，以及连续启动不同作品。14 款互动展品与 11～24 号原作的图形模式，均需验证暂停、重置、说明开关、全屏和 Esc 退出。便签还需检查鼠标与键盘翻换、换组及六卡数量上限；月饼检查零值、余数、大数的部分示意、输入取消和无效值保留原数，并单独验证 `python 测试.py --console` 的回车问答、错误重输、q 和 EOF 退出。两种月饼入口都需校验总数 0～999999、容量 1～99 的整数范围；3 盒、每盒 6 枚样品及 6 枚余数的图示上限不得改变计算结果或隐去未绘数量，见[便签与月饼升级记录](ORIGINAL_EVERYDAY.md)。
+若改动共用舞台或画廊，检查不同分类中的作品、小窗口布局、作品结束后返回画廊，以及连续启动不同作品。17 款互动展品与 11～24 号原作的图形模式，均需验证暂停、重置、说明开关、全屏和 Esc 退出。便签还需检查鼠标与键盘翻换、换组及六卡数量上限；月饼检查零值、余数、大数的部分示意、输入取消和无效值保留原数，并单独验证 `python 测试.py --console` 的回车问答、错误重输、q 和 EOF 退出。两种月饼入口都需校验总数 0～999999、容量 1～99 的整数范围；3 盒、每盒 6 枚样品及 6 枚余数的图示上限不得改变计算结果或隐去未绘数量，见[便签与月饼升级记录](ORIGINAL_EVERYDAY.md)。
 
 红心需检查轮廓重描与心面命中，随机树检查种子复现和换色不改树形，插针检查抵达判定、结束状态与 R 保留成绩，见[红心、花树与插针升级记录](ORIGINAL_BLOOM_PLAY.md)。几何重播与角色局部动画可参考[圆阵、螺旋与头像升级记录](ORIGINAL_STUDIES.md)，运动与时间更新可参考[彩球、太极与时钟升级记录](ORIGINAL_MOTION.md)。
 

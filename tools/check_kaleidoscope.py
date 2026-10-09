@@ -21,7 +21,7 @@ import sys
 import time
 
 from check_browser import (ROOT, assert_no_overflow, local_site, observed_page,
-                           require, set_visibility, touch_points)
+                           require, set_visibility, touch_points, wait_for_gallery)
 
 
 CANVAS = "#kaleidoscope-canvas"
@@ -439,7 +439,7 @@ def check_gallery(browser, base_url, output):
     with browser.new_context(viewport={"width": 1440, "height": 1000}) as context:
         page = context.new_page()
         page.goto(base_url + "/index.html", wait_until="networkidle")
-        page.wait_for_function("document.querySelectorAll('#gallery-grid .art-card').length === 28", polling=25)
+        wait_for_gallery(page)
         links = page.locator("a[href='play/kaleidoscope.html']")
         require(links.count() >= 2, "Home and generated artwork card must both link to the kaleidoscope")
         card = page.locator(".art-card").filter(has=page.locator("#art-title-3"))

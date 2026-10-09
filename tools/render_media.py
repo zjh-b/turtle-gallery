@@ -6,6 +6,8 @@
     python tools/render_media.py --aspects
     python tools/render_media.py --hd
     python tools/render_media.py --exhibits 2 6 9
+    python tools/render_media.py --immersive
+    python tools/render_media.py --compose-immersive --compose-hero
     python tools/render_media.py --original-ids 14 15 24 --compose-originals
 
 The application itself has no Pillow dependency. Capture helpers execute one work
@@ -30,6 +32,7 @@ ORIGINALS = ASSETS / "originals"
 WORK = ROOT / ".work" / "media"
 SOCIAL_IDS = (25, 26, 27, 28)
 SOCIAL_FRAMES = 24
+IMMERSIVE_IDS = (29, 30, 31)
 
 
 def font(size, bold=False, mono=False):
@@ -88,6 +91,14 @@ def compose():
     for number in (work["id"] for work in catalog if work["collection"] == "interactive"):
         ImageOps.fit(load_scene(number), (800, 464), method=Image.Resampling.LANCZOS).save(
             exhibits / f"{number:02}.png", optimize=True)
+    compose_hero()
+    compose_originals()
+
+
+def compose_hero():
+    """Refresh the gallery cover and counts without rewriting any work previews."""
+    ASSETS.mkdir(parents=True, exist_ok=True)
+    catalog = works()
     hero = Image.new("RGB", (1440, 790), "#0A1423")
     draw = ImageDraw.Draw(hero)
     for x in range(-200, 1441, 45):
@@ -110,9 +121,65 @@ def compose():
         rounded_image(hero, load_scene(number), (x, y, 345, 231), 10, contain=True)
         draw.text((x + 5, y + 246), title, font=font(12, bold=True), fill="#B9C6D1")
     hero.save(ASSETS / "hero.png", optimize=True)
-
-    compose_originals()
     print("Composed hero.png")
+
+
+def compose_immersive():
+    """Arrange complete, genuine exhibit images into a three-row exhibition board."""
+    sources = [ASSETS / "exhibits" / f"{number:02}.png" for number in IMMERSIVE_IDS]
+    missing = [str(path.relative_to(ROOT)) for path in sources if not path.is_file()]
+    if missing:
+        raise FileNotFoundError("Missing immersive previews: " + ", ".join(missing) +
+                                "; run --immersive to capture them first.")
+    titles = {work["id"]: work["title"] for work in works()}
+    descriptions = (
+        ("AURORA LANDSCAPE", "#A1D6C4",
+         ("极光越过雪山，", "在湖面留下缓慢流动的倒影。"),
+         ("点击天空 / 湖面 · 唤起光与涟漪", "C 换主题  ·  W 风开关")),
+        ("CELESTIAL MECHANISM", "#D8C393",
+         ("金属环带交错转动，", "让刻度、阴影与球面形成秩序。"),
+         ("点击画面 · 平滑改变观察角度", "C 换材质  ·  D 反向")),
+        ("CRYSTAL GARDEN", "#BDD2D2",
+         ("七枚棱晶，静静生长，", "让一束光穿过细腻的切面。"),
+         ("点击画面 · 移动光源", "C 换配色  ·  B 色散光束")),
+    )
+    board = Image.new("RGB", (1600, 2060), "#101C22")
+    draw = ImageDraw.Draw(board)
+    draw.text((56, 32), "沉浸艺术", font=font(42, True), fill="#E7E9DF")
+    draw.text((295, 57), "THREE IMMERSIVE WORLDS", font=font(17, mono=True), fill="#9CB1AB")
+    draw.text((58, 103), "极光的流动  /  星仪的秩序  /  水晶的折光", font=font(21), fill="#A9BDB6")
+    draw.text((1544, 62), "TURTLE GALLERY", font=font(15, True), fill="#718A85", anchor="ra")
+    draw.line((56, 145, 1544, 145), fill="#33464B", width=1)
+    for index, (number, source, description) in enumerate(zip(IMMERSIVE_IDS, sources, descriptions)):
+        english, accent, copy_lines, controls = description
+        y = 176 + index * 616
+        draw.text((52, y + 9), f"{number:02}", font=font(78, mono=True), fill=accent)
+        draw.line((58, y + 112, 97, y + 112), fill=accent, width=2)
+        draw.text((56, y + 139), titles[number], font=font(35, True), fill="#EBEDE3")
+        draw.text((58, y + 199), english, font=font(15, mono=True), fill=accent)
+        for line, text in enumerate(copy_lines):
+            draw.text((58, y + 255 + line * 35), text, font=font(21), fill="#A9BCB7")
+        draw.text((58, y + 373), "走近画面", font=font(15, True), fill=accent)
+        for line, text in enumerate(controls):
+            draw.text((58, y + 407 + line * 32), text, font=font(18), fill="#D0DBD4")
+        draw.text((58, y + 535), "PYTHON  /  TURTLE  /  LIVE ART", font=font(13, mono=True), fill="#6D8982")
+        draw.rounded_rectangle((526, y - 8, 1552, y + 594), radius=12,
+                               fill="#192A2F", outline="#3B5052", width=1)
+        with Image.open(source) as picture:
+            rounded_image(board, picture, (534, y, 1010, 586), radius=6, contain=True)
+    draw.text((58, 2018), "↑↓ 调速  ·  空格定格  ·  C 探索配色", font=font(17), fill="#AAC0B5")
+    draw.text((1544, 2024), "真实程序画面  /  29—31", font=font(15), fill="#78928A", anchor="ra")
+    ASSETS.mkdir(parents=True, exist_ok=True)
+    board.save(ASSETS / "immersive-art.png", optimize=True)
+    print("Composed immersive-art.png from complete exhibit previews")
+
+
+def make_immersive():
+    """Capture each new work in its own process, then build the static overview."""
+    for number in IMMERSIVE_IDS:
+        subprocess.run([sys.executable, str(Path(__file__).resolve()), "--capture-exhibit", str(number)],
+                       check=True, timeout=90)
+    compose_immersive()
 
 
 def compose_originals():
@@ -538,8 +605,14 @@ def main():
     parser.add_argument("--original-ids", nargs="+", type=int, choices=original_ids,
                         help="Refresh selected original works without recapturing the whole collection")
     parser.add_argument("--compose", action="store_true")
+    parser.add_argument("--compose-hero", action="store_true",
+                        help="Rebuild only the gallery cover from existing previews and current counts")
     parser.add_argument("--compose-originals", action="store_true",
                         help="Rebuild the original-work contact sheet from existing previews")
+    parser.add_argument("--immersive", action="store_true",
+                        help="Capture works 29-31 and compose their static exhibition board")
+    parser.add_argument("--compose-immersive", action="store_true",
+                        help="Compose the immersive-art board from existing exhibit images")
     parser.add_argument("--gif", action="store_true")
     parser.add_argument("--exhibits", nargs="+", type=int, choices=interactive_ids,
                         help="Refresh selected interactive previews at a fixed two-second pose")
@@ -587,6 +660,10 @@ def main():
         make_gif()
     if args.social:
         make_social()
+    if args.immersive:
+        make_immersive()
+    elif args.compose_immersive:
+        compose_immersive()
     if args.creator:
         creator_capture()
     if args.hd:
@@ -595,8 +672,11 @@ def main():
         make_aspects()
     if args.compose:
         compose()
-    elif args.compose_originals:
-        compose_originals()
+    else:
+        if args.compose_hero:
+            compose_hero()
+        if args.compose_originals:
+            compose_originals()
 
 
 if __name__ == "__main__":

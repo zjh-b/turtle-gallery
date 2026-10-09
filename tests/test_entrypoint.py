@@ -23,12 +23,12 @@ class CatalogTests(unittest.TestCase):
         self.addCleanup(self.module_patch.stop)
         self.catalog = ENTRY.catalog()
 
-    def test_catalog_covers_twenty_eight_distinct_existing_sources(self):
+    def test_catalog_covers_thirty_one_distinct_existing_sources(self):
         works = self.catalog.WORKS
-        self.assertEqual(len(works), 28)
-        self.assertEqual({work["id"] for work in works}, set(range(1, 29)))
-        self.assertEqual({int(work["number"]) for work in works}, set(range(1, 29)))
-        self.assertEqual(len({work["filename"] for work in works}), 28)
+        self.assertEqual(len(works), 31)
+        self.assertEqual({work["id"] for work in works}, set(range(1, len(works) + 1)))
+        self.assertEqual({int(work["number"]) for work in works}, set(range(1, len(works) + 1)))
+        self.assertEqual(len({work["filename"] for work in works}), len(works))
         for work in works:
             with self.subTest(work=work["id"]):
                 path = Path(work["filename"])
@@ -48,7 +48,9 @@ class CatalogTests(unittest.TestCase):
         sources = {work["filename"] for work in self.catalog.WORKS}
         self.assertEqual(originals & sources, originals)
         gallery_sources = {name for name in sources if name.startswith("社团展示/")}
-        self.assertEqual(len(gallery_sources), 14)
+        numbered_sources = {path.relative_to(ROOT).as_posix()
+                            for path in (ROOT / "社团展示").glob("[0-9][0-9]_*.py")}
+        self.assertEqual(gallery_sources, numbered_sources)
 
     def test_new_works_are_interactive_and_original_ids_stay_original(self):
         for work in self.catalog.WORKS:
@@ -74,7 +76,8 @@ class CatalogTests(unittest.TestCase):
             self.assertFalse(work['autoplay'])
 
     def test_unknown_ids_and_paths_do_not_resolve(self):
-        for identifier in ("", "00", "29", "-1", "no-such-work", "../舞台.py", "/tmp/demo.py"):
+        unknown_id = str(max(work["id"] for work in self.catalog.WORKS) + 1)
+        for identifier in ("", "00", unknown_id, "-1", "no-such-work", "../舞台.py", "/tmp/demo.py"):
             with self.subTest(identifier=identifier):
                 self.assertIsNone(self.catalog.get_work(identifier))
 
@@ -101,8 +104,9 @@ class EntrypointTests(unittest.TestCase):
         self.assertEqual(result, 0)
         execute.assert_not_called()
         lines = output.getvalue().splitlines()
-        self.assertEqual(len(lines), 28)
-        self.assertEqual({int(line.split()[0]) for line in lines}, set(range(1, 29)))
+        works = ENTRY.catalog().WORKS
+        self.assertEqual(len(lines), len(works))
+        self.assertEqual({int(line.split()[0]) for line in lines}, {work["id"] for work in works})
         self.assertIn("01_点击烟花.py", output.getvalue())
         self.assertIn("测试.py", output.getvalue())
 
@@ -150,7 +154,7 @@ class EntrypointTests(unittest.TestCase):
             result = ENTRY.main(["--check"])
         self.assertEqual(result, 0)
         execute.assert_not_called()
-        self.assertIn("28 works", output.getvalue())
+        self.assertIn(f"{len(ENTRY.catalog().WORKS)} works", output.getvalue())
         self.assertIn("Python", output.getvalue())
 
     def test_check_reports_missing_source_with_failure_exit_status(self):

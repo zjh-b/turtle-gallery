@@ -4,7 +4,7 @@
 
 **Draw an idea. Watch it come alive.**
 
-14 interactive exhibits · 14 original experiments · Python Turtle / Tkinter
+17 interactive exhibits · 14 original experiments · Python Turtle / Tkinter
 
 [Play fireworks](https://zjh-b.github.io/turtle-gallery/play/fireworks.html) · [Draw a kaleidoscope](https://zjh-b.github.io/turtle-gallery/play/kaleidoscope.html) · [Play the particle heart](https://zjh-b.github.io/turtle-gallery/play/heart.html) · [Online gallery](https://zjh-b.github.io/turtle-gallery/) · [中文](README.md) · [Get started](#get-started) · [Explore](#explore-the-gallery) · [Creative guide](docs/CREATIVE_GUIDE.md)
 
@@ -24,7 +24,7 @@ Made for club demonstrations, learning Python and trying out visual ideas. The a
 
 **[Play the particle heart in your browser →](https://zjh-b.github.io/turtle-gallery/play/heart.html)** Tap to scatter the heart into stardust and watch it gather again over 3.6 seconds of animation. Choose three themes, 420 / 680 / 1000 particles and a heartbeat rate of 0.45–1.8×. The page starts still; play or scatter to begin, then pause at a moment you like. Reduced motion switches between still scattered and gathered compositions. Save the current picture as a 1080 × 1080 PNG without changing playback. Reset pauses the heart while keeping your theme, rate and density. With the canvas focused, use Enter to scatter, Space to play or pause, C to change the theme and R to reset; shortcuts require no modifier keys. Swipe over the canvas to scroll on mobile. [Full guide in Chinese →](docs/BROWSER_PLAY.md#26-怦然心动)
 
-[Browse the online gallery](https://zjh-b.github.io/turtle-gallery/) to search, filter and explore every work on desktop or mobile. Artworks 01 (fireworks), 03 (kaleidoscope) and 26 (particle heart) support browser play; the other works have previews. Download the project to run all 28 Python programs on your computer.
+[Browse the online gallery](https://zjh-b.github.io/turtle-gallery/) to search, filter and explore every work on desktop or mobile. Artworks 01 (fireworks), 03 (kaleidoscope) and 26 (particle heart) support browser play; the other works have previews. Download the project to run all 31 Python programs on your computer.
 
 Open the **[online collection →](https://zjh-b.github.io/turtle-gallery/?collection=online#gallery)** to see all playable works. Search or choose a collection, then use “复制当前筛选链接” to share those results. Reload, Back and Forward restore the filters; if clipboard access is unavailable, a selected link is provided for manual copying.
 
@@ -48,10 +48,10 @@ cd turtle-gallery
 python run.py
 ```
 
-Browse categories or search for an exhibit in the gallery. All 28 works share this entry point; the interface and in-app instructions are primarily in Chinese.
+Browse categories or search for an exhibit in the gallery. All 31 works share this entry point; the interface and in-app instructions are primarily in Chinese.
 
 ```bash
-python run.py --list       # List all 28 works and their IDs
+python run.py --list       # List all 31 works and their IDs
 python run.py --demo 25    # Grow the starry spider lily
 python run.py --demo 01    # Open the fireworks exhibit
 python run.py --demo 18    # Click to guide Doraemon's gaze
@@ -62,6 +62,20 @@ python run.py --check      # Check dependencies and files without opening a wind
 Developed and checked on Windows. macOS and Linux need a Python build with Tk and a desktop display; their full GUI experience has not yet been verified. Use `python3` if that is your Python command. `--check` verifies dependencies and files, not display availability or GUI behavior.
 
 ## Explore the gallery
+
+### Immersive Art · three new exhibits
+
+![Program-rendered scenes from Aurora Landscape, Mechanical Armillary and Crystal Garden](docs/assets/immersive-art.png)
+
+Aurora curtains move above a mountain lake, engraved metal rings turn around a central sphere, and a pale crystal garden responds to a moving light. These three Python scenes explore landscape depth, overlapping geometry and light on facets. [Controls and code notes in Chinese →](docs/IMMERSIVE_ART.md)
+
+| ID | Exhibit / source | Try this |
+| --- | --- | --- |
+| 29 | [Aurora Landscape](社团展示/29_极光之境.py) | Click the sky for a light surge or the water for ripples; C changes themes, W toggles wind, ↑↓ changes speed |
+| 30 | [Mechanical Armillary](社团展示/30_机械星仪.py) | Click to change the viewing angle; C changes themes, D reverses rotation, ↑↓ changes speed |
+| 31 | [Crystal Garden](社团展示/31_水晶花园.py) | Click to move the light; C changes themes, B toggles beams, ↑↓ changes the light's motion speed |
+
+Run `python run.py --demo 29`, `--demo 30` or `--demo 31` from the project root. The three new works run on the desktop; the website provides previews and source links.
 
 ### Three visual upgrades
 
@@ -90,7 +104,7 @@ Four new, interactive Python drawings explore visual themes familiar from short 
 
 ![The original interactive exhibits in motion](docs/assets/showcase.gif)
 
-These ten exhibits and the four above make up the 14 interactive works.
+These ten exhibits, four Romantic Light works and three Immersive Art works make up the 17 interactive exhibits.
 
 | ID | Exhibit / source | Try this |
 | --- | --- | --- |
@@ -105,7 +119,7 @@ These ten exhibits and the four above make up the 14 interactive works.
 | 09 | [Circles Drawing Flowers](社团展示/09_几何绘图仪.py) | 1–4 select curves; P changes colors, L toggles layers, C redraws and G reveals the rolling circles |
 | 10 | [Neon Breakout](社团展示/10_霓虹弹球.py) | Move with the mouse or arrows; A toggles automatic play |
 
-Shared controls for all 14 exhibits: **Space** pause · **R** restart · **H** show/hide instructions · **F11** fullscreen · **Esc** exit the exhibit. In works 25 and 26, R keeps your current creation settings. When launched from the gallery, closing an exhibit lets you choose another. [Full controls in Chinese →](社团展示/README.md)
+Shared controls for all 17 exhibits: **Space** pause · **R** restart · **H** show/hide instructions · **F11** fullscreen · **Esc** exit the exhibit. In works 25 and 26, R keeps your current creation settings. When launched from the gallery, closing an exhibit lets you choose another. [Full controls in Chinese →](社团展示/README.md)
 
 ### Make the lily and heart your own
 

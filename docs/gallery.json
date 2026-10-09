@@ -604,6 +604,75 @@
       "web_play": null,
       "preview": "assets/exhibits/28.png",
       "source": "https://github.com/zjh-b/turtle-gallery/blob/main/%E7%A4%BE%E5%9B%A2%E5%B1%95%E7%A4%BA/28_%E9%9C%93%E5%85%89%E8%9D%B6%E8%88%9E.py"
+    },
+    {
+      "id": 29,
+      "number": "29",
+      "title": "极光之境",
+      "subtitle": "极光帘幕 · 雪山湖岸 · 水面倒影",
+      "collection": "interactive",
+      "category": "风景动画",
+      "controls": "C 切换主题；↑↓ 调整速度；W 风开关；点击天空唤起光涌，点击水面泛起波纹。",
+      "description": "层叠极光在雪山上空流动，湖面映出夜色与光带；点击天空或水面，让光和涟漪回应你。",
+      "featured": false,
+      "tags": [
+        "沉浸艺术",
+        "极光",
+        "雪山",
+        "湖面",
+        "aurora"
+      ],
+      "creation": false,
+      "autoplay": false,
+      "web_play": null,
+      "preview": "assets/exhibits/29.png",
+      "source": "https://github.com/zjh-b/turtle-gallery/blob/main/%E7%A4%BE%E5%9B%A2%E5%B1%95%E7%A4%BA/29_%E6%9E%81%E5%85%89%E4%B9%8B%E5%A2%83.py"
+    },
+    {
+      "id": 30,
+      "number": "30",
+      "title": "机械星仪",
+      "subtitle": "金属星环 · 细密刻度 · 转动光影",
+      "collection": "interactive",
+      "category": "角色与物件",
+      "controls": "C 切换主题；D 反向；↑↓ 调整速度；点击改变观察角度。",
+      "description": "带着刻度的金属环围绕球体转动，前后遮挡、明暗和底座共同呈现一件桌上星仪。",
+      "featured": false,
+      "tags": [
+        "沉浸艺术",
+        "星仪",
+        "金属",
+        "环",
+        "armillary"
+      ],
+      "creation": false,
+      "autoplay": false,
+      "web_play": null,
+      "preview": "assets/exhibits/30.png",
+      "source": "https://github.com/zjh-b/turtle-gallery/blob/main/%E7%A4%BE%E5%9B%A2%E5%B1%95%E7%A4%BA/30_%E6%9C%BA%E6%A2%B0%E6%98%9F%E4%BB%AA.py"
+    },
+    {
+      "id": 31,
+      "number": "31",
+      "title": "水晶花园",
+      "subtitle": "晶簇切面 · 柔和投影 · 彩色光束",
+      "collection": "interactive",
+      "category": "角色与物件",
+      "controls": "C 切换主题；B 显示/隐藏光束；↑↓ 调整光线速度；点击移动光源。",
+      "description": "浅色展台上的七枚晶体呈现清晰切面，明暗随光源变化；柔和投影与彩色光束衬托晶簇轮廓。",
+      "featured": false,
+      "tags": [
+        "沉浸艺术",
+        "水晶",
+        "晶簇",
+        "光源",
+        "crystal"
+      ],
+      "creation": false,
+      "autoplay": false,
+      "web_play": null,
+      "preview": "assets/exhibits/31.png",
+      "source": "https://github.com/zjh-b/turtle-gallery/blob/main/%E7%A4%BE%E5%9B%A2%E5%B1%95%E7%A4%BA/31_%E6%B0%B4%E6%99%B6%E8%8A%B1%E5%9B%AD.py"
     }
   ]
 }

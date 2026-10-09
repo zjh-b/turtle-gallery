@@ -17,7 +17,18 @@ import sys
 import time
 from urllib.parse import parse_qs, urlencode, urlsplit
 
-from check_browser import ROOT, assert_no_overflow, local_site, observed_page, require
+from check_browser import ROOT, assert_no_overflow, gallery_works, local_site, observed_page, require
+
+
+WORKS = gallery_works()
+ALL_IDS = [work["id"] for work in WORKS]
+COLLECTION_IDS = {
+    "all": ALL_IDS,
+    "romantic": [work["id"] for work in WORKS if work["featured"]],
+    "online": [work["id"] for work in WORKS if work["web_play"]],
+    **{name: [work["id"] for work in WORKS if work["collection"] == name]
+       for name in ("interactive", "original")},
+}
 
 
 def ready(page, base_url, query="", fragment="gallery"):
@@ -56,12 +67,12 @@ def check_discovery(browser, base_url, output):
         page, errors = observed_page(context)
         ready(page, base_url)
         require(collection_button(page, "online").count() == 1, "Gallery needs a dedicated online collection")
-        require(visible_ids(page) == list(range(1, 29)), "Default gallery must retain all 28 artworks")
-        for value, count in (("romantic", 4), ("interactive", 14), ("original", 14), ("online", 3), ("all", 28)):
+        require(visible_ids(page) == ALL_IDS, "Default gallery must retain every catalog artwork")
+        for value, expected_ids in COLLECTION_IDS.items():
             collection_button(page, value).click()
             assert_collection(page, value)
-            require(len(visible_ids(page)) == count, "Collection count changed: " + value)
-            require(collection_button(page, value).locator("span").inner_text() == str(count), "Filter count must describe its collection")
+            require(visible_ids(page) == expected_ids, "Collection contents changed: " + value)
+            require(collection_button(page, value).locator("span").inner_text() == str(len(expected_ids)), "Filter count must describe its collection")
         collection_button(page, "online").click()
         require(visible_ids(page) == [1, 3, 26], "Online collection must contain fireworks, kaleidoscope, and heart")
         require(page.locator("#gallery-grid .browser-play-link").count() == 3, "Every online artwork must have a playable link")
@@ -73,6 +84,11 @@ def check_discovery(browser, base_url, output):
         page.go_back(wait_until="networkidle")
         assert_collection(page, "online")
         require(visible_ids(page) == [1, 3, 26], "Returning from artwork must restore the online collection")
+        ready(page, base_url, urlencode({"q": "沉浸艺术"}))
+        require(visible_ids(page) == [29, 30, 31], "Immersive collection must discover all three desktop works")
+        require(page.locator("#gallery-grid .browser-play-link").count() == 0,
+                "Desktop artworks must not advertise browser playback")
+        page.screenshot(path=str(output / "desktop-immersive.png"), full_page=True)
         require(not errors, "Uncaught browser errors: " + "; ".join(errors))
 
 
@@ -102,7 +118,7 @@ def check_history(browser, base_url, output):
         require(visible_ids(page) == [26] and page.locator("#gallery-search").input_value() == "26", "Back must restore both filters")
         page.go_back(wait_until="networkidle")
         assert_collection(page, "all")
-        require(len(visible_ids(page)) == 28 and page.locator("#gallery-search").input_value() == "", "Back to the initial entry must clear the search")
+        require(visible_ids(page) == ALL_IDS and page.locator("#gallery-search").input_value() == "", "Back to the initial entry must clear the search")
         page.go_forward(wait_until="networkidle")
         assert_collection(page, "online")
         require(visible_ids(page) == [26], "Forward must restore the filtered artwork")
@@ -117,14 +133,14 @@ def check_search(browser, base_url, output):
         page, errors = observed_page(context)
         ready(page, base_url, "collection=unknown&campaign=club", "discover")
         assert_collection(page, "all")
-        require(len(visible_ids(page)) == 28, "Unknown collections must fall back to all artworks")
+        require(visible_ids(page) == ALL_IDS, "Unknown collections must fall back to all artworks")
         collection_button(page, "online").click()
         page.locator("#gallery-search").fill("no-such-artwork-2026")
         require(not visible_ids(page), "Unmatched query must produce an empty result")
         require(page.locator("#gallery-message").is_visible(), "Empty search must offer a readable recovery action")
         page.locator("#message-action").click()
         assert_collection(page, "all")
-        require(len(visible_ids(page)) == 28 and page.locator("#gallery-search").input_value() == "", "Recovery must clear search and collection")
+        require(visible_ids(page) == ALL_IDS and page.locator("#gallery-search").input_value() == "", "Recovery must clear search and collection")
         require(page.locator("#gallery-search").evaluate("node => node === document.activeElement"), "Recovery must return keyboard focus to search")
         assert_url(page, "all", "", "club", "discover")
         require("collection=" not in urlsplit(page.url).query and "q=" not in urlsplit(page.url).query, "Default URL must omit empty gallery parameters")

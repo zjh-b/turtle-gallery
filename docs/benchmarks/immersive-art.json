@@ -1,0 +1,88 @@
+{
+  "date": "2026-10-09",
+  "platform": "Windows",
+  "python": "3.12.4",
+  "scope": "Local scene frame(.025) plus Tk screen.update; no timer wait, not end-to-end FPS or hardware comparison.",
+  "armillary_edge_comparison": {
+    "window": [1000, 720],
+    "samples_per_version": 120,
+    "baseline": {"draw_median_ms": 18.09, "tk_update_median_ms": 25.25, "median_ms": 43.32, "p95_ms": 125.42},
+    "edge_fix": {"draw_median_ms": 16.87, "tk_update_median_ms": 22.52, "median_ms": 40.99, "p95_ms": 122.72},
+    "scope": "Sequential before/after comparison at the default camera; desktop timing varies between runs. No stable-FPS claim."
+  },
+  "checks": [
+    "Three themes per scene at both window sizes",
+    "Pointer interaction at both window sizes",
+    "Five zero-delta paused frames match captured artwork pixels",
+    "Public Stage reset",
+    "No Canvas pool growth across 120 measured frames"
+  ],
+  "records": [
+    {
+      "number": 29,
+      "window": [
+        1000,
+        720
+      ],
+      "samples": 120,
+      "median_ms": 33.55,
+      "p95_ms": 37.94,
+      "canvas_items": 925
+    },
+    {
+      "number": 29,
+      "window": [
+        760,
+        580
+      ],
+      "samples": 120,
+      "median_ms": 32.78,
+      "p95_ms": 37.65,
+      "canvas_items": 925
+    },
+    {
+      "number": 30,
+      "window": [
+        1000,
+        720
+      ],
+      "samples": 120,
+      "median_ms": 112.88,
+      "p95_ms": 129.02,
+      "canvas_items": 1267
+    },
+    {
+      "number": 30,
+      "window": [
+        760,
+        580
+      ],
+      "samples": 120,
+      "median_ms": 38.28,
+      "p95_ms": 100.85,
+      "canvas_items": 1267
+    },
+    {
+      "number": 31,
+      "window": [
+        1000,
+        720
+      ],
+      "samples": 120,
+      "median_ms": 16.68,
+      "p95_ms": 22.34,
+      "canvas_items": 716
+    },
+    {
+      "number": 31,
+      "window": [
+        760,
+        580
+      ],
+      "samples": 120,
+      "median_ms": 15.79,
+      "p95_ms": 18.27,
+      "canvas_items": 716
+    }
+  ]
+}
