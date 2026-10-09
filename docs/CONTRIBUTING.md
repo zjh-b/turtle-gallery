@@ -77,6 +77,12 @@ python tools/render_media.py --compose-immersive
 
 `--immersive` 依次运行 29～31，更新三件作品的预览及沉浸艺术总览；`--compose-immersive` 只重排现有截图，`--compose-hero` 只更新首页图和作品计数。仅运行 `--compose` 不会重建沉浸艺术总览。
 
+### 比较画质与绘制耗时
+
+沉浸系列可运行 `python tools/check_immersive.py --baseline-ref d674b98 --samples 120`，顺序捕获两版场景的三主题、两种窗口和点击效果，并检查暂停、复位、对象池。结果保存在 `.work/immersive-check/`；`--works 29 30` 可缩小范围。历史对照仅载入该提交的作品源码，舞台、Python 与捕获工具仍使用当前环境，只对比可信的本地提交。
+
+报告分别记录几何与 Canvas 提交耗时、Tk 更新时间和总耗时，以及源码哈希；应比较相同条件，不把它换算为实际播放帧率。完成三件作品的捕获后，可运行 `python tools/render_media.py --compose-immersive-palettes .work/immersive-check/current` 重建九种配色图。检查工具同样需要 Windows 桌面与 Pillow 11.2.1 或更新版本。
+
 ## 维护在线画廊
 
 网页位于 `docs/`，使用 HTML、CSS 和 JavaScript，作品数据由共用目录导出。无需安装前端工具，在仓库根目录执行：

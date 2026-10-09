@@ -48,6 +48,7 @@ class Canvas:
         self.next_id = 1
         self.coordinate_updates = 0
         self.option_updates = 0
+        self.stacking = []
         self.root = SimpleNamespace(minsize=Mock(), protocol=Mock(), attributes=Mock())
 
     def _create(self, kind, *coords, **options):
@@ -60,6 +61,7 @@ class Canvas:
         item = self.next_id
         self.next_id += 1
         self.items[item] = dict(kind=kind, coords=coords, options=options)
+        self.stacking.append(item)
         return item
 
     def create_rectangle(self, *args, **kwargs):
@@ -78,6 +80,8 @@ class Canvas:
         return self._create("text", *args, **kwargs)
 
     def matching(self, item_or_tag):
+        if isinstance(item_or_tag, int):
+            return [item_or_tag] if item_or_tag in self.items else []
         return [key for key, item in self.items.items()
                 if key == item_or_tag or item_or_tag == "all"
                 or item_or_tag in item["options"].get("tags", ())]
@@ -96,9 +100,23 @@ class Canvas:
     def delete(self, item_or_tag):
         for item in self.matching(item_or_tag):
             del self.items[item]
+            self.stacking.remove(item)
 
-    def tag_raise(self, item_or_tag):
-        pass
+    def _reorder(self, item_or_tag, relative, above):
+        selected = set(self.matching(item_or_tag))
+        group = [item for item in self.stacking if item in selected]
+        remaining = [item for item in self.stacking if item not in selected]
+        anchors = set(self.matching(relative)) if relative is not None else set()
+        indices = [index for index, item in enumerate(remaining) if item in anchors]
+        index = ((max(indices)+1 if above else min(indices)) if indices
+                 else len(remaining) if above else 0)
+        self.stacking = remaining[:index]+group+remaining[index:]
+
+    def tag_raise(self, item_or_tag, above=None):
+        self._reorder(item_or_tag, above, True)
+
+    def tag_lower(self, item_or_tag, below=None):
+        self._reorder(item_or_tag, below, False)
 
     def bind(self, event, callback, add=None):
         self.bindings[event] = callback

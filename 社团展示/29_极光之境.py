@@ -34,6 +34,32 @@ class AuroraLandscape:
                 self.skyline.append((a[0]+(b[0]-a[0])*u,
                                      a[1]+(b[1]-a[1])*u+rng.uniform(-5, 4)*math.sin(math.pi*u)))
         self.skyline.append(self.ridge[-1])
+        self.mountain_faces = []
+        for peak in (3, 5, 7, 9, 11, 13):
+            x, y = self.ridge[peak]
+            before, after = self.ridge[peak-1], self.ridge[peak+1]
+            span_left, span_right = x-before[0], after[0]-x
+            depth = rng.uniform(23, 42)
+            summit = self.skyline[peak*7-4:peak*7+5]
+            snowline = []
+            for step, (xx, yy) in enumerate(summit):
+                weight = math.sin(math.pi*step/(len(summit)-1))
+                snowline.append((xx, yy-depth*weight*rng.uniform(.38, 1)))
+            seam = [(x, y)]
+            for fraction in (.23, .49, .73, 1):
+                seam.append((x+span_right*fraction*.45+rng.uniform(-8, 8),
+                             y+(-99-y)*fraction))
+            shadow = seam+[(after[0], -99), (after[0], after[1])]
+            light = summit+list(reversed(snowline))
+            ledges = []
+            for step in range(3):
+                start_x = x-span_left*(.12+step*.13)
+                start_y = y-depth*(.45+step*.34)
+                ledges.append([(start_x, start_y),
+                               (start_x-span_left*.11, start_y-7),
+                               (start_x-span_left*.19, start_y-10),
+                               (start_x-span_left*.23, start_y-17)])
+            self.mountain_faces.append((shadow, light, seam, ledges))
         self.reflections = [(rng.uniform(-158, 466), -156-i*1.85,
                              rng.uniform(28, 92), rng.random()*math.tau)
                             for i in range(45) for _ in range(5)]
@@ -44,7 +70,8 @@ class AuroraLandscape:
                 "reflection": [mix(floor, green, .005+.39*i/31) for i in range(32)],
                 "stars": [mix(sky, ice, .18+.56*i/31) for i in range(32)],
                 "ridge": mix(sky, ice, .14), "snow": mix(sky, ice, .46),
-                "facet": mix(sky, ice, .19), "water": mix(floor, ice, .16),
+                "facet": mix(sky, ice, .10), "snow_shade": mix(sky, ice, .29),
+                "water": mix(floor, ice, .16),
                 "bank": mix(sky, ice, .21), "bank_light": mix(sky, ice, .43),
                 "trunk": mix(sky, floor, .4), "pine": mix(sky, green, .075),
                 "pine_snow": mix(sky, ice, .31),
@@ -92,37 +119,48 @@ class AuroraLandscape:
 
     def curtain(self, u, layer):
         phase = self.time*.25
-        x = -172+u*650
+        x = -192+u*680
         lower = 54+layer*31+33*math.sin(u*6.4+phase+layer*1.4)+15*math.sin(u*12.4-phase*.8)
         height = 82+24*math.sin(u*3.8+layer)+20*math.sin(u*7-phase*.4)**2
+        # Each curtain emerges from a fine wisp instead of a vertical cut edge.
+        # Smoothstep keeps the middle broad while narrowing both visible ends.
+        edge = max(0, min(1, u/.19, (1-u)/.13))
+        taper = edge*edge*(3-2*edge)
         pulse = sum(math.exp(-((x-px)/110)**2)*math.sin(math.pi*age/3)**2
                     for px, _, age in self.pulses)
         lower += min(22, pulse*14)
-        upper = min(243, lower+height)
+        upper = min(243, lower+height*taper)
         intensity = (.63+.24*math.sin(u*18-phase*1.7)**2)*math.sin(math.pi*u)**.7
-        return x, lower, upper, min(1, intensity+min(.25, pulse*.13))
+        return x, lower, upper, min(1, intensity+min(.25, pulse*.13))*taper
 
     def draw_curtains(self, p, colors):
         for layer in (1, 0):
-            points = [self.curtain(i/72, layer) for i in range(73)]
+            points = [self.curtain(i/96, layer) for i in range(97)]
             palette = colors["curtain"][layer]
             # Continuous ribbons remove the checkerboard seams of column quads.
             # Many shallow tonal steps blend into a soft curtain at window size.
             for row in range(39, -1, -1):
                 low, high = row/40, (row+1)/40
                 lower = [(x, y+(top-y)*low) for x, y, top, _ in points]
-                upper = [(x, y+(top-y)*high+.4) for x, y, top, _ in reversed(points)]
+                upper = [(x, y+(top-y)*high) for x, y, top, _ in reversed(points)]
                 strength = (1-low)**2.4 * (.42 if layer else .72)
                 p.poly(lower+upper, palette[round(strength*63)])
-            # Fine vertical rays give the folds structure without a tile grid.
-            for i in range(1, 72, 3):
+            # A ray shares endpoints between tonal segments. Its slight curve
+            # follows the fold, avoiding the stair steps of offset short lines.
+            for i in range(2, 96, 4):
                 x, y, top, glow = points[i]
-                for segment in range(4):
-                    a, b = segment/4, (segment+1)/4
-                    strength = min(1, ((.42 if layer else .72)+glow*.16)*(1-a)**2.4)
-                    p.line([(x, y+(top-y)*a), (x+1.6, y+(top-y)*b)],
-                           palette[round(strength*63)], .5)
-            p.line([(x, y+.8) for x, y, _, _ in points], palette[38 if layer else 52], 1)
+                bend = 3*math.sin(i*.38+self.time*.15+layer)
+                nodes = [(x+bend*(j/6)**1.4, y+(top-y)*j/6) for j in range(7)]
+                for segment in range(6):
+                    a = segment/6
+                    strength = min(1, ((.42 if layer else .72)+glow*.13)*(1-a)**2.4)
+                    p.line(nodes[segment:segment+2], palette[round(strength*63)], .45)
+            # Short connected curves let the bright hem fade into both wisps.
+            for start in range(0, 96, 8):
+                section = points[start:start+9]
+                glow = sum(point[3] for point in section)/len(section)
+                strength = glow*(.66 if layer else .94)
+                p.line([(x, y+.6) for x, y, _, _ in section], palette[round(strength*63)], .8)
 
     def pine(self, p, x, y, height, colors):
         lean = math.sin(self.time*.7+x)*2 if self.wind else 0
@@ -161,25 +199,17 @@ class AuroraLandscape:
         distant = [(x, y*.65+13) for x, y in self.ridge]
         p.poly([(-505, -100)]+distant+[(505, -100)], mix(sky, ice, .07))
         p.poly([(-505, -105)]+self.skyline+[(505, -105)], colors["ridge"])
-        for i in (3, 5, 7, 9, 11, 13):
-            x, y = self.ridge[i]
-            before, after = self.ridge[i-1], self.ridge[i+1]
-            p.poly([(x, y), (x+13, y-33), (x+9, y-49), (x+24, y-69),
-                    (after[0]+15, -99), (x-31, -99), (x-12, y-53)], colors["facet"])
-            p.poly([(x, y), (x+(after[0]-x)*.52, y+(after[1]-y)*.52),
-                    (x+17, y-23), (x+11, y-43), (x+3, y-26), (x-5, y-30),
-                    (x-3, y-15), (x-18, y-25),
-                    (x+(before[0]-x)*.58, y+(before[1]-y)*.58)], colors["snow"])
-            for strand in range(3):
-                end_x = x+(after[0]-x)*(.2+strand*.13)
-                end_y = -78-strand*3
-                p.line([(x+strand*2, y-strand*7), (x+13+strand*5, y-38-strand*4),
-                        (end_x-8, end_y+13), (end_x, end_y)], colors["ridge"], .8)
+        for shadow, snow, seam, ledges in self.mountain_faces:
+            p.poly(shadow, colors["facet"])
+            p.poly(snow, colors["snow"])
+            p.line(seam, colors["snow_shade"], .65)
+            for ledge in ledges:
+                p.line(ledge, colors["snow_shade"], .8)
         p.rect(-505, -98, 505, -289, floor)
-        reflected = [(x, -98-(y+98)*.52) for x, y in self.ridge]
+        reflected = [(x+2*math.sin(y*.18), -98-(y+98)*.52) for x, y in self.skyline]
         p.poly([(-505, -98)]+reflected+[(505, -98)], mix(floor, ice, .065))
         for x, y, length, phase in self.reflections:
-            u = max(0, min(1, (x+172)/650))
+            u = max(0, min(1, (x+192)/680))
             _, bottom, top, glow = self.curtain(u, 0)
             center = -98-(bottom+98)*.51
             distance = abs(y-center)/max(12, (top-bottom)*.5)

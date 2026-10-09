@@ -69,6 +69,8 @@ Developed and checked on Windows. macOS and Linux need a Python build with Tk an
 
 Aurora curtains move above a mountain lake, engraved metal rings turn around a central sphere, and a pale crystal garden responds to a moving light. These three Python scenes explore landscape depth, overlapping geometry and light on facets. [Controls and code notes in Chinese →](docs/IMMERSIVE_ART.md)
 
+The latest refinement softens the aurora's ends and varies its snow lines. The armillary now retains each Canvas object's identity while updating depth order. In a local comparison, its median frame-plus-Tk-update time fell from 32.2 to 21.4 ms; the aurora's added detail costs more drawing time. [Real before/after captures and measurement scope →](docs/IMMERSIVE_ART.md)
+
 | ID | Exhibit / source | Try this |
 | --- | --- | --- |
 | 29 | [Aurora Landscape](社团展示/29_极光之境.py) | Click the sky for a light surge or the water for ripples; C changes themes, W toggles wind, ↑↓ changes speed |

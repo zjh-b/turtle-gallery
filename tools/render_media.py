@@ -182,6 +182,33 @@ def make_immersive():
     compose_immersive()
 
 
+def compose_immersive_palettes(source):
+    """Rebuild the nine-theme sheet from check_immersive.py's genuine captures."""
+    themes = ((29, "极光之境", ("翡翠极夜", "紫霞雪境", "琥珀黎明")),
+              (30, "机械星仪", ("午夜黄铜", "月下白银", "古铜松石")),
+              (31, "水晶花园", ("冰蓝", "紫晶", "蜜金")))
+    paths = [source / f"{number}-1000-{palette}.png"
+             for number, _, _ in themes for palette in range(3)]
+    missing = [str(path) for path in paths if not path.is_file()]
+    if missing:
+        raise FileNotFoundError("Missing theme captures: " + ", ".join(missing))
+    board = Image.new("RGB", (1540, 1120), "#101C22")
+    draw = ImageDraw.Draw(board)
+    draw.text((30, 20), "同一作品，三种光色", font=font(34, True), fill="#E7E9DF")
+    draw.text((32, 74), "真实运行画面 / 按 C 切换主题", font=font(18), fill="#A9BDB6")
+    for row, (number, title, palettes) in enumerate(themes):
+        y = 115+row*330
+        draw.text((32, y), f"{number} {title}", font=font(20, True), fill="#DBE3DC")
+        for column, name in enumerate(palettes):
+            x = 30+column*500
+            with Image.open(source / f"{number}-1000-{column}.png") as picture:
+                rounded_image(board, picture, (x, y+38, 480, 250), 4, contain=True)
+            draw.text((x+4, y+294), name, font=font(15), fill="#A9BDB6")
+    ASSETS.mkdir(parents=True, exist_ok=True)
+    board.save(ASSETS / "immersive-palettes.png", optimize=True)
+    print("Composed immersive-palettes.png from nine real theme captures")
+
+
 def compose_originals():
     """Update the original-work contact sheet without rewriting other collections."""
     ASSETS.mkdir(parents=True, exist_ok=True)
@@ -609,6 +636,8 @@ def main():
                         help="Rebuild only the gallery cover from existing previews and current counts")
     parser.add_argument("--compose-originals", action="store_true",
                         help="Rebuild the original-work contact sheet from existing previews")
+    parser.add_argument("--compose-immersive-palettes", type=Path, metavar="CAPTURE_DIR",
+                        help="Build the nine-theme sheet from check_immersive.py's current/ captures")
     parser.add_argument("--immersive", action="store_true",
                         help="Capture works 29-31 and compose their static exhibition board")
     parser.add_argument("--compose-immersive", action="store_true",
@@ -627,6 +656,8 @@ def main():
     parser.add_argument("--capture-exhibit", type=int, choices=interactive_ids, help=argparse.SUPPRESS)
     args = parser.parse_args()
     ASSETS.mkdir(parents=True, exist_ok=True)
+    if args.compose_immersive_palettes:
+        compose_immersive_palettes(args.compose_immersive_palettes)
     if args.capture_exhibit:
         exhibit_capture(args.capture_exhibit)
         return

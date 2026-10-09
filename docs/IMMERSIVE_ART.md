@@ -72,7 +72,30 @@ python run.py --demo 31
 
 ![三件作品各自三套配色的真实运行画面](assets/immersive-palettes.png)
 
-## 验证与维护
+## 2026-10-10 · 光幕与星仪精修
+
+![同一窗口与动画时刻的极光、星仪优化前后真实画面](assets/immersive-refinement.png)
+
+极光的两端平滑收尖，连续光丝沿幕帘伸展，六座雪峰各有不同雪线与背光坡，山体倒影跟随细碎的山脊。光幕左侧的硬截断和光丝错位已消除。
+
+星仪用原生椭圆绘制球面渐变，五条连续曲线绘制经纬线；保留 216 条刻度与侧向环缘。`DepthPaint.finish_depth()` 让每个部件保留自己的 Canvas 对象，只调整必要的前后顺序，静止球体不再因环带排序反复更新坐标。环带采样的投影弦偏差在检查的视角内小于 0.3 个逻辑像素。
+
+### 同条件测量
+
+用 [check_immersive.py](../tools/check_immersive.py) 对比首版提交 `d674b98` 与本轮源码，同一 Windows 环境、同一窗口尺寸、同一输入序列，每组采样 120 帧。两版依次运行，不同时打开绘图窗口。
+
+| 作品 / 窗口 | 优化前中位 / P95 | 优化后中位 / P95 | Canvas 对象数 |
+| --- | --- | --- | --- |
+| 极光 · 1000 × 720 | 32.70 / 34.93 ms | 40.40 / 42.68 ms | 925 → 1049 |
+| 极光 · 760 × 580 | 32.36 / 35.24 ms | 38.54 / 41.25 ms | 925 → 1049 |
+| 星仪 · 1000 × 720 | 32.21 / 35.32 ms | 21.42 / 23.67 ms | 1267 → 964 |
+| 星仪 · 760 × 580 | 31.58 / 34.77 ms | 21.42 / 23.45 ms | 1267 → 964 |
+
+星仪在 1000 × 720 窗口的绘制与 Tk 更新总耗时中位数下降约 33.5%；单独的几何与 Canvas 指令提交耗时由 13.93 降至 7.51 ms。极光增加渐隐和雪山细节的代价是约 6.2～7.7 ms 的额外绘制时间。
+
+这些数据不含动画定时器等待，也不是播放帧率保证。两版三主题、大小窗口、点击、暂停像素不变、R 恢复初始画面及对象池稳定均通过检查。[完整报告与源码哈希 →](benchmarks/immersive-refinement.json)
+
+## 首版运行记录（2026-10-09）
 
 2026-10-09 在 Windows / Python 3.12.4 / Tk 8.6 下检查了 1000 × 720 与 760 × 580 窗口。每件作品均实际运行三套配色、点击交互、暂停与重置；暂停后连续五帧的画面像素保持一致。连续绘制 120 帧，Canvas 对象池没有增长。
 
@@ -86,11 +109,17 @@ python run.py --demo 31
 
 星仪在此次桌面测量中有明显波动，另一次同窗口复测为中位 40.99 ms、P95 122.72 ms；环缘修复前的对照为 43.32 / 125.42 ms。当前数据未显示这次修复导致变慢，但也不能证明稳定流畅，星仪的绘制性能仍有优化空间。
 
-可运行 `python -m unittest discover -s tests -p test_immersive_art.py -v` 检查暂停、缩放点击、对象池、视角投影和光源跟随。媒体维护另需 Pillow 与 Windows 桌面环境，详见[贡献指南](CONTRIBUTING.md#更新展示图片)：
+## 复现与维护
+
+可运行 `python -m unittest discover -s tests -p test_immersive_art.py -v` 检查暂停、缩放点击、对象池、视角投影、光源跟随、静止球体复用与深度排序。媒体维护另需 Pillow 与 Windows 桌面环境，详见[贡献指南](CONTRIBUTING.md#更新展示图片)：
 
 ```bash
 python tools/render_media.py --immersive --compose-hero
 python tools/render_media.py --compose-immersive
+python tools/check_immersive.py --baseline-ref d674b98 --samples 120
+python tools/render_media.py --compose-immersive-palettes .work/immersive-check/current
 ```
 
 第一条重新捕获三件作品并更新专题总览与首页计数；第二条仅用已有截图重排专题总览。
+
+后两条依次检查两版场景，保存配色、交互、小窗口截图和 JSON 报告，再用本轮截图重建九色总览。可用 `--works 29 30` 只检查指定作品；历史对照仅替换作品源码，共用舞台与捕获工具保持当前版本，不是对整个旧版本环境的复现。仅从可信的本地提交读取对照代码。

@@ -1,6 +1,7 @@
 """一架缓慢运行的黄铜星仪。标准库矢量绘制；R 保留主题并复位运动与视角。"""
 import math
 import random
+from bisect import bisect_left
 
 from 舞台 import Paint, Stage, mix
 
@@ -12,18 +13,62 @@ THEMES = (
 )
 
 
+class DepthPaint(Paint):
+    """Keep each part's Canvas identity while changing its visible depth."""
+
+    def finish_depth(self, depths, start, force=False):
+        self.depth_start = start
+        self.depth_values = tuple(depths)
+        ids = [item[1] for item in self.items[start:self.index]]
+        target = tuple(ids[i] for i in sorted(range(len(ids)), key=depths.__getitem__))
+        previous = getattr(self, "depth_order", ())
+        if self.order_changed or len(previous) != len(target):
+            previous = tuple(ids)
+        # The final base item anchors the lowest moving part. Moving an item
+        # just above its predecessor also handles motion towards the back.
+        anchor = self.items[start - 1][1]
+        if previous != target:
+            # Retain the longest subsequence already in the requested order:
+            # every other item must move, and these are the only Tk calls.
+            positions = {item: i for i, item in enumerate(previous)}
+            tails, ends, parents = [], [], []
+            for i, item in enumerate(target):
+                position = positions[item]
+                slot = bisect_left(tails, position)
+                parents.append(ends[slot - 1] if slot else -1)
+                if slot == len(tails):
+                    tails.append(position)
+                    ends.append(i)
+                else:
+                    tails[slot], ends[slot] = position, i
+            retained = set()
+            index = ends[-1]
+            while index != -1:
+                retained.add(target[index])
+                index = parents[index]
+            for item in target:
+                if item not in retained:
+                    self.canvas.tag_raise(item, anchor)
+                anchor = item
+        self.depth_order = target
+        # Keep the whole instrument over a backdrop redrawn after a resize or
+        # material change. Raising a tag retains the order within that tag.
+        if self.order_changed or force:
+            self.canvas.tag_raise(self.tag)
+
+
 class Armillary:
-    """Perspective annuli assembled from fixed, depth-sorted polygon pools."""
+    """Perspective annuli assembled from reusable, depth-sorted vector parts."""
 
     CENTER = (145, 30)
     # radius, band width, segments, tick count; unit geometry is built once.
-    RINGS = ((197, 10, 96, 96), (176, 8, 96, 72),
-             (146, 6, 80, 48), (109, 3.5, 72, 0))
+    RINGS = ((197, 10, 72, 96), (176, 8, 64, 72),
+             (146, 6, 64, 48), (109, 3.5, 56, 0))
 
     def __init__(self):
         self.stage = Stage("机械星仪", "点击 转动视角    C 切换材质    D 反向    ↑↓ 调速",
                            background=THEMES[0][1], accent=THEMES[0][3])
-        self.paint = Paint(self.stage, "armillary")
+        self.paint = DepthPaint(self.stage, "armillary")
         self.paint.backdrop = Paint(self.stage, "armillary-backdrop")
         self.paint.foreground = Paint(self.stage, "armillary-foreground")
         self.paint.backdrop_signature = None
@@ -37,8 +82,6 @@ class Armillary:
                                       math.sin(i * math.tau / count))
                                      for i in range(count)) if count else ()
                                 for _, _, _, count in self.RINGS)
-        self.disc = tuple((math.cos(i * math.tau / 48), math.sin(i * math.tau / 48))
-                          for i in range(48))
         rng = random.Random(303)
         self.stars = tuple((rng.uniform(-465, 466), rng.uniform(-243, 246),
                             rng.choice((.45, .6, .8)), rng.randrange(3)) for _ in range(62))
@@ -146,21 +189,19 @@ class Armillary:
         return ((a[0] + nx, a[1] + ny), (b[0] + nx, b[1] + ny),
                 (b[0] - nx, b[1] - ny), (a[0] - nx, a[1] - ny))
 
-    def disc_path(self, x, y, radius):
-        return tuple((x + a * radius, y + b * radius) for a, b in self.disc)
-
     def add_sphere(self, pieces, x, y, z, radius, shades, metal):
         """An opaque, directional gradient; depth stays local to this sphere."""
-        pieces.append((z - .01, self.disc_path(x, y, radius + .8), metal))
+        pieces.append((z - .01, "oval", (x, y, radius + .8, radius + .8, metal)))
         steps = 24 if radius > 20 else 12
         for i in range(steps):
             a = i / (steps - 1)
-            points = self.disc_path(x - radius * .25 * a, y + radius * .29 * a,
-                                    radius * (1 - a * .86))
-            pieces.append((z + i * .0001, points, shades[round(a * 31)]))
+            r = radius * (1 - a * .86)
+            pieces.append((z + i * .0001, "oval",
+                           (x - radius * .25 * a, y + radius * .29 * a,
+                            r, r, shades[round(a * 31)])))
 
     def geometry(self, palette):
-        """All moving pieces have fixed counts and the same Canvas type."""
+        """Stable creation order, with per-piece depths for Canvas stacking."""
         pieces = []
         bases = self.bases()
         brass = palette["brass"]
@@ -174,25 +215,25 @@ class Armillary:
                 light = .38 + .18 * (depth / radius) + .20 * units[i][1]
                 light += .13 * math.sin(i / count * math.tau * 2 + index * .6)
                 shade = max(4, min(42, round(light * 47)))
-                pieces.append((depth, (a[:2], b[:2], c[:2], d[:2]), brass[shade]))
+                pieces.append((depth, "poly", ((a[:2], b[:2], c[:2], d[:2]), brass[shade])))
                 # A metal band's edge retains thickness even when its broad
                 # face is viewed side-on; projected coplanar strips vanish.
-                pieces.append((depth + .012, self.quad_path(a, b, 1.1),
-                               brass[min(47, shade + (13 if depth >= 0 else 7))]))
+                pieces.append((depth + .012, "poly", (self.quad_path(a, b, 1.1),
+                               brass[min(47, shade + (13 if depth >= 0 else 7))])))
             for i, unit in enumerate(self.tick_units[index]):
                 major = i % (8 if index == 0 else 6) == 0
                 a = self.on_ring(basis, unit, radius - width / 2 + 1.1)
                 b = self.on_ring(basis, unit, radius + width / 2 - 1.1 if major
                                  else radius - width / 2 + width * .45)
                 depth = (a[2] + b[2]) / 2
-                pieces.append((depth + .05, self.quad_path(a, b, 1.2 if major else .65),
-                               brass[39 if depth > 0 else 23]))
+                pieces.append((depth + .05, "poly", (self.quad_path(a, b, 1.2 if major else .65),
+                               brass[39 if depth > 0 else 23])))
 
         # A tilted central spindle passes through the globe and ends in ferrules.
         spindle = self.rotate((0, 1, 0), .18, self.view_yaw, -.18)
         a = self.project(tuple(v * -67 for v in spindle))
         b = self.project(tuple(v * 67 for v in spindle))
-        pieces.append((-52, self.quad_path(a, b, 3), brass[29]))
+        pieces.append((-52, "poly", (self.quad_path(a, b, 3), brass[29])))
         self.add_sphere(pieces, *self.CENTER, 0, 43, palette["sphere"], brass[14])
         # Celestial graticule hugs the visible sphere; fixed engraved arcs.
         for latitude in (-.50, 0, .50):
@@ -202,13 +243,11 @@ class Armillary:
                 x = 40 * math.sqrt(1 - latitude * latitude) * u
                 y = 40 * latitude + 3.4 * math.sqrt(max(0, 1 - u * u))
                 arc.append((self.CENTER[0] + x, self.CENTER[1] + y))
-            for a, b in zip(arc, arc[1:]):
-                pieces.append((.06, self.quad_path(a, b, .55), palette["globe"]))
+            pieces.append((.06, "line", (arc, palette["globe"], .55)))
         for sign in (-1, 1):
             arc = [(self.CENTER[0] + sign * 19 * math.sin(j * math.pi / 30),
                     self.CENTER[1] + 40 * math.cos(j * math.pi / 30)) for j in range(31)]
-            for a, b in zip(arc, arc[1:]):
-                pieces.append((.07, self.quad_path(a, b, .55), palette["globe"]))
+            pieces.append((.07, "line", (arc, palette["globe"], .55)))
         for end in (-1, 1):
             x, y, z = self.project(tuple(v * 64 * end for v in spindle))
             self.add_sphere(pieces, x, y, z, 4.1, palette["sphere"], brass[34])
@@ -222,13 +261,12 @@ class Armillary:
             # The weight projects above its ring face to avoid being cut in half.
             self.add_sphere(pieces, x, y, z + size + .2, size,
                             palette["sphere"], brass[35])
-        pieces.sort(key=lambda entry: entry[0])
         return pieces, bases[0]
 
     def draw_backdrop(self, palette):
         signature = (self.theme, self.stage.width, self.stage.height, self.stage.scale)
         if self.paint.backdrop_signature == signature:
-            return
+            return False
         p = self.paint.backdrop
         p.begin()
         p.gradient(palette["background"], palette["panel"])
@@ -251,6 +289,7 @@ class Armillary:
         p.text(-430, -224, "A STUDY OF TIME & ORBIT", palette["ink"], 8, "w")
         p.end()
         self.paint.backdrop_signature = signature
+        return True
 
     def draw_base(self, p, palette, outer_basis):
         """Stationary pedestal and a socket that meets the outer meridian."""
@@ -282,14 +321,15 @@ class Armillary:
             self.view_yaw += (self.target_yaw - self.view_yaw) * blend
             self.view_pitch += (self.target_pitch - self.view_pitch) * blend
         palette = self.palettes[self.theme]
-        self.draw_backdrop(palette)
+        backdrop_changed = self.draw_backdrop(palette)
         pieces, outer_basis = self.geometry(palette)
         p = self.paint
         p.begin()
         self.draw_base(p, palette, outer_basis)
-        for _, points, color in pieces:
-            p.poly(points, color)
-        p.end()
+        depth_start = p.index
+        for _, kind, args in pieces:
+            getattr(p, kind)(*args)
+        p.finish_depth([entry[0] for entry in pieces], depth_start, force=backdrop_changed)
         p = self.paint.foreground
         p.begin()
         # Small museum plaque, separate from the moving object's depth pool.
