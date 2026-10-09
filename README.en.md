@@ -28,6 +28,16 @@ Made for club demonstrations, learning Python and trying out visual ideas. The a
 
 Open the **[online collection →](https://zjh-b.github.io/turtle-gallery/?collection=online#gallery)** to see all playable works. Search or choose a collection, then use “复制当前筛选链接” to share those results. Reload, Back and Forward restore the filters; if clipboard access is unavailable, a selected link is provided for manual copying.
 
+## Code in Bloom · portrait film
+
+**[Watch the 22-second sample →](docs/assets/social-01/video.mp4)** A real starry lily blooms, changes palette, then gives way to a scattering particle heart. The [production kit](docs/VIDEO_EXPORT.md) includes clean footage, a cover, Chinese and English SRT files, and a [five-shot campaign plan](docs/SOCIAL_VIDEO.md) aimed at following a personal creative coding account.
+
+`tools/render_video.py` uses fixed steps and recorded interaction frames to rebuild the film at 720 / 1080 portrait resolution and 24 / 30 fps. Optional video production needs Pillow and FFmpeg; the samples are silent so you can add music in your publishing workflow. Running the gallery still needs only the standard library.
+
+```bash
+python tools/render_video.py --output exports/social-01-en --language en --account "@yourhandle"
+```
+
 ## Get started
 
 Use **Python 3.9+ with Tkinter**. Download and extract the repository ZIP, then double-click **[start.bat](start.bat)** on Windows, or run:

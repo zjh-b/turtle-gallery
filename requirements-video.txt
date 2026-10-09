@@ -1,0 +1,3 @@
+# Optional offline video production; normal gallery use has no extra dependency.
+# Install FFmpeg with libx264 separately and put ffmpeg on PATH.
+-r requirements-export.txt

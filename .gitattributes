@@ -10,8 +10,11 @@
 *.json text eol=lf
 *.svg text eol=lf
 *.txt text eol=lf
+*.srt text eol=lf
 .gitignore text eol=lf
 .gitattributes text eol=lf
 *.bat text eol=crlf
 *.png binary
 *.gif binary
+*.jpg binary
+*.mp4 binary

@@ -1,0 +1,162 @@
+{
+  "format": "turtle-gallery/social-film",
+  "version": 1,
+  "duration_seconds": 22,
+  "size": [
+    1080,
+    1920
+  ],
+  "fps": 30,
+  "frames": 660,
+  "language": "zh",
+  "account": "",
+  "renderer": "Pillow vector redraw, 2x antialiasing",
+  "audio": false,
+  "parameters": {
+    "25": {
+      "aspect": 2,
+      "theme": 0,
+      "speed": 1.1,
+      "star_count": 145,
+      "curvature": 1.15,
+      "wind": 0.6,
+      "seed": 2506
+    },
+    "26": {
+      "aspect": 2,
+      "theme": 0,
+      "rate": 0.9,
+      "particle_count": 1000,
+      "size": 1.1,
+      "seed": 2606
+    }
+  },
+  "shots": [
+    {
+      "start_frame": 0,
+      "end_frame": 60,
+      "work_id": 25,
+      "name": "hook"
+    },
+    {
+      "start_frame": 60,
+      "end_frame": 240,
+      "work_id": 25,
+      "name": "bloom"
+    },
+    {
+      "start_frame": 240,
+      "end_frame": 360,
+      "work_id": 25,
+      "name": "palette"
+    },
+    {
+      "start_frame": 360,
+      "end_frame": 540,
+      "work_id": 26,
+      "name": "stardust"
+    },
+    {
+      "start_frame": 540,
+      "end_frame": 660,
+      "work_id": 26,
+      "name": "follow"
+    }
+  ],
+  "events": [
+    {
+      "frame": 60,
+      "work_id": 25,
+      "action": "replay"
+    },
+    {
+      "frame": 240,
+      "work_id": 25,
+      "action": "theme"
+    },
+    {
+      "frame": 246,
+      "work_id": 25,
+      "action": "meteor",
+      "x": 155,
+      "y": 195
+    },
+    {
+      "frame": 300,
+      "work_id": 25,
+      "action": "theme"
+    },
+    {
+      "frame": 378,
+      "work_id": 26,
+      "action": "burst",
+      "x": 0,
+      "y": 0
+    },
+    {
+      "frame": 480,
+      "work_id": 26,
+      "action": "theme"
+    },
+    {
+      "frame": 480,
+      "work_id": 26,
+      "action": "theme"
+    }
+  ],
+  "warmup_frames": {
+    "25": 210,
+    "26": 0
+  },
+  "sampling": "Events before frame step; dt=0 at frames 0 and 12*fps, otherwise 1/fps; only active scene advances.",
+  "text_insets": {
+    "left": 0.09,
+    "right": 0.18,
+    "top": 0.105,
+    "last_baseline_max": 0.83
+  },
+  "render_seconds": 82.74,
+  "python": "3.12.4",
+  "font_sha256": [
+    "d79c55e68b1131eea0cc1c47be4f572d964f28c682e143db2ad09c1e4cb07a3f",
+    "4508821b3dffe01f0ef5e5326a3e60df705a44633858811f67b6982dce3f6ee6"
+  ],
+  "source_hash_normalization": "CRLF to LF; all other source bytes preserved",
+  "source_sha256": {
+    "tools/render_video.py": "bb90479a1320b2719bcbd0df72f3054c71d317de6513366fdc0bf11d886e9037",
+    "tools/video_scene.py": "7474fa9c1102fa1ef38f8b9d651915e4f869ea97980292592eb736cb900474c3",
+    "社团展示/25_星空彼岸花.py": "39d9a51b2968e7a4266f6276e9a15cd22d8f72ddd2bfd6f00a75014c1a72950e",
+    "社团展示/26_怦然心动.py": "60e89f2d659802b0c2d992aeff94a98c69866a3fc89da6591db46c20f91daef4",
+    "社团展示/舞台.py": "3064d15913b65056f81e644d7c3d4379cb36a61eeb44bfc9f428433b878786c1",
+    "社团展示/创作配方.py": "0933b2e14d58d4c3daafd54b7e0fe27a47953f6679cf00db0c08100bd72a6400",
+    "社团展示/爱心参数.py": "a7097d2a473613d1e4640dc77295804c9b28917a3e743eb51d93c8144bd90e56",
+    "社团展示/高清导出.py": "405a827db37f9806170fd4c8967884bb89f5170c548a6ef2610b3b544f94a91f",
+    "社团展示/离屏绘制.py": "37d267ac570508086f0bcf0591add69296b0e55b145919cda2707a6af541878e"
+  },
+  "files": {
+    "captions.en.srt": {
+      "bytes": 355,
+      "sha256": "f2e50384c227532d21cbb5f2773d438372fdb9279a8ca29a27503133cbee2eaf"
+    },
+    "captions.zh.srt": {
+      "bytes": 349,
+      "sha256": "3fe404b4e5159bf33fb202f4a101a9966a9892e336620ab284b9ed244a4cd564"
+    },
+    "clean.mp4": {
+      "bytes": 4899161,
+      "sha256": "2dfb21d6574d8b324b7a8398834eabbf6fb68ca1be6ba99d0c164e960b1a801d"
+    },
+    "cover.png": {
+      "bytes": 396450,
+      "sha256": "e374048ccb9d6470e3937a22e413dc467efde5f2ba522f54e4170d37c2c00455"
+    },
+    "storyboard.jpg": {
+      "bytes": 190259,
+      "sha256": "bfe0c9193428c68a794f0cc676d41db0a120323c0743ecb2659f8ba6aabe38f0"
+    },
+    "video.mp4": {
+      "bytes": 5033909,
+      "sha256": "54571e354843dc5233827e221aa7abd32d96a6661441263b2dd63f65fd38ed8f"
+    }
+  }
+}

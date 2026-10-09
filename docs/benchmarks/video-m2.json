@@ -1,0 +1,97 @@
+{
+  "date": "2026-10-08",
+  "platform": "Windows-11-10.0.26200-SP0",
+  "python": "3.12.4",
+  "pillow": "12.3.0",
+  "ffmpeg": "ffmpeg version 8.1.2-full_build-www.gyan.dev Copyright (c) 2000-2026 the FFmpeg developers",
+  "tests": {
+    "total": 268,
+    "passed": 267,
+    "skipped": 1
+  },
+  "encodes": [
+    {
+      "file": "docs/assets/social-01/video.mp4",
+      "width": 1080,
+      "height": 1920,
+      "fps": 30,
+      "frames": 660,
+      "duration": 22,
+      "codec": "h264",
+      "pixel_format": "yuv420p",
+      "audio": false,
+      "full_decode": "passed",
+      "sha256": "54571e354843dc5233827e221aa7abd32d96a6661441263b2dd63f65fd38ed8f"
+    },
+    {
+      "file": "docs/assets/social-01/clean.mp4",
+      "width": 1080,
+      "height": 1920,
+      "fps": 30,
+      "frames": 660,
+      "duration": 22,
+      "codec": "h264",
+      "pixel_format": "yuv420p",
+      "audio": false,
+      "full_decode": "passed",
+      "sha256": "2dfb21d6574d8b324b7a8398834eabbf6fb68ca1be6ba99d0c164e960b1a801d"
+    },
+    {
+      "file": "exports/social-01-en/video.mp4",
+      "width": 720,
+      "height": 1280,
+      "fps": 24,
+      "frames": 528,
+      "duration": 22,
+      "codec": "h264",
+      "pixel_format": "yuv420p",
+      "audio": false,
+      "full_decode": "passed",
+      "sha256": "544eee409b2081b77f3040eff8a468bf85993077e9f0be65e3ecd285f50f1920"
+    },
+    {
+      "file": "exports/social-01-en/clean.mp4",
+      "width": 720,
+      "height": 1280,
+      "fps": 24,
+      "frames": 528,
+      "duration": 22,
+      "codec": "h264",
+      "pixel_format": "yuv420p",
+      "audio": false,
+      "full_decode": "passed",
+      "sha256": "dfaa5b00e50b7e9b9ba399306900e69b83410520701724a537d348ed8ee97b3a"
+    }
+  ],
+  "manifest_hashes": "all files and source hashes match",
+  "existing_output": "preserved",
+  "sampled_timestamps": [
+    0,
+    1.97,
+    2,
+    3.4,
+    5,
+    7.97,
+    8,
+    10,
+    12,
+    13.8,
+    16.3,
+    21.9
+  ],
+  "limitations": [
+    "No social-platform upload or audience results tested",
+    "Only Windows tested end to end; preview in the posting app before publishing",
+    "Audio is deliberately absent; add chosen music or voiceover in the editor"
+  ],
+  "browser_playback": {
+    "engine": "Microsoft Edge, headless",
+    "ended": true,
+    "duration": 22,
+    "width": 1080,
+    "height": 1920,
+    "progressEvents": 83,
+    "lastTime": 22,
+    "quality": 660
+  }
+}

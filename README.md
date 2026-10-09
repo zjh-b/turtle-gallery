@@ -28,6 +28,18 @@
 
 想快速开始，可直接打开 **[在线试玩合集 →](https://zjh-b.github.io/turtle-gallery/?collection=online#gallery)**。搜索或切换分类后，点击“复制当前筛选链接”，就能把这组作品分享给社团同学；刷新和浏览器前进 / 后退也会恢复对应筛选。浏览器不允许自动复制时，页面会提供可手动复制的链接。
 
+## 代码开花 · 竖屏短视频
+
+**[观看 22 秒样片 →](docs/assets/social-01/video.mp4)** 从彼岸花绽放、三色星空到爱心散开再聚合，每帧由真实程序生成。配套[封面与五镜分镜](docs/SOCIAL_VIDEO.md)、[无字素材和中英文字幕](docs/VIDEO_EXPORT.md)，结尾引导关注个人账号、期待下一集。
+
+新增可重复生成的素材工具：固定时间步、记录交互帧号，支持 720 / 1080 竖屏、24 / 30 fps 和账号署名。视频制作另需 Pillow 与 FFmpeg，样片无音轨，可在发布端配乐；运行画廊仍只需标准库。
+
+```bash
+python tools/render_video.py --output exports/social-01 --account "@你的账号"
+```
+
+依赖安装、产物说明与范围见[视频制作指南](docs/VIDEO_EXPORT.md)。
+
 ## 开始体验
 
 准备 **Python 3.9 或更新版本**，并确保安装了 Tkinter。下载本仓库 ZIP 并解压，Windows 用户可双击根目录的 **[start.bat](start.bat)**。
