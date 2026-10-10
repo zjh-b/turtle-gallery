@@ -457,6 +457,72 @@ nav a:hover {
   padding-block: 76px 22px;
 }
 
+.film-layout {
+  display: grid;
+  grid-template-columns: minmax(0, 1.9fr) minmax(240px, 1fr);
+  align-items: center;
+  gap: 36px;
+}
+
+.film-player,
+.film-copy {
+  min-width: 0;
+}
+
+.film-player video {
+  display: block;
+  width: 100%;
+  height: auto;
+  aspect-ratio: 16 / 9;
+  background: #0b1018;
+  border: 1px solid var(--line);
+  border-radius: 12px;
+}
+
+.film-player figcaption {
+  margin-top: 12px;
+  color: var(--muted);
+  font-size: 12px;
+}
+
+.film-links {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 8px 22px;
+  margin-top: 7px;
+  font-size: 12px;
+  color: var(--mint);
+}
+
+.film-links a:hover {
+  text-decoration: underline;
+  text-underline-offset: 4px;
+}
+
+.film-copy h3 {
+  margin-block: 8px 14px;
+  font-size: clamp(24px, 2.4vw, 32px);
+  letter-spacing: -.6px;
+}
+
+.film-copy .button {
+  margin-top: 23px;
+}
+
+.film-author {
+  margin-block: 9px 20px;
+  font-size: 12px;
+}
+
+.film-note {
+  font-size: 12px;
+}
+
+.film-copy .text-link {
+  margin-top: 9px;
+  font-size: 12px;
+}
+
 .featured-grid {
   display: grid;
   grid-template-columns: repeat(4, minmax(0, 1fr));
@@ -1233,6 +1299,15 @@ nav a:hover {
 }
 
 @media(max-width:850px) {
+  .film-layout {
+    grid-template-columns: 1fr;
+    gap: 25px;
+  }
+
+  .film-copy .button {
+    margin-top: 18px;
+  }
+
   .featured-grid {
     grid-template-columns: repeat(2, minmax(0, 1fr));
   }

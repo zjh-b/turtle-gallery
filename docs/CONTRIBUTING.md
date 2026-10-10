@@ -96,6 +96,19 @@ python -m http.server 8000 --bind 127.0.0.1 --directory docs
 
 导出工具统一生成四份数据：`docs/gallery.json`、`docs/play/fireworks-config.json`、`docs/play/kaleidoscope-config.json` 和 `docs/play/heart-config.json`。修改共用目录或绘图参数后，重新导出并提交相应变化；生成文件不直接手改。
 
+### 维护首页影片
+
+首页 `#immersive` 使用原生视频控件播放已经发布的三作品短片，默认不预载、不自动播放、不循环。MP4 下载、B 站原片与作者主页入口常驻；不依赖 JavaScript 或第三方播放器。影片与封面的生成方法见[发布素材指南](SOCIAL_IMMERSIVE.md)。
+
+`docs/captions/immersive.zh.vtt` 与交付的 `captions.zh.srt` 保持文字和时间一致。视频已带画内字幕，浏览器字幕轨默认关闭，可从原生控件开启；更新字幕后运行：
+
+```bash
+python -m unittest tests.test_immersive_video -v
+python tools/check_gallery_film.py
+```
+
+第二条是可选的真实浏览器检查，需要 `requirements-browser.txt`，Windows 默认使用已安装的 Edge，其他环境可选择 `--browser chromium`。它仅访问临时本地服务器，检查手动播放 / 暂停、字幕、初始不请求 MP4、320 / 390 像素版式、禁用 JavaScript、减少动态效果以及视频加载失败时的常驻链接。截图和报告写入 `.work/gallery-film/`；手机检查是 Chromium 模拟，实机仍按[日计划](NEXT_30_DAYS.md)另行验证。
+
 ### 检查目录与资源
 
 ```bash

@@ -189,7 +189,8 @@ python run.py --check      # 检查环境和作品文件，不打开窗口
 - [创作面板与配方](docs/CREATION_GUIDE.md)：为彼岸花、粒子爱心调参，保存、分享和恢复自己的构图。
 - [巡展与 PNG 导出](docs/EXHIBITION_GUIDE.md)：设置三作品循环展示，人工接管，再带走当前画面。
 - [在线试玩玩法](docs/BROWSER_PLAY.md)：打开网页放烟花、画万花筒，或让粒子爱心散开再相聚；万花筒与爱心可保存 PNG。
-- [升级路线](docs/ROADMAP.md)：M1 已完成；M2 已接入巡展、三种画幅和高清 PNG，十分钟连续验收与短片仍待完成；M3 已接入烟花、万花筒与粒子爱心，手机实机、Safari 与 Firefox 验收待完成。
+- [每天 1 小时 · 30 天计划](docs/NEXT_30_DAYS.md)：每日任务、分钟预算、验收产物与缓冲日，总人工预算 27.5 小时。
+- [升级路线](docs/ROADMAP.md)：M1 已完成；M2 已接入巡展、三种画幅、高清 PNG 与独立短片制作，十分钟连续验收待补；M3 已接入烟花、万花筒与粒子爱心，手机实机、Safari 与 Firefox 验收待完成。
 - [沉浸艺术](docs/IMMERSIVE_ART.md)：极光、机械星仪与水晶花园的画面、操作和修改入口。
 - [创作指南](docs/CREATIVE_GUIDE.md)：31 款作品的代码入口、原作操作和几个可以立刻动手的改法。
 - [贡献指南](docs/CONTRIBUTING.md)：添加作品、报告问题和提交改进。

@@ -43,6 +43,13 @@ class ImmersiveVideoTests(unittest.TestCase):
                 self.assertGreaterEqual(event["frame"], 0)
                 self.assertAlmostEqual(event["time"], event["frame"] / capture["fps"])
 
+    def test_browser_subtitles_match_the_delivered_film(self):
+        srt = (ASSETS / "captions.zh.srt").read_text(encoding="utf-8")
+        vtt = (ROOT / "docs/captions/immersive.zh.vtt").read_text(encoding="utf-8")
+        # Only the file header and timestamp separator differ between these
+        # numbered SRT/WebVTT cues; text and timing must stay synchronized.
+        self.assertEqual(vtt.strip(), "WEBVTT\n\n" + srt.replace(",000", ".000").strip())
+
 
 if __name__ == "__main__":
     unittest.main()
