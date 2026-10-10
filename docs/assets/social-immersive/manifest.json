@@ -1,0 +1,167 @@
+{
+  "duration": 20,
+  "fps": 30,
+  "frames": 600,
+  "size": [
+    1920,
+    1080
+  ],
+  "renderer": "actual Tk artwork captures, fitted without distortion",
+  "audio": "original procedural ambient tones; no voiceover or external samples",
+  "shots": [
+    {
+      "work": 29,
+      "start": 0,
+      "end": 7
+    },
+    {
+      "work": 30,
+      "start": 7,
+      "end": 12
+    },
+    {
+      "work": 31,
+      "start": 12,
+      "end": 20
+    }
+  ],
+  "captures": [
+    {
+      "work": 29,
+      "renderer": "actual Tk window artwork capture",
+      "frames": 210,
+      "size": [
+        1333,
+        737
+      ],
+      "fps": 30,
+      "duration": 7.0,
+      "requested_seconds": 7.0,
+      "warmup_seconds": 1,
+      "events": [
+        {
+          "frame": 21,
+          "requested_time": 0.7,
+          "time": 0.7,
+          "action": "touch",
+          "logical_position": [
+            200,
+            100
+          ]
+        },
+        {
+          "frame": 93,
+          "requested_time": 3.1,
+          "time": 3.1,
+          "action": "touch",
+          "logical_position": [
+            100,
+            -190
+          ]
+        }
+      ],
+      "frame_pattern": "frame-%05d.png",
+      "source_sha256_lf": {
+        "社团展示/29_极光之境.py": "5087a7bb5c4fbb9af43e64ba32eb14fe7da17567af57c40ca8bcdc5819a5f8b1",
+        "社团展示/舞台.py": "3064d15913b65056f81e644d7c3d4379cb36a61eeb44bfc9f428433b878786c1",
+        "社团展示/作品导出.py": "2a9f464cdd12d160f7bd957cf477a2a8f5b2868d94d54c1cef51bac1533f2879",
+        "tools/capture_immersive_video.py": "7d2e54c3de7c42f6f1d3df485919c04f90e0526e6daaffe3fb9490d052c101f4"
+      }
+    },
+    {
+      "work": 30,
+      "renderer": "actual Tk window artwork capture",
+      "frames": 150,
+      "size": [
+        1333,
+        737
+      ],
+      "fps": 30,
+      "duration": 5.0,
+      "requested_seconds": 5.0,
+      "warmup_seconds": 1,
+      "events": [
+        {
+          "frame": 18,
+          "requested_time": 0.6,
+          "time": 0.6,
+          "action": "select",
+          "logical_position": [
+            -290,
+            -90
+          ]
+        },
+        {
+          "frame": 90,
+          "requested_time": 3.0,
+          "time": 3.0,
+          "action": "select",
+          "logical_position": [
+            290,
+            80
+          ]
+        }
+      ],
+      "frame_pattern": "frame-%05d.png",
+      "source_sha256_lf": {
+        "社团展示/30_机械星仪.py": "788d5640f872f42ac2c858ed51c039badedc76098532d60a30a5527457f16c80",
+        "社团展示/舞台.py": "3064d15913b65056f81e644d7c3d4379cb36a61eeb44bfc9f428433b878786c1",
+        "社团展示/作品导出.py": "2a9f464cdd12d160f7bd957cf477a2a8f5b2868d94d54c1cef51bac1533f2879",
+        "tools/capture_immersive_video.py": "7d2e54c3de7c42f6f1d3df485919c04f90e0526e6daaffe3fb9490d052c101f4"
+      }
+    },
+    {
+      "work": 31,
+      "renderer": "actual Tk window artwork capture",
+      "frames": 240,
+      "size": [
+        1333,
+        737
+      ],
+      "fps": 30,
+      "duration": 8.0,
+      "requested_seconds": 8.0,
+      "warmup_seconds": 1,
+      "events": [
+        {
+          "frame": 21,
+          "requested_time": 0.7,
+          "time": 0.7,
+          "action": "illuminate",
+          "logical_position": [
+            400,
+            150
+          ]
+        },
+        {
+          "frame": 90,
+          "requested_time": 3.0,
+          "time": 3.0,
+          "action": "illuminate",
+          "logical_position": [
+            -50,
+            150
+          ]
+        }
+      ],
+      "frame_pattern": "frame-%05d.png",
+      "source_sha256_lf": {
+        "社团展示/31_水晶花园.py": "dbb9d848a2b6c86a3a0380f92d135324c3843778871948ee24794a76b25cb491",
+        "社团展示/舞台.py": "3064d15913b65056f81e644d7c3d4379cb36a61eeb44bfc9f428433b878786c1",
+        "社团展示/作品导出.py": "2a9f464cdd12d160f7bd957cf477a2a8f5b2868d94d54c1cef51bac1533f2879",
+        "tools/capture_immersive_video.py": "7d2e54c3de7c42f6f1d3df485919c04f90e0526e6daaffe3fb9490d052c101f4"
+      }
+    }
+  ],
+  "source_sha256_lf": {
+    "tools/render_immersive_video.py": "e82831203c6059ae89e4d79b1da24b1c62777947037371a031548cc5525a2e0b",
+    "tools/render_video.py": "bb90479a1320b2719bcbd0df72f3054c71d317de6513366fdc0bf11d886e9037"
+  },
+  "files": {
+    "captions.zh.srt": "b70ccbe70ba92d1cdab1bdbcf9ce3556695719be03262863cc33a025eb17831d",
+    "cover-4x3.png": "5a51af9b4ebf0e6d4442c6b568fb643fdb40c7cd41a82a086c14ca34ac3ec435",
+    "cover.png": "4a9f60c7cbeebc99a5805e70e85bd0bf7c6b5b058676fa5f59f4bcc49b871e80",
+    "storyboard.jpg": "cea8044458df211be2a52218fca909d2a2c33ae7060289b0dd581ca871a64c60",
+    "video.mp4": "f44ab61f628a0d67d0606f51c11721ae4c6acfc5df9b6a5dedd3ba0abd9758e8"
+  }
+}

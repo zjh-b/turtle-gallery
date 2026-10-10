@@ -38,6 +38,8 @@ Open the **[online collection →](https://zjh-b.github.io/turtle-gallery/?colle
 python tools/render_video.py --output exports/social-01-en --language en --account "@yourhandle"
 ```
 
+**[Three worlds in code · 20-second landscape film →](docs/assets/social-immersive/video.mp4)** Real interactions with the aurora, armillary and crystal garden, with Chinese captions and original synthesized ambient audio. The [production and Bilibili publishing kit](docs/SOCIAL_IMMERSIVE.md) includes a cover, storyboard and repeatable capture commands.
+
 ## Get started
 
 Use **Python 3.9+ with Tkinter**. Download and extract the repository ZIP, then double-click **[start.bat](start.bat)** on Windows, or run:
