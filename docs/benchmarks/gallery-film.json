@@ -1,0 +1,55 @@
+{
+  "browser": "msedge",
+  "scope": "Fresh local browser; mobile is touch emulation",
+  "checks": [
+    {
+      "name": "desktop",
+      "status": "passed",
+      "viewport": [
+        1440,
+        1000
+      ]
+    },
+    {
+      "name": "mobile",
+      "status": "passed",
+      "viewport": [
+        390,
+        844
+      ]
+    },
+    {
+      "name": "narrow",
+      "status": "passed",
+      "viewport": [
+        320,
+        844
+      ]
+    },
+    {
+      "name": "no-js",
+      "status": "passed",
+      "viewport": [
+        390,
+        844
+      ]
+    },
+    {
+      "name": "reduced-motion",
+      "status": "passed",
+      "viewport": [
+        1440,
+        1000
+      ]
+    },
+    {
+      "name": "blocked-media",
+      "status": "passed",
+      "viewport": [
+        390,
+        844
+      ]
+    }
+  ],
+  "browser_version": "155.0.4283.45"
+}

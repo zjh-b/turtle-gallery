@@ -1,0 +1,258 @@
+{
+  "status": "passed",
+  "host_started_at": "2026-10-11T13:47:52.406424+08:00",
+  "host_finished_at": "2026-10-11T13:57:57.004312+08:00",
+  "platform": "Windows-11-10.0.26200-SP0",
+  "python": "3.12.4",
+  "tk": "8.6.14",
+  "requested_seconds": 600,
+  "seconds_per_work": 30,
+  "continuous_seconds": 600.047,
+  "continuous_start_seconds": 3.968,
+  "elapsed_seconds": 604.718,
+  "visible_windows_checked": true,
+  "scenes": [
+    {
+      "seconds": 0.812,
+      "id": 25,
+      "pid": 7508,
+      "phase": "start"
+    },
+    {
+      "seconds": 3.968,
+      "id": 26,
+      "pid": 15228,
+      "phase": "manual_next_sent"
+    },
+    {
+      "seconds": 34.359,
+      "id": 27,
+      "pid": 17904,
+      "phase": "continuous_loop"
+    },
+    {
+      "seconds": 64.64,
+      "id": 25,
+      "pid": 26000,
+      "phase": "continuous_loop"
+    },
+    {
+      "seconds": 95.031,
+      "id": 26,
+      "pid": 28460,
+      "phase": "continuous_loop"
+    },
+    {
+      "seconds": 125.281,
+      "id": 27,
+      "pid": 25224,
+      "phase": "continuous_loop"
+    },
+    {
+      "seconds": 155.672,
+      "id": 25,
+      "pid": 9664,
+      "phase": "continuous_loop"
+    },
+    {
+      "seconds": 186.031,
+      "id": 26,
+      "pid": 20472,
+      "phase": "continuous_loop"
+    },
+    {
+      "seconds": 216.375,
+      "id": 27,
+      "pid": 23628,
+      "phase": "continuous_loop"
+    },
+    {
+      "seconds": 246.687,
+      "id": 25,
+      "pid": 22820,
+      "phase": "continuous_loop"
+    },
+    {
+      "seconds": 277.078,
+      "id": 26,
+      "pid": 11560,
+      "phase": "continuous_loop"
+    },
+    {
+      "seconds": 307.328,
+      "id": 27,
+      "pid": 17216,
+      "phase": "continuous_loop"
+    },
+    {
+      "seconds": 337.609,
+      "id": 25,
+      "pid": 14556,
+      "phase": "continuous_loop"
+    },
+    {
+      "seconds": 367.906,
+      "id": 26,
+      "pid": 30608,
+      "phase": "continuous_loop"
+    },
+    {
+      "seconds": 398.125,
+      "id": 27,
+      "pid": 5980,
+      "phase": "continuous_loop"
+    },
+    {
+      "seconds": 428.453,
+      "id": 25,
+      "pid": 620,
+      "phase": "continuous_loop"
+    },
+    {
+      "seconds": 458.843,
+      "id": 26,
+      "pid": 11448,
+      "phase": "continuous_loop"
+    },
+    {
+      "seconds": 489.031,
+      "id": 27,
+      "pid": 9600,
+      "phase": "continuous_loop"
+    },
+    {
+      "seconds": 519.328,
+      "id": 25,
+      "pid": 16200,
+      "phase": "continuous_loop"
+    },
+    {
+      "seconds": 549.656,
+      "id": 26,
+      "pid": 28632,
+      "phase": "continuous_loop"
+    },
+    {
+      "seconds": 579.953,
+      "id": 27,
+      "pid": 14476,
+      "phase": "continuous_loop"
+    },
+    {
+      "seconds": 604.562,
+      "id": 25,
+      "pid": 9420,
+      "phase": "restart_for_launcher_close"
+    }
+  ],
+  "actions": [
+    {
+      "seconds": 0.812,
+      "action": "keyboard_takeover_sent"
+    },
+    {
+      "seconds": 0.922,
+      "action": "launcher_resume_sent"
+    },
+    {
+      "seconds": 1.14,
+      "action": "launcher_pause_sent"
+    },
+    {
+      "seconds": 1.25,
+      "action": "pause_confirmed"
+    },
+    {
+      "seconds": 3.328,
+      "action": "keyboard_resume_sent"
+    },
+    {
+      "seconds": 3.547,
+      "action": "manual_next_sent"
+    },
+    {
+      "seconds": 3.968,
+      "action": "continuous_loop"
+    },
+    {
+      "seconds": 604.015,
+      "action": "escape_sent"
+    },
+    {
+      "seconds": 604.234,
+      "action": "escape_and_cleanup_confirmed"
+    },
+    {
+      "seconds": 604.234,
+      "action": "restart_for_launcher_close"
+    },
+    {
+      "seconds": 604.562,
+      "action": "launcher_close_sent"
+    }
+  ],
+  "window_transition_gaps": [
+    {
+      "seconds": 215.953,
+      "pid": 20472,
+      "next_received": true
+    },
+    {
+      "seconds": 458.406,
+      "pid": 620,
+      "next_received": false
+    },
+    {
+      "seconds": 488.703,
+      "pid": 11448,
+      "next_received": false
+    },
+    {
+      "seconds": 549.234,
+      "pid": 16200,
+      "next_received": false
+    }
+  ],
+  "failures": [],
+  "recent_child_output": "TG_TOUR:{\"state\": \"ready\"}\nTG_TOUR:{\"state\": \"paused\"}\nTG_TOUR:{\"state\": \"running\"}\nTG_TOUR:{\"state\": \"paused\"}\nTG_TOUR:{\"state\": \"running\"}\nTG_TOUR:{\"state\": \"next\"}\nTG_TOUR:{\"state\": \"closed\", \"reason\": \"next\"}\nTG_TOUR:{\"state\": \"ready\"}\nTG_TOUR:{\"state\": \"next\"}\nTG_TOUR:{\"state\": \"closed\", \"reason\": \"next\"}\nTG_TOUR:{\"state\": \"ready\"}\nTG_TOUR:{\"state\": \"next\"}\nTG_TOUR:{\"state\": \"closed\", \"reason\": \"next\"}\nTG_TOUR:{\"state\": \"ready\"}\nTG_TOUR:{\"state\": \"next\"}\nTG_TOUR:{\"state\": \"closed\", \"reason\": \"next\"}\nTG_TOUR:{\"state\": \"ready\"}\nTG_TOUR:{\"state\": \"next\"}\nTG_TOUR:{\"state\": \"closed\", \"reason\": \"next\"}\nTG_TOUR:{\"state\": \"ready\"}\nTG_TOUR:{\"state\": \"next\"}\nTG_TOUR:{\"state\": \"closed\", \"reason\": \"next\"}\nTG_TOUR:{\"state\": \"ready\"}\nTG_TOUR:{\"state\": \"next\"}\nTG_TOUR:{\"state\": \"closed\", \"reason\": \"next\"}\nTG_TOUR:{\"state\": \"ready\"}\nTG_TOUR:{\"state\": \"next\"}\nTG_TOUR:{\"state\": \"closed\", \"reason\": \"next\"}\nTG_TOUR:{\"state\": \"ready\"}\nTG_TOUR:{\"state\": \"next\"}\nTG_TOUR:{\"state\": \"closed\", \"reason\": \"next\"}\nTG_TOUR:{\"state\": \"ready\"}\nTG_TOUR:{\"state\": \"next\"}\nTG_TOUR:{\"state\": \"closed\", \"reason\": \"next\"}\nTG_TOUR:{\"state\": \"ready\"}\nTG_TOUR:{\"state\": \"next\"}\nTG_TOUR:{\"state\": \"closed\", \"reason\": \"next\"}\nTG_TOUR:{\"state\": \"ready\"}\nTG_TOUR:{\"state\": \"next\"}\nTG_TOUR:{\"state\": \"closed\", \"reason\": \"next\"}\nTG_TOUR:{\"state\": \"ready\"}\nTG_TOUR:{\"state\": \"next\"}\nTG_TOUR:{\"state\": \"closed\", \"reason\": \"next\"}\nTG_TOUR:{\"state\": \"ready\"}\nTG_TOUR:{\"state\": \"next\"}\nTG_TOUR:{\"state\": \"closed\", \"reason\": \"next\"}\nTG_TOUR:{\"state\": \"ready\"}\nTG_TOUR:{\"state\": \"next\"}\nTG_TOUR:{\"state\": \"closed\", \"reason\": \"next\"}\nTG_TOUR:{\"state\": \"ready\"}\nTG_TOUR:{\"state\": \"next\"}\nTG_TOUR:{\"state\": \"closed\", \"reason\": \"next\"}\nTG_TOUR:{\"state\": \"ready\"}\nTG_TOUR:{\"state\": \"next\"}\nTG_TOUR:{\"state\": \"closed\", \"reason\": \"next\"}\nTG_TOUR:{\"state\": \"ready\"}\nTG_TOUR:{\"state\": \"next\"}\nTG_TOUR:{\"state\": \"closed\", \"reason\": \"next\"}\nTG_TOUR:{\"state\": \"ready\"}\nTG_TOUR:{\"state\": \"next\"}\nTG_TOUR:{\"state\": \"closed\", \"reason\": \"next\"}\nTG_TOUR:{\"state\": \"ready\"}\nTG_TOUR:{\"state\": \"next\"}\nTG_TOUR:{\"state\": \"closed\", \"reason\": \"next\"}\nTG_TOUR:{\"state\": \"ready\"}\nTG_TOUR:{\"state\": \"closed\", \"reason\": \"closed\"}\nTG_TOUR:{\"state\": \"ready\"}\n",
+  "orphan_processes_before_fallback_cleanup": 0,
+  "child_exit_codes": [
+    0,
+    0,
+    0,
+    0,
+    0,
+    0,
+    0,
+    0,
+    0,
+    0,
+    0,
+    0,
+    0,
+    0,
+    0,
+    0,
+    0,
+    0,
+    0,
+    0,
+    0,
+    1
+  ],
+  "source_sha256": {
+    "run.py": "ffde6316b5376e7bf1c05a528ab9940561b091de2b698e508fe2f931b0a843ba",
+    "tools/check_tour.py": "7428f81ca64fdb33a1398ee3894048ec0e44ac551e8c77e484d359fea9398486",
+    "社团展示/启动展示.py": "576930ce11dde2844eef5b476051e994e593fa97e608d9ddcc6e82c18e73d0f3",
+    "社团展示/巡展.py": "6941d0bda834c6a64beda9bdfd0dea4dbe4006cb243c2fa24581bed007ae0e10",
+    "社团展示/舞台.py": "3064d15913b65056f81e644d7c3d4379cb36a61eeb44bfc9f428433b878786c1",
+    "社团展示/25_星空彼岸花.py": "39d9a51b2968e7a4266f6276e9a15cd22d8f72ddd2bfd6f00a75014c1a72950e",
+    "社团展示/26_怦然心动.py": "60e89f2d659802b0c2d992aeff94a98c69866a3fc89da6591db46c20f91daef4",
+    "社团展示/27_星河玫瑰.py": "59dc7ba5e1972ffacab60738e08c1c20c726789fc256b9de5d03f7b3a9df69e7"
+  },
+  "limitations": [
+    "Single Windows desktop; not a performance benchmark.",
+    "No lock screen, remote desktop or mixed-DPI multiple monitors tested.",
+    "Host timestamps are recorded verbatim; not a client calendar assertion."
+  ]
+}
