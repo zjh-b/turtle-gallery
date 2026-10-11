@@ -1,5 +1,6 @@
 """The new exhibits reuse real animation and bounded Canvas pools."""
 import math
+from types import SimpleNamespace
 import unittest
 from unittest.mock import patch
 
@@ -80,6 +81,37 @@ class ImmersiveArtTests(unittest.TestCase):
         self.assertEqual(app.speed, 2)
         app.change_speed(-100)
         self.assertEqual(app.speed, .25)
+
+    def test_aurora_bands_preserve_tonal_coverage_within_draw_budget(self):
+        app = make_app("AuroraLandscape")
+        colors = {"curtain": [[f"{layer}:{index}" for index in range(64)] for layer in (0, 1)]}
+        for elapsed, pulses in ((0, []), (2, []), (3, [[140, 100, 1]])):
+            app.time, app.pulses = elapsed, pulses
+            bands = []
+            painter = SimpleNamespace(poly=lambda points, color: bands.append((points, color)),
+                                      line=lambda *args: None)
+            app.draw_curtains(painter, colors)
+            self.assertLessEqual(len(bands), 54, "Identical neighboring tones need no separate polygons")
+            for layer in (1, 0):
+                _, bottom, top, _ = app.curtain(.5, layer)
+                spans = []
+                for points, color in bands:
+                    if not color.startswith(f"{layer}:"):
+                        continue
+                    self.assertEqual(len(points), 194, "Keep all horizontal curve samples")
+                    low = (points[48][1] - bottom) / (top - bottom)
+                    high = (points[145][1] - bottom) / (top - bottom)
+                    spans.append((low, high, int(color.split(":")[1])))
+                self.assertAlmostEqual(spans[0][1], 1)
+                self.assertAlmostEqual(spans[-1][0], 0)
+                for previous, following in zip(spans, spans[1:]):
+                    self.assertAlmostEqual(previous[0], following[1], msg="No gaps or overlaps between tones")
+                # Reference the original 40-row color profile at each row's centre.
+                for row in range(40):
+                    sample = (row + .5) / 40
+                    hits = [tone for low, high, tone in spans if low < sample < high]
+                    expected = round((1 - row / 40)**2.4 * (.42 if layer else .72) * 63)
+                    self.assertEqual(hits, [expected], (elapsed, layer, row))
 
     def test_armillary_camera_projection_and_material_reset(self):
         app = make_app("Armillary")

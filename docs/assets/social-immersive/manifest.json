@@ -62,7 +62,7 @@
       ],
       "frame_pattern": "frame-%05d.png",
       "source_sha256_lf": {
-        "社团展示/29_极光之境.py": "5087a7bb5c4fbb9af43e64ba32eb14fe7da17567af57c40ca8bcdc5819a5f8b1",
+        "社团展示/29_极光之境.py": "78e53dc64cd9e8ba737add619391293ae9ea12cc4299de227d453ed8cad603b7",
         "社团展示/舞台.py": "3064d15913b65056f81e644d7c3d4379cb36a61eeb44bfc9f428433b878786c1",
         "社团展示/作品导出.py": "2a9f464cdd12d160f7bd957cf477a2a8f5b2868d94d54c1cef51bac1533f2879",
         "tools/capture_immersive_video.py": "7d2e54c3de7c42f6f1d3df485919c04f90e0526e6daaffe3fb9490d052c101f4"

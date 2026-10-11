@@ -11,6 +11,22 @@ THEMES = (
 )
 
 
+def _curtain_bands(strength):
+    """Keep the original tonal boundaries, joining adjacent identical indices."""
+    bands = []
+    for row in range(39, -1, -1):
+        low, high = row/40, (row+1)/40
+        tone = round((1-low)**2.4*strength*63)
+        if bands and bands[-1][2] == tone:
+            bands[-1] = (low, bands[-1][1], tone)
+        else:
+            bands.append((low, high, tone))
+    return tuple(bands)
+
+
+CURTAIN_BANDS = (_curtain_bands(.72), _curtain_bands(.42))
+
+
 class AuroraLandscape:
     def __init__(self):
         self.stage = Stage("极光之境", "点击天空 光涌 / 水面 涟漪    C 配色    ↑↓ 速度    W 风", accent="#8CDEC9")
@@ -138,13 +154,12 @@ class AuroraLandscape:
             points = [self.curtain(i/96, layer) for i in range(97)]
             palette = colors["curtain"][layer]
             # Continuous ribbons remove the checkerboard seams of column quads.
-            # Many shallow tonal steps blend into a soft curtain at window size.
-            for row in range(39, -1, -1):
-                low, high = row/40, (row+1)/40
+            # Adjacent rows with the same palette index share one contour;
+            # all distinct tonal boundaries and curve samples remain intact.
+            for low, high, tone in CURTAIN_BANDS[layer]:
                 lower = [(x, y+(top-y)*low) for x, y, top, _ in points]
                 upper = [(x, y+(top-y)*high) for x, y, top, _ in reversed(points)]
-                strength = (1-low)**2.4 * (.42 if layer else .72)
-                p.poly(lower+upper, palette[round(strength*63)])
+                p.poly(lower+upper, palette[tone])
             # A ray shares endpoints between tonal segments. Its slight curve
             # follows the fold, avoiding the stair steps of offset short lines.
             for i in range(2, 96, 4):

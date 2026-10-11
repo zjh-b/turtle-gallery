@@ -1,0 +1,1213 @@
+{
+  "client_date": "2026-10-11",
+  "baseline_ref": "c17ce88b7b4f16c996f4017f9eb7fe4e0b62bff1",
+  "scope": "Manual deterministic dt=0.025 s; geometry/Canvas submission and Tk update measured separately; no timer scheduling, recording or FPS guarantee. Baseline swaps only the scene source; shared Stage and helpers are current.",
+  "aggregation": "Median of three run medians and median of three P95 values; each run has 120 frames.",
+  "criteria": "Both sizes: frame median improves >=5%; total P95 worsens <=5%; unchanged tonal profile and visual review required.",
+  "summary": [
+    {
+      "window": [
+        1000,
+        720
+      ],
+      "baseline": {
+        "frame_ms": {
+          "median_ms": 21.959,
+          "p95_ms": 23.258
+        },
+        "tk_update_ms": {
+          "median_ms": 17.007,
+          "p95_ms": 19.275
+        },
+        "total_ms": {
+          "median_ms": 38.97,
+          "p95_ms": 42.023
+        },
+        "canvas_items": [
+          1049,
+          1049,
+          1049
+        ]
+      },
+      "current": {
+        "frame_ms": {
+          "median_ms": 17.402,
+          "p95_ms": 19.127
+        },
+        "tk_update_ms": {
+          "median_ms": 16.113,
+          "p95_ms": 18.468
+        },
+        "total_ms": {
+          "median_ms": 33.479,
+          "p95_ms": 36.317
+        },
+        "canvas_items": [
+          1023,
+          1023,
+          1023
+        ]
+      },
+      "frame_improvement_percent": 20.75,
+      "total_improvement_percent": 14.09,
+      "total_p95_change_percent": -13.58,
+      "performance_gate_passed": true
+    },
+    {
+      "window": [
+        760,
+        580
+      ],
+      "baseline": {
+        "frame_ms": {
+          "median_ms": 22.424,
+          "p95_ms": 23.716
+        },
+        "tk_update_ms": {
+          "median_ms": 16.577,
+          "p95_ms": 18.384
+        },
+        "total_ms": {
+          "median_ms": 39.145,
+          "p95_ms": 41.863
+        },
+        "canvas_items": [
+          1049,
+          1049,
+          1049
+        ]
+      },
+      "current": {
+        "frame_ms": {
+          "median_ms": 17.516,
+          "p95_ms": 18.895
+        },
+        "tk_update_ms": {
+          "median_ms": 15.735,
+          "p95_ms": 18.958
+        },
+        "total_ms": {
+          "median_ms": 33.446,
+          "p95_ms": 37.054
+        },
+        "canvas_items": [
+          1023,
+          1023,
+          1023
+        ]
+      },
+      "frame_improvement_percent": 21.89,
+      "total_improvement_percent": 14.56,
+      "total_p95_change_percent": -11.49,
+      "performance_gate_passed": true
+    }
+  ],
+  "pixel_comparisons": [
+    {
+      "trial": 1,
+      "capture": "29-1000-0.png",
+      "size": [
+        990,
+        550
+      ],
+      "changed_pixels": 0,
+      "changed_percent": 0.0,
+      "max_channel_difference": 0,
+      "mean_absolute_channel_difference": 0.0
+    },
+    {
+      "trial": 1,
+      "capture": "29-1000-1.png",
+      "size": [
+        990,
+        550
+      ],
+      "changed_pixels": 0,
+      "changed_percent": 0.0,
+      "max_channel_difference": 0,
+      "mean_absolute_channel_difference": 0.0
+    },
+    {
+      "trial": 1,
+      "capture": "29-1000-2.png",
+      "size": [
+        990,
+        550
+      ],
+      "changed_pixels": 0,
+      "changed_percent": 0.0,
+      "max_channel_difference": 0,
+      "mean_absolute_channel_difference": 0.0
+    },
+    {
+      "trial": 1,
+      "capture": "29-1000-interaction.png",
+      "size": [
+        990,
+        550
+      ],
+      "changed_pixels": 0,
+      "changed_percent": 0.0,
+      "max_channel_difference": 0,
+      "mean_absolute_channel_difference": 0.0
+    },
+    {
+      "trial": 1,
+      "capture": "29-760-0.png",
+      "size": [
+        750,
+        417
+      ],
+      "changed_pixels": 0,
+      "changed_percent": 0.0,
+      "max_channel_difference": 0,
+      "mean_absolute_channel_difference": 0.0
+    },
+    {
+      "trial": 1,
+      "capture": "29-760-1.png",
+      "size": [
+        750,
+        417
+      ],
+      "changed_pixels": 0,
+      "changed_percent": 0.0,
+      "max_channel_difference": 0,
+      "mean_absolute_channel_difference": 0.0
+    },
+    {
+      "trial": 1,
+      "capture": "29-760-2.png",
+      "size": [
+        750,
+        417
+      ],
+      "changed_pixels": 0,
+      "changed_percent": 0.0,
+      "max_channel_difference": 0,
+      "mean_absolute_channel_difference": 0.0
+    },
+    {
+      "trial": 1,
+      "capture": "29-760-interaction.png",
+      "size": [
+        750,
+        417
+      ],
+      "changed_pixels": 0,
+      "changed_percent": 0.0,
+      "max_channel_difference": 0,
+      "mean_absolute_channel_difference": 0.0
+    },
+    {
+      "trial": 2,
+      "capture": "29-1000-0.png",
+      "size": [
+        990,
+        550
+      ],
+      "changed_pixels": 0,
+      "changed_percent": 0.0,
+      "max_channel_difference": 0,
+      "mean_absolute_channel_difference": 0.0
+    },
+    {
+      "trial": 2,
+      "capture": "29-1000-1.png",
+      "size": [
+        990,
+        550
+      ],
+      "changed_pixels": 0,
+      "changed_percent": 0.0,
+      "max_channel_difference": 0,
+      "mean_absolute_channel_difference": 0.0
+    },
+    {
+      "trial": 2,
+      "capture": "29-1000-2.png",
+      "size": [
+        990,
+        550
+      ],
+      "changed_pixels": 0,
+      "changed_percent": 0.0,
+      "max_channel_difference": 0,
+      "mean_absolute_channel_difference": 0.0
+    },
+    {
+      "trial": 2,
+      "capture": "29-1000-interaction.png",
+      "size": [
+        990,
+        550
+      ],
+      "changed_pixels": 0,
+      "changed_percent": 0.0,
+      "max_channel_difference": 0,
+      "mean_absolute_channel_difference": 0.0
+    },
+    {
+      "trial": 2,
+      "capture": "29-760-0.png",
+      "size": [
+        750,
+        417
+      ],
+      "changed_pixels": 0,
+      "changed_percent": 0.0,
+      "max_channel_difference": 0,
+      "mean_absolute_channel_difference": 0.0
+    },
+    {
+      "trial": 2,
+      "capture": "29-760-1.png",
+      "size": [
+        750,
+        417
+      ],
+      "changed_pixels": 0,
+      "changed_percent": 0.0,
+      "max_channel_difference": 0,
+      "mean_absolute_channel_difference": 0.0
+    },
+    {
+      "trial": 2,
+      "capture": "29-760-2.png",
+      "size": [
+        750,
+        417
+      ],
+      "changed_pixels": 0,
+      "changed_percent": 0.0,
+      "max_channel_difference": 0,
+      "mean_absolute_channel_difference": 0.0
+    },
+    {
+      "trial": 2,
+      "capture": "29-760-interaction.png",
+      "size": [
+        750,
+        417
+      ],
+      "changed_pixels": 0,
+      "changed_percent": 0.0,
+      "max_channel_difference": 0,
+      "mean_absolute_channel_difference": 0.0
+    },
+    {
+      "trial": 3,
+      "capture": "29-1000-0.png",
+      "size": [
+        990,
+        550
+      ],
+      "changed_pixels": 0,
+      "changed_percent": 0.0,
+      "max_channel_difference": 0,
+      "mean_absolute_channel_difference": 0.0
+    },
+    {
+      "trial": 3,
+      "capture": "29-1000-1.png",
+      "size": [
+        990,
+        550
+      ],
+      "changed_pixels": 0,
+      "changed_percent": 0.0,
+      "max_channel_difference": 0,
+      "mean_absolute_channel_difference": 0.0
+    },
+    {
+      "trial": 3,
+      "capture": "29-1000-2.png",
+      "size": [
+        990,
+        550
+      ],
+      "changed_pixels": 0,
+      "changed_percent": 0.0,
+      "max_channel_difference": 0,
+      "mean_absolute_channel_difference": 0.0
+    },
+    {
+      "trial": 3,
+      "capture": "29-1000-interaction.png",
+      "size": [
+        990,
+        550
+      ],
+      "changed_pixels": 0,
+      "changed_percent": 0.0,
+      "max_channel_difference": 0,
+      "mean_absolute_channel_difference": 0.0
+    },
+    {
+      "trial": 3,
+      "capture": "29-760-0.png",
+      "size": [
+        750,
+        417
+      ],
+      "changed_pixels": 0,
+      "changed_percent": 0.0,
+      "max_channel_difference": 0,
+      "mean_absolute_channel_difference": 0.0
+    },
+    {
+      "trial": 3,
+      "capture": "29-760-1.png",
+      "size": [
+        750,
+        417
+      ],
+      "changed_pixels": 0,
+      "changed_percent": 0.0,
+      "max_channel_difference": 0,
+      "mean_absolute_channel_difference": 0.0
+    },
+    {
+      "trial": 3,
+      "capture": "29-760-2.png",
+      "size": [
+        750,
+        417
+      ],
+      "changed_pixels": 0,
+      "changed_percent": 0.0,
+      "max_channel_difference": 0,
+      "mean_absolute_channel_difference": 0.0
+    },
+    {
+      "trial": 3,
+      "capture": "29-760-interaction.png",
+      "size": [
+        750,
+        417
+      ],
+      "changed_pixels": 0,
+      "changed_percent": 0.0,
+      "max_channel_difference": 0,
+      "mean_absolute_channel_difference": 0.0
+    }
+  ],
+  "trials": [
+    {
+      "scope": "Manual deterministic dt=0.025 s; geometry/Canvas submission and Tk update measured separately; no timer scheduling, recording or FPS guarantee. Baseline swaps only the scene source; shared Stage and helpers are current.",
+      "baseline_ref": "c17ce88b7b4f16c996f4017f9eb7fe4e0b62bff1",
+      "samples": 120,
+      "metric_notes": {
+        "frame_ms": "Elapsed geometry and Canvas command submission",
+        "frame_cpu_ms": "Process CPU during frame; OS timer granularity applies",
+        "tk_update_ms": "Elapsed explicit screen.update",
+        "total_ms": "Elapsed frame plus Tk update; capture excluded"
+      },
+      "runs": {
+        "baseline": [
+          {
+            "id": 29,
+            "source_ref": "c17ce88b7b4f16c996f4017f9eb7fe4e0b62bff1",
+            "scope": "Manual deterministic dt=0.025 s; geometry/Canvas submission and Tk update measured separately; no timer scheduling, recording or FPS guarantee. Baseline swaps only the scene source; shared Stage and helpers are current.",
+            "source_sha256_lf": {
+              "社团展示/29_极光之境.py": "5087a7bb5c4fbb9af43e64ba32eb14fe7da17567af57c40ca8bcdc5819a5f8b1",
+              "社团展示/舞台.py": "3064d15913b65056f81e644d7c3d4379cb36a61eeb44bfc9f428433b878786c1"
+            },
+            "environment": {
+              "python": "3.12.4 | packaged by Anaconda, Inc. | (main, Jun 18 2024, 15:03:56) [MSC v.1929 64 bit (AMD64)]",
+              "platform": "Windows-11-10.0.26200-SP0",
+              "tk": "8.6.14",
+              "pillow": "12.3.0"
+            },
+            "sizes": [
+              {
+                "requested_window": [
+                  1000,
+                  720
+                ],
+                "actual_window": [
+                  1000,
+                  720
+                ],
+                "samples": 120,
+                "canvas_items": 1049,
+                "peak_canvas_items": 1049,
+                "checks": {
+                  "paused_pixels_unchanged": true,
+                  "reset_pixels_restored": true,
+                  "canvas_pool_stable": true
+                },
+                "captures": [
+                  "29-1000-0.png",
+                  "29-1000-1.png",
+                  "29-1000-2.png",
+                  "29-1000-interaction.png"
+                ],
+                "frame_ms": {
+                  "median_ms": 22.016,
+                  "p95_ms": 23.271
+                },
+                "frame_cpu_ms": {
+                  "median_ms": 15.625,
+                  "p95_ms": 31.25
+                },
+                "tk_update_ms": {
+                  "median_ms": 16.674,
+                  "p95_ms": 18.954
+                },
+                "total_ms": {
+                  "median_ms": 38.776,
+                  "p95_ms": 42.344
+                }
+              },
+              {
+                "requested_window": [
+                  760,
+                  580
+                ],
+                "actual_window": [
+                  760,
+                  580
+                ],
+                "samples": 120,
+                "canvas_items": 1049,
+                "peak_canvas_items": 1049,
+                "checks": {
+                  "paused_pixels_unchanged": true,
+                  "reset_pixels_restored": true,
+                  "canvas_pool_stable": true
+                },
+                "captures": [
+                  "29-760-0.png",
+                  "29-760-0-window.png",
+                  "29-760-1.png",
+                  "29-760-1-window.png",
+                  "29-760-2.png",
+                  "29-760-2-window.png",
+                  "29-760-interaction.png"
+                ],
+                "frame_ms": {
+                  "median_ms": 21.784,
+                  "p95_ms": 23.209
+                },
+                "frame_cpu_ms": {
+                  "median_ms": 15.625,
+                  "p95_ms": 31.25
+                },
+                "tk_update_ms": {
+                  "median_ms": 16.053,
+                  "p95_ms": 18.127
+                },
+                "total_ms": {
+                  "median_ms": 37.866,
+                  "p95_ms": 40.344
+                }
+              }
+            ],
+            "passed": true
+          }
+        ],
+        "current": [
+          {
+            "id": 29,
+            "source_ref": "working-tree",
+            "scope": "Manual deterministic dt=0.025 s; geometry/Canvas submission and Tk update measured separately; no timer scheduling, recording or FPS guarantee. Baseline swaps only the scene source; shared Stage and helpers are current.",
+            "source_sha256_lf": {
+              "社团展示/29_极光之境.py": "78e53dc64cd9e8ba737add619391293ae9ea12cc4299de227d453ed8cad603b7",
+              "社团展示/舞台.py": "3064d15913b65056f81e644d7c3d4379cb36a61eeb44bfc9f428433b878786c1"
+            },
+            "environment": {
+              "python": "3.12.4 | packaged by Anaconda, Inc. | (main, Jun 18 2024, 15:03:56) [MSC v.1929 64 bit (AMD64)]",
+              "platform": "Windows-11-10.0.26200-SP0",
+              "tk": "8.6.14",
+              "pillow": "12.3.0"
+            },
+            "sizes": [
+              {
+                "requested_window": [
+                  1000,
+                  720
+                ],
+                "actual_window": [
+                  1000,
+                  720
+                ],
+                "samples": 120,
+                "canvas_items": 1023,
+                "peak_canvas_items": 1023,
+                "checks": {
+                  "paused_pixels_unchanged": true,
+                  "reset_pixels_restored": true,
+                  "canvas_pool_stable": true
+                },
+                "captures": [
+                  "29-1000-0.png",
+                  "29-1000-1.png",
+                  "29-1000-2.png",
+                  "29-1000-interaction.png"
+                ],
+                "frame_ms": {
+                  "median_ms": 17.402,
+                  "p95_ms": 19.335
+                },
+                "frame_cpu_ms": {
+                  "median_ms": 15.625,
+                  "p95_ms": 31.25
+                },
+                "tk_update_ms": {
+                  "median_ms": 15.789,
+                  "p95_ms": 18.697
+                },
+                "total_ms": {
+                  "median_ms": 33.155,
+                  "p95_ms": 38.646
+                }
+              },
+              {
+                "requested_window": [
+                  760,
+                  580
+                ],
+                "actual_window": [
+                  760,
+                  580
+                ],
+                "samples": 120,
+                "canvas_items": 1023,
+                "peak_canvas_items": 1023,
+                "checks": {
+                  "paused_pixels_unchanged": true,
+                  "reset_pixels_restored": true,
+                  "canvas_pool_stable": true
+                },
+                "captures": [
+                  "29-760-0.png",
+                  "29-760-0-window.png",
+                  "29-760-1.png",
+                  "29-760-1-window.png",
+                  "29-760-2.png",
+                  "29-760-2-window.png",
+                  "29-760-interaction.png"
+                ],
+                "frame_ms": {
+                  "median_ms": 17.516,
+                  "p95_ms": 18.894
+                },
+                "frame_cpu_ms": {
+                  "median_ms": 15.625,
+                  "p95_ms": 31.25
+                },
+                "tk_update_ms": {
+                  "median_ms": 15.735,
+                  "p95_ms": 17.941
+                },
+                "total_ms": {
+                  "median_ms": 33.446,
+                  "p95_ms": 36.462
+                }
+              }
+            ],
+            "passed": true
+          }
+        ]
+      },
+      "comparisons": [
+        {
+          "id": 29,
+          "window": [
+            1000,
+            720
+          ],
+          "current_minus_baseline_ms": {
+            "frame_ms": {
+              "median_ms": -4.614,
+              "p95_ms": -3.936
+            },
+            "frame_cpu_ms": {
+              "median_ms": 0.0,
+              "p95_ms": 0.0
+            },
+            "tk_update_ms": {
+              "median_ms": -0.885,
+              "p95_ms": -0.257
+            },
+            "total_ms": {
+              "median_ms": -5.621,
+              "p95_ms": -3.698
+            }
+          }
+        },
+        {
+          "id": 29,
+          "window": [
+            760,
+            580
+          ],
+          "current_minus_baseline_ms": {
+            "frame_ms": {
+              "median_ms": -4.268,
+              "p95_ms": -4.315
+            },
+            "frame_cpu_ms": {
+              "median_ms": 0.0,
+              "p95_ms": 0.0
+            },
+            "tk_update_ms": {
+              "median_ms": -0.318,
+              "p95_ms": -0.186
+            },
+            "total_ms": {
+              "median_ms": -4.42,
+              "p95_ms": -3.882
+            }
+          }
+        }
+      ],
+      "passed": true
+    },
+    {
+      "scope": "Manual deterministic dt=0.025 s; geometry/Canvas submission and Tk update measured separately; no timer scheduling, recording or FPS guarantee. Baseline swaps only the scene source; shared Stage and helpers are current.",
+      "baseline_ref": "c17ce88b7b4f16c996f4017f9eb7fe4e0b62bff1",
+      "samples": 120,
+      "metric_notes": {
+        "frame_ms": "Elapsed geometry and Canvas command submission",
+        "frame_cpu_ms": "Process CPU during frame; OS timer granularity applies",
+        "tk_update_ms": "Elapsed explicit screen.update",
+        "total_ms": "Elapsed frame plus Tk update; capture excluded"
+      },
+      "runs": {
+        "baseline": [
+          {
+            "id": 29,
+            "source_ref": "c17ce88b7b4f16c996f4017f9eb7fe4e0b62bff1",
+            "scope": "Manual deterministic dt=0.025 s; geometry/Canvas submission and Tk update measured separately; no timer scheduling, recording or FPS guarantee. Baseline swaps only the scene source; shared Stage and helpers are current.",
+            "source_sha256_lf": {
+              "社团展示/29_极光之境.py": "5087a7bb5c4fbb9af43e64ba32eb14fe7da17567af57c40ca8bcdc5819a5f8b1",
+              "社团展示/舞台.py": "3064d15913b65056f81e644d7c3d4379cb36a61eeb44bfc9f428433b878786c1"
+            },
+            "environment": {
+              "python": "3.12.4 | packaged by Anaconda, Inc. | (main, Jun 18 2024, 15:03:56) [MSC v.1929 64 bit (AMD64)]",
+              "platform": "Windows-11-10.0.26200-SP0",
+              "tk": "8.6.14",
+              "pillow": "12.3.0"
+            },
+            "sizes": [
+              {
+                "requested_window": [
+                  1000,
+                  720
+                ],
+                "actual_window": [
+                  1000,
+                  720
+                ],
+                "samples": 120,
+                "canvas_items": 1049,
+                "peak_canvas_items": 1049,
+                "checks": {
+                  "paused_pixels_unchanged": true,
+                  "reset_pixels_restored": true,
+                  "canvas_pool_stable": true
+                },
+                "captures": [
+                  "29-1000-0.png",
+                  "29-1000-1.png",
+                  "29-1000-2.png",
+                  "29-1000-interaction.png"
+                ],
+                "frame_ms": {
+                  "median_ms": 21.959,
+                  "p95_ms": 22.905
+                },
+                "frame_cpu_ms": {
+                  "median_ms": 15.625,
+                  "p95_ms": 31.25
+                },
+                "tk_update_ms": {
+                  "median_ms": 17.007,
+                  "p95_ms": 19.275
+                },
+                "total_ms": {
+                  "median_ms": 38.97,
+                  "p95_ms": 41.94
+                }
+              },
+              {
+                "requested_window": [
+                  760,
+                  580
+                ],
+                "actual_window": [
+                  760,
+                  580
+                ],
+                "samples": 120,
+                "canvas_items": 1049,
+                "peak_canvas_items": 1049,
+                "checks": {
+                  "paused_pixels_unchanged": true,
+                  "reset_pixels_restored": true,
+                  "canvas_pool_stable": true
+                },
+                "captures": [
+                  "29-760-0.png",
+                  "29-760-0-window.png",
+                  "29-760-1.png",
+                  "29-760-1-window.png",
+                  "29-760-2.png",
+                  "29-760-2-window.png",
+                  "29-760-interaction.png"
+                ],
+                "frame_ms": {
+                  "median_ms": 22.51,
+                  "p95_ms": 29.747
+                },
+                "frame_cpu_ms": {
+                  "median_ms": 15.625,
+                  "p95_ms": 31.25
+                },
+                "tk_update_ms": {
+                  "median_ms": 16.999,
+                  "p95_ms": 21.066
+                },
+                "total_ms": {
+                  "median_ms": 39.566,
+                  "p95_ms": 48.221
+                }
+              }
+            ],
+            "passed": true
+          }
+        ],
+        "current": [
+          {
+            "id": 29,
+            "source_ref": "working-tree",
+            "scope": "Manual deterministic dt=0.025 s; geometry/Canvas submission and Tk update measured separately; no timer scheduling, recording or FPS guarantee. Baseline swaps only the scene source; shared Stage and helpers are current.",
+            "source_sha256_lf": {
+              "社团展示/29_极光之境.py": "78e53dc64cd9e8ba737add619391293ae9ea12cc4299de227d453ed8cad603b7",
+              "社团展示/舞台.py": "3064d15913b65056f81e644d7c3d4379cb36a61eeb44bfc9f428433b878786c1"
+            },
+            "environment": {
+              "python": "3.12.4 | packaged by Anaconda, Inc. | (main, Jun 18 2024, 15:03:56) [MSC v.1929 64 bit (AMD64)]",
+              "platform": "Windows-11-10.0.26200-SP0",
+              "tk": "8.6.14",
+              "pillow": "12.3.0"
+            },
+            "sizes": [
+              {
+                "requested_window": [
+                  1000,
+                  720
+                ],
+                "actual_window": [
+                  1000,
+                  720
+                ],
+                "samples": 120,
+                "canvas_items": 1023,
+                "peak_canvas_items": 1023,
+                "checks": {
+                  "paused_pixels_unchanged": true,
+                  "reset_pixels_restored": true,
+                  "canvas_pool_stable": true
+                },
+                "captures": [
+                  "29-1000-0.png",
+                  "29-1000-1.png",
+                  "29-1000-2.png",
+                  "29-1000-interaction.png"
+                ],
+                "frame_ms": {
+                  "median_ms": 17.186,
+                  "p95_ms": 18.596
+                },
+                "frame_cpu_ms": {
+                  "median_ms": 15.625,
+                  "p95_ms": 31.25
+                },
+                "tk_update_ms": {
+                  "median_ms": 16.113,
+                  "p95_ms": 18.468
+                },
+                "total_ms": {
+                  "median_ms": 33.479,
+                  "p95_ms": 36.317
+                }
+              },
+              {
+                "requested_window": [
+                  760,
+                  580
+                ],
+                "actual_window": [
+                  760,
+                  580
+                ],
+                "samples": 120,
+                "canvas_items": 1023,
+                "peak_canvas_items": 1023,
+                "checks": {
+                  "paused_pixels_unchanged": true,
+                  "reset_pixels_restored": true,
+                  "canvas_pool_stable": true
+                },
+                "captures": [
+                  "29-760-0.png",
+                  "29-760-0-window.png",
+                  "29-760-1.png",
+                  "29-760-1-window.png",
+                  "29-760-2.png",
+                  "29-760-2-window.png",
+                  "29-760-interaction.png"
+                ],
+                "frame_ms": {
+                  "median_ms": 17.59,
+                  "p95_ms": 19.016
+                },
+                "frame_cpu_ms": {
+                  "median_ms": 15.625,
+                  "p95_ms": 31.25
+                },
+                "tk_update_ms": {
+                  "median_ms": 16.018,
+                  "p95_ms": 18.958
+                },
+                "total_ms": {
+                  "median_ms": 33.659,
+                  "p95_ms": 37.672
+                }
+              }
+            ],
+            "passed": true
+          }
+        ]
+      },
+      "comparisons": [
+        {
+          "id": 29,
+          "window": [
+            1000,
+            720
+          ],
+          "current_minus_baseline_ms": {
+            "frame_ms": {
+              "median_ms": -4.773,
+              "p95_ms": -4.309
+            },
+            "frame_cpu_ms": {
+              "median_ms": 0.0,
+              "p95_ms": 0.0
+            },
+            "tk_update_ms": {
+              "median_ms": -0.894,
+              "p95_ms": -0.807
+            },
+            "total_ms": {
+              "median_ms": -5.491,
+              "p95_ms": -5.623
+            }
+          }
+        },
+        {
+          "id": 29,
+          "window": [
+            760,
+            580
+          ],
+          "current_minus_baseline_ms": {
+            "frame_ms": {
+              "median_ms": -4.92,
+              "p95_ms": -10.731
+            },
+            "frame_cpu_ms": {
+              "median_ms": 0.0,
+              "p95_ms": 0.0
+            },
+            "tk_update_ms": {
+              "median_ms": -0.981,
+              "p95_ms": -2.108
+            },
+            "total_ms": {
+              "median_ms": -5.907,
+              "p95_ms": -10.549
+            }
+          }
+        }
+      ],
+      "passed": true
+    },
+    {
+      "scope": "Manual deterministic dt=0.025 s; geometry/Canvas submission and Tk update measured separately; no timer scheduling, recording or FPS guarantee. Baseline swaps only the scene source; shared Stage and helpers are current.",
+      "baseline_ref": "c17ce88b7b4f16c996f4017f9eb7fe4e0b62bff1",
+      "samples": 120,
+      "metric_notes": {
+        "frame_ms": "Elapsed geometry and Canvas command submission",
+        "frame_cpu_ms": "Process CPU during frame; OS timer granularity applies",
+        "tk_update_ms": "Elapsed explicit screen.update",
+        "total_ms": "Elapsed frame plus Tk update; capture excluded"
+      },
+      "runs": {
+        "baseline": [
+          {
+            "id": 29,
+            "source_ref": "c17ce88b7b4f16c996f4017f9eb7fe4e0b62bff1",
+            "scope": "Manual deterministic dt=0.025 s; geometry/Canvas submission and Tk update measured separately; no timer scheduling, recording or FPS guarantee. Baseline swaps only the scene source; shared Stage and helpers are current.",
+            "source_sha256_lf": {
+              "社团展示/29_极光之境.py": "5087a7bb5c4fbb9af43e64ba32eb14fe7da17567af57c40ca8bcdc5819a5f8b1",
+              "社团展示/舞台.py": "3064d15913b65056f81e644d7c3d4379cb36a61eeb44bfc9f428433b878786c1"
+            },
+            "environment": {
+              "python": "3.12.4 | packaged by Anaconda, Inc. | (main, Jun 18 2024, 15:03:56) [MSC v.1929 64 bit (AMD64)]",
+              "platform": "Windows-11-10.0.26200-SP0",
+              "tk": "8.6.14",
+              "pillow": "12.3.0"
+            },
+            "sizes": [
+              {
+                "requested_window": [
+                  1000,
+                  720
+                ],
+                "actual_window": [
+                  1000,
+                  720
+                ],
+                "samples": 120,
+                "canvas_items": 1049,
+                "peak_canvas_items": 1049,
+                "checks": {
+                  "paused_pixels_unchanged": true,
+                  "reset_pixels_restored": true,
+                  "canvas_pool_stable": true
+                },
+                "captures": [
+                  "29-1000-0.png",
+                  "29-1000-1.png",
+                  "29-1000-2.png",
+                  "29-1000-interaction.png"
+                ],
+                "frame_ms": {
+                  "median_ms": 21.87,
+                  "p95_ms": 23.258
+                },
+                "frame_cpu_ms": {
+                  "median_ms": 15.625,
+                  "p95_ms": 31.25
+                },
+                "tk_update_ms": {
+                  "median_ms": 17.104,
+                  "p95_ms": 19.487
+                },
+                "total_ms": {
+                  "median_ms": 39.007,
+                  "p95_ms": 42.023
+                }
+              },
+              {
+                "requested_window": [
+                  760,
+                  580
+                ],
+                "actual_window": [
+                  760,
+                  580
+                ],
+                "samples": 120,
+                "canvas_items": 1049,
+                "peak_canvas_items": 1049,
+                "checks": {
+                  "paused_pixels_unchanged": true,
+                  "reset_pixels_restored": true,
+                  "canvas_pool_stable": true
+                },
+                "captures": [
+                  "29-760-0.png",
+                  "29-760-0-window.png",
+                  "29-760-1.png",
+                  "29-760-1-window.png",
+                  "29-760-2.png",
+                  "29-760-2-window.png",
+                  "29-760-interaction.png"
+                ],
+                "frame_ms": {
+                  "median_ms": 22.424,
+                  "p95_ms": 23.716
+                },
+                "frame_cpu_ms": {
+                  "median_ms": 15.625,
+                  "p95_ms": 31.25
+                },
+                "tk_update_ms": {
+                  "median_ms": 16.577,
+                  "p95_ms": 18.384
+                },
+                "total_ms": {
+                  "median_ms": 39.145,
+                  "p95_ms": 41.863
+                }
+              }
+            ],
+            "passed": true
+          }
+        ],
+        "current": [
+          {
+            "id": 29,
+            "source_ref": "working-tree",
+            "scope": "Manual deterministic dt=0.025 s; geometry/Canvas submission and Tk update measured separately; no timer scheduling, recording or FPS guarantee. Baseline swaps only the scene source; shared Stage and helpers are current.",
+            "source_sha256_lf": {
+              "社团展示/29_极光之境.py": "78e53dc64cd9e8ba737add619391293ae9ea12cc4299de227d453ed8cad603b7",
+              "社团展示/舞台.py": "3064d15913b65056f81e644d7c3d4379cb36a61eeb44bfc9f428433b878786c1"
+            },
+            "environment": {
+              "python": "3.12.4 | packaged by Anaconda, Inc. | (main, Jun 18 2024, 15:03:56) [MSC v.1929 64 bit (AMD64)]",
+              "platform": "Windows-11-10.0.26200-SP0",
+              "tk": "8.6.14",
+              "pillow": "12.3.0"
+            },
+            "sizes": [
+              {
+                "requested_window": [
+                  1000,
+                  720
+                ],
+                "actual_window": [
+                  1000,
+                  720
+                ],
+                "samples": 120,
+                "canvas_items": 1023,
+                "peak_canvas_items": 1023,
+                "checks": {
+                  "paused_pixels_unchanged": true,
+                  "reset_pixels_restored": true,
+                  "canvas_pool_stable": true
+                },
+                "captures": [
+                  "29-1000-0.png",
+                  "29-1000-1.png",
+                  "29-1000-2.png",
+                  "29-1000-interaction.png"
+                ],
+                "frame_ms": {
+                  "median_ms": 17.571,
+                  "p95_ms": 19.127
+                },
+                "frame_cpu_ms": {
+                  "median_ms": 15.625,
+                  "p95_ms": 31.25
+                },
+                "tk_update_ms": {
+                  "median_ms": 16.158,
+                  "p95_ms": 18.008
+                },
+                "total_ms": {
+                  "median_ms": 33.675,
+                  "p95_ms": 36.123
+                }
+              },
+              {
+                "requested_window": [
+                  760,
+                  580
+                ],
+                "actual_window": [
+                  760,
+                  580
+                ],
+                "samples": 120,
+                "canvas_items": 1023,
+                "peak_canvas_items": 1023,
+                "checks": {
+                  "paused_pixels_unchanged": true,
+                  "reset_pixels_restored": true,
+                  "canvas_pool_stable": true
+                },
+                "captures": [
+                  "29-760-0.png",
+                  "29-760-0-window.png",
+                  "29-760-1.png",
+                  "29-760-1-window.png",
+                  "29-760-2.png",
+                  "29-760-2-window.png",
+                  "29-760-interaction.png"
+                ],
+                "frame_ms": {
+                  "median_ms": 17.214,
+                  "p95_ms": 18.895
+                },
+                "frame_cpu_ms": {
+                  "median_ms": 15.625,
+                  "p95_ms": 31.25
+                },
+                "tk_update_ms": {
+                  "median_ms": 15.388,
+                  "p95_ms": 19.432
+                },
+                "total_ms": {
+                  "median_ms": 32.584,
+                  "p95_ms": 37.054
+                }
+              }
+            ],
+            "passed": true
+          }
+        ]
+      },
+      "comparisons": [
+        {
+          "id": 29,
+          "window": [
+            1000,
+            720
+          ],
+          "current_minus_baseline_ms": {
+            "frame_ms": {
+              "median_ms": -4.299,
+              "p95_ms": -4.131
+            },
+            "frame_cpu_ms": {
+              "median_ms": 0.0,
+              "p95_ms": 0.0
+            },
+            "tk_update_ms": {
+              "median_ms": -0.946,
+              "p95_ms": -1.479
+            },
+            "total_ms": {
+              "median_ms": -5.332,
+              "p95_ms": -5.9
+            }
+          }
+        },
+        {
+          "id": 29,
+          "window": [
+            760,
+            580
+          ],
+          "current_minus_baseline_ms": {
+            "frame_ms": {
+              "median_ms": -5.21,
+              "p95_ms": -4.821
+            },
+            "frame_cpu_ms": {
+              "median_ms": 0.0,
+              "p95_ms": 0.0
+            },
+            "tk_update_ms": {
+              "median_ms": -1.189,
+              "p95_ms": 1.048
+            },
+            "total_ms": {
+              "median_ms": -6.561,
+              "p95_ms": -4.809
+            }
+          }
+        }
+      ],
+      "passed": true
+    }
+  ]
+}
