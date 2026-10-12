@@ -118,8 +118,6 @@ class NeonButterfly:
         if self.target:
             x, y, life = self.target
             p.glow(x, y, 20 + math.sin(self.time * 2) * 3, pink, "#11142A", 5)
-            p.circle(x, y, 2, "#FFEEFC")
-            p.circle(x, y, 28 + (6 - life) % 1.5 * 12, "", mix("#15172E", pink, life / 20))
         flutter = 0.87 + 0.13 * math.cos(self.time * 2.3)
         tilt = math.sin(self.time * 0.61) * 0.025
         tilt_cos, tilt_sin = math.cos(tilt), math.sin(tilt)
@@ -191,6 +189,15 @@ class NeonButterfly:
             y = 8 + math.sin(a) * 204
             p.circle(x, y, 3.8, mix("#171E36", pink, 0.20))
             p.circle(x, y, 1.3, mix(cyan, pink, (math.sin(a) + 1) / 2))
+        if self.target:
+            # Keep the soft glow behind the wings, but place the small locator
+            # above all artwork so clicks inside a wing remain visible.
+            x, y, life = self.target
+            progress = min(1, (6 - life) / .9)
+            radius = 8 + 10 * (1 - (1 - progress) ** 3)
+            fade = min(1, life / .7)
+            p.circle(x, y, radius, "", mix("#262A45", pink, (.7 - .2*progress)*fade), 1.2)
+            p.circle(x, y, 2, mix("#262A45", "#FFEEFC", fade))
         p.text(0, -259, "循着微光，轻轻振翅。", "#9097BA", 11)
         p.text(0, 244, "A   S M A L L   M I R A C L E   W I T H   W I N G S", "#737F9F", 8)
         p.end()

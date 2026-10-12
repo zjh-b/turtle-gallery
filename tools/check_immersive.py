@@ -2,6 +2,7 @@
 
     python tools/check_immersive.py --works 29 30 31 --samples 120
     python tools/check_immersive.py --works 30 --baseline-ref HEAD~1
+    python tools/check_immersive.py --works 28 --baseline-ref bd84d17
 
 Each scene/revision runs sequentially in a fresh Python process. Timing measures
 manual frame calls plus Tk updates, without Stage.tick scheduling or recording;
@@ -43,7 +44,9 @@ def summary(values):
 
 def click(app, number):
     scale = app.stage.scale
-    if number == 29:
+    if number == 28:
+        app.attract(170 * scale, 110 * scale)
+    elif number == 29:
         app.touch(200 * scale, 100 * scale)
         app.touch(100 * scale, -190 * scale)
     elif number == 30:
@@ -51,6 +54,26 @@ def click(app, number):
         app.reverse()
     else:
         app.illuminate(400 * scale, 150 * scale)
+
+
+def butterfly_feedback(app, folder, width):
+    """Compare wing-interior/exterior cues in three themes with position held."""
+    from 社团展示.作品导出 import capture_artwork
+
+    captures = []
+    for theme in range(3):
+        for location, x in (("inside", 170), ("outside", -280)):
+            app.stage.reset()
+            app.theme, app.motion = theme, False
+            app.attract(x * app.stage.scale, 110 * app.stage.scale)
+            for index in range(40):
+                app.frame(.025)
+                if index + 1 in (8, 40):
+                    app.stage.screen.update()
+                    name = f"28-{width}-feedback-{theme}-{location}-{index+1}.png"
+                    capture_artwork(app.stage).save(folder / name)
+                    captures.append(name)
+    return captures
 
 
 def check_work(args):
@@ -119,6 +142,10 @@ def check_work(args):
             reset = capture_artwork(app.stage)
             reset_ok = not app.stage.paused and (reset.size, reset.mode, reset.tobytes()) == (
                 initial.size, initial.mode, initial.tobytes())
+            if args.child == 28:
+                captures.extend(butterfly_feedback(app, args.output, width))
+                app.stage.reset()
+                click(app, 28)  # Measure active feedback, including the foreground cue.
             for _ in range(20):
                 app.frame(.025)
                 app.stage.screen.update()
@@ -141,6 +168,7 @@ def check_work(args):
             record = {"requested_window": [width, height],
                       "actual_window": [app.stage.root.winfo_width(), app.stage.root.winfo_height()],
                       "samples": args.samples, "canvas_items": count, "peak_canvas_items": peak,
+                      "timing_state": "click target initially active" if args.child == 28 else "idle animation",
                       "checks": checks, "captures": captures,
                       **{key: summary(values) for key, values in timings.items()}}
             report["sizes"].append(record)
@@ -166,11 +194,11 @@ def sample_count(value):
 
 def main():
     parser = argparse.ArgumentParser(description=__doc__, formatter_class=argparse.RawDescriptionHelpFormatter)
-    parser.add_argument("--works", nargs="+", type=int, choices=(29, 30, 31), default=[29, 30, 31])
+    parser.add_argument("--works", nargs="+", type=int, choices=(28, 29, 30, 31), default=[29, 30, 31])
     parser.add_argument("--output", type=Path, default=ROOT / ".work" / "immersive-check")
     parser.add_argument("--samples", type=sample_count, default=120)
     parser.add_argument("--baseline-ref", help="Compare scene source from a trusted local Git commit/ref")
-    parser.add_argument("--child", type=int, choices=(29, 30, 31), help=argparse.SUPPRESS)
+    parser.add_argument("--child", type=int, choices=(28, 29, 30, 31), help=argparse.SUPPRESS)
     parser.add_argument("--source-ref", help=argparse.SUPPRESS)
     args = parser.parse_args()
     if sys.platform != "win32":

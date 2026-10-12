@@ -1,0 +1,600 @@
+{
+  "scope": "Manual deterministic dt=0.025 s; geometry/Canvas submission and Tk update measured separately; no timer scheduling, recording or FPS guarantee. Baseline swaps only the scene source; shared Stage and helpers are current.",
+  "baseline_ref": "bd84d176584b4d69ca88486295797fa08c09e317",
+  "samples": 120,
+  "metric_notes": {
+    "frame_ms": "Elapsed geometry and Canvas command submission",
+    "frame_cpu_ms": "Process CPU during frame; OS timer granularity applies",
+    "tk_update_ms": "Elapsed explicit screen.update",
+    "total_ms": "Elapsed frame plus Tk update; capture excluded"
+  },
+  "runs": {
+    "baseline": [
+      {
+        "id": 28,
+        "source_ref": "bd84d176584b4d69ca88486295797fa08c09e317",
+        "scope": "Manual deterministic dt=0.025 s; geometry/Canvas submission and Tk update measured separately; no timer scheduling, recording or FPS guarantee. Baseline swaps only the scene source; shared Stage and helpers are current.",
+        "source_sha256_lf": {
+          "社团展示/28_霓光蝶舞.py": "9db18776a6c6ae6b610d90fe548251c30697a34fce22fe5e6c8970927af2bc97",
+          "社团展示/舞台.py": "3064d15913b65056f81e644d7c3d4379cb36a61eeb44bfc9f428433b878786c1"
+        },
+        "environment": {
+          "python": "3.12.4 | packaged by Anaconda, Inc. | (main, Jun 18 2024, 15:03:56) [MSC v.1929 64 bit (AMD64)]",
+          "platform": "Windows-11-10.0.26200-SP0",
+          "tk": "8.6.14",
+          "pillow": "12.3.0"
+        },
+        "sizes": [
+          {
+            "requested_window": [
+              1000,
+              720
+            ],
+            "actual_window": [
+              1000,
+              720
+            ],
+            "samples": 120,
+            "canvas_items": 532,
+            "peak_canvas_items": 532,
+            "timing_state": "click target initially active",
+            "checks": {
+              "paused_pixels_unchanged": true,
+              "reset_pixels_restored": true,
+              "canvas_pool_stable": true
+            },
+            "captures": [
+              "28-1000-0.png",
+              "28-1000-1.png",
+              "28-1000-2.png",
+              "28-1000-interaction.png",
+              "28-1000-feedback-0-inside-8.png",
+              "28-1000-feedback-0-inside-40.png",
+              "28-1000-feedback-0-outside-8.png",
+              "28-1000-feedback-0-outside-40.png",
+              "28-1000-feedback-1-inside-8.png",
+              "28-1000-feedback-1-inside-40.png",
+              "28-1000-feedback-1-outside-8.png",
+              "28-1000-feedback-1-outside-40.png",
+              "28-1000-feedback-2-inside-8.png",
+              "28-1000-feedback-2-inside-40.png",
+              "28-1000-feedback-2-outside-8.png",
+              "28-1000-feedback-2-outside-40.png"
+            ],
+            "frame_ms": {
+              "median_ms": 12.711,
+              "p95_ms": 14.012
+            },
+            "frame_cpu_ms": {
+              "median_ms": 15.625,
+              "p95_ms": 15.625
+            },
+            "tk_update_ms": {
+              "median_ms": 11.719,
+              "p95_ms": 13.624
+            },
+            "total_ms": {
+              "median_ms": 24.525,
+              "p95_ms": 27.002
+            }
+          },
+          {
+            "requested_window": [
+              760,
+              580
+            ],
+            "actual_window": [
+              760,
+              580
+            ],
+            "samples": 120,
+            "canvas_items": 532,
+            "peak_canvas_items": 532,
+            "timing_state": "click target initially active",
+            "checks": {
+              "paused_pixels_unchanged": true,
+              "reset_pixels_restored": true,
+              "canvas_pool_stable": true
+            },
+            "captures": [
+              "28-760-0.png",
+              "28-760-0-window.png",
+              "28-760-1.png",
+              "28-760-1-window.png",
+              "28-760-2.png",
+              "28-760-2-window.png",
+              "28-760-interaction.png",
+              "28-760-feedback-0-inside-8.png",
+              "28-760-feedback-0-inside-40.png",
+              "28-760-feedback-0-outside-8.png",
+              "28-760-feedback-0-outside-40.png",
+              "28-760-feedback-1-inside-8.png",
+              "28-760-feedback-1-inside-40.png",
+              "28-760-feedback-1-outside-8.png",
+              "28-760-feedback-1-outside-40.png",
+              "28-760-feedback-2-inside-8.png",
+              "28-760-feedback-2-inside-40.png",
+              "28-760-feedback-2-outside-8.png",
+              "28-760-feedback-2-outside-40.png"
+            ],
+            "frame_ms": {
+              "median_ms": 12.842,
+              "p95_ms": 14.199
+            },
+            "frame_cpu_ms": {
+              "median_ms": 15.625,
+              "p95_ms": 15.625
+            },
+            "tk_update_ms": {
+              "median_ms": 10.083,
+              "p95_ms": 11.633
+            },
+            "total_ms": {
+              "median_ms": 22.986,
+              "p95_ms": 25.357
+            }
+          }
+        ],
+        "passed": true
+      }
+    ],
+    "current": [
+      {
+        "id": 28,
+        "source_ref": "working-tree",
+        "scope": "Manual deterministic dt=0.025 s; geometry/Canvas submission and Tk update measured separately; no timer scheduling, recording or FPS guarantee. Baseline swaps only the scene source; shared Stage and helpers are current.",
+        "source_sha256_lf": {
+          "社团展示/28_霓光蝶舞.py": "8a304f06e43ca8b1652bb34f1deb6745e8001ddd91c10a300580e0aa5f1bea3d",
+          "社团展示/舞台.py": "3064d15913b65056f81e644d7c3d4379cb36a61eeb44bfc9f428433b878786c1"
+        },
+        "environment": {
+          "python": "3.12.4 | packaged by Anaconda, Inc. | (main, Jun 18 2024, 15:03:56) [MSC v.1929 64 bit (AMD64)]",
+          "platform": "Windows-11-10.0.26200-SP0",
+          "tk": "8.6.14",
+          "pillow": "12.3.0"
+        },
+        "sizes": [
+          {
+            "requested_window": [
+              1000,
+              720
+            ],
+            "actual_window": [
+              1000,
+              720
+            ],
+            "samples": 120,
+            "canvas_items": 532,
+            "peak_canvas_items": 532,
+            "timing_state": "click target initially active",
+            "checks": {
+              "paused_pixels_unchanged": true,
+              "reset_pixels_restored": true,
+              "canvas_pool_stable": true
+            },
+            "captures": [
+              "28-1000-0.png",
+              "28-1000-1.png",
+              "28-1000-2.png",
+              "28-1000-interaction.png",
+              "28-1000-feedback-0-inside-8.png",
+              "28-1000-feedback-0-inside-40.png",
+              "28-1000-feedback-0-outside-8.png",
+              "28-1000-feedback-0-outside-40.png",
+              "28-1000-feedback-1-inside-8.png",
+              "28-1000-feedback-1-inside-40.png",
+              "28-1000-feedback-1-outside-8.png",
+              "28-1000-feedback-1-outside-40.png",
+              "28-1000-feedback-2-inside-8.png",
+              "28-1000-feedback-2-inside-40.png",
+              "28-1000-feedback-2-outside-8.png",
+              "28-1000-feedback-2-outside-40.png"
+            ],
+            "frame_ms": {
+              "median_ms": 12.756,
+              "p95_ms": 13.92
+            },
+            "frame_cpu_ms": {
+              "median_ms": 15.625,
+              "p95_ms": 15.625
+            },
+            "tk_update_ms": {
+              "median_ms": 11.634,
+              "p95_ms": 13.536
+            },
+            "total_ms": {
+              "median_ms": 24.491,
+              "p95_ms": 26.489
+            }
+          },
+          {
+            "requested_window": [
+              760,
+              580
+            ],
+            "actual_window": [
+              760,
+              580
+            ],
+            "samples": 120,
+            "canvas_items": 532,
+            "peak_canvas_items": 532,
+            "timing_state": "click target initially active",
+            "checks": {
+              "paused_pixels_unchanged": true,
+              "reset_pixels_restored": true,
+              "canvas_pool_stable": true
+            },
+            "captures": [
+              "28-760-0.png",
+              "28-760-0-window.png",
+              "28-760-1.png",
+              "28-760-1-window.png",
+              "28-760-2.png",
+              "28-760-2-window.png",
+              "28-760-interaction.png",
+              "28-760-feedback-0-inside-8.png",
+              "28-760-feedback-0-inside-40.png",
+              "28-760-feedback-0-outside-8.png",
+              "28-760-feedback-0-outside-40.png",
+              "28-760-feedback-1-inside-8.png",
+              "28-760-feedback-1-inside-40.png",
+              "28-760-feedback-1-outside-8.png",
+              "28-760-feedback-1-outside-40.png",
+              "28-760-feedback-2-inside-8.png",
+              "28-760-feedback-2-inside-40.png",
+              "28-760-feedback-2-outside-8.png",
+              "28-760-feedback-2-outside-40.png"
+            ],
+            "frame_ms": {
+              "median_ms": 12.813,
+              "p95_ms": 13.946
+            },
+            "frame_cpu_ms": {
+              "median_ms": 15.625,
+              "p95_ms": 15.625
+            },
+            "tk_update_ms": {
+              "median_ms": 10.029,
+              "p95_ms": 11.611
+            },
+            "total_ms": {
+              "median_ms": 22.953,
+              "p95_ms": 24.831
+            }
+          }
+        ],
+        "passed": true
+      }
+    ]
+  },
+  "comparisons": [
+    {
+      "id": 28,
+      "window": [
+        1000,
+        720
+      ],
+      "current_minus_baseline_ms": {
+        "frame_ms": {
+          "median_ms": 0.045,
+          "p95_ms": -0.092
+        },
+        "frame_cpu_ms": {
+          "median_ms": 0.0,
+          "p95_ms": 0.0
+        },
+        "tk_update_ms": {
+          "median_ms": -0.085,
+          "p95_ms": -0.088
+        },
+        "total_ms": {
+          "median_ms": -0.034,
+          "p95_ms": -0.513
+        }
+      }
+    },
+    {
+      "id": 28,
+      "window": [
+        760,
+        580
+      ],
+      "current_minus_baseline_ms": {
+        "frame_ms": {
+          "median_ms": -0.029,
+          "p95_ms": -0.253
+        },
+        "frame_cpu_ms": {
+          "median_ms": 0.0,
+          "p95_ms": 0.0
+        },
+        "tk_update_ms": {
+          "median_ms": -0.054,
+          "p95_ms": -0.022
+        },
+        "total_ms": {
+          "median_ms": -0.033,
+          "p95_ms": -0.526
+        }
+      }
+    }
+  ],
+  "passed": true,
+  "visual_comparisons": {
+    "feedback_pairs": [
+      {
+        "capture": "28-1000-feedback-0-inside-40.png",
+        "changed_pixels": 189,
+        "difference_bounds": [
+          650,
+          136,
+          709,
+          195
+        ]
+      },
+      {
+        "capture": "28-1000-feedback-0-inside-8.png",
+        "changed_pixels": 91,
+        "difference_bounds": [
+          655,
+          142,
+          682,
+          169
+        ]
+      },
+      {
+        "capture": "28-1000-feedback-0-outside-40.png",
+        "changed_pixels": 328,
+        "difference_bounds": [
+          178,
+          115,
+          259,
+          196
+        ]
+      },
+      {
+        "capture": "28-1000-feedback-0-outside-8.png",
+        "changed_pixels": 213,
+        "difference_bounds": [
+          188,
+          125,
+          249,
+          186
+        ]
+      },
+      {
+        "capture": "28-1000-feedback-1-inside-40.png",
+        "changed_pixels": 189,
+        "difference_bounds": [
+          650,
+          136,
+          709,
+          195
+        ]
+      },
+      {
+        "capture": "28-1000-feedback-1-inside-8.png",
+        "changed_pixels": 91,
+        "difference_bounds": [
+          655,
+          142,
+          682,
+          169
+        ]
+      },
+      {
+        "capture": "28-1000-feedback-1-outside-40.png",
+        "changed_pixels": 328,
+        "difference_bounds": [
+          178,
+          115,
+          259,
+          196
+        ]
+      },
+      {
+        "capture": "28-1000-feedback-1-outside-8.png",
+        "changed_pixels": 213,
+        "difference_bounds": [
+          188,
+          125,
+          249,
+          186
+        ]
+      },
+      {
+        "capture": "28-1000-feedback-2-inside-40.png",
+        "changed_pixels": 189,
+        "difference_bounds": [
+          650,
+          136,
+          709,
+          195
+        ]
+      },
+      {
+        "capture": "28-1000-feedback-2-inside-8.png",
+        "changed_pixels": 91,
+        "difference_bounds": [
+          655,
+          142,
+          682,
+          169
+        ]
+      },
+      {
+        "capture": "28-1000-feedback-2-outside-40.png",
+        "changed_pixels": 328,
+        "difference_bounds": [
+          178,
+          115,
+          259,
+          196
+        ]
+      },
+      {
+        "capture": "28-1000-feedback-2-outside-8.png",
+        "changed_pixels": 213,
+        "difference_bounds": [
+          188,
+          125,
+          249,
+          186
+        ]
+      },
+      {
+        "capture": "28-760-feedback-0-inside-40.png",
+        "changed_pixels": 142,
+        "difference_bounds": [
+          494,
+          102,
+          539,
+          148
+        ]
+      },
+      {
+        "capture": "28-760-feedback-0-inside-8.png",
+        "changed_pixels": 70,
+        "difference_bounds": [
+          497,
+          107,
+          518,
+          129
+        ]
+      },
+      {
+        "capture": "28-760-feedback-0-outside-40.png",
+        "changed_pixels": 248,
+        "difference_bounds": [
+          135,
+          87,
+          197,
+          149
+        ]
+      },
+      {
+        "capture": "28-760-feedback-0-outside-8.png",
+        "changed_pixels": 166,
+        "difference_bounds": [
+          142,
+          94,
+          188,
+          142
+        ]
+      },
+      {
+        "capture": "28-760-feedback-1-inside-40.png",
+        "changed_pixels": 142,
+        "difference_bounds": [
+          494,
+          102,
+          539,
+          148
+        ]
+      },
+      {
+        "capture": "28-760-feedback-1-inside-8.png",
+        "changed_pixels": 70,
+        "difference_bounds": [
+          497,
+          107,
+          518,
+          129
+        ]
+      },
+      {
+        "capture": "28-760-feedback-1-outside-40.png",
+        "changed_pixels": 248,
+        "difference_bounds": [
+          135,
+          87,
+          197,
+          149
+        ]
+      },
+      {
+        "capture": "28-760-feedback-1-outside-8.png",
+        "changed_pixels": 166,
+        "difference_bounds": [
+          142,
+          94,
+          188,
+          142
+        ]
+      },
+      {
+        "capture": "28-760-feedback-2-inside-40.png",
+        "changed_pixels": 142,
+        "difference_bounds": [
+          494,
+          102,
+          539,
+          148
+        ]
+      },
+      {
+        "capture": "28-760-feedback-2-inside-8.png",
+        "changed_pixels": 70,
+        "difference_bounds": [
+          497,
+          107,
+          518,
+          129
+        ]
+      },
+      {
+        "capture": "28-760-feedback-2-outside-40.png",
+        "changed_pixels": 248,
+        "difference_bounds": [
+          135,
+          87,
+          197,
+          149
+        ]
+      },
+      {
+        "capture": "28-760-feedback-2-outside-8.png",
+        "changed_pixels": 166,
+        "difference_bounds": [
+          142,
+          94,
+          188,
+          142
+        ]
+      }
+    ],
+    "idle_pairs": [
+      {
+        "capture": "28-1000-0.png",
+        "pixels_identical": true
+      },
+      {
+        "capture": "28-1000-1.png",
+        "pixels_identical": true
+      },
+      {
+        "capture": "28-1000-2.png",
+        "pixels_identical": true
+      },
+      {
+        "capture": "28-760-0.png",
+        "pixels_identical": true
+      },
+      {
+        "capture": "28-760-1.png",
+        "pixels_identical": true
+      },
+      {
+        "capture": "28-760-2.png",
+        "pixels_identical": true
+      }
+    ],
+    "conditions": "Three themes, two windows, position held; inside/outside clicks at .2s and 1s."
+  },
+  "notes": [
+    "One sequential baseline/current run per window, 120 samples after 20 warmup frames.",
+    "This is a local regression check, not a claim of faster rendering or measured display FPS.",
+    "The active cue lasts throughout these 120-sample timing runs."
+  ]
+}
