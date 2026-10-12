@@ -1,16 +1,20 @@
-# 霓光蝶舞：20 秒互动分镜与试录
+# 霓光蝶舞：20 秒候选成片与互动验证
 
-[30 天计划](NEXT_30_DAYS.md) · [执行记录](progress/2026-10-11.md) · [返回画廊](../README.md)
+[30 天计划](NEXT_30_DAYS.md) · [执行记录](progress/2026-10-12.md) · [返回画廊](../README.md)
 
-**2026-10-12 状态：翼内点击提示已修复，真实程序试片已重新录制，尚未投稿。** 10 月 11 日完成了 D6 分镜与 D8 录制流程；本轮提前完成 D9 的单项画面改进。正式视频仍需要手动体验、手机观看和声音检查。
+**2026-10-12 状态：有声候选片、两版封面及文案已完成，尚未投稿。** 翼内点击提示已修复，两个真实窗口的 38 项自动输入检查通过；真人操作、手机观看与试听仍待补齐。
 
-[观看 / 下载 20 秒试片](assets/social-butterfly/preview.mp4) · [字幕](assets/social-butterfly/captions.zh.srt) · [素材与源码记录](assets/social-butterfly/manifest.json)
+[观看 / 下载 20 秒有声候选片](assets/social-butterfly-film/video.mp4) · [横版封面](assets/social-butterfly-film/cover.png) · [4:3 封面](assets/social-butterfly-film/cover-4x3.png) · [字幕](assets/social-butterfly-film/captions.zh.srt) · [素材与源码记录](assets/social-butterfly-film/manifest.json)
 
-![蝶舞试录六格分镜，依次展示蓝紫、玫瑰与翡翠主题](assets/social-butterfly/storyboard.jpg)
+![会追光的蝴蝶，真实程序蝶翼与横版标题](assets/social-butterfly-film/cover.png)
+
+[原无声试片](assets/social-butterfly/preview.mp4)和[点击提示改前改后图](assets/social-butterfly/feedback-comparison.jpg)保留作制作记录。
 
 ## 镜头顺序
 
-目标是让观众看懂“代码画出的蝶会回应操作”，结尾引导关注个人账号。使用 B 站横屏画幅，保留完整蝶翼；当前试片为 1280×720、30 fps、600 帧、20 秒，无音轨。画面是 Windows 上真实 Tk 窗口的绘图区，字幕后期添加。
+目标是让观众看懂“代码画出的蝶会回应操作”，结尾引导关注个人账号。候选片为 1280×720、30 fps、600 帧、20 秒，H.264 视频与 48 kHz 双声道 AAC。画面是 Windows 上真实 Tk 窗口的绘图区，字幕、署名及原创合成声音后期添加；完整蝶翼保留，字幕位于画面下方。
+
+![候选片六格分镜，依次展示蓝紫、玫瑰与翡翠主题](assets/social-butterfly-film/storyboard.jpg)
 
 | 时间 | 程序操作 | 观众看到什么 |
 | --- | --- | --- |
@@ -45,6 +49,16 @@
 python tools/check_immersive.py --works 28 --baseline-ref bd84d17 --samples 120 --output .work/butterfly-feedback-recheck
 ```
 
+## 窗口输入与声音检查
+
+1000×720、760×580 各完成 19 项检查：点击与追光、三主题循环、M 固定与恢复、空格暂停和继续、暂停时忽略点击 / C / M、R 重置、Esc 关闭，以及源码一致性。共 38 项通过，保存 18 张自身作品截图，所有验收窗口已关闭，无 Tk 回调异常，见[窗口输入报告](benchmarks/butterfly-inputs.json)。
+
+输入通过 `PostMessageW` 定向发送到自建 Canvas HWND，由原始 Tk 绑定处理。鼠标消息期间局部设置并恢复接收 GUI 线程的按钮状态；初次单纯发送消息未触发点击的失败记录保留在本地。使用固定步长更新画面，**这不代表真人物理键鼠体验、手机检查或实时 FPS 验收**。截图和专用脚本位于本地 `.work/butterfly-inputs`、`.work/check_butterfly_inputs.py`，公开报告记录条件、状态及哈希。
+
+声音由正弦振荡器原创合成：点击对应轻玻璃铃，换色对应短上行音，固定 / 恢复对应低音铃；背景为轻和弦，无外部采样。7 个提示音与录制事件对应，开头 0.2 秒淡入、最后 1 秒淡出。PCM 峰值约 −9.90 dBFS；最终 AAC 解码峰值 −9.93 dBFS、RMS −29.03 dBFS，没有达到满幅的采样。**这些是信号测量，尚未完成人工试听。** 完整解码及画幅检查见[媒体报告](benchmarks/butterfly-film.json)。
+
+横版封面为 1280×720，4:3 为 1200×900，各自排版。两者都取第 3 秒真实画面，裁去外围空白与原场景小字，保留完整蝶翼；没有补画新图。标题统一为“会追光的蝴蝶”。
+
 ## 可以直接使用的投稿文案草稿
 
 **标题：** 我用 Python 画了一只会追光的蝴蝶
@@ -61,11 +75,11 @@ python tools/check_immersive.py --works 28 --baseline-ref bd84d17 --samples 120 
 >
 > 项目：https://github.com/zjh-b/turtle-gallery
 >
-> 画面来自真实程序，制作使用了 AI 辅助开发；互动作品需要在电脑运行。
+> 画面来自真实程序，配乐为原创程序合成，制作使用了 AI 辅助开发；互动作品需要在电脑运行。
 
 **标签草稿：** Python、编程、创意编程、蝴蝶、代码绘画。
 
-正式投稿前移除画面上的“互动试录 · 无声”标识，并使用最终验收素材。若增加声音，只选有使用权的素材或自行合成；没有可用声音也可以保留有意设计的无声版本。这里未上传 B 站，也未修改现有「三个互动世界」稿件。
+候选片已使用正式标题栏与署名。下一步在手机完整观看和试听，确认声音、字幕与封面后，使用验收后的素材投稿。这里未上传 B 站，也未修改现有「三个互动世界」稿件。
 
 ## 本地复现
 
@@ -75,27 +89,28 @@ Windows 桌面保持解锁，窗口展开。录制只截取自己创建的作品
 python -m pip install -r requirements-export.txt
 python tools/capture_butterfly_video.py --output exports/butterfly-frames
 python tools/render_butterfly_preview.py --capture exports/butterfly-frames --output exports/butterfly-preview
+python tools/render_butterfly_film.py --capture exports/butterfly-frames --output exports/butterfly-film
 ```
 
-第二条命令输出原始 PNG 帧和 `capture.json`，第三条需要 PATH 中提供带 libx264 的 FFmpeg，也可加 `--ffmpeg <可执行文件路径>`。合成器输出 `preview.mp4`、`storyboard.jpg`、`captions.zh.srt` 和 `manifest.json`。两个输出目录都必须是新目录。
+第二条命令输出原始 PNG 帧和 `capture.json`；第三条合成无声试片，第四条合成有声候选片。两种合成都需要 PATH 中提供带 libx264 的 FFmpeg，也可加 `--ffmpeg <可执行文件路径>`；有声合成另需 AAC 编码器。候选输出为 `video.mp4`、两版封面、六格图、字幕与 `manifest.json`，无需先合成无声试片。所有输出目录都必须是新目录。
 
 仅检查窗口录制是否可用，可以先用 `--seconds 2 --output exports/butterfly-probe`；完整合成只接受 20 秒素材。录制支持 `--fps 24` 或 `--fps 30`，事件会量化到最近一帧。已有 29/30/31 影片的录制和合成入口继续使用原来的工具。
 
-录制前后核对源码版本，合成前拒绝缺帧、过期源码或不同事件顺序；合成记录还保存每个输入帧和输出文件的 SHA-256。原始 600 帧保存在本地忽略目录，仓库只收录可浏览的试片、六格图、字幕和记录。
+录制前后核对源码版本，合成前拒绝缺帧、尺寸变化、过期源码或不同事件顺序；合成记录保存每个输入帧、源码和输出文件的 SHA-256。视频、封面和输入哈希使用同一份读取的 PNG 字节；中途文件变化不会让封面重新读到另一幅图。编码或混音失败会清理本次残片，成功后才写清单。原始 600 帧保存在本地忽略目录，仓库收录可浏览的交付文件及记录。
 
 ## 本轮检查
 
-本机完成 600 帧真实窗口录制，查看六格分镜和点击后的原始画面。FFprobe 确认 H.264、1280×720、30 fps、600 帧、20.000 秒且无音轨；FFmpeg 完整解码通过。事件状态记录确认三种主题、位置固定与恢复均按分镜发生。
+本机完成 600 帧真实窗口录制，查看候选六格图、两版封面和输入验收截图。FFprobe 确认 H.264、1280×720、30 fps、600 帧、20.000 秒与 AAC 双声道音轨；FFmpeg 完整解码通过。事件状态记录确认三种主题、位置固定与恢复均按分镜发生。
 
-录制相关 7 项测试覆盖事件量化、缩放坐标、三主题与悬停语义、错误参数、过期素材，以及交付文件和源码的一致性。本轮再增加 2 项针对点击提示的回归测试，覆盖绘制层次、暂停、淡出、过期、重置及重复操作。完整回归共 291 项，290 项通过，1 项可选桌面字体检查跳过。字幕使用 LF 换行，确保 Windows / Linux 签入签出后字节校验仍一致。手机观看和实际键鼠完整体验尚待完成。
+已有录制与点击反馈测试继续保留。本轮增加声音格式、非静音、淡入淡出、确定性，以及文件保护、失败清理、输入中途变化和交付素材一致性测试。字幕使用 LF 换行，确保 Windows / Linux 签入签出后字节校验一致。完整回归结果见[本日记录](progress/2026-10-12.md)；手机观看和实际键鼠完整体验尚待完成。
 
 ## 下一次的 1 小时
 
 | 工作 | 人工预算 |
 | --- | --- |
 | 实际鼠标点击、C / M、空格与 R 操作一遍 | 15 分钟 |
-| 手机上完整看试片，记录设备与字幕可读性 | 20 分钟 |
-| 确定正式封面和声音处理，补可用的后台指标 | 15 分钟 |
-| 保存实际反馈与用时，确定是否进入成片制作 | 10 分钟 |
+| 手机上完整看有声候选片，记录设备、字幕与音量 | 20 分钟 |
+| 在手机缩略图中核对两版封面，补可用后台指标 | 15 分钟 |
+| 保存实际反馈与用时，确定是否进入投稿 | 10 分钟 |
 
 实际人工用时由执行者记录，不把 AI 操作或渲染等待代填为已用时间。手机实机检查、后台缺失指标和发布约 72 小时的数据快照仍按原计划补齐；本轮没有将它们标为完成。

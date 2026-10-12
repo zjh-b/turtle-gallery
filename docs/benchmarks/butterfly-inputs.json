@@ -1,0 +1,4453 @@
+{
+  "work": 28,
+  "passed": true,
+  "started_at": "2026-10-12T11:22:48.706549+08:00",
+  "scope": "Visible Windows/Tk windows; PostMessageW mouse/key messages addressed only to this process's exact artwork Canvas HWND. Original application bindings handle the events; passive Tk observers and scene state verify delivery. For mouse messages, SetKeyboardState supplies the receiving GUI thread's VK_LBUTTON state only while pumping each message, then restores it. Explicit app.frame(0 if stage.paused else .025) plus screen.update follows Stage's pause contract. No Stage.tick timer scheduling or live FPS measurement.",
+  "input_method": "PostMessageW WM_LBUTTONDOWN/UP and WM_KEYDOWN/UP to owned Canvas HWND",
+  "mouse_state_protocol": "SetKeyboardState updates only the receiving GUI thread's VK_LBUTTON state during each posted message; restored in finally. No global SendInput, mouse_event, keybd_event or SetCursorPos.",
+  "harness_diagnostic": "Initial plain PostMessageW mouse attempt received no Tk click and failed. An isolated experiment confirmed receiver-thread button state was required by Tk 8.6.14; failed evidence retained at .work/butterfly-inputs/first-attempt-failed.json.",
+  "capture_method": "capture_artwork -> Pillow ImageGrab.grab(window=owned_root_hwnd)",
+  "source_sha256_lf": {
+    "社团展示/28_霓光蝶舞.py": "8a304f06e43ca8b1652bb34f1deb6745e8001ddd91c10a300580e0aa5f1bea3d",
+    "社团展示/舞台.py": "3064d15913b65056f81e644d7c3d4379cb36a61eeb44bfc9f428433b878786c1",
+    "社团展示/作品导出.py": "2a9f464cdd12d160f7bd957cf477a2a8f5b2868d94d54c1cef51bac1533f2879",
+    "tools/check_tour.py": "7428f81ca64fdb33a1398ee3894048ec0e44ac551e8c77e484d359fea9398486",
+    ".work/check_butterfly_inputs.py": "85b5c8367e98b4f8a4b38d1aed90ab818f109cac4333fba86fe7c844066a0311"
+  },
+  "runs": [
+    {
+      "requested_window": [
+        1000,
+        720
+      ],
+      "started_at": "2026-10-12T11:22:48.796470+08:00",
+      "passed": true,
+      "scope": "Visible Windows/Tk windows; PostMessageW mouse/key messages addressed only to this process's exact artwork Canvas HWND. Original application bindings handle the events; passive Tk observers and scene state verify delivery. For mouse messages, SetKeyboardState supplies the receiving GUI thread's VK_LBUTTON state only while pumping each message, then restores it. Explicit app.frame(0 if stage.paused else .025) plus screen.update follows Stage's pause contract. No Stage.tick timer scheduling or live FPS measurement.",
+      "checks": [
+        {
+          "name": "visible_requested_size",
+          "passed": true,
+          "details": {
+            "platform": "Windows-11-10.0.26200-SP0",
+            "python": "3.12.4 | packaged by Anaconda, Inc. | (main, Jun 18 2024, 15:03:56) [MSC v.1929 64 bit (AMD64)]",
+            "pillow": "12.3.0",
+            "pid": 32720,
+            "tk": "8.6.14",
+            "tk_scaling": 1.332282448377581,
+            "tk_screen_size": [
+              1707,
+              1067
+            ],
+            "windowing_system": "win32",
+            "canvas_hwnd": 789222,
+            "root_hwnd": 1835148,
+            "actual_window": [
+              1000,
+              720
+            ],
+            "tk_canvas_size": [
+              998,
+              718
+            ],
+            "stage_scale": 1.0
+          }
+        },
+        {
+          "name": "click_attract",
+          "passed": true,
+          "details": {
+            "action": "click",
+            "canvas_hwnd": 789222,
+            "messages": [
+              [
+                513,
+                1,
+                15860424
+              ],
+              [
+                514,
+                0,
+                15860424
+              ]
+            ],
+            "before": {
+              "time": 0.0,
+              "theme": 0,
+              "motion": true,
+              "offset": [
+                0.0,
+                0.0
+              ],
+              "target": null,
+              "paused": false,
+              "closed": false
+            },
+            "after": {
+              "time": 0.0,
+              "theme": 0,
+              "motion": true,
+              "offset": [
+                0.0,
+                0.0
+              ],
+              "target": [
+                210.0,
+                120.0,
+                6.0
+              ],
+              "paused": false,
+              "closed": false
+            },
+            "observed_tk_events": [
+              {
+                "type": "Button-1",
+                "tk_client": [
+                  712,
+                  242
+                ],
+                "logical": [
+                  210.0,
+                  120.0
+                ]
+              }
+            ],
+            "receiver_thread_mouse_state_restored": true,
+            "coordinate_mapping": {
+              "requested_logical": [
+                210,
+                120
+              ],
+              "stage_scale": 1.0,
+              "canvas_origin": [
+                -502.0,
+                -362.0
+              ],
+              "win32_per_tk_unit": [
+                1.0,
+                1.0
+              ],
+              "tk_client": [
+                712.0,
+                242.0
+              ],
+              "win32_client": [
+                712,
+                242
+              ]
+            }
+          }
+        },
+        {
+          "name": "click_follow",
+          "passed": true,
+          "details": {
+            "after_one_simulated_second": {
+              "time": 1.0000000000000004,
+              "theme": 0,
+              "motion": true,
+              "offset": [
+                43.11746470198042,
+                8.799482592240901
+              ],
+              "target": [
+                210.0,
+                120.0,
+                4.999999999999986
+              ],
+              "paused": false,
+              "closed": false
+            }
+          }
+        },
+        {
+          "name": "C_theme_1",
+          "passed": true,
+          "details": {
+            "theme_name": "玫瑰月光",
+            "event": {
+              "action": "C",
+              "canvas_hwnd": 789222,
+              "messages": [
+                [
+                  256,
+                  67,
+                  3014657
+                ],
+                [
+                  257,
+                  67,
+                  3224240129
+                ]
+              ],
+              "before": {
+                "time": 1.0000000000000004,
+                "theme": 0,
+                "motion": true,
+                "offset": [
+                  43.11746470198042,
+                  8.799482592240901
+                ],
+                "target": [
+                  210.0,
+                  120.0,
+                  4.999999999999986
+                ],
+                "paused": false,
+                "closed": false
+              },
+              "after": {
+                "time": 1.0000000000000004,
+                "theme": 1,
+                "motion": true,
+                "offset": [
+                  43.11746470198042,
+                  8.799482592240901
+                ],
+                "target": [
+                  210.0,
+                  120.0,
+                  4.999999999999986
+                ],
+                "paused": false,
+                "closed": false
+              },
+              "observed_tk_events": [
+                {
+                  "type": "KeyRelease",
+                  "keysym": "c",
+                  "keycode": 67
+                }
+              ]
+            }
+          }
+        },
+        {
+          "name": "C_theme_2",
+          "passed": true,
+          "details": {
+            "theme_name": "翡翠流萤",
+            "event": {
+              "action": "C",
+              "canvas_hwnd": 789222,
+              "messages": [
+                [
+                  256,
+                  67,
+                  3014657
+                ],
+                [
+                  257,
+                  67,
+                  3224240129
+                ]
+              ],
+              "before": {
+                "time": 1.0000000000000004,
+                "theme": 1,
+                "motion": true,
+                "offset": [
+                  43.11746470198042,
+                  8.799482592240901
+                ],
+                "target": [
+                  210.0,
+                  120.0,
+                  4.999999999999986
+                ],
+                "paused": false,
+                "closed": false
+              },
+              "after": {
+                "time": 1.0000000000000004,
+                "theme": 2,
+                "motion": true,
+                "offset": [
+                  43.11746470198042,
+                  8.799482592240901
+                ],
+                "target": [
+                  210.0,
+                  120.0,
+                  4.999999999999986
+                ],
+                "paused": false,
+                "closed": false
+              },
+              "observed_tk_events": [
+                {
+                  "type": "KeyRelease",
+                  "keysym": "c",
+                  "keycode": 67
+                }
+              ]
+            }
+          }
+        },
+        {
+          "name": "C_theme_0",
+          "passed": true,
+          "details": {
+            "theme_name": "蓝紫幻梦",
+            "event": {
+              "action": "C",
+              "canvas_hwnd": 789222,
+              "messages": [
+                [
+                  256,
+                  67,
+                  3014657
+                ],
+                [
+                  257,
+                  67,
+                  3224240129
+                ]
+              ],
+              "before": {
+                "time": 1.0000000000000004,
+                "theme": 2,
+                "motion": true,
+                "offset": [
+                  43.11746470198042,
+                  8.799482592240901
+                ],
+                "target": [
+                  210.0,
+                  120.0,
+                  4.999999999999986
+                ],
+                "paused": false,
+                "closed": false
+              },
+              "after": {
+                "time": 1.0000000000000004,
+                "theme": 0,
+                "motion": true,
+                "offset": [
+                  43.11746470198042,
+                  8.799482592240901
+                ],
+                "target": [
+                  210.0,
+                  120.0,
+                  4.999999999999986
+                ],
+                "paused": false,
+                "closed": false
+              },
+              "observed_tk_events": [
+                {
+                  "type": "KeyRelease",
+                  "keysym": "c",
+                  "keycode": 67
+                }
+              ]
+            }
+          }
+        },
+        {
+          "name": "M_hover",
+          "passed": true,
+          "details": {
+            "event": {
+              "action": "M",
+              "canvas_hwnd": 789222,
+              "messages": [
+                [
+                  256,
+                  77,
+                  3276801
+                ],
+                [
+                  257,
+                  77,
+                  3224502273
+                ]
+              ],
+              "before": {
+                "time": 1.0000000000000004,
+                "theme": 0,
+                "motion": true,
+                "offset": [
+                  43.11746470198042,
+                  8.799482592240901
+                ],
+                "target": [
+                  210.0,
+                  120.0,
+                  4.999999999999986
+                ],
+                "paused": false,
+                "closed": false
+              },
+              "after": {
+                "time": 1.0000000000000004,
+                "theme": 0,
+                "motion": false,
+                "offset": [
+                  43.11746470198042,
+                  8.799482592240901
+                ],
+                "target": [
+                  210.0,
+                  120.0,
+                  4.999999999999986
+                ],
+                "paused": false,
+                "closed": false
+              },
+              "observed_tk_events": [
+                {
+                  "type": "KeyRelease",
+                  "keysym": "m",
+                  "keycode": 77
+                }
+              ]
+            },
+            "after_half_simulated_second": {
+              "time": 1.4999999999999987,
+              "theme": 0,
+              "motion": false,
+              "offset": [
+                43.11746470198042,
+                8.799482592240901
+              ],
+              "target": [
+                210.0,
+                120.0,
+                4.499999999999979
+              ],
+              "paused": false,
+              "closed": false
+            }
+          }
+        },
+        {
+          "name": "M_roam_resume",
+          "passed": true,
+          "details": {
+            "event": {
+              "action": "M",
+              "canvas_hwnd": 789222,
+              "messages": [
+                [
+                  256,
+                  77,
+                  3276801
+                ],
+                [
+                  257,
+                  77,
+                  3224502273
+                ]
+              ],
+              "before": {
+                "time": 1.4999999999999987,
+                "theme": 0,
+                "motion": false,
+                "offset": [
+                  43.11746470198042,
+                  8.799482592240901
+                ],
+                "target": [
+                  210.0,
+                  120.0,
+                  4.499999999999979
+                ],
+                "paused": false,
+                "closed": false
+              },
+              "after": {
+                "time": 1.4999999999999987,
+                "theme": 0,
+                "motion": true,
+                "offset": [
+                  43.11746470198042,
+                  8.799482592240901
+                ],
+                "target": [
+                  210.0,
+                  120.0,
+                  4.499999999999979
+                ],
+                "paused": false,
+                "closed": false
+              },
+              "observed_tk_events": [
+                {
+                  "type": "KeyRelease",
+                  "keysym": "m",
+                  "keycode": 77
+                }
+              ]
+            },
+            "after_half_simulated_second": {
+              "time": 1.999999999999997,
+              "theme": 0,
+              "motion": true,
+              "offset": [
+                50.700918904746636,
+                10.347126307091154
+              ],
+              "target": [
+                210.0,
+                120.0,
+                3.999999999999972
+              ],
+              "paused": false,
+              "closed": false
+            }
+          }
+        },
+        {
+          "name": "Space_pause",
+          "passed": true,
+          "details": {
+            "action": "Space",
+            "canvas_hwnd": 789222,
+            "messages": [
+              [
+                256,
+                32,
+                3735553
+              ],
+              [
+                257,
+                32,
+                3224961025
+              ]
+            ],
+            "before": {
+              "time": 1.999999999999997,
+              "theme": 0,
+              "motion": true,
+              "offset": [
+                50.700918904746636,
+                10.347126307091154
+              ],
+              "target": [
+                210.0,
+                120.0,
+                3.999999999999972
+              ],
+              "paused": false,
+              "closed": false
+            },
+            "after": {
+              "time": 1.999999999999997,
+              "theme": 0,
+              "motion": true,
+              "offset": [
+                50.700918904746636,
+                10.347126307091154
+              ],
+              "target": [
+                210.0,
+                120.0,
+                3.999999999999972
+              ],
+              "paused": true,
+              "closed": false
+            },
+            "observed_tk_events": [
+              {
+                "type": "KeyRelease",
+                "keysym": "space",
+                "keycode": 32
+              }
+            ]
+          }
+        },
+        {
+          "name": "paused_frame_freeze",
+          "passed": true,
+          "details": {
+            "requested_steps": 20,
+            "requested_dt": 0.025,
+            "effective_dt": 0,
+            "before": {
+              "time": 1.999999999999997,
+              "theme": 0,
+              "motion": true,
+              "offset": [
+                50.700918904746636,
+                10.347126307091154
+              ],
+              "target": [
+                210.0,
+                120.0,
+                3.999999999999972
+              ],
+              "paused": true,
+              "closed": false
+            },
+            "after": {
+              "time": 1.999999999999997,
+              "theme": 0,
+              "motion": true,
+              "offset": [
+                50.700918904746636,
+                10.347126307091154
+              ],
+              "target": [
+                210.0,
+                120.0,
+                3.999999999999972
+              ],
+              "paused": true,
+              "closed": false
+            }
+          }
+        },
+        {
+          "name": "paused_click_ignored",
+          "passed": true,
+          "details": {
+            "action": "click",
+            "canvas_hwnd": 789222,
+            "messages": [
+              [
+                513,
+                1,
+                30277934
+              ],
+              [
+                514,
+                0,
+                30277934
+              ]
+            ],
+            "before": {
+              "time": 1.999999999999997,
+              "theme": 0,
+              "motion": true,
+              "offset": [
+                50.700918904746636,
+                10.347126307091154
+              ],
+              "target": [
+                210.0,
+                120.0,
+                3.999999999999972
+              ],
+              "paused": true,
+              "closed": false
+            },
+            "after": {
+              "time": 1.999999999999997,
+              "theme": 0,
+              "motion": true,
+              "offset": [
+                50.700918904746636,
+                10.347126307091154
+              ],
+              "target": [
+                210.0,
+                120.0,
+                3.999999999999972
+              ],
+              "paused": true,
+              "closed": false
+            },
+            "observed_tk_events": [
+              {
+                "type": "Button-1",
+                "tk_client": [
+                  302,
+                  462
+                ],
+                "logical": [
+                  -200.0,
+                  -100.0
+                ]
+              }
+            ],
+            "receiver_thread_mouse_state_restored": true,
+            "coordinate_mapping": {
+              "requested_logical": [
+                -200,
+                -100
+              ],
+              "stage_scale": 1.0,
+              "canvas_origin": [
+                -502.0,
+                -362.0
+              ],
+              "win32_per_tk_unit": [
+                1.0,
+                1.0
+              ],
+              "tk_client": [
+                302.0,
+                462.0
+              ],
+              "win32_client": [
+                302,
+                462
+              ]
+            }
+          }
+        },
+        {
+          "name": "paused_C_ignored",
+          "passed": true,
+          "details": {
+            "action": "C",
+            "canvas_hwnd": 789222,
+            "messages": [
+              [
+                256,
+                67,
+                3014657
+              ],
+              [
+                257,
+                67,
+                3224240129
+              ]
+            ],
+            "before": {
+              "time": 1.999999999999997,
+              "theme": 0,
+              "motion": true,
+              "offset": [
+                50.700918904746636,
+                10.347126307091154
+              ],
+              "target": [
+                210.0,
+                120.0,
+                3.999999999999972
+              ],
+              "paused": true,
+              "closed": false
+            },
+            "after": {
+              "time": 1.999999999999997,
+              "theme": 0,
+              "motion": true,
+              "offset": [
+                50.700918904746636,
+                10.347126307091154
+              ],
+              "target": [
+                210.0,
+                120.0,
+                3.999999999999972
+              ],
+              "paused": true,
+              "closed": false
+            },
+            "observed_tk_events": [
+              {
+                "type": "KeyRelease",
+                "keysym": "c",
+                "keycode": 67
+              }
+            ]
+          }
+        },
+        {
+          "name": "paused_M_ignored",
+          "passed": true,
+          "details": {
+            "action": "M",
+            "canvas_hwnd": 789222,
+            "messages": [
+              [
+                256,
+                77,
+                3276801
+              ],
+              [
+                257,
+                77,
+                3224502273
+              ]
+            ],
+            "before": {
+              "time": 1.999999999999997,
+              "theme": 0,
+              "motion": true,
+              "offset": [
+                50.700918904746636,
+                10.347126307091154
+              ],
+              "target": [
+                210.0,
+                120.0,
+                3.999999999999972
+              ],
+              "paused": true,
+              "closed": false
+            },
+            "after": {
+              "time": 1.999999999999997,
+              "theme": 0,
+              "motion": true,
+              "offset": [
+                50.700918904746636,
+                10.347126307091154
+              ],
+              "target": [
+                210.0,
+                120.0,
+                3.999999999999972
+              ],
+              "paused": true,
+              "closed": false
+            },
+            "observed_tk_events": [
+              {
+                "type": "KeyRelease",
+                "keysym": "m",
+                "keycode": 77
+              }
+            ]
+          }
+        },
+        {
+          "name": "paused_input_pixels_unchanged",
+          "passed": true,
+          "details": {
+            "comparison": "Exact size, mode and RGB bytes of owned artwork captures"
+          }
+        },
+        {
+          "name": "Space_continue",
+          "passed": true,
+          "details": {
+            "event": {
+              "action": "Space",
+              "canvas_hwnd": 789222,
+              "messages": [
+                [
+                  256,
+                  32,
+                  3735553
+                ],
+                [
+                  257,
+                  32,
+                  3224961025
+                ]
+              ],
+              "before": {
+                "time": 1.999999999999997,
+                "theme": 0,
+                "motion": true,
+                "offset": [
+                  50.700918904746636,
+                  10.347126307091154
+                ],
+                "target": [
+                  210.0,
+                  120.0,
+                  3.999999999999972
+                ],
+                "paused": true,
+                "closed": false
+              },
+              "after": {
+                "time": 1.999999999999997,
+                "theme": 0,
+                "motion": true,
+                "offset": [
+                  50.700918904746636,
+                  10.347126307091154
+                ],
+                "target": [
+                  210.0,
+                  120.0,
+                  3.999999999999972
+                ],
+                "paused": false,
+                "closed": false
+              },
+              "observed_tk_events": [
+                {
+                  "type": "KeyRelease",
+                  "keysym": "space",
+                  "keycode": 32
+                }
+              ]
+            },
+            "after_half_simulated_second": {
+              "time": 2.499999999999995,
+              "theme": 0,
+              "motion": true,
+              "offset": [
+                54.61731439840764,
+                11.146390693552583
+              ],
+              "target": [
+                210.0,
+                120.0,
+                3.499999999999974
+              ],
+              "paused": false,
+              "closed": false
+            }
+          }
+        },
+        {
+          "name": "R_setup_disturbed_and_paused",
+          "passed": true,
+          "details": {
+            "time": 2.499999999999995,
+            "theme": 1,
+            "motion": false,
+            "offset": [
+              54.61731439840764,
+              11.146390693552583
+            ],
+            "target": [
+              210.0,
+              120.0,
+              3.499999999999974
+            ],
+            "paused": true,
+            "closed": false
+          }
+        },
+        {
+          "name": "R_reset_state_and_pixels",
+          "passed": true,
+          "details": {
+            "event": {
+              "action": "R",
+              "canvas_hwnd": 789222,
+              "messages": [
+                [
+                  256,
+                  82,
+                  1245185
+                ],
+                [
+                  257,
+                  82,
+                  3222470657
+                ]
+              ],
+              "before": {
+                "time": 2.499999999999995,
+                "theme": 1,
+                "motion": false,
+                "offset": [
+                  54.61731439840764,
+                  11.146390693552583
+                ],
+                "target": [
+                  210.0,
+                  120.0,
+                  3.499999999999974
+                ],
+                "paused": true,
+                "closed": false
+              },
+              "after": {
+                "time": 0.0,
+                "theme": 0,
+                "motion": true,
+                "offset": [
+                  0.0,
+                  0.0
+                ],
+                "target": null,
+                "paused": false,
+                "closed": false
+              },
+              "observed_tk_events": [
+                {
+                  "type": "KeyRelease",
+                  "keysym": "r",
+                  "keycode": 82
+                }
+              ]
+            },
+            "initial_state": {
+              "time": 0.0,
+              "theme": 0,
+              "motion": true,
+              "offset": [
+                0.0,
+                0.0
+              ],
+              "target": null,
+              "paused": false,
+              "closed": false
+            },
+            "reset_state": {
+              "time": 0.0,
+              "theme": 0,
+              "motion": true,
+              "offset": [
+                0.0,
+                0.0
+              ],
+              "target": null,
+              "paused": false,
+              "closed": false
+            },
+            "pixels_equal": true
+          }
+        },
+        {
+          "name": "Escape_close",
+          "passed": true,
+          "details": {
+            "action": "Escape",
+            "canvas_hwnd": 789222,
+            "messages": [
+              [
+                256,
+                27,
+                65537
+              ],
+              [
+                257,
+                27,
+                3221291009
+              ]
+            ],
+            "before": {
+              "time": 0.0,
+              "theme": 0,
+              "motion": true,
+              "offset": [
+                0.0,
+                0.0
+              ],
+              "target": null,
+              "paused": false,
+              "closed": false
+            },
+            "after": {
+              "time": 0.0,
+              "theme": 0,
+              "motion": true,
+              "offset": [
+                0.0,
+                0.0
+              ],
+              "target": null,
+              "paused": false,
+              "closed": true
+            },
+            "observed_tk_events": []
+          }
+        },
+        {
+          "name": "sources_unchanged",
+          "passed": true,
+          "details": {
+            "社团展示/28_霓光蝶舞.py": "8a304f06e43ca8b1652bb34f1deb6745e8001ddd91c10a300580e0aa5f1bea3d",
+            "社团展示/舞台.py": "3064d15913b65056f81e644d7c3d4379cb36a61eeb44bfc9f428433b878786c1",
+            "社团展示/作品导出.py": "2a9f464cdd12d160f7bd957cf477a2a8f5b2868d94d54c1cef51bac1533f2879",
+            "tools/check_tour.py": "7428f81ca64fdb33a1398ee3894048ec0e44ac551e8c77e484d359fea9398486",
+            ".work/check_butterfly_inputs.py": "85b5c8367e98b4f8a4b38d1aed90ab818f109cac4333fba86fe7c844066a0311"
+          }
+        }
+      ],
+      "events": [
+        {
+          "action": "click",
+          "canvas_hwnd": 789222,
+          "messages": [
+            [
+              513,
+              1,
+              15860424
+            ],
+            [
+              514,
+              0,
+              15860424
+            ]
+          ],
+          "before": {
+            "time": 0.0,
+            "theme": 0,
+            "motion": true,
+            "offset": [
+              0.0,
+              0.0
+            ],
+            "target": null,
+            "paused": false,
+            "closed": false
+          },
+          "after": {
+            "time": 0.0,
+            "theme": 0,
+            "motion": true,
+            "offset": [
+              0.0,
+              0.0
+            ],
+            "target": [
+              210.0,
+              120.0,
+              6.0
+            ],
+            "paused": false,
+            "closed": false
+          },
+          "observed_tk_events": [
+            {
+              "type": "Button-1",
+              "tk_client": [
+                712,
+                242
+              ],
+              "logical": [
+                210.0,
+                120.0
+              ]
+            }
+          ],
+          "receiver_thread_mouse_state_restored": true,
+          "coordinate_mapping": {
+            "requested_logical": [
+              210,
+              120
+            ],
+            "stage_scale": 1.0,
+            "canvas_origin": [
+              -502.0,
+              -362.0
+            ],
+            "win32_per_tk_unit": [
+              1.0,
+              1.0
+            ],
+            "tk_client": [
+              712.0,
+              242.0
+            ],
+            "win32_client": [
+              712,
+              242
+            ]
+          }
+        },
+        {
+          "action": "C",
+          "canvas_hwnd": 789222,
+          "messages": [
+            [
+              256,
+              67,
+              3014657
+            ],
+            [
+              257,
+              67,
+              3224240129
+            ]
+          ],
+          "before": {
+            "time": 1.0000000000000004,
+            "theme": 0,
+            "motion": true,
+            "offset": [
+              43.11746470198042,
+              8.799482592240901
+            ],
+            "target": [
+              210.0,
+              120.0,
+              4.999999999999986
+            ],
+            "paused": false,
+            "closed": false
+          },
+          "after": {
+            "time": 1.0000000000000004,
+            "theme": 1,
+            "motion": true,
+            "offset": [
+              43.11746470198042,
+              8.799482592240901
+            ],
+            "target": [
+              210.0,
+              120.0,
+              4.999999999999986
+            ],
+            "paused": false,
+            "closed": false
+          },
+          "observed_tk_events": [
+            {
+              "type": "KeyRelease",
+              "keysym": "c",
+              "keycode": 67
+            }
+          ]
+        },
+        {
+          "action": "C",
+          "canvas_hwnd": 789222,
+          "messages": [
+            [
+              256,
+              67,
+              3014657
+            ],
+            [
+              257,
+              67,
+              3224240129
+            ]
+          ],
+          "before": {
+            "time": 1.0000000000000004,
+            "theme": 1,
+            "motion": true,
+            "offset": [
+              43.11746470198042,
+              8.799482592240901
+            ],
+            "target": [
+              210.0,
+              120.0,
+              4.999999999999986
+            ],
+            "paused": false,
+            "closed": false
+          },
+          "after": {
+            "time": 1.0000000000000004,
+            "theme": 2,
+            "motion": true,
+            "offset": [
+              43.11746470198042,
+              8.799482592240901
+            ],
+            "target": [
+              210.0,
+              120.0,
+              4.999999999999986
+            ],
+            "paused": false,
+            "closed": false
+          },
+          "observed_tk_events": [
+            {
+              "type": "KeyRelease",
+              "keysym": "c",
+              "keycode": 67
+            }
+          ]
+        },
+        {
+          "action": "C",
+          "canvas_hwnd": 789222,
+          "messages": [
+            [
+              256,
+              67,
+              3014657
+            ],
+            [
+              257,
+              67,
+              3224240129
+            ]
+          ],
+          "before": {
+            "time": 1.0000000000000004,
+            "theme": 2,
+            "motion": true,
+            "offset": [
+              43.11746470198042,
+              8.799482592240901
+            ],
+            "target": [
+              210.0,
+              120.0,
+              4.999999999999986
+            ],
+            "paused": false,
+            "closed": false
+          },
+          "after": {
+            "time": 1.0000000000000004,
+            "theme": 0,
+            "motion": true,
+            "offset": [
+              43.11746470198042,
+              8.799482592240901
+            ],
+            "target": [
+              210.0,
+              120.0,
+              4.999999999999986
+            ],
+            "paused": false,
+            "closed": false
+          },
+          "observed_tk_events": [
+            {
+              "type": "KeyRelease",
+              "keysym": "c",
+              "keycode": 67
+            }
+          ]
+        },
+        {
+          "action": "M",
+          "canvas_hwnd": 789222,
+          "messages": [
+            [
+              256,
+              77,
+              3276801
+            ],
+            [
+              257,
+              77,
+              3224502273
+            ]
+          ],
+          "before": {
+            "time": 1.0000000000000004,
+            "theme": 0,
+            "motion": true,
+            "offset": [
+              43.11746470198042,
+              8.799482592240901
+            ],
+            "target": [
+              210.0,
+              120.0,
+              4.999999999999986
+            ],
+            "paused": false,
+            "closed": false
+          },
+          "after": {
+            "time": 1.0000000000000004,
+            "theme": 0,
+            "motion": false,
+            "offset": [
+              43.11746470198042,
+              8.799482592240901
+            ],
+            "target": [
+              210.0,
+              120.0,
+              4.999999999999986
+            ],
+            "paused": false,
+            "closed": false
+          },
+          "observed_tk_events": [
+            {
+              "type": "KeyRelease",
+              "keysym": "m",
+              "keycode": 77
+            }
+          ]
+        },
+        {
+          "action": "M",
+          "canvas_hwnd": 789222,
+          "messages": [
+            [
+              256,
+              77,
+              3276801
+            ],
+            [
+              257,
+              77,
+              3224502273
+            ]
+          ],
+          "before": {
+            "time": 1.4999999999999987,
+            "theme": 0,
+            "motion": false,
+            "offset": [
+              43.11746470198042,
+              8.799482592240901
+            ],
+            "target": [
+              210.0,
+              120.0,
+              4.499999999999979
+            ],
+            "paused": false,
+            "closed": false
+          },
+          "after": {
+            "time": 1.4999999999999987,
+            "theme": 0,
+            "motion": true,
+            "offset": [
+              43.11746470198042,
+              8.799482592240901
+            ],
+            "target": [
+              210.0,
+              120.0,
+              4.499999999999979
+            ],
+            "paused": false,
+            "closed": false
+          },
+          "observed_tk_events": [
+            {
+              "type": "KeyRelease",
+              "keysym": "m",
+              "keycode": 77
+            }
+          ]
+        },
+        {
+          "action": "Space",
+          "canvas_hwnd": 789222,
+          "messages": [
+            [
+              256,
+              32,
+              3735553
+            ],
+            [
+              257,
+              32,
+              3224961025
+            ]
+          ],
+          "before": {
+            "time": 1.999999999999997,
+            "theme": 0,
+            "motion": true,
+            "offset": [
+              50.700918904746636,
+              10.347126307091154
+            ],
+            "target": [
+              210.0,
+              120.0,
+              3.999999999999972
+            ],
+            "paused": false,
+            "closed": false
+          },
+          "after": {
+            "time": 1.999999999999997,
+            "theme": 0,
+            "motion": true,
+            "offset": [
+              50.700918904746636,
+              10.347126307091154
+            ],
+            "target": [
+              210.0,
+              120.0,
+              3.999999999999972
+            ],
+            "paused": true,
+            "closed": false
+          },
+          "observed_tk_events": [
+            {
+              "type": "KeyRelease",
+              "keysym": "space",
+              "keycode": 32
+            }
+          ]
+        },
+        {
+          "action": "click",
+          "canvas_hwnd": 789222,
+          "messages": [
+            [
+              513,
+              1,
+              30277934
+            ],
+            [
+              514,
+              0,
+              30277934
+            ]
+          ],
+          "before": {
+            "time": 1.999999999999997,
+            "theme": 0,
+            "motion": true,
+            "offset": [
+              50.700918904746636,
+              10.347126307091154
+            ],
+            "target": [
+              210.0,
+              120.0,
+              3.999999999999972
+            ],
+            "paused": true,
+            "closed": false
+          },
+          "after": {
+            "time": 1.999999999999997,
+            "theme": 0,
+            "motion": true,
+            "offset": [
+              50.700918904746636,
+              10.347126307091154
+            ],
+            "target": [
+              210.0,
+              120.0,
+              3.999999999999972
+            ],
+            "paused": true,
+            "closed": false
+          },
+          "observed_tk_events": [
+            {
+              "type": "Button-1",
+              "tk_client": [
+                302,
+                462
+              ],
+              "logical": [
+                -200.0,
+                -100.0
+              ]
+            }
+          ],
+          "receiver_thread_mouse_state_restored": true,
+          "coordinate_mapping": {
+            "requested_logical": [
+              -200,
+              -100
+            ],
+            "stage_scale": 1.0,
+            "canvas_origin": [
+              -502.0,
+              -362.0
+            ],
+            "win32_per_tk_unit": [
+              1.0,
+              1.0
+            ],
+            "tk_client": [
+              302.0,
+              462.0
+            ],
+            "win32_client": [
+              302,
+              462
+            ]
+          }
+        },
+        {
+          "action": "C",
+          "canvas_hwnd": 789222,
+          "messages": [
+            [
+              256,
+              67,
+              3014657
+            ],
+            [
+              257,
+              67,
+              3224240129
+            ]
+          ],
+          "before": {
+            "time": 1.999999999999997,
+            "theme": 0,
+            "motion": true,
+            "offset": [
+              50.700918904746636,
+              10.347126307091154
+            ],
+            "target": [
+              210.0,
+              120.0,
+              3.999999999999972
+            ],
+            "paused": true,
+            "closed": false
+          },
+          "after": {
+            "time": 1.999999999999997,
+            "theme": 0,
+            "motion": true,
+            "offset": [
+              50.700918904746636,
+              10.347126307091154
+            ],
+            "target": [
+              210.0,
+              120.0,
+              3.999999999999972
+            ],
+            "paused": true,
+            "closed": false
+          },
+          "observed_tk_events": [
+            {
+              "type": "KeyRelease",
+              "keysym": "c",
+              "keycode": 67
+            }
+          ]
+        },
+        {
+          "action": "M",
+          "canvas_hwnd": 789222,
+          "messages": [
+            [
+              256,
+              77,
+              3276801
+            ],
+            [
+              257,
+              77,
+              3224502273
+            ]
+          ],
+          "before": {
+            "time": 1.999999999999997,
+            "theme": 0,
+            "motion": true,
+            "offset": [
+              50.700918904746636,
+              10.347126307091154
+            ],
+            "target": [
+              210.0,
+              120.0,
+              3.999999999999972
+            ],
+            "paused": true,
+            "closed": false
+          },
+          "after": {
+            "time": 1.999999999999997,
+            "theme": 0,
+            "motion": true,
+            "offset": [
+              50.700918904746636,
+              10.347126307091154
+            ],
+            "target": [
+              210.0,
+              120.0,
+              3.999999999999972
+            ],
+            "paused": true,
+            "closed": false
+          },
+          "observed_tk_events": [
+            {
+              "type": "KeyRelease",
+              "keysym": "m",
+              "keycode": 77
+            }
+          ]
+        },
+        {
+          "action": "Space",
+          "canvas_hwnd": 789222,
+          "messages": [
+            [
+              256,
+              32,
+              3735553
+            ],
+            [
+              257,
+              32,
+              3224961025
+            ]
+          ],
+          "before": {
+            "time": 1.999999999999997,
+            "theme": 0,
+            "motion": true,
+            "offset": [
+              50.700918904746636,
+              10.347126307091154
+            ],
+            "target": [
+              210.0,
+              120.0,
+              3.999999999999972
+            ],
+            "paused": true,
+            "closed": false
+          },
+          "after": {
+            "time": 1.999999999999997,
+            "theme": 0,
+            "motion": true,
+            "offset": [
+              50.700918904746636,
+              10.347126307091154
+            ],
+            "target": [
+              210.0,
+              120.0,
+              3.999999999999972
+            ],
+            "paused": false,
+            "closed": false
+          },
+          "observed_tk_events": [
+            {
+              "type": "KeyRelease",
+              "keysym": "space",
+              "keycode": 32
+            }
+          ]
+        },
+        {
+          "action": "C",
+          "canvas_hwnd": 789222,
+          "messages": [
+            [
+              256,
+              67,
+              3014657
+            ],
+            [
+              257,
+              67,
+              3224240129
+            ]
+          ],
+          "before": {
+            "time": 2.499999999999995,
+            "theme": 0,
+            "motion": true,
+            "offset": [
+              54.61731439840764,
+              11.146390693552583
+            ],
+            "target": [
+              210.0,
+              120.0,
+              3.499999999999974
+            ],
+            "paused": false,
+            "closed": false
+          },
+          "after": {
+            "time": 2.499999999999995,
+            "theme": 1,
+            "motion": true,
+            "offset": [
+              54.61731439840764,
+              11.146390693552583
+            ],
+            "target": [
+              210.0,
+              120.0,
+              3.499999999999974
+            ],
+            "paused": false,
+            "closed": false
+          },
+          "observed_tk_events": [
+            {
+              "type": "KeyRelease",
+              "keysym": "c",
+              "keycode": 67
+            }
+          ]
+        },
+        {
+          "action": "M",
+          "canvas_hwnd": 789222,
+          "messages": [
+            [
+              256,
+              77,
+              3276801
+            ],
+            [
+              257,
+              77,
+              3224502273
+            ]
+          ],
+          "before": {
+            "time": 2.499999999999995,
+            "theme": 1,
+            "motion": true,
+            "offset": [
+              54.61731439840764,
+              11.146390693552583
+            ],
+            "target": [
+              210.0,
+              120.0,
+              3.499999999999974
+            ],
+            "paused": false,
+            "closed": false
+          },
+          "after": {
+            "time": 2.499999999999995,
+            "theme": 1,
+            "motion": false,
+            "offset": [
+              54.61731439840764,
+              11.146390693552583
+            ],
+            "target": [
+              210.0,
+              120.0,
+              3.499999999999974
+            ],
+            "paused": false,
+            "closed": false
+          },
+          "observed_tk_events": [
+            {
+              "type": "KeyRelease",
+              "keysym": "m",
+              "keycode": 77
+            }
+          ]
+        },
+        {
+          "action": "Space",
+          "canvas_hwnd": 789222,
+          "messages": [
+            [
+              256,
+              32,
+              3735553
+            ],
+            [
+              257,
+              32,
+              3224961025
+            ]
+          ],
+          "before": {
+            "time": 2.499999999999995,
+            "theme": 1,
+            "motion": false,
+            "offset": [
+              54.61731439840764,
+              11.146390693552583
+            ],
+            "target": [
+              210.0,
+              120.0,
+              3.499999999999974
+            ],
+            "paused": false,
+            "closed": false
+          },
+          "after": {
+            "time": 2.499999999999995,
+            "theme": 1,
+            "motion": false,
+            "offset": [
+              54.61731439840764,
+              11.146390693552583
+            ],
+            "target": [
+              210.0,
+              120.0,
+              3.499999999999974
+            ],
+            "paused": true,
+            "closed": false
+          },
+          "observed_tk_events": [
+            {
+              "type": "KeyRelease",
+              "keysym": "space",
+              "keycode": 32
+            }
+          ]
+        },
+        {
+          "action": "R",
+          "canvas_hwnd": 789222,
+          "messages": [
+            [
+              256,
+              82,
+              1245185
+            ],
+            [
+              257,
+              82,
+              3222470657
+            ]
+          ],
+          "before": {
+            "time": 2.499999999999995,
+            "theme": 1,
+            "motion": false,
+            "offset": [
+              54.61731439840764,
+              11.146390693552583
+            ],
+            "target": [
+              210.0,
+              120.0,
+              3.499999999999974
+            ],
+            "paused": true,
+            "closed": false
+          },
+          "after": {
+            "time": 0.0,
+            "theme": 0,
+            "motion": true,
+            "offset": [
+              0.0,
+              0.0
+            ],
+            "target": null,
+            "paused": false,
+            "closed": false
+          },
+          "observed_tk_events": [
+            {
+              "type": "KeyRelease",
+              "keysym": "r",
+              "keycode": 82
+            }
+          ]
+        },
+        {
+          "action": "Escape",
+          "canvas_hwnd": 789222,
+          "messages": [
+            [
+              256,
+              27,
+              65537
+            ],
+            [
+              257,
+              27,
+              3221291009
+            ]
+          ],
+          "before": {
+            "time": 0.0,
+            "theme": 0,
+            "motion": true,
+            "offset": [
+              0.0,
+              0.0
+            ],
+            "target": null,
+            "paused": false,
+            "closed": false
+          },
+          "after": {
+            "time": 0.0,
+            "theme": 0,
+            "motion": true,
+            "offset": [
+              0.0,
+              0.0
+            ],
+            "target": null,
+            "paused": false,
+            "closed": true
+          },
+          "observed_tk_events": []
+        }
+      ],
+      "captures": [
+        {
+          "name": "initial",
+          "path": ".work/butterfly-inputs/1000x720/initial.png",
+          "size": [
+            990,
+            550
+          ],
+          "state": {
+            "time": 0.0,
+            "theme": 0,
+            "motion": true,
+            "offset": [
+              0.0,
+              0.0
+            ],
+            "target": null,
+            "paused": false,
+            "closed": false
+          },
+          "file_sha256": "1fb438625c981be294e4674cb2169e38d92af278b7c658e0e5d242a7d1850d27"
+        },
+        {
+          "name": "attracted",
+          "path": ".work/butterfly-inputs/1000x720/attracted.png",
+          "size": [
+            990,
+            550
+          ],
+          "state": {
+            "time": 1.0000000000000004,
+            "theme": 0,
+            "motion": true,
+            "offset": [
+              43.11746470198042,
+              8.799482592240901
+            ],
+            "target": [
+              210.0,
+              120.0,
+              4.999999999999986
+            ],
+            "paused": false,
+            "closed": false
+          },
+          "file_sha256": "95d4d614cb3882b9bedd2952e12bbcb4b3aa835bbf1997af90b71dff2dced390"
+        },
+        {
+          "name": "rose",
+          "path": ".work/butterfly-inputs/1000x720/rose.png",
+          "size": [
+            990,
+            550
+          ],
+          "state": {
+            "time": 1.0000000000000004,
+            "theme": 1,
+            "motion": true,
+            "offset": [
+              43.11746470198042,
+              8.799482592240901
+            ],
+            "target": [
+              210.0,
+              120.0,
+              4.999999999999986
+            ],
+            "paused": false,
+            "closed": false
+          },
+          "file_sha256": "9b6778673c47595832e9a506b9a4097f0fef563f972a366bb23d43ae32717f19"
+        },
+        {
+          "name": "emerald",
+          "path": ".work/butterfly-inputs/1000x720/emerald.png",
+          "size": [
+            990,
+            550
+          ],
+          "state": {
+            "time": 1.0000000000000004,
+            "theme": 2,
+            "motion": true,
+            "offset": [
+              43.11746470198042,
+              8.799482592240901
+            ],
+            "target": [
+              210.0,
+              120.0,
+              4.999999999999986
+            ],
+            "paused": false,
+            "closed": false
+          },
+          "file_sha256": "f1a60d5a9da74577c752ffa75043bb6e7480769617753ce55f750b9a9a8f90f9"
+        },
+        {
+          "name": "blue-cycle",
+          "path": ".work/butterfly-inputs/1000x720/blue-cycle.png",
+          "size": [
+            990,
+            550
+          ],
+          "state": {
+            "time": 1.0000000000000004,
+            "theme": 0,
+            "motion": true,
+            "offset": [
+              43.11746470198042,
+              8.799482592240901
+            ],
+            "target": [
+              210.0,
+              120.0,
+              4.999999999999986
+            ],
+            "paused": false,
+            "closed": false
+          },
+          "file_sha256": "95d4d614cb3882b9bedd2952e12bbcb4b3aa835bbf1997af90b71dff2dced390"
+        },
+        {
+          "name": "paused",
+          "path": ".work/butterfly-inputs/1000x720/paused.png",
+          "size": [
+            990,
+            550
+          ],
+          "state": {
+            "time": 1.999999999999997,
+            "theme": 0,
+            "motion": true,
+            "offset": [
+              50.700918904746636,
+              10.347126307091154
+            ],
+            "target": [
+              210.0,
+              120.0,
+              3.999999999999972
+            ],
+            "paused": true,
+            "closed": false
+          },
+          "file_sha256": "cfbb2c55cb5103d233857ed4435e4fc1be734ee23d9ce2c0026d51f6ed52743f"
+        },
+        {
+          "name": "paused-after-frames",
+          "path": ".work/butterfly-inputs/1000x720/paused-after-frames.png",
+          "size": [
+            990,
+            550
+          ],
+          "state": {
+            "time": 1.999999999999997,
+            "theme": 0,
+            "motion": true,
+            "offset": [
+              50.700918904746636,
+              10.347126307091154
+            ],
+            "target": [
+              210.0,
+              120.0,
+              3.999999999999972
+            ],
+            "paused": true,
+            "closed": false
+          },
+          "file_sha256": "cfbb2c55cb5103d233857ed4435e4fc1be734ee23d9ce2c0026d51f6ed52743f"
+        },
+        {
+          "name": "paused-after-inputs",
+          "path": ".work/butterfly-inputs/1000x720/paused-after-inputs.png",
+          "size": [
+            990,
+            550
+          ],
+          "state": {
+            "time": 1.999999999999997,
+            "theme": 0,
+            "motion": true,
+            "offset": [
+              50.700918904746636,
+              10.347126307091154
+            ],
+            "target": [
+              210.0,
+              120.0,
+              3.999999999999972
+            ],
+            "paused": true,
+            "closed": false
+          },
+          "file_sha256": "cfbb2c55cb5103d233857ed4435e4fc1be734ee23d9ce2c0026d51f6ed52743f"
+        },
+        {
+          "name": "reset",
+          "path": ".work/butterfly-inputs/1000x720/reset.png",
+          "size": [
+            990,
+            550
+          ],
+          "state": {
+            "time": 0.0,
+            "theme": 0,
+            "motion": true,
+            "offset": [
+              0.0,
+              0.0
+            ],
+            "target": null,
+            "paused": false,
+            "closed": false
+          },
+          "file_sha256": "1fb438625c981be294e4674cb2169e38d92af278b7c658e0e5d242a7d1850d27"
+        }
+      ],
+      "failures": [],
+      "source_sha256_lf": {
+        "社团展示/28_霓光蝶舞.py": "8a304f06e43ca8b1652bb34f1deb6745e8001ddd91c10a300580e0aa5f1bea3d",
+        "社团展示/舞台.py": "3064d15913b65056f81e644d7c3d4379cb36a61eeb44bfc9f428433b878786c1",
+        "社团展示/作品导出.py": "2a9f464cdd12d160f7bd957cf477a2a8f5b2868d94d54c1cef51bac1533f2879",
+        "tools/check_tour.py": "7428f81ca64fdb33a1398ee3894048ec0e44ac551e8c77e484d359fea9398486",
+        ".work/check_butterfly_inputs.py": "85b5c8367e98b4f8a4b38d1aed90ab818f109cac4333fba86fe7c844066a0311"
+      },
+      "environment": {
+        "platform": "Windows-11-10.0.26200-SP0",
+        "python": "3.12.4 | packaged by Anaconda, Inc. | (main, Jun 18 2024, 15:03:56) [MSC v.1929 64 bit (AMD64)]",
+        "pillow": "12.3.0",
+        "pid": 32720,
+        "tk": "8.6.14",
+        "tk_scaling": 1.332282448377581,
+        "tk_screen_size": [
+          1707,
+          1067
+        ],
+        "windowing_system": "win32",
+        "canvas_hwnd": 789222,
+        "root_hwnd": 1835148,
+        "actual_window": [
+          1000,
+          720
+        ],
+        "tk_canvas_size": [
+          998,
+          718
+        ],
+        "stage_scale": 1.0
+      },
+      "cleanup": {
+        "owned_canvas_destroyed": true,
+        "owned_root_destroyed": true,
+        "callback_errors": []
+      },
+      "finished_at": "2026-10-12T11:22:52.838028+08:00",
+      "exit_code": 0
+    },
+    {
+      "requested_window": [
+        760,
+        580
+      ],
+      "started_at": "2026-10-12T11:22:53.068664+08:00",
+      "passed": true,
+      "scope": "Visible Windows/Tk windows; PostMessageW mouse/key messages addressed only to this process's exact artwork Canvas HWND. Original application bindings handle the events; passive Tk observers and scene state verify delivery. For mouse messages, SetKeyboardState supplies the receiving GUI thread's VK_LBUTTON state only while pumping each message, then restores it. Explicit app.frame(0 if stage.paused else .025) plus screen.update follows Stage's pause contract. No Stage.tick timer scheduling or live FPS measurement.",
+      "checks": [
+        {
+          "name": "visible_requested_size",
+          "passed": true,
+          "details": {
+            "platform": "Windows-11-10.0.26200-SP0",
+            "python": "3.12.4 | packaged by Anaconda, Inc. | (main, Jun 18 2024, 15:03:56) [MSC v.1929 64 bit (AMD64)]",
+            "pillow": "12.3.0",
+            "pid": 30660,
+            "tk": "8.6.14",
+            "tk_scaling": 1.332282448377581,
+            "tk_screen_size": [
+              1707,
+              1067
+            ],
+            "windowing_system": "win32",
+            "canvas_hwnd": 328392,
+            "root_hwnd": 1705216,
+            "actual_window": [
+              760,
+              580
+            ],
+            "tk_canvas_size": [
+              758,
+              578
+            ],
+            "stage_scale": 0.76
+          }
+        },
+        {
+          "name": "click_attract",
+          "passed": true,
+          "details": {
+            "action": "click",
+            "canvas_hwnd": 328392,
+            "messages": [
+              [
+                513,
+                1,
+                13173278
+              ],
+              [
+                514,
+                0,
+                13173278
+              ]
+            ],
+            "before": {
+              "time": 0.0,
+              "theme": 0,
+              "motion": true,
+              "offset": [
+                0.0,
+                0.0
+              ],
+              "target": null,
+              "paused": false,
+              "closed": false
+            },
+            "after": {
+              "time": 0.0,
+              "theme": 0,
+              "motion": true,
+              "offset": [
+                0.0,
+                0.0
+              ],
+              "target": [
+                210.52631578947367,
+                119.73684210526315,
+                6.0
+              ],
+              "paused": false,
+              "closed": false
+            },
+            "observed_tk_events": [
+              {
+                "type": "Button-1",
+                "tk_client": [
+                  542,
+                  201
+                ],
+                "logical": [
+                  210.52631578947367,
+                  119.73684210526315
+                ]
+              }
+            ],
+            "receiver_thread_mouse_state_restored": true,
+            "coordinate_mapping": {
+              "requested_logical": [
+                210,
+                120
+              ],
+              "stage_scale": 0.76,
+              "canvas_origin": [
+                -382.0,
+                -292.0
+              ],
+              "win32_per_tk_unit": [
+                1.0,
+                1.0
+              ],
+              "tk_client": [
+                541.6,
+                200.8
+              ],
+              "win32_client": [
+                542,
+                201
+              ]
+            }
+          }
+        },
+        {
+          "name": "click_follow",
+          "passed": true,
+          "details": {
+            "after_one_simulated_second": {
+              "time": 1.0000000000000004,
+              "theme": 0,
+              "motion": true,
+              "offset": [
+                43.225528523288624,
+                8.780185481293001
+              ],
+              "target": [
+                210.52631578947367,
+                119.73684210526315,
+                4.999999999999986
+              ],
+              "paused": false,
+              "closed": false
+            }
+          }
+        },
+        {
+          "name": "C_theme_1",
+          "passed": true,
+          "details": {
+            "theme_name": "玫瑰月光",
+            "event": {
+              "action": "C",
+              "canvas_hwnd": 328392,
+              "messages": [
+                [
+                  256,
+                  67,
+                  3014657
+                ],
+                [
+                  257,
+                  67,
+                  3224240129
+                ]
+              ],
+              "before": {
+                "time": 1.0000000000000004,
+                "theme": 0,
+                "motion": true,
+                "offset": [
+                  43.225528523288624,
+                  8.780185481293001
+                ],
+                "target": [
+                  210.52631578947367,
+                  119.73684210526315,
+                  4.999999999999986
+                ],
+                "paused": false,
+                "closed": false
+              },
+              "after": {
+                "time": 1.0000000000000004,
+                "theme": 1,
+                "motion": true,
+                "offset": [
+                  43.225528523288624,
+                  8.780185481293001
+                ],
+                "target": [
+                  210.52631578947367,
+                  119.73684210526315,
+                  4.999999999999986
+                ],
+                "paused": false,
+                "closed": false
+              },
+              "observed_tk_events": [
+                {
+                  "type": "KeyRelease",
+                  "keysym": "c",
+                  "keycode": 67
+                }
+              ]
+            }
+          }
+        },
+        {
+          "name": "C_theme_2",
+          "passed": true,
+          "details": {
+            "theme_name": "翡翠流萤",
+            "event": {
+              "action": "C",
+              "canvas_hwnd": 328392,
+              "messages": [
+                [
+                  256,
+                  67,
+                  3014657
+                ],
+                [
+                  257,
+                  67,
+                  3224240129
+                ]
+              ],
+              "before": {
+                "time": 1.0000000000000004,
+                "theme": 1,
+                "motion": true,
+                "offset": [
+                  43.225528523288624,
+                  8.780185481293001
+                ],
+                "target": [
+                  210.52631578947367,
+                  119.73684210526315,
+                  4.999999999999986
+                ],
+                "paused": false,
+                "closed": false
+              },
+              "after": {
+                "time": 1.0000000000000004,
+                "theme": 2,
+                "motion": true,
+                "offset": [
+                  43.225528523288624,
+                  8.780185481293001
+                ],
+                "target": [
+                  210.52631578947367,
+                  119.73684210526315,
+                  4.999999999999986
+                ],
+                "paused": false,
+                "closed": false
+              },
+              "observed_tk_events": [
+                {
+                  "type": "KeyRelease",
+                  "keysym": "c",
+                  "keycode": 67
+                }
+              ]
+            }
+          }
+        },
+        {
+          "name": "C_theme_0",
+          "passed": true,
+          "details": {
+            "theme_name": "蓝紫幻梦",
+            "event": {
+              "action": "C",
+              "canvas_hwnd": 328392,
+              "messages": [
+                [
+                  256,
+                  67,
+                  3014657
+                ],
+                [
+                  257,
+                  67,
+                  3224240129
+                ]
+              ],
+              "before": {
+                "time": 1.0000000000000004,
+                "theme": 2,
+                "motion": true,
+                "offset": [
+                  43.225528523288624,
+                  8.780185481293001
+                ],
+                "target": [
+                  210.52631578947367,
+                  119.73684210526315,
+                  4.999999999999986
+                ],
+                "paused": false,
+                "closed": false
+              },
+              "after": {
+                "time": 1.0000000000000004,
+                "theme": 0,
+                "motion": true,
+                "offset": [
+                  43.225528523288624,
+                  8.780185481293001
+                ],
+                "target": [
+                  210.52631578947367,
+                  119.73684210526315,
+                  4.999999999999986
+                ],
+                "paused": false,
+                "closed": false
+              },
+              "observed_tk_events": [
+                {
+                  "type": "KeyRelease",
+                  "keysym": "c",
+                  "keycode": 67
+                }
+              ]
+            }
+          }
+        },
+        {
+          "name": "M_hover",
+          "passed": true,
+          "details": {
+            "event": {
+              "action": "M",
+              "canvas_hwnd": 328392,
+              "messages": [
+                [
+                  256,
+                  77,
+                  3276801
+                ],
+                [
+                  257,
+                  77,
+                  3224502273
+                ]
+              ],
+              "before": {
+                "time": 1.0000000000000004,
+                "theme": 0,
+                "motion": true,
+                "offset": [
+                  43.225528523288624,
+                  8.780185481293001
+                ],
+                "target": [
+                  210.52631578947367,
+                  119.73684210526315,
+                  4.999999999999986
+                ],
+                "paused": false,
+                "closed": false
+              },
+              "after": {
+                "time": 1.0000000000000004,
+                "theme": 0,
+                "motion": false,
+                "offset": [
+                  43.225528523288624,
+                  8.780185481293001
+                ],
+                "target": [
+                  210.52631578947367,
+                  119.73684210526315,
+                  4.999999999999986
+                ],
+                "paused": false,
+                "closed": false
+              },
+              "observed_tk_events": [
+                {
+                  "type": "KeyRelease",
+                  "keysym": "m",
+                  "keycode": 77
+                }
+              ]
+            },
+            "after_half_simulated_second": {
+              "time": 1.4999999999999987,
+              "theme": 0,
+              "motion": false,
+              "offset": [
+                43.225528523288624,
+                8.780185481293001
+              ],
+              "target": [
+                210.52631578947367,
+                119.73684210526315,
+                4.499999999999979
+              ],
+              "paused": false,
+              "closed": false
+            }
+          }
+        },
+        {
+          "name": "M_roam_resume",
+          "passed": true,
+          "details": {
+            "event": {
+              "action": "M",
+              "canvas_hwnd": 328392,
+              "messages": [
+                [
+                  256,
+                  77,
+                  3276801
+                ],
+                [
+                  257,
+                  77,
+                  3224502273
+                ]
+              ],
+              "before": {
+                "time": 1.4999999999999987,
+                "theme": 0,
+                "motion": false,
+                "offset": [
+                  43.225528523288624,
+                  8.780185481293001
+                ],
+                "target": [
+                  210.52631578947367,
+                  119.73684210526315,
+                  4.499999999999979
+                ],
+                "paused": false,
+                "closed": false
+              },
+              "after": {
+                "time": 1.4999999999999987,
+                "theme": 0,
+                "motion": true,
+                "offset": [
+                  43.225528523288624,
+                  8.780185481293001
+                ],
+                "target": [
+                  210.52631578947367,
+                  119.73684210526315,
+                  4.499999999999979
+                ],
+                "paused": false,
+                "closed": false
+              },
+              "observed_tk_events": [
+                {
+                  "type": "KeyRelease",
+                  "keysym": "m",
+                  "keycode": 77
+                }
+              ]
+            },
+            "after_half_simulated_second": {
+              "time": 1.999999999999997,
+              "theme": 0,
+              "motion": true,
+              "offset": [
+                50.82798887693899,
+                10.324435240628233
+              ],
+              "target": [
+                210.52631578947367,
+                119.73684210526315,
+                3.999999999999972
+              ],
+              "paused": false,
+              "closed": false
+            }
+          }
+        },
+        {
+          "name": "Space_pause",
+          "passed": true,
+          "details": {
+            "action": "Space",
+            "canvas_hwnd": 328392,
+            "messages": [
+              [
+                256,
+                32,
+                3735553
+              ],
+              [
+                257,
+                32,
+                3224961025
+              ]
+            ],
+            "before": {
+              "time": 1.999999999999997,
+              "theme": 0,
+              "motion": true,
+              "offset": [
+                50.82798887693899,
+                10.324435240628233
+              ],
+              "target": [
+                210.52631578947367,
+                119.73684210526315,
+                3.999999999999972
+              ],
+              "paused": false,
+              "closed": false
+            },
+            "after": {
+              "time": 1.999999999999997,
+              "theme": 0,
+              "motion": true,
+              "offset": [
+                50.82798887693899,
+                10.324435240628233
+              ],
+              "target": [
+                210.52631578947367,
+                119.73684210526315,
+                3.999999999999972
+              ],
+              "paused": true,
+              "closed": false
+            },
+            "observed_tk_events": [
+              {
+                "type": "KeyRelease",
+                "keysym": "space",
+                "keycode": 32
+              }
+            ]
+          }
+        },
+        {
+          "name": "paused_frame_freeze",
+          "passed": true,
+          "details": {
+            "requested_steps": 20,
+            "requested_dt": 0.025,
+            "effective_dt": 0,
+            "before": {
+              "time": 1.999999999999997,
+              "theme": 0,
+              "motion": true,
+              "offset": [
+                50.82798887693899,
+                10.324435240628233
+              ],
+              "target": [
+                210.52631578947367,
+                119.73684210526315,
+                3.999999999999972
+              ],
+              "paused": true,
+              "closed": false
+            },
+            "after": {
+              "time": 1.999999999999997,
+              "theme": 0,
+              "motion": true,
+              "offset": [
+                50.82798887693899,
+                10.324435240628233
+              ],
+              "target": [
+                210.52631578947367,
+                119.73684210526315,
+                3.999999999999972
+              ],
+              "paused": true,
+              "closed": false
+            }
+          }
+        },
+        {
+          "name": "paused_click_ignored",
+          "passed": true,
+          "details": {
+            "action": "click",
+            "canvas_hwnd": 328392,
+            "messages": [
+              [
+                513,
+                1,
+                24117478
+              ],
+              [
+                514,
+                0,
+                24117478
+              ]
+            ],
+            "before": {
+              "time": 1.999999999999997,
+              "theme": 0,
+              "motion": true,
+              "offset": [
+                50.82798887693899,
+                10.324435240628233
+              ],
+              "target": [
+                210.52631578947367,
+                119.73684210526315,
+                3.999999999999972
+              ],
+              "paused": true,
+              "closed": false
+            },
+            "after": {
+              "time": 1.999999999999997,
+              "theme": 0,
+              "motion": true,
+              "offset": [
+                50.82798887693899,
+                10.324435240628233
+              ],
+              "target": [
+                210.52631578947367,
+                119.73684210526315,
+                3.999999999999972
+              ],
+              "paused": true,
+              "closed": false
+            },
+            "observed_tk_events": [
+              {
+                "type": "Button-1",
+                "tk_client": [
+                  230,
+                  368
+                ],
+                "logical": [
+                  -200.0,
+                  -100.0
+                ]
+              }
+            ],
+            "receiver_thread_mouse_state_restored": true,
+            "coordinate_mapping": {
+              "requested_logical": [
+                -200,
+                -100
+              ],
+              "stage_scale": 0.76,
+              "canvas_origin": [
+                -382.0,
+                -292.0
+              ],
+              "win32_per_tk_unit": [
+                1.0,
+                1.0
+              ],
+              "tk_client": [
+                230.0,
+                368.0
+              ],
+              "win32_client": [
+                230,
+                368
+              ]
+            }
+          }
+        },
+        {
+          "name": "paused_C_ignored",
+          "passed": true,
+          "details": {
+            "action": "C",
+            "canvas_hwnd": 328392,
+            "messages": [
+              [
+                256,
+                67,
+                3014657
+              ],
+              [
+                257,
+                67,
+                3224240129
+              ]
+            ],
+            "before": {
+              "time": 1.999999999999997,
+              "theme": 0,
+              "motion": true,
+              "offset": [
+                50.82798887693899,
+                10.324435240628233
+              ],
+              "target": [
+                210.52631578947367,
+                119.73684210526315,
+                3.999999999999972
+              ],
+              "paused": true,
+              "closed": false
+            },
+            "after": {
+              "time": 1.999999999999997,
+              "theme": 0,
+              "motion": true,
+              "offset": [
+                50.82798887693899,
+                10.324435240628233
+              ],
+              "target": [
+                210.52631578947367,
+                119.73684210526315,
+                3.999999999999972
+              ],
+              "paused": true,
+              "closed": false
+            },
+            "observed_tk_events": [
+              {
+                "type": "KeyRelease",
+                "keysym": "c",
+                "keycode": 67
+              }
+            ]
+          }
+        },
+        {
+          "name": "paused_M_ignored",
+          "passed": true,
+          "details": {
+            "action": "M",
+            "canvas_hwnd": 328392,
+            "messages": [
+              [
+                256,
+                77,
+                3276801
+              ],
+              [
+                257,
+                77,
+                3224502273
+              ]
+            ],
+            "before": {
+              "time": 1.999999999999997,
+              "theme": 0,
+              "motion": true,
+              "offset": [
+                50.82798887693899,
+                10.324435240628233
+              ],
+              "target": [
+                210.52631578947367,
+                119.73684210526315,
+                3.999999999999972
+              ],
+              "paused": true,
+              "closed": false
+            },
+            "after": {
+              "time": 1.999999999999997,
+              "theme": 0,
+              "motion": true,
+              "offset": [
+                50.82798887693899,
+                10.324435240628233
+              ],
+              "target": [
+                210.52631578947367,
+                119.73684210526315,
+                3.999999999999972
+              ],
+              "paused": true,
+              "closed": false
+            },
+            "observed_tk_events": [
+              {
+                "type": "KeyRelease",
+                "keysym": "m",
+                "keycode": 77
+              }
+            ]
+          }
+        },
+        {
+          "name": "paused_input_pixels_unchanged",
+          "passed": true,
+          "details": {
+            "comparison": "Exact size, mode and RGB bytes of owned artwork captures"
+          }
+        },
+        {
+          "name": "Space_continue",
+          "passed": true,
+          "details": {
+            "event": {
+              "action": "Space",
+              "canvas_hwnd": 328392,
+              "messages": [
+                [
+                  256,
+                  32,
+                  3735553
+                ],
+                [
+                  257,
+                  32,
+                  3224961025
+                ]
+              ],
+              "before": {
+                "time": 1.999999999999997,
+                "theme": 0,
+                "motion": true,
+                "offset": [
+                  50.82798887693899,
+                  10.324435240628233
+                ],
+                "target": [
+                  210.52631578947367,
+                  119.73684210526315,
+                  3.999999999999972
+                ],
+                "paused": true,
+                "closed": false
+              },
+              "after": {
+                "time": 1.999999999999997,
+                "theme": 0,
+                "motion": true,
+                "offset": [
+                  50.82798887693899,
+                  10.324435240628233
+                ],
+                "target": [
+                  210.52631578947367,
+                  119.73684210526315,
+                  3.999999999999972
+                ],
+                "paused": false,
+                "closed": false
+              },
+              "observed_tk_events": [
+                {
+                  "type": "KeyRelease",
+                  "keysym": "space",
+                  "keycode": 32
+                }
+              ]
+            },
+            "after_half_simulated_second": {
+              "time": 2.499999999999995,
+              "theme": 0,
+              "motion": true,
+              "offset": [
+                54.75419989815302,
+                11.121946854312332
+              ],
+              "target": [
+                210.52631578947367,
+                119.73684210526315,
+                3.499999999999974
+              ],
+              "paused": false,
+              "closed": false
+            }
+          }
+        },
+        {
+          "name": "R_setup_disturbed_and_paused",
+          "passed": true,
+          "details": {
+            "time": 2.499999999999995,
+            "theme": 1,
+            "motion": false,
+            "offset": [
+              54.75419989815302,
+              11.121946854312332
+            ],
+            "target": [
+              210.52631578947367,
+              119.73684210526315,
+              3.499999999999974
+            ],
+            "paused": true,
+            "closed": false
+          }
+        },
+        {
+          "name": "R_reset_state_and_pixels",
+          "passed": true,
+          "details": {
+            "event": {
+              "action": "R",
+              "canvas_hwnd": 328392,
+              "messages": [
+                [
+                  256,
+                  82,
+                  1245185
+                ],
+                [
+                  257,
+                  82,
+                  3222470657
+                ]
+              ],
+              "before": {
+                "time": 2.499999999999995,
+                "theme": 1,
+                "motion": false,
+                "offset": [
+                  54.75419989815302,
+                  11.121946854312332
+                ],
+                "target": [
+                  210.52631578947367,
+                  119.73684210526315,
+                  3.499999999999974
+                ],
+                "paused": true,
+                "closed": false
+              },
+              "after": {
+                "time": 0.0,
+                "theme": 0,
+                "motion": true,
+                "offset": [
+                  0.0,
+                  0.0
+                ],
+                "target": null,
+                "paused": false,
+                "closed": false
+              },
+              "observed_tk_events": [
+                {
+                  "type": "KeyRelease",
+                  "keysym": "r",
+                  "keycode": 82
+                }
+              ]
+            },
+            "initial_state": {
+              "time": 0.0,
+              "theme": 0,
+              "motion": true,
+              "offset": [
+                0.0,
+                0.0
+              ],
+              "target": null,
+              "paused": false,
+              "closed": false
+            },
+            "reset_state": {
+              "time": 0.0,
+              "theme": 0,
+              "motion": true,
+              "offset": [
+                0.0,
+                0.0
+              ],
+              "target": null,
+              "paused": false,
+              "closed": false
+            },
+            "pixels_equal": true
+          }
+        },
+        {
+          "name": "Escape_close",
+          "passed": true,
+          "details": {
+            "action": "Escape",
+            "canvas_hwnd": 328392,
+            "messages": [
+              [
+                256,
+                27,
+                65537
+              ],
+              [
+                257,
+                27,
+                3221291009
+              ]
+            ],
+            "before": {
+              "time": 0.0,
+              "theme": 0,
+              "motion": true,
+              "offset": [
+                0.0,
+                0.0
+              ],
+              "target": null,
+              "paused": false,
+              "closed": false
+            },
+            "after": {
+              "time": 0.0,
+              "theme": 0,
+              "motion": true,
+              "offset": [
+                0.0,
+                0.0
+              ],
+              "target": null,
+              "paused": false,
+              "closed": true
+            },
+            "observed_tk_events": []
+          }
+        },
+        {
+          "name": "sources_unchanged",
+          "passed": true,
+          "details": {
+            "社团展示/28_霓光蝶舞.py": "8a304f06e43ca8b1652bb34f1deb6745e8001ddd91c10a300580e0aa5f1bea3d",
+            "社团展示/舞台.py": "3064d15913b65056f81e644d7c3d4379cb36a61eeb44bfc9f428433b878786c1",
+            "社团展示/作品导出.py": "2a9f464cdd12d160f7bd957cf477a2a8f5b2868d94d54c1cef51bac1533f2879",
+            "tools/check_tour.py": "7428f81ca64fdb33a1398ee3894048ec0e44ac551e8c77e484d359fea9398486",
+            ".work/check_butterfly_inputs.py": "85b5c8367e98b4f8a4b38d1aed90ab818f109cac4333fba86fe7c844066a0311"
+          }
+        }
+      ],
+      "events": [
+        {
+          "action": "click",
+          "canvas_hwnd": 328392,
+          "messages": [
+            [
+              513,
+              1,
+              13173278
+            ],
+            [
+              514,
+              0,
+              13173278
+            ]
+          ],
+          "before": {
+            "time": 0.0,
+            "theme": 0,
+            "motion": true,
+            "offset": [
+              0.0,
+              0.0
+            ],
+            "target": null,
+            "paused": false,
+            "closed": false
+          },
+          "after": {
+            "time": 0.0,
+            "theme": 0,
+            "motion": true,
+            "offset": [
+              0.0,
+              0.0
+            ],
+            "target": [
+              210.52631578947367,
+              119.73684210526315,
+              6.0
+            ],
+            "paused": false,
+            "closed": false
+          },
+          "observed_tk_events": [
+            {
+              "type": "Button-1",
+              "tk_client": [
+                542,
+                201
+              ],
+              "logical": [
+                210.52631578947367,
+                119.73684210526315
+              ]
+            }
+          ],
+          "receiver_thread_mouse_state_restored": true,
+          "coordinate_mapping": {
+            "requested_logical": [
+              210,
+              120
+            ],
+            "stage_scale": 0.76,
+            "canvas_origin": [
+              -382.0,
+              -292.0
+            ],
+            "win32_per_tk_unit": [
+              1.0,
+              1.0
+            ],
+            "tk_client": [
+              541.6,
+              200.8
+            ],
+            "win32_client": [
+              542,
+              201
+            ]
+          }
+        },
+        {
+          "action": "C",
+          "canvas_hwnd": 328392,
+          "messages": [
+            [
+              256,
+              67,
+              3014657
+            ],
+            [
+              257,
+              67,
+              3224240129
+            ]
+          ],
+          "before": {
+            "time": 1.0000000000000004,
+            "theme": 0,
+            "motion": true,
+            "offset": [
+              43.225528523288624,
+              8.780185481293001
+            ],
+            "target": [
+              210.52631578947367,
+              119.73684210526315,
+              4.999999999999986
+            ],
+            "paused": false,
+            "closed": false
+          },
+          "after": {
+            "time": 1.0000000000000004,
+            "theme": 1,
+            "motion": true,
+            "offset": [
+              43.225528523288624,
+              8.780185481293001
+            ],
+            "target": [
+              210.52631578947367,
+              119.73684210526315,
+              4.999999999999986
+            ],
+            "paused": false,
+            "closed": false
+          },
+          "observed_tk_events": [
+            {
+              "type": "KeyRelease",
+              "keysym": "c",
+              "keycode": 67
+            }
+          ]
+        },
+        {
+          "action": "C",
+          "canvas_hwnd": 328392,
+          "messages": [
+            [
+              256,
+              67,
+              3014657
+            ],
+            [
+              257,
+              67,
+              3224240129
+            ]
+          ],
+          "before": {
+            "time": 1.0000000000000004,
+            "theme": 1,
+            "motion": true,
+            "offset": [
+              43.225528523288624,
+              8.780185481293001
+            ],
+            "target": [
+              210.52631578947367,
+              119.73684210526315,
+              4.999999999999986
+            ],
+            "paused": false,
+            "closed": false
+          },
+          "after": {
+            "time": 1.0000000000000004,
+            "theme": 2,
+            "motion": true,
+            "offset": [
+              43.225528523288624,
+              8.780185481293001
+            ],
+            "target": [
+              210.52631578947367,
+              119.73684210526315,
+              4.999999999999986
+            ],
+            "paused": false,
+            "closed": false
+          },
+          "observed_tk_events": [
+            {
+              "type": "KeyRelease",
+              "keysym": "c",
+              "keycode": 67
+            }
+          ]
+        },
+        {
+          "action": "C",
+          "canvas_hwnd": 328392,
+          "messages": [
+            [
+              256,
+              67,
+              3014657
+            ],
+            [
+              257,
+              67,
+              3224240129
+            ]
+          ],
+          "before": {
+            "time": 1.0000000000000004,
+            "theme": 2,
+            "motion": true,
+            "offset": [
+              43.225528523288624,
+              8.780185481293001
+            ],
+            "target": [
+              210.52631578947367,
+              119.73684210526315,
+              4.999999999999986
+            ],
+            "paused": false,
+            "closed": false
+          },
+          "after": {
+            "time": 1.0000000000000004,
+            "theme": 0,
+            "motion": true,
+            "offset": [
+              43.225528523288624,
+              8.780185481293001
+            ],
+            "target": [
+              210.52631578947367,
+              119.73684210526315,
+              4.999999999999986
+            ],
+            "paused": false,
+            "closed": false
+          },
+          "observed_tk_events": [
+            {
+              "type": "KeyRelease",
+              "keysym": "c",
+              "keycode": 67
+            }
+          ]
+        },
+        {
+          "action": "M",
+          "canvas_hwnd": 328392,
+          "messages": [
+            [
+              256,
+              77,
+              3276801
+            ],
+            [
+              257,
+              77,
+              3224502273
+            ]
+          ],
+          "before": {
+            "time": 1.0000000000000004,
+            "theme": 0,
+            "motion": true,
+            "offset": [
+              43.225528523288624,
+              8.780185481293001
+            ],
+            "target": [
+              210.52631578947367,
+              119.73684210526315,
+              4.999999999999986
+            ],
+            "paused": false,
+            "closed": false
+          },
+          "after": {
+            "time": 1.0000000000000004,
+            "theme": 0,
+            "motion": false,
+            "offset": [
+              43.225528523288624,
+              8.780185481293001
+            ],
+            "target": [
+              210.52631578947367,
+              119.73684210526315,
+              4.999999999999986
+            ],
+            "paused": false,
+            "closed": false
+          },
+          "observed_tk_events": [
+            {
+              "type": "KeyRelease",
+              "keysym": "m",
+              "keycode": 77
+            }
+          ]
+        },
+        {
+          "action": "M",
+          "canvas_hwnd": 328392,
+          "messages": [
+            [
+              256,
+              77,
+              3276801
+            ],
+            [
+              257,
+              77,
+              3224502273
+            ]
+          ],
+          "before": {
+            "time": 1.4999999999999987,
+            "theme": 0,
+            "motion": false,
+            "offset": [
+              43.225528523288624,
+              8.780185481293001
+            ],
+            "target": [
+              210.52631578947367,
+              119.73684210526315,
+              4.499999999999979
+            ],
+            "paused": false,
+            "closed": false
+          },
+          "after": {
+            "time": 1.4999999999999987,
+            "theme": 0,
+            "motion": true,
+            "offset": [
+              43.225528523288624,
+              8.780185481293001
+            ],
+            "target": [
+              210.52631578947367,
+              119.73684210526315,
+              4.499999999999979
+            ],
+            "paused": false,
+            "closed": false
+          },
+          "observed_tk_events": [
+            {
+              "type": "KeyRelease",
+              "keysym": "m",
+              "keycode": 77
+            }
+          ]
+        },
+        {
+          "action": "Space",
+          "canvas_hwnd": 328392,
+          "messages": [
+            [
+              256,
+              32,
+              3735553
+            ],
+            [
+              257,
+              32,
+              3224961025
+            ]
+          ],
+          "before": {
+            "time": 1.999999999999997,
+            "theme": 0,
+            "motion": true,
+            "offset": [
+              50.82798887693899,
+              10.324435240628233
+            ],
+            "target": [
+              210.52631578947367,
+              119.73684210526315,
+              3.999999999999972
+            ],
+            "paused": false,
+            "closed": false
+          },
+          "after": {
+            "time": 1.999999999999997,
+            "theme": 0,
+            "motion": true,
+            "offset": [
+              50.82798887693899,
+              10.324435240628233
+            ],
+            "target": [
+              210.52631578947367,
+              119.73684210526315,
+              3.999999999999972
+            ],
+            "paused": true,
+            "closed": false
+          },
+          "observed_tk_events": [
+            {
+              "type": "KeyRelease",
+              "keysym": "space",
+              "keycode": 32
+            }
+          ]
+        },
+        {
+          "action": "click",
+          "canvas_hwnd": 328392,
+          "messages": [
+            [
+              513,
+              1,
+              24117478
+            ],
+            [
+              514,
+              0,
+              24117478
+            ]
+          ],
+          "before": {
+            "time": 1.999999999999997,
+            "theme": 0,
+            "motion": true,
+            "offset": [
+              50.82798887693899,
+              10.324435240628233
+            ],
+            "target": [
+              210.52631578947367,
+              119.73684210526315,
+              3.999999999999972
+            ],
+            "paused": true,
+            "closed": false
+          },
+          "after": {
+            "time": 1.999999999999997,
+            "theme": 0,
+            "motion": true,
+            "offset": [
+              50.82798887693899,
+              10.324435240628233
+            ],
+            "target": [
+              210.52631578947367,
+              119.73684210526315,
+              3.999999999999972
+            ],
+            "paused": true,
+            "closed": false
+          },
+          "observed_tk_events": [
+            {
+              "type": "Button-1",
+              "tk_client": [
+                230,
+                368
+              ],
+              "logical": [
+                -200.0,
+                -100.0
+              ]
+            }
+          ],
+          "receiver_thread_mouse_state_restored": true,
+          "coordinate_mapping": {
+            "requested_logical": [
+              -200,
+              -100
+            ],
+            "stage_scale": 0.76,
+            "canvas_origin": [
+              -382.0,
+              -292.0
+            ],
+            "win32_per_tk_unit": [
+              1.0,
+              1.0
+            ],
+            "tk_client": [
+              230.0,
+              368.0
+            ],
+            "win32_client": [
+              230,
+              368
+            ]
+          }
+        },
+        {
+          "action": "C",
+          "canvas_hwnd": 328392,
+          "messages": [
+            [
+              256,
+              67,
+              3014657
+            ],
+            [
+              257,
+              67,
+              3224240129
+            ]
+          ],
+          "before": {
+            "time": 1.999999999999997,
+            "theme": 0,
+            "motion": true,
+            "offset": [
+              50.82798887693899,
+              10.324435240628233
+            ],
+            "target": [
+              210.52631578947367,
+              119.73684210526315,
+              3.999999999999972
+            ],
+            "paused": true,
+            "closed": false
+          },
+          "after": {
+            "time": 1.999999999999997,
+            "theme": 0,
+            "motion": true,
+            "offset": [
+              50.82798887693899,
+              10.324435240628233
+            ],
+            "target": [
+              210.52631578947367,
+              119.73684210526315,
+              3.999999999999972
+            ],
+            "paused": true,
+            "closed": false
+          },
+          "observed_tk_events": [
+            {
+              "type": "KeyRelease",
+              "keysym": "c",
+              "keycode": 67
+            }
+          ]
+        },
+        {
+          "action": "M",
+          "canvas_hwnd": 328392,
+          "messages": [
+            [
+              256,
+              77,
+              3276801
+            ],
+            [
+              257,
+              77,
+              3224502273
+            ]
+          ],
+          "before": {
+            "time": 1.999999999999997,
+            "theme": 0,
+            "motion": true,
+            "offset": [
+              50.82798887693899,
+              10.324435240628233
+            ],
+            "target": [
+              210.52631578947367,
+              119.73684210526315,
+              3.999999999999972
+            ],
+            "paused": true,
+            "closed": false
+          },
+          "after": {
+            "time": 1.999999999999997,
+            "theme": 0,
+            "motion": true,
+            "offset": [
+              50.82798887693899,
+              10.324435240628233
+            ],
+            "target": [
+              210.52631578947367,
+              119.73684210526315,
+              3.999999999999972
+            ],
+            "paused": true,
+            "closed": false
+          },
+          "observed_tk_events": [
+            {
+              "type": "KeyRelease",
+              "keysym": "m",
+              "keycode": 77
+            }
+          ]
+        },
+        {
+          "action": "Space",
+          "canvas_hwnd": 328392,
+          "messages": [
+            [
+              256,
+              32,
+              3735553
+            ],
+            [
+              257,
+              32,
+              3224961025
+            ]
+          ],
+          "before": {
+            "time": 1.999999999999997,
+            "theme": 0,
+            "motion": true,
+            "offset": [
+              50.82798887693899,
+              10.324435240628233
+            ],
+            "target": [
+              210.52631578947367,
+              119.73684210526315,
+              3.999999999999972
+            ],
+            "paused": true,
+            "closed": false
+          },
+          "after": {
+            "time": 1.999999999999997,
+            "theme": 0,
+            "motion": true,
+            "offset": [
+              50.82798887693899,
+              10.324435240628233
+            ],
+            "target": [
+              210.52631578947367,
+              119.73684210526315,
+              3.999999999999972
+            ],
+            "paused": false,
+            "closed": false
+          },
+          "observed_tk_events": [
+            {
+              "type": "KeyRelease",
+              "keysym": "space",
+              "keycode": 32
+            }
+          ]
+        },
+        {
+          "action": "C",
+          "canvas_hwnd": 328392,
+          "messages": [
+            [
+              256,
+              67,
+              3014657
+            ],
+            [
+              257,
+              67,
+              3224240129
+            ]
+          ],
+          "before": {
+            "time": 2.499999999999995,
+            "theme": 0,
+            "motion": true,
+            "offset": [
+              54.75419989815302,
+              11.121946854312332
+            ],
+            "target": [
+              210.52631578947367,
+              119.73684210526315,
+              3.499999999999974
+            ],
+            "paused": false,
+            "closed": false
+          },
+          "after": {
+            "time": 2.499999999999995,
+            "theme": 1,
+            "motion": true,
+            "offset": [
+              54.75419989815302,
+              11.121946854312332
+            ],
+            "target": [
+              210.52631578947367,
+              119.73684210526315,
+              3.499999999999974
+            ],
+            "paused": false,
+            "closed": false
+          },
+          "observed_tk_events": [
+            {
+              "type": "KeyRelease",
+              "keysym": "c",
+              "keycode": 67
+            }
+          ]
+        },
+        {
+          "action": "M",
+          "canvas_hwnd": 328392,
+          "messages": [
+            [
+              256,
+              77,
+              3276801
+            ],
+            [
+              257,
+              77,
+              3224502273
+            ]
+          ],
+          "before": {
+            "time": 2.499999999999995,
+            "theme": 1,
+            "motion": true,
+            "offset": [
+              54.75419989815302,
+              11.121946854312332
+            ],
+            "target": [
+              210.52631578947367,
+              119.73684210526315,
+              3.499999999999974
+            ],
+            "paused": false,
+            "closed": false
+          },
+          "after": {
+            "time": 2.499999999999995,
+            "theme": 1,
+            "motion": false,
+            "offset": [
+              54.75419989815302,
+              11.121946854312332
+            ],
+            "target": [
+              210.52631578947367,
+              119.73684210526315,
+              3.499999999999974
+            ],
+            "paused": false,
+            "closed": false
+          },
+          "observed_tk_events": [
+            {
+              "type": "KeyRelease",
+              "keysym": "m",
+              "keycode": 77
+            }
+          ]
+        },
+        {
+          "action": "Space",
+          "canvas_hwnd": 328392,
+          "messages": [
+            [
+              256,
+              32,
+              3735553
+            ],
+            [
+              257,
+              32,
+              3224961025
+            ]
+          ],
+          "before": {
+            "time": 2.499999999999995,
+            "theme": 1,
+            "motion": false,
+            "offset": [
+              54.75419989815302,
+              11.121946854312332
+            ],
+            "target": [
+              210.52631578947367,
+              119.73684210526315,
+              3.499999999999974
+            ],
+            "paused": false,
+            "closed": false
+          },
+          "after": {
+            "time": 2.499999999999995,
+            "theme": 1,
+            "motion": false,
+            "offset": [
+              54.75419989815302,
+              11.121946854312332
+            ],
+            "target": [
+              210.52631578947367,
+              119.73684210526315,
+              3.499999999999974
+            ],
+            "paused": true,
+            "closed": false
+          },
+          "observed_tk_events": [
+            {
+              "type": "KeyRelease",
+              "keysym": "space",
+              "keycode": 32
+            }
+          ]
+        },
+        {
+          "action": "R",
+          "canvas_hwnd": 328392,
+          "messages": [
+            [
+              256,
+              82,
+              1245185
+            ],
+            [
+              257,
+              82,
+              3222470657
+            ]
+          ],
+          "before": {
+            "time": 2.499999999999995,
+            "theme": 1,
+            "motion": false,
+            "offset": [
+              54.75419989815302,
+              11.121946854312332
+            ],
+            "target": [
+              210.52631578947367,
+              119.73684210526315,
+              3.499999999999974
+            ],
+            "paused": true,
+            "closed": false
+          },
+          "after": {
+            "time": 0.0,
+            "theme": 0,
+            "motion": true,
+            "offset": [
+              0.0,
+              0.0
+            ],
+            "target": null,
+            "paused": false,
+            "closed": false
+          },
+          "observed_tk_events": [
+            {
+              "type": "KeyRelease",
+              "keysym": "r",
+              "keycode": 82
+            }
+          ]
+        },
+        {
+          "action": "Escape",
+          "canvas_hwnd": 328392,
+          "messages": [
+            [
+              256,
+              27,
+              65537
+            ],
+            [
+              257,
+              27,
+              3221291009
+            ]
+          ],
+          "before": {
+            "time": 0.0,
+            "theme": 0,
+            "motion": true,
+            "offset": [
+              0.0,
+              0.0
+            ],
+            "target": null,
+            "paused": false,
+            "closed": false
+          },
+          "after": {
+            "time": 0.0,
+            "theme": 0,
+            "motion": true,
+            "offset": [
+              0.0,
+              0.0
+            ],
+            "target": null,
+            "paused": false,
+            "closed": true
+          },
+          "observed_tk_events": []
+        }
+      ],
+      "captures": [
+        {
+          "name": "initial",
+          "path": ".work/butterfly-inputs/760x580/initial.png",
+          "size": [
+            750,
+            417
+          ],
+          "state": {
+            "time": 0.0,
+            "theme": 0,
+            "motion": true,
+            "offset": [
+              0.0,
+              0.0
+            ],
+            "target": null,
+            "paused": false,
+            "closed": false
+          },
+          "file_sha256": "124cb29a36c0c62734ac4607899f7fd765880cabda6177a7c85aedcbdffacf13"
+        },
+        {
+          "name": "attracted",
+          "path": ".work/butterfly-inputs/760x580/attracted.png",
+          "size": [
+            750,
+            417
+          ],
+          "state": {
+            "time": 1.0000000000000004,
+            "theme": 0,
+            "motion": true,
+            "offset": [
+              43.225528523288624,
+              8.780185481293001
+            ],
+            "target": [
+              210.52631578947367,
+              119.73684210526315,
+              4.999999999999986
+            ],
+            "paused": false,
+            "closed": false
+          },
+          "file_sha256": "2e953e54e82cfa90616f93206b454def615e9ff3d901ca16c534c2fad2ee60f1"
+        },
+        {
+          "name": "rose",
+          "path": ".work/butterfly-inputs/760x580/rose.png",
+          "size": [
+            750,
+            417
+          ],
+          "state": {
+            "time": 1.0000000000000004,
+            "theme": 1,
+            "motion": true,
+            "offset": [
+              43.225528523288624,
+              8.780185481293001
+            ],
+            "target": [
+              210.52631578947367,
+              119.73684210526315,
+              4.999999999999986
+            ],
+            "paused": false,
+            "closed": false
+          },
+          "file_sha256": "159073698b79c0e3e54680a9fc62650d79f68ee8d58631fe11829e729c4c8773"
+        },
+        {
+          "name": "emerald",
+          "path": ".work/butterfly-inputs/760x580/emerald.png",
+          "size": [
+            750,
+            417
+          ],
+          "state": {
+            "time": 1.0000000000000004,
+            "theme": 2,
+            "motion": true,
+            "offset": [
+              43.225528523288624,
+              8.780185481293001
+            ],
+            "target": [
+              210.52631578947367,
+              119.73684210526315,
+              4.999999999999986
+            ],
+            "paused": false,
+            "closed": false
+          },
+          "file_sha256": "6af4fc5ba6bf6e9ca6454f6e23b0808726f3d90766d75a57279ee5108fb2cdf5"
+        },
+        {
+          "name": "blue-cycle",
+          "path": ".work/butterfly-inputs/760x580/blue-cycle.png",
+          "size": [
+            750,
+            417
+          ],
+          "state": {
+            "time": 1.0000000000000004,
+            "theme": 0,
+            "motion": true,
+            "offset": [
+              43.225528523288624,
+              8.780185481293001
+            ],
+            "target": [
+              210.52631578947367,
+              119.73684210526315,
+              4.999999999999986
+            ],
+            "paused": false,
+            "closed": false
+          },
+          "file_sha256": "2e953e54e82cfa90616f93206b454def615e9ff3d901ca16c534c2fad2ee60f1"
+        },
+        {
+          "name": "paused",
+          "path": ".work/butterfly-inputs/760x580/paused.png",
+          "size": [
+            750,
+            417
+          ],
+          "state": {
+            "time": 1.999999999999997,
+            "theme": 0,
+            "motion": true,
+            "offset": [
+              50.82798887693899,
+              10.324435240628233
+            ],
+            "target": [
+              210.52631578947367,
+              119.73684210526315,
+              3.999999999999972
+            ],
+            "paused": true,
+            "closed": false
+          },
+          "file_sha256": "ee82b391e828ded95f26904401a7f72a3cbd73ae7ad896bf822fbdcfca680207"
+        },
+        {
+          "name": "paused-after-frames",
+          "path": ".work/butterfly-inputs/760x580/paused-after-frames.png",
+          "size": [
+            750,
+            417
+          ],
+          "state": {
+            "time": 1.999999999999997,
+            "theme": 0,
+            "motion": true,
+            "offset": [
+              50.82798887693899,
+              10.324435240628233
+            ],
+            "target": [
+              210.52631578947367,
+              119.73684210526315,
+              3.999999999999972
+            ],
+            "paused": true,
+            "closed": false
+          },
+          "file_sha256": "ee82b391e828ded95f26904401a7f72a3cbd73ae7ad896bf822fbdcfca680207"
+        },
+        {
+          "name": "paused-after-inputs",
+          "path": ".work/butterfly-inputs/760x580/paused-after-inputs.png",
+          "size": [
+            750,
+            417
+          ],
+          "state": {
+            "time": 1.999999999999997,
+            "theme": 0,
+            "motion": true,
+            "offset": [
+              50.82798887693899,
+              10.324435240628233
+            ],
+            "target": [
+              210.52631578947367,
+              119.73684210526315,
+              3.999999999999972
+            ],
+            "paused": true,
+            "closed": false
+          },
+          "file_sha256": "ee82b391e828ded95f26904401a7f72a3cbd73ae7ad896bf822fbdcfca680207"
+        },
+        {
+          "name": "reset",
+          "path": ".work/butterfly-inputs/760x580/reset.png",
+          "size": [
+            750,
+            417
+          ],
+          "state": {
+            "time": 0.0,
+            "theme": 0,
+            "motion": true,
+            "offset": [
+              0.0,
+              0.0
+            ],
+            "target": null,
+            "paused": false,
+            "closed": false
+          },
+          "file_sha256": "124cb29a36c0c62734ac4607899f7fd765880cabda6177a7c85aedcbdffacf13"
+        }
+      ],
+      "failures": [],
+      "source_sha256_lf": {
+        "社团展示/28_霓光蝶舞.py": "8a304f06e43ca8b1652bb34f1deb6745e8001ddd91c10a300580e0aa5f1bea3d",
+        "社团展示/舞台.py": "3064d15913b65056f81e644d7c3d4379cb36a61eeb44bfc9f428433b878786c1",
+        "社团展示/作品导出.py": "2a9f464cdd12d160f7bd957cf477a2a8f5b2868d94d54c1cef51bac1533f2879",
+        "tools/check_tour.py": "7428f81ca64fdb33a1398ee3894048ec0e44ac551e8c77e484d359fea9398486",
+        ".work/check_butterfly_inputs.py": "85b5c8367e98b4f8a4b38d1aed90ab818f109cac4333fba86fe7c844066a0311"
+      },
+      "environment": {
+        "platform": "Windows-11-10.0.26200-SP0",
+        "python": "3.12.4 | packaged by Anaconda, Inc. | (main, Jun 18 2024, 15:03:56) [MSC v.1929 64 bit (AMD64)]",
+        "pillow": "12.3.0",
+        "pid": 30660,
+        "tk": "8.6.14",
+        "tk_scaling": 1.332282448377581,
+        "tk_screen_size": [
+          1707,
+          1067
+        ],
+        "windowing_system": "win32",
+        "canvas_hwnd": 328392,
+        "root_hwnd": 1705216,
+        "actual_window": [
+          760,
+          580
+        ],
+        "tk_canvas_size": [
+          758,
+          578
+        ],
+        "stage_scale": 0.76
+      },
+      "cleanup": {
+        "owned_canvas_destroyed": true,
+        "owned_root_destroyed": true,
+        "callback_errors": []
+      },
+      "finished_at": "2026-10-12T11:22:57.156136+08:00",
+      "exit_code": 0
+    }
+  ],
+  "limitations": [
+    "Automated Windows message acceptance; no physical human mouse/keyboard input.",
+    "Fixed frame stepping; no Stage.tick scheduling or real-time FPS benchmark.",
+    "One Windows desktop and its recorded scaling; no phone/mobile acceptance.",
+    "No lock screen, remote desktop, or mixed-DPI multiple monitors tested."
+  ],
+  "sources_unchanged": true,
+  "finished_at": "2026-10-12T11:22:57.247043+08:00"
+}

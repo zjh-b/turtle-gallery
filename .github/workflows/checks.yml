@@ -66,3 +66,4 @@ jobs:
           python -m unittest discover -s tests -p test_raster.py -v
           python -m unittest discover -s tests -p test_redraw.py -v
           python -m unittest discover -s tests -p "test_video*.py" -v
+          python -m unittest discover -s tests -p test_butterfly_film.py -v

@@ -1,0 +1,56 @@
+{
+  "date": "2026-10-12",
+  "passed": true,
+  "video_sha256": "6d1730d521c96a797bd3733603eb70aa7d5456d2390bdd3547d5c891a6fa6c16",
+  "ffmpeg_version": "ffmpeg version 8.1.2-full_build-www.gyan.dev Copyright (c) 2000-2026 the FFmpeg developers",
+  "ffprobe": {
+    "programs": [],
+    "stream_groups": [],
+    "streams": [
+      {
+        "codec_name": "h264",
+        "codec_type": "video",
+        "width": 1280,
+        "height": 720,
+        "r_frame_rate": "30/1",
+        "duration": "20.000000",
+        "nb_frames": "600"
+      },
+      {
+        "codec_name": "aac",
+        "codec_type": "audio",
+        "sample_rate": "48000",
+        "channels": 2,
+        "r_frame_rate": "0/0",
+        "duration": "20.000000",
+        "nb_frames": "939"
+      }
+    ],
+    "format": {
+      "duration": "20.000000",
+      "size": "5466151"
+    }
+  },
+  "full_decode": "passed",
+  "decoded_aac": {
+    "sample_count_including_codec_padding": 1921024,
+    "peak_dbfs": -9.931479511773654,
+    "rms_dbfs": -29.03036872061774,
+    "samples_at_or_above_full_scale": 0
+  },
+  "image_sizes": {
+    "cover.png": [
+      1280,
+      720
+    ],
+    "cover-4x3.png": [
+      1200,
+      900
+    ],
+    "storyboard.jpg": [
+      1280,
+      1080
+    ]
+  },
+  "limits": "Automated media integrity and signal measurements; not human listening or real-phone review."
+}
