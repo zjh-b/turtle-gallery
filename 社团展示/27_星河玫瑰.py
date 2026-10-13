@@ -78,6 +78,8 @@ class GalaxyRose:
             bezier((-36, 18), (-17, 37), (9, 31), (24, 12)),
             bezier((-30, -9), (-8, 6), (16, 0), (32, -7)),
         ]
+        # Creases belong to their petals, so later petals can occlude them.
+        self.petal_folds = dict(zip((2, 3, 4, 5, 6, 7, 8, 10), self.fold_lines))
         self.reset()
         self.stage.screen.onclick(self.stardust)
         for key in ("c", "C"):
@@ -212,8 +214,8 @@ class GalaxyRose:
                     p.poly(self.transform(inner, local_open), mix(base, light, layer*.0136*highlight))
                 rim = outline[:min(25, len(outline))]
                 p.line(self.transform(rim, local_open), mix(color, light, .45*highlight), 1.2)
-            for fold in self.fold_lines:
-                p.line(self.transform(fold, opening), mix(color, light, .47), 1)
+                if index in self.petal_folds:
+                    p.line(self.transform(self.petal_folds[index], local_open), mix(color, light, .47), 1)
             spiral = []
             for i in range(73):
                 a = i*math.tau/42
