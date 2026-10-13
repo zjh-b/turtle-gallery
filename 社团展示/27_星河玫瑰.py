@@ -112,9 +112,15 @@ class GalaxyRose:
                 self.particles.append([x, y, math.cos(angle)*speed, math.sin(angle)*speed, 0.0])
             self.particles = self.particles[-144:]
 
-    def transform(self, points, opening):
-        sway = math.sin(self.time*.65)*3.3
-        return [(35+x*opening+sway, 98+y*opening+(1-opening)*22) for x, y in points]
+    def transform(self, points, opening, sway=True):
+        drift = math.sin(self.time*.65)*3.3 if sway else 0
+        visible = max(2, int(len(self.stem)*smoothstep(self.growth/2.1)))
+        tipx, tipy = self.stem[visible-1]
+        # Petals and sepals emerge from the same growing stem tip. Offsets
+        # vanish at full opening, preserving the original mature silhouette.
+        dx = (tipx-35-drift)*(1-opening)
+        dy = (tipy-98)*(1-opening)
+        return [(35+x*opening+drift+dx, 98+y*opening+dy) for x, y in points]
 
     def leaf(self, p, start, tip, width, light):
         dx, dy = tip[0]-start[0], tip[1]-start[1]
@@ -189,7 +195,7 @@ class GalaxyRose:
             for shape in [[(28, 15), (-20, 45), (-40, 70), (8, 53)],
                           [(29, 13), (76, 54), (98, 70), (65, 23)],
                           [(30, 16), (24, 49), (35, 69), (42, 30)]]:
-                shape = [(30+(x-30)*opening, 20+(y-20)*opening) for x, y in shape]
+                shape = self.transform([(x-35, y-98) for x, y in shape], opening, sway=False)
                 p.poly(shape, "#315044", "#57725B", smooth=True)
             for index, (outline, shade, highlight) in enumerate(self.petals):
                 local_open = opening*(.85+.15*smoothstep((self.growth-2-index*.11)/2))

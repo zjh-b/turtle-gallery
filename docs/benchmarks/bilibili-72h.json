@@ -1,0 +1,151 @@
+{
+  "schema_version": 1,
+  "checkpoint": "D3: approximately 72 hours after publication",
+  "status": "failed",
+  "metrics_snapshot_available": false,
+  "video": {
+    "bvid": "BV1VhpY66EsQ",
+    "url": "https://www.bilibili.com/video/BV1VhpY66EsQ/",
+    "account_name": "难安这余念",
+    "account_uid": 3546966168438889,
+    "account_url": "https://space.bilibili.com/3546966168438889",
+    "published_at_reference": "2026-10-10T11:53:52+08:00",
+    "published_at_provenance": "Previously observed publication time supplied in the authorized D3 task context; not reverified during this failed collection. docs/progress/2026-10-11.md records the earlier observation as approximately 25 hours 43 minutes after publication.",
+    "publication_time_reverified_this_attempt": false
+  },
+  "collection": {
+    "started_at": "2026-10-13T12:22:50+08:00",
+    "completed_at": "2026-10-13T12:25:39+08:00",
+    "timezone": "Asia/Shanghai",
+    "start_time_precision_note": "Start uses the clock tool read made immediately alongside the first web.open request; endpoint and browser raw files preserve their individual timestamps.",
+    "elapsed_since_reference_publication_seconds_at_start": 260938,
+    "elapsed_since_reference_publication_seconds_at_end": 261107,
+    "elapsed_since_reference_publication_at_end": "72 hours 31 minutes 47 seconds",
+    "metrics_observed_at": null,
+    "authentication_used": false,
+    "browser_context": "Fresh headless Microsoft Edge context; no existing CDP session or account profile used.",
+    "browser_controls": [
+      "Media requests blocked",
+      "playurl requests blocked",
+      "All methods other than GET, HEAD and OPTIONS blocked",
+      "Autoplay requires a user gesture"
+    ],
+    "retry_policy": "Stopped after the final browser attempt; no CAPTCHA or access-control bypass attempted."
+  },
+  "metrics": {
+    "views": null,
+    "likes": null,
+    "danmaku": null,
+    "comments": null,
+    "favorites": null,
+    "coins": null,
+    "shares": null,
+    "account_followers": null,
+    "average_watch_seconds": null,
+    "completion_rate": null,
+    "video_new_followers": null
+  },
+  "missing_reasons": {
+    "public_video_metrics": "The video page was inaccessible to web.open; anonymous API requests failed before receiving an HTTP response; the final browser video-page navigation failed with net::ERR_CONNECTION_CLOSED.",
+    "account_followers": "Anonymous API requests failed before receiving an HTTP response; the final public account page returned HTTP 412 and explicitly rejected the request under Bilibili security control policy.",
+    "average_watch_seconds_completion_rate_video_new_followers": "Not available from the failed public collection. Creator analytics were outside this public-only attempt and were not accessed.",
+    "audience_feedback": "No comment contents could be retrieved; no conclusion about whether new audience comments exist."
+  },
+  "baseline": {
+    "source": "docs/progress/2026-10-11.md",
+    "recorded_at": "2026-10-11T13:37+08:00",
+    "timestamp_precision": "minute",
+    "views": 17,
+    "likes": 1,
+    "danmaku": 0,
+    "comments": 1,
+    "comment_note": "The one comment was an author topic solicitation, according to the prior observation.",
+    "account_followers": 0,
+    "account_followers_recorded_at": "2026-10-11T13:38+08:00",
+    "average_watch_seconds": null,
+    "completion_rate": null,
+    "video_new_followers": null,
+    "provenance_note": "Historical metrics supplied with the authorized D3 task; not copied into current metrics."
+  },
+  "changes_since_baseline": {
+    "views": null,
+    "likes": null,
+    "danmaku": null,
+    "comments": null,
+    "account_followers": null,
+    "note": "No current observations, so no numeric changes can be calculated. Account follower changes must not be attributed to this video."
+  },
+  "attempts": [
+    {
+      "method": "web.open",
+      "target": "video page",
+      "result": "URL inaccessible",
+      "evidence": ".work/bilibili-72h/web_tool_failure.json"
+    },
+    {
+      "method": "anonymous HTTPS GET in restricted environment",
+      "targets": [
+        "https://api.bilibili.com/x/web-interface/view?bvid=BV1VhpY66EsQ",
+        "https://api.bilibili.com/x/relation/stat?vmid=3546966168438889"
+      ],
+      "started_at": "2026-10-13T12:23:36+08:00",
+      "completed_at": "2026-10-13T12:23:38+08:00",
+      "result": "Both requests failed with ProxyError / WinError 10061 before an HTTP response."
+    },
+    {
+      "method": "anonymous HTTPS GET after approved network escalation",
+      "started_at": "2026-10-13T12:23:59+08:00",
+      "completed_at": "2026-10-13T12:24:09+08:00",
+      "result": "Both requests failed with SSLError / UNEXPECTED_EOF_WHILE_READING before an HTTP response."
+    },
+    {
+      "method": "fresh anonymous headless Edge: video page",
+      "started_at": "2026-10-13T12:25:05+08:00",
+      "completed_at": "2026-10-13T12:25:25+08:00",
+      "result": "net::ERR_CONNECTION_CLOSED"
+    },
+    {
+      "method": "fresh anonymous headless Edge: account public page",
+      "started_at": "2026-10-13T12:25:25+08:00",
+      "completed_at": "2026-10-13T12:25:39+08:00",
+      "http_status": 412,
+      "result": "Bilibili security control policy rejected the request."
+    }
+  ],
+  "evidence": [
+    {
+      "path": ".work/bilibili-72h/web_tool_failure.json",
+      "sha256": "ecb3118226414546ee806e421a01a2a302d5b27fb54f268d6a79fc3d0d42fc78"
+    },
+    {
+      "path": ".work/bilibili-72h/video_view.json",
+      "sha256": "0972dd1f65f323a8475533a0183508f58b69d74ad8761e49ca1f0a1c770d956b"
+    },
+    {
+      "path": ".work/bilibili-72h/account_relation_stat.json",
+      "sha256": "0b858defb48dbc6f013fa8cf5ce99dd25b0525e069a6a30b90798679ba5f9eeb"
+    },
+    {
+      "path": ".work/bilibili-72h/video_view-2026-10-13T042359_0000.json",
+      "sha256": "6574c967191773ef6b79d768f522d50a570c744b0422dd24f6e0c7bab92659ca"
+    },
+    {
+      "path": ".work/bilibili-72h/account_relation_stat-2026-10-13T042359_0000.json",
+      "sha256": "f1eb9a94b5be58f16c71de2ba34da46f8f8879635ceccb8096d14bee0fe05dc5"
+    },
+    {
+      "path": ".work/bilibili-72h/video_page.json",
+      "sha256": "d6948be8f713d651337319656c8d165e149bfb70eab0c8ad0ccd8b365364801d"
+    },
+    {
+      "path": ".work/bilibili-72h/account_page.json",
+      "sha256": "174e2630fe63c65db69a6956f0e6ab798aff5b4b45ba67b56c433811b045b8c0"
+    },
+    {
+      "path": ".work/bilibili-72h/account_page.png",
+      "sha256": "e6dc00f8ab39786e65afed47c4e1f06ffa77c14f63e27500d6ec5065d6374a55"
+    }
+  ],
+  "evidence_note": "Raw evidence remains in the local ignored .work directory; the tracked report contains no cookies, tokens, account profiles or authentication material.",
+  "next_step": "Keep the 72-hour metrics item incomplete. If public access becomes available later, record a new actual timestamp and elapsed interval without backfilling this failed attempt."
+}

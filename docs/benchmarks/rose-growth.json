@@ -1,0 +1,2474 @@
+{
+  "date": "2026-10-12",
+  "work": 27,
+  "baseline_ref": "bee05a9",
+  "passed": true,
+  "scope": "Real capture_artwork HWND snapshots with time=growth at fixed stages; public callbacks called directly, no physical keyboard/mouse input; only scene source replaced for baseline; no timers, video or performance measurement.",
+  "environment": {
+    "python": "3.12.4 | packaged by Anaconda, Inc. | (main, Jun 18 2024, 15:03:56) [MSC v.1929 64 bit (AMD64)]",
+    "executable": "D:\\Anaconda\\python.exe",
+    "platform": "Windows-11-10.0.26200-SP0",
+    "pillow": "12.3.0",
+    "tk": "8.6.14",
+    "tk_scaling": 1.332282448377581,
+    "screen": [
+      1707,
+      1067
+    ]
+  },
+  "baseline": {
+    "id": 27,
+    "started_utc": "2026-10-12T12:15:12.258443+00:00",
+    "source_ref": "bee05a9719dcf0b79303abe9999ef560bbd9053b",
+    "requested_ref": "bee05a9",
+    "scope": "Real capture_artwork HWND snapshots with time=growth at fixed stages; public callbacks called directly, no physical keyboard/mouse input; only scene source replaced for baseline; no timers, video or performance measurement.",
+    "source_sha256_lf": {
+      "社团展示/27_星河玫瑰.py": "59dc7ba5e1972ffacab60738e08c1c20c726789fc256b9de5d03f7b3a9df69e7",
+      "社团展示/舞台.py": "3064d15913b65056f81e644d7c3d4379cb36a61eeb44bfc9f428433b878786c1",
+      "社团展示/作品导出.py": "2a9f464cdd12d160f7bd957cf477a2a8f5b2868d94d54c1cef51bac1533f2879",
+      ".work/check_rose_growth.py": "bbe0957dc7edecaae052708142c8c23ca2992be15e07b3e833562c16af5b9853"
+    },
+    "environment": {
+      "python": "3.12.4 | packaged by Anaconda, Inc. | (main, Jun 18 2024, 15:03:56) [MSC v.1929 64 bit (AMD64)]",
+      "executable": "D:\\Anaconda\\python.exe",
+      "platform": "Windows-11-10.0.26200-SP0",
+      "pillow": "12.3.0",
+      "tk": "8.6.14",
+      "tk_scaling": 1.332282448377581,
+      "screen": [
+        1707,
+        1067
+      ]
+    },
+    "stages": [
+      1.9,
+      2.5,
+      3.0,
+      3.4,
+      5.8,
+      7.0
+    ],
+    "sizes": [
+      {
+        "requested_window": [
+          1000,
+          720
+        ],
+        "actual_window": [
+          1000,
+          720
+        ],
+        "scale": 1.0,
+        "captures": [
+          {
+            "file": "27-1000x720-theme0-growth1.9.png",
+            "theme": 0,
+            "theme_name": "玫瑰星云",
+            "time": 1.9,
+            "growth": 1.9,
+            "speed": 1.0,
+            "size": [
+              990,
+              550
+            ],
+            "mode": "RGB",
+            "sha256": "5b9aaeffe61c36559800f13228b09a45a98a5b76730b407084a7b8ff9f1a2e2a",
+            "pixels_sha256": "00060fd98d37e61fea525c4d5fdf754e252a49ef9d6ab6bf978ea980533b6436",
+            "canvas_items": 377
+          },
+          {
+            "file": "27-1000x720-theme0-growth2.5.png",
+            "theme": 0,
+            "theme_name": "玫瑰星云",
+            "time": 2.5,
+            "growth": 2.5,
+            "speed": 1.0,
+            "size": [
+              990,
+              550
+            ],
+            "mode": "RGB",
+            "sha256": "53634e5870ce88bf84cbda74ffc2970369606a0d6a3a89439cdc5daf91be6881",
+            "pixels_sha256": "8d5d5a3b644250834c7c62bc32fa8fc5282c616f3186340b15b5a0791ed4d610",
+            "canvas_items": 377
+          },
+          {
+            "file": "27-1000x720-theme0-growth3.0.png",
+            "theme": 0,
+            "theme_name": "玫瑰星云",
+            "time": 3.0,
+            "growth": 3.0,
+            "speed": 1.0,
+            "size": [
+              990,
+              550
+            ],
+            "mode": "RGB",
+            "sha256": "9d4d23ebf0f3015e7930ad62dfcec6931f1a82e8d5adcd108b25152b3bdf3e4e",
+            "pixels_sha256": "e9934e68876f1a2e14b00131d7b702238d2dc398a72dd7ff336f5cb2d27bce80",
+            "canvas_items": 377
+          },
+          {
+            "file": "27-1000x720-theme0-growth3.4.png",
+            "theme": 0,
+            "theme_name": "玫瑰星云",
+            "time": 3.4,
+            "growth": 3.4,
+            "speed": 1.0,
+            "size": [
+              990,
+              550
+            ],
+            "mode": "RGB",
+            "sha256": "efe184df5bee99391c5e1ff3593f0bd483812ab6d01a84976247bb4ea5e76dd0",
+            "pixels_sha256": "fbae25a8f61fcafe0234b178da31250859bd8825e9fc80eb4820244a61b18460",
+            "canvas_items": 377
+          },
+          {
+            "file": "27-1000x720-theme0-growth5.8.png",
+            "theme": 0,
+            "theme_name": "玫瑰星云",
+            "time": 5.8,
+            "growth": 5.8,
+            "speed": 1.0,
+            "size": [
+              990,
+              550
+            ],
+            "mode": "RGB",
+            "sha256": "cbbdce3b0d8ec30dd069c8eee9d2ff81ca50849bdb71d085c6d836d5453a7a60",
+            "pixels_sha256": "e38523a17e429efd451e431c84fb312dcbed4be41f96136c4ea0db29dd61eb78",
+            "canvas_items": 377
+          },
+          {
+            "file": "27-1000x720-theme0-growth7.0.png",
+            "theme": 0,
+            "theme_name": "玫瑰星云",
+            "time": 7.0,
+            "growth": 7.0,
+            "speed": 1.0,
+            "size": [
+              990,
+              550
+            ],
+            "mode": "RGB",
+            "sha256": "1e502d79ac2c891f5abdcb2df69c746df43fe22b29d7c229cc6d48ab67e3c618",
+            "pixels_sha256": "1ac301581a2b133095e841e365baec77d308d8ffb21ca1313addb155475a69a0",
+            "canvas_items": 377
+          },
+          {
+            "file": "27-1000x720-theme1-growth1.9.png",
+            "theme": 1,
+            "theme_name": "冰蓝回声",
+            "time": 1.9,
+            "growth": 1.9,
+            "speed": 1.0,
+            "size": [
+              990,
+              550
+            ],
+            "mode": "RGB",
+            "sha256": "bceef90380c9f8bc3f9ba53de98258f25ef054aee569cff2322bedb117ab4431",
+            "pixels_sha256": "391a0b08b91f062d9a6629e8a68a986ed226d800e76c2c6cdb135256f8110c6f",
+            "canvas_items": 377
+          },
+          {
+            "file": "27-1000x720-theme1-growth2.5.png",
+            "theme": 1,
+            "theme_name": "冰蓝回声",
+            "time": 2.5,
+            "growth": 2.5,
+            "speed": 1.0,
+            "size": [
+              990,
+              550
+            ],
+            "mode": "RGB",
+            "sha256": "33cc4a1edc307982018108249cc850e19f32494d8337113dff3335faec05e019",
+            "pixels_sha256": "a97a8d15460144081077a443f6026632519dd5144c5ea5462282e843ac00f1fb",
+            "canvas_items": 377
+          },
+          {
+            "file": "27-1000x720-theme1-growth3.0.png",
+            "theme": 1,
+            "theme_name": "冰蓝回声",
+            "time": 3.0,
+            "growth": 3.0,
+            "speed": 1.0,
+            "size": [
+              990,
+              550
+            ],
+            "mode": "RGB",
+            "sha256": "4937398f32d85c29a35c0bf2b293654331419ff6048c46459e58b75348c0e9b3",
+            "pixels_sha256": "d008dd8504c2f7e9038dbbfebeb39de4dfd21e5af4da801b9b4b50e409b7401d",
+            "canvas_items": 377
+          },
+          {
+            "file": "27-1000x720-theme1-growth3.4.png",
+            "theme": 1,
+            "theme_name": "冰蓝回声",
+            "time": 3.4,
+            "growth": 3.4,
+            "speed": 1.0,
+            "size": [
+              990,
+              550
+            ],
+            "mode": "RGB",
+            "sha256": "a2f543e9f45dbe8e8ee0e3b9b49284cdfb124b44d97b651dfcd35ca65c5ceb62",
+            "pixels_sha256": "34275607043628158aa4c50280a76351ae5701f68290502e14c18927238aeee6",
+            "canvas_items": 377
+          },
+          {
+            "file": "27-1000x720-theme1-growth5.8.png",
+            "theme": 1,
+            "theme_name": "冰蓝回声",
+            "time": 5.8,
+            "growth": 5.8,
+            "speed": 1.0,
+            "size": [
+              990,
+              550
+            ],
+            "mode": "RGB",
+            "sha256": "98bc7ac198bf790f680099831975e13bef3d85200a80e2424225808bd180e292",
+            "pixels_sha256": "1b00611da19f35107ed71e0752724169ec5b2602311bcde5e348afa0df6c5bcb",
+            "canvas_items": 377
+          },
+          {
+            "file": "27-1000x720-theme1-growth7.0.png",
+            "theme": 1,
+            "theme_name": "冰蓝回声",
+            "time": 7.0,
+            "growth": 7.0,
+            "speed": 1.0,
+            "size": [
+              990,
+              550
+            ],
+            "mode": "RGB",
+            "sha256": "010ef55e67fca34a5bf9abe52b689b81f5ab203365f85f14101fe37ad1086614",
+            "pixels_sha256": "e148b0678b879d222a5e7546c9e60631b32766b1396e4909c13259928c15f667",
+            "canvas_items": 377
+          },
+          {
+            "file": "27-1000x720-theme2-growth1.9.png",
+            "theme": 2,
+            "theme_name": "香槟晨星",
+            "time": 1.9,
+            "growth": 1.9,
+            "speed": 1.0,
+            "size": [
+              990,
+              550
+            ],
+            "mode": "RGB",
+            "sha256": "ea490a7286811b0bbe1f08b3a965aee8e90875a5c82d4937a21c3a5cd09f979a",
+            "pixels_sha256": "fac50d12f26a168ff91e5484cbe6d8304c9867f8a7b2622e11ed9bf4c951a2de",
+            "canvas_items": 377
+          },
+          {
+            "file": "27-1000x720-theme2-growth2.5.png",
+            "theme": 2,
+            "theme_name": "香槟晨星",
+            "time": 2.5,
+            "growth": 2.5,
+            "speed": 1.0,
+            "size": [
+              990,
+              550
+            ],
+            "mode": "RGB",
+            "sha256": "81dc839f4fcdc9eeadbbdba403b51780ca150394337f87a1e2ad2b43b9488e84",
+            "pixels_sha256": "77c619f2742dbcacb669941a9f40de4d2ddfb69e8e36c96fec3d855621cea703",
+            "canvas_items": 377
+          },
+          {
+            "file": "27-1000x720-theme2-growth3.0.png",
+            "theme": 2,
+            "theme_name": "香槟晨星",
+            "time": 3.0,
+            "growth": 3.0,
+            "speed": 1.0,
+            "size": [
+              990,
+              550
+            ],
+            "mode": "RGB",
+            "sha256": "d67bfb5a0cde12519eef91681a00d72d5c2f7db50421a5adf34ce01b6f6b09f0",
+            "pixels_sha256": "501427e382b09452c9321c843466132571e094e8d0df6e32caf04c8605301641",
+            "canvas_items": 377
+          },
+          {
+            "file": "27-1000x720-theme2-growth3.4.png",
+            "theme": 2,
+            "theme_name": "香槟晨星",
+            "time": 3.4,
+            "growth": 3.4,
+            "speed": 1.0,
+            "size": [
+              990,
+              550
+            ],
+            "mode": "RGB",
+            "sha256": "a0d47a6f03d9c61ab0b913f4664e79f14f193dcd29ecec8cdca37e518baa818d",
+            "pixels_sha256": "25ace9c5419a8c8f7222489b75ddeadcd4903c165b71ed8bb2551fd46aa7a51a",
+            "canvas_items": 377
+          },
+          {
+            "file": "27-1000x720-theme2-growth5.8.png",
+            "theme": 2,
+            "theme_name": "香槟晨星",
+            "time": 5.8,
+            "growth": 5.8,
+            "speed": 1.0,
+            "size": [
+              990,
+              550
+            ],
+            "mode": "RGB",
+            "sha256": "c1975f243a2796a5ac2b02f3cfa4d1ac2d28760cf906ec7fb5a34638c5df0138",
+            "pixels_sha256": "4283d6cd0a9c5bedbc4ac7ea067b72792365a1c642b26ef7f10313a7f6cc3ec2",
+            "canvas_items": 377
+          },
+          {
+            "file": "27-1000x720-theme2-growth7.0.png",
+            "theme": 2,
+            "theme_name": "香槟晨星",
+            "time": 7.0,
+            "growth": 7.0,
+            "speed": 1.0,
+            "size": [
+              990,
+              550
+            ],
+            "mode": "RGB",
+            "sha256": "7fdf6a409cfa7cad145b9794784d5f4d8bcee86110baf3124e2269241abe1bcc",
+            "pixels_sha256": "914ec24004301a19603ce48844f593da3eb9425bb152e12c9016140e39a9f445",
+            "canvas_items": 377
+          }
+        ],
+        "callbacks": [
+          {
+            "theme": 0,
+            "speed": 0.5,
+            "checks": {
+              "paused_pixels_unchanged": true,
+              "paused_state_unchanged": true,
+              "paused_replay_ignored": true,
+              "replay_keeps_palette_speed_time": true,
+              "speed_advances_growth": true,
+              "reset_state_restored": true,
+              "reset_pixels_restored": true
+            },
+            "pixels_sha256": {
+              "before_pause": "fbae25a8f61fcafe0234b178da31250859bd8825e9fc80eb4820244a61b18460",
+              "paused": "fbae25a8f61fcafe0234b178da31250859bd8825e9fc80eb4820244a61b18460",
+              "reset": "4257576e1ea6dbf80980c6c2ce7cf4132de8fb891721437e820141a04f261e90"
+            }
+          },
+          {
+            "theme": 0,
+            "speed": 1.5,
+            "checks": {
+              "paused_pixels_unchanged": true,
+              "paused_state_unchanged": true,
+              "paused_replay_ignored": true,
+              "replay_keeps_palette_speed_time": true,
+              "speed_advances_growth": true,
+              "reset_state_restored": true,
+              "reset_pixels_restored": true
+            },
+            "pixels_sha256": {
+              "before_pause": "fbae25a8f61fcafe0234b178da31250859bd8825e9fc80eb4820244a61b18460",
+              "paused": "fbae25a8f61fcafe0234b178da31250859bd8825e9fc80eb4820244a61b18460",
+              "reset": "4257576e1ea6dbf80980c6c2ce7cf4132de8fb891721437e820141a04f261e90"
+            }
+          },
+          {
+            "theme": 1,
+            "speed": 0.5,
+            "checks": {
+              "paused_pixels_unchanged": true,
+              "paused_state_unchanged": true,
+              "paused_replay_ignored": true,
+              "replay_keeps_palette_speed_time": true,
+              "speed_advances_growth": true,
+              "reset_state_restored": true,
+              "reset_pixels_restored": true
+            },
+            "pixels_sha256": {
+              "before_pause": "34275607043628158aa4c50280a76351ae5701f68290502e14c18927238aeee6",
+              "paused": "34275607043628158aa4c50280a76351ae5701f68290502e14c18927238aeee6",
+              "reset": "4257576e1ea6dbf80980c6c2ce7cf4132de8fb891721437e820141a04f261e90"
+            }
+          },
+          {
+            "theme": 1,
+            "speed": 1.5,
+            "checks": {
+              "paused_pixels_unchanged": true,
+              "paused_state_unchanged": true,
+              "paused_replay_ignored": true,
+              "replay_keeps_palette_speed_time": true,
+              "speed_advances_growth": true,
+              "reset_state_restored": true,
+              "reset_pixels_restored": true
+            },
+            "pixels_sha256": {
+              "before_pause": "34275607043628158aa4c50280a76351ae5701f68290502e14c18927238aeee6",
+              "paused": "34275607043628158aa4c50280a76351ae5701f68290502e14c18927238aeee6",
+              "reset": "4257576e1ea6dbf80980c6c2ce7cf4132de8fb891721437e820141a04f261e90"
+            }
+          },
+          {
+            "theme": 2,
+            "speed": 0.5,
+            "checks": {
+              "paused_pixels_unchanged": true,
+              "paused_state_unchanged": true,
+              "paused_replay_ignored": true,
+              "replay_keeps_palette_speed_time": true,
+              "speed_advances_growth": true,
+              "reset_state_restored": true,
+              "reset_pixels_restored": true
+            },
+            "pixels_sha256": {
+              "before_pause": "25ace9c5419a8c8f7222489b75ddeadcd4903c165b71ed8bb2551fd46aa7a51a",
+              "paused": "25ace9c5419a8c8f7222489b75ddeadcd4903c165b71ed8bb2551fd46aa7a51a",
+              "reset": "4257576e1ea6dbf80980c6c2ce7cf4132de8fb891721437e820141a04f261e90"
+            }
+          },
+          {
+            "theme": 2,
+            "speed": 1.5,
+            "checks": {
+              "paused_pixels_unchanged": true,
+              "paused_state_unchanged": true,
+              "paused_replay_ignored": true,
+              "replay_keeps_palette_speed_time": true,
+              "speed_advances_growth": true,
+              "reset_state_restored": true,
+              "reset_pixels_restored": true
+            },
+            "pixels_sha256": {
+              "before_pause": "25ace9c5419a8c8f7222489b75ddeadcd4903c165b71ed8bb2551fd46aa7a51a",
+              "paused": "25ace9c5419a8c8f7222489b75ddeadcd4903c165b71ed8bb2551fd46aa7a51a",
+              "reset": "4257576e1ea6dbf80980c6c2ce7cf4132de8fb891721437e820141a04f261e90"
+            }
+          }
+        ],
+        "pool": {
+          "method": "Four direct growth-sample cycles; first excluded as warmup",
+          "sample_growth": [
+            0.0,
+            0.8,
+            1.0,
+            1.9,
+            2.5,
+            3.0,
+            3.4,
+            5.8,
+            7.0
+          ],
+          "cycles": [
+            {
+              "cycle": 0,
+              "warmup": true,
+              "canvas_items": [
+                377,
+                377,
+                377,
+                377,
+                377,
+                377,
+                377,
+                377,
+                377
+              ],
+              "peak_canvas_items": 377
+            },
+            {
+              "cycle": 1,
+              "warmup": false,
+              "canvas_items": [
+                377,
+                377,
+                377,
+                377,
+                377,
+                377,
+                377,
+                377,
+                377
+              ],
+              "peak_canvas_items": 377
+            },
+            {
+              "cycle": 2,
+              "warmup": false,
+              "canvas_items": [
+                377,
+                377,
+                377,
+                377,
+                377,
+                377,
+                377,
+                377,
+                377
+              ],
+              "peak_canvas_items": 377
+            },
+            {
+              "cycle": 3,
+              "warmup": false,
+              "canvas_items": [
+                377,
+                377,
+                377,
+                377,
+                377,
+                377,
+                377,
+                377,
+                377
+              ],
+              "peak_canvas_items": 377
+            }
+          ],
+          "passed": true
+        },
+        "passed": true
+      },
+      {
+        "requested_window": [
+          760,
+          580
+        ],
+        "actual_window": [
+          760,
+          580
+        ],
+        "scale": 0.76,
+        "captures": [
+          {
+            "file": "27-760x580-theme0-growth1.9.png",
+            "theme": 0,
+            "theme_name": "玫瑰星云",
+            "time": 1.9,
+            "growth": 1.9,
+            "speed": 1.0,
+            "size": [
+              750,
+              417
+            ],
+            "mode": "RGB",
+            "sha256": "6d6d4289354ecb4040863bc920d179daea71823b67d3e200eadff2f18d9e6e88",
+            "pixels_sha256": "8c714baecdfbb80b5a14ce31383774e9c595f0fe162f416dd75c40f707c27c4d",
+            "canvas_items": 377
+          },
+          {
+            "file": "27-760x580-theme0-growth2.5.png",
+            "theme": 0,
+            "theme_name": "玫瑰星云",
+            "time": 2.5,
+            "growth": 2.5,
+            "speed": 1.0,
+            "size": [
+              750,
+              417
+            ],
+            "mode": "RGB",
+            "sha256": "282686a4e537fa260c44ed597e29bff769e683bc1b041e4375e527c05840ddcf",
+            "pixels_sha256": "856e26bdc3444c60585e815c48667f76b31027698fdc6368cdd32ec3ae8621a2",
+            "canvas_items": 377
+          },
+          {
+            "file": "27-760x580-theme0-growth3.0.png",
+            "theme": 0,
+            "theme_name": "玫瑰星云",
+            "time": 3.0,
+            "growth": 3.0,
+            "speed": 1.0,
+            "size": [
+              750,
+              417
+            ],
+            "mode": "RGB",
+            "sha256": "d5ae544974e7ece62f8842029eb09f6c0c25ac7738b8d204652db93acd9fcff1",
+            "pixels_sha256": "eee827e851c9ce50e65c7d15ea534b7f5f0bf3cf490cbb90a2cd5f0a8d0658d3",
+            "canvas_items": 377
+          },
+          {
+            "file": "27-760x580-theme0-growth3.4.png",
+            "theme": 0,
+            "theme_name": "玫瑰星云",
+            "time": 3.4,
+            "growth": 3.4,
+            "speed": 1.0,
+            "size": [
+              750,
+              417
+            ],
+            "mode": "RGB",
+            "sha256": "b02a318ee59952faa03c93da6509c9d1850d2b2b3e681ec7bfa4093657a81ab6",
+            "pixels_sha256": "68d06a3b5bfec00886da92329dba82dd68226003b6b863139217b9ae27c514f6",
+            "canvas_items": 377
+          },
+          {
+            "file": "27-760x580-theme0-growth5.8.png",
+            "theme": 0,
+            "theme_name": "玫瑰星云",
+            "time": 5.8,
+            "growth": 5.8,
+            "speed": 1.0,
+            "size": [
+              750,
+              417
+            ],
+            "mode": "RGB",
+            "sha256": "3ddfa3e0b04adfcf10d366b9ec3b2dfe5bfdb920cbb128bc22bea3d901cab4d8",
+            "pixels_sha256": "7dd4cd346c6b3492a041e035582a560fc2d9452acdea9f2038ca22b390a57c6b",
+            "canvas_items": 377
+          },
+          {
+            "file": "27-760x580-theme0-growth7.0.png",
+            "theme": 0,
+            "theme_name": "玫瑰星云",
+            "time": 7.0,
+            "growth": 7.0,
+            "speed": 1.0,
+            "size": [
+              750,
+              417
+            ],
+            "mode": "RGB",
+            "sha256": "7b3620961453475982d3907fd79f06124d09815447ecd3a32214534834563004",
+            "pixels_sha256": "12486734a7546efc81d6fb2ad64df59726f952ac18fb0e13cb61e7fe3edd567c",
+            "canvas_items": 377
+          },
+          {
+            "file": "27-760x580-theme1-growth1.9.png",
+            "theme": 1,
+            "theme_name": "冰蓝回声",
+            "time": 1.9,
+            "growth": 1.9,
+            "speed": 1.0,
+            "size": [
+              750,
+              417
+            ],
+            "mode": "RGB",
+            "sha256": "d002e5407e45d39f29435ba1615d132970f187909fd14f3a1df5f85c7f3b1844",
+            "pixels_sha256": "79296335a2ac408225817e4aedd2aaaafc08947c551c852804de8020864a22b4",
+            "canvas_items": 377
+          },
+          {
+            "file": "27-760x580-theme1-growth2.5.png",
+            "theme": 1,
+            "theme_name": "冰蓝回声",
+            "time": 2.5,
+            "growth": 2.5,
+            "speed": 1.0,
+            "size": [
+              750,
+              417
+            ],
+            "mode": "RGB",
+            "sha256": "68d31793d3f3e5e43f165e4776e33a575e4cd4c02b0786bf4adf7a8410f27420",
+            "pixels_sha256": "a2c4d89b763daee5eef77b3838dd64de6d80974f709054b5ddb2cb34dc3c0fc6",
+            "canvas_items": 377
+          },
+          {
+            "file": "27-760x580-theme1-growth3.0.png",
+            "theme": 1,
+            "theme_name": "冰蓝回声",
+            "time": 3.0,
+            "growth": 3.0,
+            "speed": 1.0,
+            "size": [
+              750,
+              417
+            ],
+            "mode": "RGB",
+            "sha256": "a216bcf6411dc385eeefdee1338ce6a6853089614dd274a5463227265a602a78",
+            "pixels_sha256": "1579200d1d4eda39dac2e0cbb64f9b47c010be56b856b042f173c21cbd18dee3",
+            "canvas_items": 377
+          },
+          {
+            "file": "27-760x580-theme1-growth3.4.png",
+            "theme": 1,
+            "theme_name": "冰蓝回声",
+            "time": 3.4,
+            "growth": 3.4,
+            "speed": 1.0,
+            "size": [
+              750,
+              417
+            ],
+            "mode": "RGB",
+            "sha256": "b064412eba852e77be9cae88b62bbfb4633c143998e09cadad65943e824df0b9",
+            "pixels_sha256": "ad69d225300331bcfec13ae8dde9731726f809e3e389649a163d7e1f3ad03db5",
+            "canvas_items": 377
+          },
+          {
+            "file": "27-760x580-theme1-growth5.8.png",
+            "theme": 1,
+            "theme_name": "冰蓝回声",
+            "time": 5.8,
+            "growth": 5.8,
+            "speed": 1.0,
+            "size": [
+              750,
+              417
+            ],
+            "mode": "RGB",
+            "sha256": "0664923ed7d74bdf5eb69d30dc095ff4d86153aeb06c9e98442e237a77ad6089",
+            "pixels_sha256": "ce4556d8b5e98c3ace3ccfdd557344cbb83ab9986b00cd2584f426002d2a8642",
+            "canvas_items": 377
+          },
+          {
+            "file": "27-760x580-theme1-growth7.0.png",
+            "theme": 1,
+            "theme_name": "冰蓝回声",
+            "time": 7.0,
+            "growth": 7.0,
+            "speed": 1.0,
+            "size": [
+              750,
+              417
+            ],
+            "mode": "RGB",
+            "sha256": "a9e42a5bd8647717a68c262001f17a1ac07ab723a515a4996e1fbab1efe33631",
+            "pixels_sha256": "41d1c1bba6563ad5902357a4f843160a5ab2b080a4f00d65611698177e4bf10b",
+            "canvas_items": 377
+          },
+          {
+            "file": "27-760x580-theme2-growth1.9.png",
+            "theme": 2,
+            "theme_name": "香槟晨星",
+            "time": 1.9,
+            "growth": 1.9,
+            "speed": 1.0,
+            "size": [
+              750,
+              417
+            ],
+            "mode": "RGB",
+            "sha256": "6b8be62b463e162c77f5b43f59bc49361ee539faf3b63dfeb559d4b6f37970f5",
+            "pixels_sha256": "544f01231546470a918d1a88075755b39f66b19134c9e37c32428edf863bdd53",
+            "canvas_items": 377
+          },
+          {
+            "file": "27-760x580-theme2-growth2.5.png",
+            "theme": 2,
+            "theme_name": "香槟晨星",
+            "time": 2.5,
+            "growth": 2.5,
+            "speed": 1.0,
+            "size": [
+              750,
+              417
+            ],
+            "mode": "RGB",
+            "sha256": "b78723fe75c74c44e17c842ff309590778d89643dfdf7846e65c3fc527f106a4",
+            "pixels_sha256": "fd22107267249bca59410aa3baf2968b6a687e7c64ab321bb4ce7b539cd0b278",
+            "canvas_items": 377
+          },
+          {
+            "file": "27-760x580-theme2-growth3.0.png",
+            "theme": 2,
+            "theme_name": "香槟晨星",
+            "time": 3.0,
+            "growth": 3.0,
+            "speed": 1.0,
+            "size": [
+              750,
+              417
+            ],
+            "mode": "RGB",
+            "sha256": "b5afec7320f6f3592b4d9e7df75956c301e76d6f39864f3bace941e614725709",
+            "pixels_sha256": "17e12d77eb142fff0d69976a066a75697fa3c7546db44d6e2ca3b2ae3eace1fb",
+            "canvas_items": 377
+          },
+          {
+            "file": "27-760x580-theme2-growth3.4.png",
+            "theme": 2,
+            "theme_name": "香槟晨星",
+            "time": 3.4,
+            "growth": 3.4,
+            "speed": 1.0,
+            "size": [
+              750,
+              417
+            ],
+            "mode": "RGB",
+            "sha256": "c5910130af30b0b6e3ee503b08bf3e56e4e1d0d91b6aa3959cfd3066f7695318",
+            "pixels_sha256": "6e34486600235c303fa651c138f101110d89d04262e04f7c1238d4783e15dcda",
+            "canvas_items": 377
+          },
+          {
+            "file": "27-760x580-theme2-growth5.8.png",
+            "theme": 2,
+            "theme_name": "香槟晨星",
+            "time": 5.8,
+            "growth": 5.8,
+            "speed": 1.0,
+            "size": [
+              750,
+              417
+            ],
+            "mode": "RGB",
+            "sha256": "3f52b685e270be717bad1119a582994a22a50f0ca2e1ad66c125c938e8195b65",
+            "pixels_sha256": "2ace59f952edeecd01cff7c6a707e2594058e2e5340b922ada05a49e77863bc5",
+            "canvas_items": 377
+          },
+          {
+            "file": "27-760x580-theme2-growth7.0.png",
+            "theme": 2,
+            "theme_name": "香槟晨星",
+            "time": 7.0,
+            "growth": 7.0,
+            "speed": 1.0,
+            "size": [
+              750,
+              417
+            ],
+            "mode": "RGB",
+            "sha256": "98b07a00e39db38dfc1c35465bf6cda69cdf7b787860956fad42e1c9640ff47d",
+            "pixels_sha256": "380b944269aa72d825f6b3b8f9cb2f865d3453dc676e5b1551ff6b491e116c9e",
+            "canvas_items": 377
+          }
+        ],
+        "callbacks": [
+          {
+            "theme": 0,
+            "speed": 0.5,
+            "checks": {
+              "paused_pixels_unchanged": true,
+              "paused_state_unchanged": true,
+              "paused_replay_ignored": true,
+              "replay_keeps_palette_speed_time": true,
+              "speed_advances_growth": true,
+              "reset_state_restored": true,
+              "reset_pixels_restored": true
+            },
+            "pixels_sha256": {
+              "before_pause": "68d06a3b5bfec00886da92329dba82dd68226003b6b863139217b9ae27c514f6",
+              "paused": "68d06a3b5bfec00886da92329dba82dd68226003b6b863139217b9ae27c514f6",
+              "reset": "427397f235667deb14c1743bae140a61659549dc4c4989908a506fe8f3e66ba3"
+            }
+          },
+          {
+            "theme": 0,
+            "speed": 1.5,
+            "checks": {
+              "paused_pixels_unchanged": true,
+              "paused_state_unchanged": true,
+              "paused_replay_ignored": true,
+              "replay_keeps_palette_speed_time": true,
+              "speed_advances_growth": true,
+              "reset_state_restored": true,
+              "reset_pixels_restored": true
+            },
+            "pixels_sha256": {
+              "before_pause": "68d06a3b5bfec00886da92329dba82dd68226003b6b863139217b9ae27c514f6",
+              "paused": "68d06a3b5bfec00886da92329dba82dd68226003b6b863139217b9ae27c514f6",
+              "reset": "427397f235667deb14c1743bae140a61659549dc4c4989908a506fe8f3e66ba3"
+            }
+          },
+          {
+            "theme": 1,
+            "speed": 0.5,
+            "checks": {
+              "paused_pixels_unchanged": true,
+              "paused_state_unchanged": true,
+              "paused_replay_ignored": true,
+              "replay_keeps_palette_speed_time": true,
+              "speed_advances_growth": true,
+              "reset_state_restored": true,
+              "reset_pixels_restored": true
+            },
+            "pixels_sha256": {
+              "before_pause": "ad69d225300331bcfec13ae8dde9731726f809e3e389649a163d7e1f3ad03db5",
+              "paused": "ad69d225300331bcfec13ae8dde9731726f809e3e389649a163d7e1f3ad03db5",
+              "reset": "427397f235667deb14c1743bae140a61659549dc4c4989908a506fe8f3e66ba3"
+            }
+          },
+          {
+            "theme": 1,
+            "speed": 1.5,
+            "checks": {
+              "paused_pixels_unchanged": true,
+              "paused_state_unchanged": true,
+              "paused_replay_ignored": true,
+              "replay_keeps_palette_speed_time": true,
+              "speed_advances_growth": true,
+              "reset_state_restored": true,
+              "reset_pixels_restored": true
+            },
+            "pixels_sha256": {
+              "before_pause": "ad69d225300331bcfec13ae8dde9731726f809e3e389649a163d7e1f3ad03db5",
+              "paused": "ad69d225300331bcfec13ae8dde9731726f809e3e389649a163d7e1f3ad03db5",
+              "reset": "427397f235667deb14c1743bae140a61659549dc4c4989908a506fe8f3e66ba3"
+            }
+          },
+          {
+            "theme": 2,
+            "speed": 0.5,
+            "checks": {
+              "paused_pixels_unchanged": true,
+              "paused_state_unchanged": true,
+              "paused_replay_ignored": true,
+              "replay_keeps_palette_speed_time": true,
+              "speed_advances_growth": true,
+              "reset_state_restored": true,
+              "reset_pixels_restored": true
+            },
+            "pixels_sha256": {
+              "before_pause": "6e34486600235c303fa651c138f101110d89d04262e04f7c1238d4783e15dcda",
+              "paused": "6e34486600235c303fa651c138f101110d89d04262e04f7c1238d4783e15dcda",
+              "reset": "427397f235667deb14c1743bae140a61659549dc4c4989908a506fe8f3e66ba3"
+            }
+          },
+          {
+            "theme": 2,
+            "speed": 1.5,
+            "checks": {
+              "paused_pixels_unchanged": true,
+              "paused_state_unchanged": true,
+              "paused_replay_ignored": true,
+              "replay_keeps_palette_speed_time": true,
+              "speed_advances_growth": true,
+              "reset_state_restored": true,
+              "reset_pixels_restored": true
+            },
+            "pixels_sha256": {
+              "before_pause": "6e34486600235c303fa651c138f101110d89d04262e04f7c1238d4783e15dcda",
+              "paused": "6e34486600235c303fa651c138f101110d89d04262e04f7c1238d4783e15dcda",
+              "reset": "427397f235667deb14c1743bae140a61659549dc4c4989908a506fe8f3e66ba3"
+            }
+          }
+        ],
+        "pool": {
+          "method": "Four direct growth-sample cycles; first excluded as warmup",
+          "sample_growth": [
+            0.0,
+            0.8,
+            1.0,
+            1.9,
+            2.5,
+            3.0,
+            3.4,
+            5.8,
+            7.0
+          ],
+          "cycles": [
+            {
+              "cycle": 0,
+              "warmup": true,
+              "canvas_items": [
+                377,
+                377,
+                377,
+                377,
+                377,
+                377,
+                377,
+                377,
+                377
+              ],
+              "peak_canvas_items": 377
+            },
+            {
+              "cycle": 1,
+              "warmup": false,
+              "canvas_items": [
+                377,
+                377,
+                377,
+                377,
+                377,
+                377,
+                377,
+                377,
+                377
+              ],
+              "peak_canvas_items": 377
+            },
+            {
+              "cycle": 2,
+              "warmup": false,
+              "canvas_items": [
+                377,
+                377,
+                377,
+                377,
+                377,
+                377,
+                377,
+                377,
+                377
+              ],
+              "peak_canvas_items": 377
+            },
+            {
+              "cycle": 3,
+              "warmup": false,
+              "canvas_items": [
+                377,
+                377,
+                377,
+                377,
+                377,
+                377,
+                377,
+                377,
+                377
+              ],
+              "peak_canvas_items": 377
+            }
+          ],
+          "passed": true
+        },
+        "passed": true
+      }
+    ],
+    "passed": true,
+    "window_closed": true,
+    "finished_utc": "2026-10-12T12:15:23.841338+00:00"
+  },
+  "current": {
+    "id": 27,
+    "started_utc": "2026-10-12T12:15:31.767281+00:00",
+    "source_ref": "working-tree",
+    "requested_ref": null,
+    "scope": "Real capture_artwork HWND snapshots with time=growth at fixed stages; public callbacks called directly, no physical keyboard/mouse input; only scene source replaced for baseline; no timers, video or performance measurement.",
+    "source_sha256_lf": {
+      "社团展示/27_星河玫瑰.py": "20f6d26487dbb3ed6f0f09ebc057b63493c6da5c837bf4200d572370657e52d3",
+      "社团展示/舞台.py": "3064d15913b65056f81e644d7c3d4379cb36a61eeb44bfc9f428433b878786c1",
+      "社团展示/作品导出.py": "2a9f464cdd12d160f7bd957cf477a2a8f5b2868d94d54c1cef51bac1533f2879",
+      ".work/check_rose_growth.py": "bbe0957dc7edecaae052708142c8c23ca2992be15e07b3e833562c16af5b9853"
+    },
+    "environment": {
+      "python": "3.12.4 | packaged by Anaconda, Inc. | (main, Jun 18 2024, 15:03:56) [MSC v.1929 64 bit (AMD64)]",
+      "executable": "D:\\Anaconda\\python.exe",
+      "platform": "Windows-11-10.0.26200-SP0",
+      "pillow": "12.3.0",
+      "tk": "8.6.14",
+      "tk_scaling": 1.332282448377581,
+      "screen": [
+        1707,
+        1067
+      ]
+    },
+    "stages": [
+      1.9,
+      2.5,
+      3.0,
+      3.4,
+      5.8,
+      7.0
+    ],
+    "sizes": [
+      {
+        "requested_window": [
+          1000,
+          720
+        ],
+        "actual_window": [
+          1000,
+          720
+        ],
+        "scale": 1.0,
+        "captures": [
+          {
+            "file": "27-1000x720-theme0-growth1.9.png",
+            "theme": 0,
+            "theme_name": "玫瑰星云",
+            "time": 1.9,
+            "growth": 1.9,
+            "speed": 1.0,
+            "size": [
+              990,
+              550
+            ],
+            "mode": "RGB",
+            "sha256": "c181268ccf2dbba9114a1061b3119b44ac74e1d2db6e08299882202b88d7dc87",
+            "pixels_sha256": "1560051f2e97eb145e2fb201aa10d1f07ae6508a9cea3043988e36daf8c708e1",
+            "canvas_items": 377
+          },
+          {
+            "file": "27-1000x720-theme0-growth2.5.png",
+            "theme": 0,
+            "theme_name": "玫瑰星云",
+            "time": 2.5,
+            "growth": 2.5,
+            "speed": 1.0,
+            "size": [
+              990,
+              550
+            ],
+            "mode": "RGB",
+            "sha256": "d71c02fbea42b3c05b2891233d23c7144eb5f595dcb6ba19d731a2ac92d95067",
+            "pixels_sha256": "c04cd747cb9463a8e3663e85ba6a7228cad594d9b285f20ba2cb79f08150a7f2",
+            "canvas_items": 377
+          },
+          {
+            "file": "27-1000x720-theme0-growth3.0.png",
+            "theme": 0,
+            "theme_name": "玫瑰星云",
+            "time": 3.0,
+            "growth": 3.0,
+            "speed": 1.0,
+            "size": [
+              990,
+              550
+            ],
+            "mode": "RGB",
+            "sha256": "e787bba248c3ca276013d0cc5f11c390e4049a7c2cfd5b5a91b2e7a472b42c77",
+            "pixels_sha256": "7468a05beff7a802cae37db88b6c8e53016fda108d1d0659fd275a393c742402",
+            "canvas_items": 377
+          },
+          {
+            "file": "27-1000x720-theme0-growth3.4.png",
+            "theme": 0,
+            "theme_name": "玫瑰星云",
+            "time": 3.4,
+            "growth": 3.4,
+            "speed": 1.0,
+            "size": [
+              990,
+              550
+            ],
+            "mode": "RGB",
+            "sha256": "700407cd921e0eaf3b057496f337ec048ec0473f192b4343a9d491c3f06d2d09",
+            "pixels_sha256": "fd5b14497ed93bf3ea0398eaebd8ea296c2f945912cc0002c0b773a83124cb75",
+            "canvas_items": 377
+          },
+          {
+            "file": "27-1000x720-theme0-growth5.8.png",
+            "theme": 0,
+            "theme_name": "玫瑰星云",
+            "time": 5.8,
+            "growth": 5.8,
+            "speed": 1.0,
+            "size": [
+              990,
+              550
+            ],
+            "mode": "RGB",
+            "sha256": "cbbdce3b0d8ec30dd069c8eee9d2ff81ca50849bdb71d085c6d836d5453a7a60",
+            "pixels_sha256": "e38523a17e429efd451e431c84fb312dcbed4be41f96136c4ea0db29dd61eb78",
+            "canvas_items": 377
+          },
+          {
+            "file": "27-1000x720-theme0-growth7.0.png",
+            "theme": 0,
+            "theme_name": "玫瑰星云",
+            "time": 7.0,
+            "growth": 7.0,
+            "speed": 1.0,
+            "size": [
+              990,
+              550
+            ],
+            "mode": "RGB",
+            "sha256": "1e502d79ac2c891f5abdcb2df69c746df43fe22b29d7c229cc6d48ab67e3c618",
+            "pixels_sha256": "1ac301581a2b133095e841e365baec77d308d8ffb21ca1313addb155475a69a0",
+            "canvas_items": 377
+          },
+          {
+            "file": "27-1000x720-theme1-growth1.9.png",
+            "theme": 1,
+            "theme_name": "冰蓝回声",
+            "time": 1.9,
+            "growth": 1.9,
+            "speed": 1.0,
+            "size": [
+              990,
+              550
+            ],
+            "mode": "RGB",
+            "sha256": "7bf579e7e8c9c939f90e6bb8ed4eefc898f21e2c3e6dd7b77227ea7fa76cb574",
+            "pixels_sha256": "6307bbd5b3537343403ec10ff2657c8552472bb0dbcafe26a5ffefe53dda4b8a",
+            "canvas_items": 377
+          },
+          {
+            "file": "27-1000x720-theme1-growth2.5.png",
+            "theme": 1,
+            "theme_name": "冰蓝回声",
+            "time": 2.5,
+            "growth": 2.5,
+            "speed": 1.0,
+            "size": [
+              990,
+              550
+            ],
+            "mode": "RGB",
+            "sha256": "34f2aa09263bbd75073f403ac4674bdf5b046931b01eb62757a02b4fae2f833a",
+            "pixels_sha256": "60571af258c02a2bd29d2a99ec6e933c42b2b2cae93490ee2baf82d109131673",
+            "canvas_items": 377
+          },
+          {
+            "file": "27-1000x720-theme1-growth3.0.png",
+            "theme": 1,
+            "theme_name": "冰蓝回声",
+            "time": 3.0,
+            "growth": 3.0,
+            "speed": 1.0,
+            "size": [
+              990,
+              550
+            ],
+            "mode": "RGB",
+            "sha256": "7d594045287f9e4f1199c1b81eac846980c69f81c85e4d053478691d73d79476",
+            "pixels_sha256": "5ad17885248fe6a5ce57e65cc087f05961e3e45eb44455f7592217229c3c998c",
+            "canvas_items": 377
+          },
+          {
+            "file": "27-1000x720-theme1-growth3.4.png",
+            "theme": 1,
+            "theme_name": "冰蓝回声",
+            "time": 3.4,
+            "growth": 3.4,
+            "speed": 1.0,
+            "size": [
+              990,
+              550
+            ],
+            "mode": "RGB",
+            "sha256": "d24025b4608b154c92482d9c81d0583cd51316cb2a32c617f65ca52fb3d69de6",
+            "pixels_sha256": "09d1fdce1f1494325937596fc7a95ed9c565b8c4d885c740b1b4f17b4e2e3cfb",
+            "canvas_items": 377
+          },
+          {
+            "file": "27-1000x720-theme1-growth5.8.png",
+            "theme": 1,
+            "theme_name": "冰蓝回声",
+            "time": 5.8,
+            "growth": 5.8,
+            "speed": 1.0,
+            "size": [
+              990,
+              550
+            ],
+            "mode": "RGB",
+            "sha256": "98bc7ac198bf790f680099831975e13bef3d85200a80e2424225808bd180e292",
+            "pixels_sha256": "1b00611da19f35107ed71e0752724169ec5b2602311bcde5e348afa0df6c5bcb",
+            "canvas_items": 377
+          },
+          {
+            "file": "27-1000x720-theme1-growth7.0.png",
+            "theme": 1,
+            "theme_name": "冰蓝回声",
+            "time": 7.0,
+            "growth": 7.0,
+            "speed": 1.0,
+            "size": [
+              990,
+              550
+            ],
+            "mode": "RGB",
+            "sha256": "010ef55e67fca34a5bf9abe52b689b81f5ab203365f85f14101fe37ad1086614",
+            "pixels_sha256": "e148b0678b879d222a5e7546c9e60631b32766b1396e4909c13259928c15f667",
+            "canvas_items": 377
+          },
+          {
+            "file": "27-1000x720-theme2-growth1.9.png",
+            "theme": 2,
+            "theme_name": "香槟晨星",
+            "time": 1.9,
+            "growth": 1.9,
+            "speed": 1.0,
+            "size": [
+              990,
+              550
+            ],
+            "mode": "RGB",
+            "sha256": "172d5a669520730c9e336b6f0c00a369e0b8d03729dfdfa17cc119dbf75581b2",
+            "pixels_sha256": "58450986ee1b42888f6f36775f2470e67d3abeaa1d146f1fecdc81b52722cde9",
+            "canvas_items": 377
+          },
+          {
+            "file": "27-1000x720-theme2-growth2.5.png",
+            "theme": 2,
+            "theme_name": "香槟晨星",
+            "time": 2.5,
+            "growth": 2.5,
+            "speed": 1.0,
+            "size": [
+              990,
+              550
+            ],
+            "mode": "RGB",
+            "sha256": "ca8b38a186351d9e27a2d952ff9c152d356ed071202ddc8d3834fcaed0e04270",
+            "pixels_sha256": "c45a6f406a23be200399d9f1700d39150a2cb7debebf77482334e2acc9cc6ed3",
+            "canvas_items": 377
+          },
+          {
+            "file": "27-1000x720-theme2-growth3.0.png",
+            "theme": 2,
+            "theme_name": "香槟晨星",
+            "time": 3.0,
+            "growth": 3.0,
+            "speed": 1.0,
+            "size": [
+              990,
+              550
+            ],
+            "mode": "RGB",
+            "sha256": "efcc4859ff538d684cbf1c81681a54f5639e59c1f98972c96e02704724338bfe",
+            "pixels_sha256": "62eb5769f248d7a1b30d088080670d56ed9648a1c43af6abb2946bd56e4c81a2",
+            "canvas_items": 377
+          },
+          {
+            "file": "27-1000x720-theme2-growth3.4.png",
+            "theme": 2,
+            "theme_name": "香槟晨星",
+            "time": 3.4,
+            "growth": 3.4,
+            "speed": 1.0,
+            "size": [
+              990,
+              550
+            ],
+            "mode": "RGB",
+            "sha256": "44288e659b9c350ac529b5c376e2d7c6c7eb3c83410895a0a64eea4320c27b41",
+            "pixels_sha256": "0526061b499ea8a3bd2a5ce54f8ebdce5784a208019da1e43613f279354e5404",
+            "canvas_items": 377
+          },
+          {
+            "file": "27-1000x720-theme2-growth5.8.png",
+            "theme": 2,
+            "theme_name": "香槟晨星",
+            "time": 5.8,
+            "growth": 5.8,
+            "speed": 1.0,
+            "size": [
+              990,
+              550
+            ],
+            "mode": "RGB",
+            "sha256": "c1975f243a2796a5ac2b02f3cfa4d1ac2d28760cf906ec7fb5a34638c5df0138",
+            "pixels_sha256": "4283d6cd0a9c5bedbc4ac7ea067b72792365a1c642b26ef7f10313a7f6cc3ec2",
+            "canvas_items": 377
+          },
+          {
+            "file": "27-1000x720-theme2-growth7.0.png",
+            "theme": 2,
+            "theme_name": "香槟晨星",
+            "time": 7.0,
+            "growth": 7.0,
+            "speed": 1.0,
+            "size": [
+              990,
+              550
+            ],
+            "mode": "RGB",
+            "sha256": "7fdf6a409cfa7cad145b9794784d5f4d8bcee86110baf3124e2269241abe1bcc",
+            "pixels_sha256": "914ec24004301a19603ce48844f593da3eb9425bb152e12c9016140e39a9f445",
+            "canvas_items": 377
+          }
+        ],
+        "callbacks": [
+          {
+            "theme": 0,
+            "speed": 0.5,
+            "checks": {
+              "paused_pixels_unchanged": true,
+              "paused_state_unchanged": true,
+              "paused_replay_ignored": true,
+              "replay_keeps_palette_speed_time": true,
+              "speed_advances_growth": true,
+              "reset_state_restored": true,
+              "reset_pixels_restored": true
+            },
+            "pixels_sha256": {
+              "before_pause": "fd5b14497ed93bf3ea0398eaebd8ea296c2f945912cc0002c0b773a83124cb75",
+              "paused": "fd5b14497ed93bf3ea0398eaebd8ea296c2f945912cc0002c0b773a83124cb75",
+              "reset": "4257576e1ea6dbf80980c6c2ce7cf4132de8fb891721437e820141a04f261e90"
+            }
+          },
+          {
+            "theme": 0,
+            "speed": 1.5,
+            "checks": {
+              "paused_pixels_unchanged": true,
+              "paused_state_unchanged": true,
+              "paused_replay_ignored": true,
+              "replay_keeps_palette_speed_time": true,
+              "speed_advances_growth": true,
+              "reset_state_restored": true,
+              "reset_pixels_restored": true
+            },
+            "pixels_sha256": {
+              "before_pause": "fd5b14497ed93bf3ea0398eaebd8ea296c2f945912cc0002c0b773a83124cb75",
+              "paused": "fd5b14497ed93bf3ea0398eaebd8ea296c2f945912cc0002c0b773a83124cb75",
+              "reset": "4257576e1ea6dbf80980c6c2ce7cf4132de8fb891721437e820141a04f261e90"
+            }
+          },
+          {
+            "theme": 1,
+            "speed": 0.5,
+            "checks": {
+              "paused_pixels_unchanged": true,
+              "paused_state_unchanged": true,
+              "paused_replay_ignored": true,
+              "replay_keeps_palette_speed_time": true,
+              "speed_advances_growth": true,
+              "reset_state_restored": true,
+              "reset_pixels_restored": true
+            },
+            "pixels_sha256": {
+              "before_pause": "09d1fdce1f1494325937596fc7a95ed9c565b8c4d885c740b1b4f17b4e2e3cfb",
+              "paused": "09d1fdce1f1494325937596fc7a95ed9c565b8c4d885c740b1b4f17b4e2e3cfb",
+              "reset": "4257576e1ea6dbf80980c6c2ce7cf4132de8fb891721437e820141a04f261e90"
+            }
+          },
+          {
+            "theme": 1,
+            "speed": 1.5,
+            "checks": {
+              "paused_pixels_unchanged": true,
+              "paused_state_unchanged": true,
+              "paused_replay_ignored": true,
+              "replay_keeps_palette_speed_time": true,
+              "speed_advances_growth": true,
+              "reset_state_restored": true,
+              "reset_pixels_restored": true
+            },
+            "pixels_sha256": {
+              "before_pause": "09d1fdce1f1494325937596fc7a95ed9c565b8c4d885c740b1b4f17b4e2e3cfb",
+              "paused": "09d1fdce1f1494325937596fc7a95ed9c565b8c4d885c740b1b4f17b4e2e3cfb",
+              "reset": "4257576e1ea6dbf80980c6c2ce7cf4132de8fb891721437e820141a04f261e90"
+            }
+          },
+          {
+            "theme": 2,
+            "speed": 0.5,
+            "checks": {
+              "paused_pixels_unchanged": true,
+              "paused_state_unchanged": true,
+              "paused_replay_ignored": true,
+              "replay_keeps_palette_speed_time": true,
+              "speed_advances_growth": true,
+              "reset_state_restored": true,
+              "reset_pixels_restored": true
+            },
+            "pixels_sha256": {
+              "before_pause": "0526061b499ea8a3bd2a5ce54f8ebdce5784a208019da1e43613f279354e5404",
+              "paused": "0526061b499ea8a3bd2a5ce54f8ebdce5784a208019da1e43613f279354e5404",
+              "reset": "4257576e1ea6dbf80980c6c2ce7cf4132de8fb891721437e820141a04f261e90"
+            }
+          },
+          {
+            "theme": 2,
+            "speed": 1.5,
+            "checks": {
+              "paused_pixels_unchanged": true,
+              "paused_state_unchanged": true,
+              "paused_replay_ignored": true,
+              "replay_keeps_palette_speed_time": true,
+              "speed_advances_growth": true,
+              "reset_state_restored": true,
+              "reset_pixels_restored": true
+            },
+            "pixels_sha256": {
+              "before_pause": "0526061b499ea8a3bd2a5ce54f8ebdce5784a208019da1e43613f279354e5404",
+              "paused": "0526061b499ea8a3bd2a5ce54f8ebdce5784a208019da1e43613f279354e5404",
+              "reset": "4257576e1ea6dbf80980c6c2ce7cf4132de8fb891721437e820141a04f261e90"
+            }
+          }
+        ],
+        "pool": {
+          "method": "Four direct growth-sample cycles; first excluded as warmup",
+          "sample_growth": [
+            0.0,
+            0.8,
+            1.0,
+            1.9,
+            2.5,
+            3.0,
+            3.4,
+            5.8,
+            7.0
+          ],
+          "cycles": [
+            {
+              "cycle": 0,
+              "warmup": true,
+              "canvas_items": [
+                377,
+                377,
+                377,
+                377,
+                377,
+                377,
+                377,
+                377,
+                377
+              ],
+              "peak_canvas_items": 377
+            },
+            {
+              "cycle": 1,
+              "warmup": false,
+              "canvas_items": [
+                377,
+                377,
+                377,
+                377,
+                377,
+                377,
+                377,
+                377,
+                377
+              ],
+              "peak_canvas_items": 377
+            },
+            {
+              "cycle": 2,
+              "warmup": false,
+              "canvas_items": [
+                377,
+                377,
+                377,
+                377,
+                377,
+                377,
+                377,
+                377,
+                377
+              ],
+              "peak_canvas_items": 377
+            },
+            {
+              "cycle": 3,
+              "warmup": false,
+              "canvas_items": [
+                377,
+                377,
+                377,
+                377,
+                377,
+                377,
+                377,
+                377,
+                377
+              ],
+              "peak_canvas_items": 377
+            }
+          ],
+          "passed": true
+        },
+        "passed": true
+      },
+      {
+        "requested_window": [
+          760,
+          580
+        ],
+        "actual_window": [
+          760,
+          580
+        ],
+        "scale": 0.76,
+        "captures": [
+          {
+            "file": "27-760x580-theme0-growth1.9.png",
+            "theme": 0,
+            "theme_name": "玫瑰星云",
+            "time": 1.9,
+            "growth": 1.9,
+            "speed": 1.0,
+            "size": [
+              750,
+              417
+            ],
+            "mode": "RGB",
+            "sha256": "35a64b14b111b67c9ff32f7a8040c90d15cb4f4b88e2794a98de5676585a7d9b",
+            "pixels_sha256": "6710d68c9306a63abb36e6bce5a00f1565f2b56b9410aeff4bd666cc767d2b96",
+            "canvas_items": 377
+          },
+          {
+            "file": "27-760x580-theme0-growth2.5.png",
+            "theme": 0,
+            "theme_name": "玫瑰星云",
+            "time": 2.5,
+            "growth": 2.5,
+            "speed": 1.0,
+            "size": [
+              750,
+              417
+            ],
+            "mode": "RGB",
+            "sha256": "22f0aedbdcf13dd7c0529aa55274b7fd1452fbf5ede4d4dba6c7d8e85e3a5db7",
+            "pixels_sha256": "bf33604c916eaa6af2528810a4292959146e7e60ecb2dd8a11e0cbfd9c519383",
+            "canvas_items": 377
+          },
+          {
+            "file": "27-760x580-theme0-growth3.0.png",
+            "theme": 0,
+            "theme_name": "玫瑰星云",
+            "time": 3.0,
+            "growth": 3.0,
+            "speed": 1.0,
+            "size": [
+              750,
+              417
+            ],
+            "mode": "RGB",
+            "sha256": "84e46e2971a57841dd91816bc87ba14f23ec6fcfe7362e75ade57d1acadd5752",
+            "pixels_sha256": "ed3442c7c5eafbd1a234a7512114122abb21b7b7c81fd9b013255690635a0601",
+            "canvas_items": 377
+          },
+          {
+            "file": "27-760x580-theme0-growth3.4.png",
+            "theme": 0,
+            "theme_name": "玫瑰星云",
+            "time": 3.4,
+            "growth": 3.4,
+            "speed": 1.0,
+            "size": [
+              750,
+              417
+            ],
+            "mode": "RGB",
+            "sha256": "5e0572a141f7308100fb093bd8f39157bd949460289e2d0bbe53c07c02343cff",
+            "pixels_sha256": "59cac82c6950747925c1695a1d4b0f50fb709e1c5fa38a5d165949eb4b4849a1",
+            "canvas_items": 377
+          },
+          {
+            "file": "27-760x580-theme0-growth5.8.png",
+            "theme": 0,
+            "theme_name": "玫瑰星云",
+            "time": 5.8,
+            "growth": 5.8,
+            "speed": 1.0,
+            "size": [
+              750,
+              417
+            ],
+            "mode": "RGB",
+            "sha256": "3ddfa3e0b04adfcf10d366b9ec3b2dfe5bfdb920cbb128bc22bea3d901cab4d8",
+            "pixels_sha256": "7dd4cd346c6b3492a041e035582a560fc2d9452acdea9f2038ca22b390a57c6b",
+            "canvas_items": 377
+          },
+          {
+            "file": "27-760x580-theme0-growth7.0.png",
+            "theme": 0,
+            "theme_name": "玫瑰星云",
+            "time": 7.0,
+            "growth": 7.0,
+            "speed": 1.0,
+            "size": [
+              750,
+              417
+            ],
+            "mode": "RGB",
+            "sha256": "7b3620961453475982d3907fd79f06124d09815447ecd3a32214534834563004",
+            "pixels_sha256": "12486734a7546efc81d6fb2ad64df59726f952ac18fb0e13cb61e7fe3edd567c",
+            "canvas_items": 377
+          },
+          {
+            "file": "27-760x580-theme1-growth1.9.png",
+            "theme": 1,
+            "theme_name": "冰蓝回声",
+            "time": 1.9,
+            "growth": 1.9,
+            "speed": 1.0,
+            "size": [
+              750,
+              417
+            ],
+            "mode": "RGB",
+            "sha256": "23a73cb9cdbbb53893a31ba86a78636b79be11c3716ce2197425a077121bddc7",
+            "pixels_sha256": "0bc3c82fc4081897e978ad89f5a13b1331fb92fc3a0c65c904469fa919808505",
+            "canvas_items": 377
+          },
+          {
+            "file": "27-760x580-theme1-growth2.5.png",
+            "theme": 1,
+            "theme_name": "冰蓝回声",
+            "time": 2.5,
+            "growth": 2.5,
+            "speed": 1.0,
+            "size": [
+              750,
+              417
+            ],
+            "mode": "RGB",
+            "sha256": "65913c73d56f677219bc921eefbc1cc614eb378edeab8f65607ffeba907ddcbc",
+            "pixels_sha256": "5582b01dcccd04679e617b2f1f9f90e4d596017565072a0f62e5f425cbd173cb",
+            "canvas_items": 377
+          },
+          {
+            "file": "27-760x580-theme1-growth3.0.png",
+            "theme": 1,
+            "theme_name": "冰蓝回声",
+            "time": 3.0,
+            "growth": 3.0,
+            "speed": 1.0,
+            "size": [
+              750,
+              417
+            ],
+            "mode": "RGB",
+            "sha256": "4da75b1c6022b71e1ae834b6268942cab1229430ebe791d65d262798413488e6",
+            "pixels_sha256": "63d240b800897385774261eb33b3fa46e84e8dd1c9bd431fabf3cf18f786e0da",
+            "canvas_items": 377
+          },
+          {
+            "file": "27-760x580-theme1-growth3.4.png",
+            "theme": 1,
+            "theme_name": "冰蓝回声",
+            "time": 3.4,
+            "growth": 3.4,
+            "speed": 1.0,
+            "size": [
+              750,
+              417
+            ],
+            "mode": "RGB",
+            "sha256": "cf166729abc63defa63981906bd0e7e7b844967bae54d937b1a0ec3ea585990d",
+            "pixels_sha256": "03cbb635c2b6475296b3eade1c0332b3c34d062701d2555c359be9a80e5f73c7",
+            "canvas_items": 377
+          },
+          {
+            "file": "27-760x580-theme1-growth5.8.png",
+            "theme": 1,
+            "theme_name": "冰蓝回声",
+            "time": 5.8,
+            "growth": 5.8,
+            "speed": 1.0,
+            "size": [
+              750,
+              417
+            ],
+            "mode": "RGB",
+            "sha256": "0664923ed7d74bdf5eb69d30dc095ff4d86153aeb06c9e98442e237a77ad6089",
+            "pixels_sha256": "ce4556d8b5e98c3ace3ccfdd557344cbb83ab9986b00cd2584f426002d2a8642",
+            "canvas_items": 377
+          },
+          {
+            "file": "27-760x580-theme1-growth7.0.png",
+            "theme": 1,
+            "theme_name": "冰蓝回声",
+            "time": 7.0,
+            "growth": 7.0,
+            "speed": 1.0,
+            "size": [
+              750,
+              417
+            ],
+            "mode": "RGB",
+            "sha256": "a9e42a5bd8647717a68c262001f17a1ac07ab723a515a4996e1fbab1efe33631",
+            "pixels_sha256": "41d1c1bba6563ad5902357a4f843160a5ab2b080a4f00d65611698177e4bf10b",
+            "canvas_items": 377
+          },
+          {
+            "file": "27-760x580-theme2-growth1.9.png",
+            "theme": 2,
+            "theme_name": "香槟晨星",
+            "time": 1.9,
+            "growth": 1.9,
+            "speed": 1.0,
+            "size": [
+              750,
+              417
+            ],
+            "mode": "RGB",
+            "sha256": "8502ada56bcf8c5afcb88734a5ff81839f327af6f0bdf93100eebc8bf5c583d8",
+            "pixels_sha256": "5392a8a25a84b83169e7c1b3a6a6131afba2d8124f3a855fb7ebb25db75c22c0",
+            "canvas_items": 377
+          },
+          {
+            "file": "27-760x580-theme2-growth2.5.png",
+            "theme": 2,
+            "theme_name": "香槟晨星",
+            "time": 2.5,
+            "growth": 2.5,
+            "speed": 1.0,
+            "size": [
+              750,
+              417
+            ],
+            "mode": "RGB",
+            "sha256": "b9e7e7c37b968f0d8819599dab439409ea9886893f9a3b20e0b30c8bed89e7bb",
+            "pixels_sha256": "344b68782e0fd20fada3584e42636db53889e390e8bdedc5c1e630961ab4aa1b",
+            "canvas_items": 377
+          },
+          {
+            "file": "27-760x580-theme2-growth3.0.png",
+            "theme": 2,
+            "theme_name": "香槟晨星",
+            "time": 3.0,
+            "growth": 3.0,
+            "speed": 1.0,
+            "size": [
+              750,
+              417
+            ],
+            "mode": "RGB",
+            "sha256": "beb9ec884b372900740ba86f140233e72a2d7561e3ccfa56ae5f08969de1bf3e",
+            "pixels_sha256": "49651cdacafb6f89bcbc3e841bfbd569c2b451705a7cd4017660d5774736ad1f",
+            "canvas_items": 377
+          },
+          {
+            "file": "27-760x580-theme2-growth3.4.png",
+            "theme": 2,
+            "theme_name": "香槟晨星",
+            "time": 3.4,
+            "growth": 3.4,
+            "speed": 1.0,
+            "size": [
+              750,
+              417
+            ],
+            "mode": "RGB",
+            "sha256": "3f55b962bccf828336421f222f2ef8cc5fd676ec363895c43acfd60b526214d5",
+            "pixels_sha256": "0a052f5c00e67a36ebcab8bb3f1838a2943ebc1ff857b78319a4d3577f74374c",
+            "canvas_items": 377
+          },
+          {
+            "file": "27-760x580-theme2-growth5.8.png",
+            "theme": 2,
+            "theme_name": "香槟晨星",
+            "time": 5.8,
+            "growth": 5.8,
+            "speed": 1.0,
+            "size": [
+              750,
+              417
+            ],
+            "mode": "RGB",
+            "sha256": "3f52b685e270be717bad1119a582994a22a50f0ca2e1ad66c125c938e8195b65",
+            "pixels_sha256": "2ace59f952edeecd01cff7c6a707e2594058e2e5340b922ada05a49e77863bc5",
+            "canvas_items": 377
+          },
+          {
+            "file": "27-760x580-theme2-growth7.0.png",
+            "theme": 2,
+            "theme_name": "香槟晨星",
+            "time": 7.0,
+            "growth": 7.0,
+            "speed": 1.0,
+            "size": [
+              750,
+              417
+            ],
+            "mode": "RGB",
+            "sha256": "98b07a00e39db38dfc1c35465bf6cda69cdf7b787860956fad42e1c9640ff47d",
+            "pixels_sha256": "380b944269aa72d825f6b3b8f9cb2f865d3453dc676e5b1551ff6b491e116c9e",
+            "canvas_items": 377
+          }
+        ],
+        "callbacks": [
+          {
+            "theme": 0,
+            "speed": 0.5,
+            "checks": {
+              "paused_pixels_unchanged": true,
+              "paused_state_unchanged": true,
+              "paused_replay_ignored": true,
+              "replay_keeps_palette_speed_time": true,
+              "speed_advances_growth": true,
+              "reset_state_restored": true,
+              "reset_pixels_restored": true
+            },
+            "pixels_sha256": {
+              "before_pause": "59cac82c6950747925c1695a1d4b0f50fb709e1c5fa38a5d165949eb4b4849a1",
+              "paused": "59cac82c6950747925c1695a1d4b0f50fb709e1c5fa38a5d165949eb4b4849a1",
+              "reset": "427397f235667deb14c1743bae140a61659549dc4c4989908a506fe8f3e66ba3"
+            }
+          },
+          {
+            "theme": 0,
+            "speed": 1.5,
+            "checks": {
+              "paused_pixels_unchanged": true,
+              "paused_state_unchanged": true,
+              "paused_replay_ignored": true,
+              "replay_keeps_palette_speed_time": true,
+              "speed_advances_growth": true,
+              "reset_state_restored": true,
+              "reset_pixels_restored": true
+            },
+            "pixels_sha256": {
+              "before_pause": "59cac82c6950747925c1695a1d4b0f50fb709e1c5fa38a5d165949eb4b4849a1",
+              "paused": "59cac82c6950747925c1695a1d4b0f50fb709e1c5fa38a5d165949eb4b4849a1",
+              "reset": "427397f235667deb14c1743bae140a61659549dc4c4989908a506fe8f3e66ba3"
+            }
+          },
+          {
+            "theme": 1,
+            "speed": 0.5,
+            "checks": {
+              "paused_pixels_unchanged": true,
+              "paused_state_unchanged": true,
+              "paused_replay_ignored": true,
+              "replay_keeps_palette_speed_time": true,
+              "speed_advances_growth": true,
+              "reset_state_restored": true,
+              "reset_pixels_restored": true
+            },
+            "pixels_sha256": {
+              "before_pause": "03cbb635c2b6475296b3eade1c0332b3c34d062701d2555c359be9a80e5f73c7",
+              "paused": "03cbb635c2b6475296b3eade1c0332b3c34d062701d2555c359be9a80e5f73c7",
+              "reset": "427397f235667deb14c1743bae140a61659549dc4c4989908a506fe8f3e66ba3"
+            }
+          },
+          {
+            "theme": 1,
+            "speed": 1.5,
+            "checks": {
+              "paused_pixels_unchanged": true,
+              "paused_state_unchanged": true,
+              "paused_replay_ignored": true,
+              "replay_keeps_palette_speed_time": true,
+              "speed_advances_growth": true,
+              "reset_state_restored": true,
+              "reset_pixels_restored": true
+            },
+            "pixels_sha256": {
+              "before_pause": "03cbb635c2b6475296b3eade1c0332b3c34d062701d2555c359be9a80e5f73c7",
+              "paused": "03cbb635c2b6475296b3eade1c0332b3c34d062701d2555c359be9a80e5f73c7",
+              "reset": "427397f235667deb14c1743bae140a61659549dc4c4989908a506fe8f3e66ba3"
+            }
+          },
+          {
+            "theme": 2,
+            "speed": 0.5,
+            "checks": {
+              "paused_pixels_unchanged": true,
+              "paused_state_unchanged": true,
+              "paused_replay_ignored": true,
+              "replay_keeps_palette_speed_time": true,
+              "speed_advances_growth": true,
+              "reset_state_restored": true,
+              "reset_pixels_restored": true
+            },
+            "pixels_sha256": {
+              "before_pause": "0a052f5c00e67a36ebcab8bb3f1838a2943ebc1ff857b78319a4d3577f74374c",
+              "paused": "0a052f5c00e67a36ebcab8bb3f1838a2943ebc1ff857b78319a4d3577f74374c",
+              "reset": "427397f235667deb14c1743bae140a61659549dc4c4989908a506fe8f3e66ba3"
+            }
+          },
+          {
+            "theme": 2,
+            "speed": 1.5,
+            "checks": {
+              "paused_pixels_unchanged": true,
+              "paused_state_unchanged": true,
+              "paused_replay_ignored": true,
+              "replay_keeps_palette_speed_time": true,
+              "speed_advances_growth": true,
+              "reset_state_restored": true,
+              "reset_pixels_restored": true
+            },
+            "pixels_sha256": {
+              "before_pause": "0a052f5c00e67a36ebcab8bb3f1838a2943ebc1ff857b78319a4d3577f74374c",
+              "paused": "0a052f5c00e67a36ebcab8bb3f1838a2943ebc1ff857b78319a4d3577f74374c",
+              "reset": "427397f235667deb14c1743bae140a61659549dc4c4989908a506fe8f3e66ba3"
+            }
+          }
+        ],
+        "pool": {
+          "method": "Four direct growth-sample cycles; first excluded as warmup",
+          "sample_growth": [
+            0.0,
+            0.8,
+            1.0,
+            1.9,
+            2.5,
+            3.0,
+            3.4,
+            5.8,
+            7.0
+          ],
+          "cycles": [
+            {
+              "cycle": 0,
+              "warmup": true,
+              "canvas_items": [
+                377,
+                377,
+                377,
+                377,
+                377,
+                377,
+                377,
+                377,
+                377
+              ],
+              "peak_canvas_items": 377
+            },
+            {
+              "cycle": 1,
+              "warmup": false,
+              "canvas_items": [
+                377,
+                377,
+                377,
+                377,
+                377,
+                377,
+                377,
+                377,
+                377
+              ],
+              "peak_canvas_items": 377
+            },
+            {
+              "cycle": 2,
+              "warmup": false,
+              "canvas_items": [
+                377,
+                377,
+                377,
+                377,
+                377,
+                377,
+                377,
+                377,
+                377
+              ],
+              "peak_canvas_items": 377
+            },
+            {
+              "cycle": 3,
+              "warmup": false,
+              "canvas_items": [
+                377,
+                377,
+                377,
+                377,
+                377,
+                377,
+                377,
+                377,
+                377
+              ],
+              "peak_canvas_items": 377
+            }
+          ],
+          "passed": true
+        },
+        "passed": true
+      }
+    ],
+    "passed": true,
+    "window_closed": true,
+    "finished_utc": "2026-10-12T12:15:43.718999+00:00"
+  },
+  "pixel_comparisons": [
+    {
+      "file": "27-1000x720-theme0-growth1.9.png",
+      "growth": 1.9,
+      "difference_bbox": [
+        527,
+        144,
+        540,
+        246
+      ],
+      "pixels_identical": false
+    },
+    {
+      "file": "27-1000x720-theme0-growth2.5.png",
+      "growth": 2.5,
+      "difference_bbox": [
+        511,
+        134,
+        557,
+        246
+      ],
+      "pixels_identical": false
+    },
+    {
+      "file": "27-1000x720-theme0-growth3.0.png",
+      "growth": 3.0,
+      "difference_bbox": [
+        491,
+        120,
+        579,
+        247
+      ],
+      "pixels_identical": false
+    },
+    {
+      "file": "27-1000x720-theme0-growth3.4.png",
+      "growth": 3.4,
+      "difference_bbox": [
+        470,
+        106,
+        601,
+        247
+      ],
+      "pixels_identical": false
+    },
+    {
+      "file": "27-1000x720-theme0-growth5.8.png",
+      "growth": 5.8,
+      "difference_bbox": null,
+      "pixels_identical": true
+    },
+    {
+      "file": "27-1000x720-theme0-growth7.0.png",
+      "growth": 7.0,
+      "difference_bbox": null,
+      "pixels_identical": true
+    },
+    {
+      "file": "27-1000x720-theme1-growth1.9.png",
+      "growth": 1.9,
+      "difference_bbox": [
+        527,
+        144,
+        540,
+        246
+      ],
+      "pixels_identical": false
+    },
+    {
+      "file": "27-1000x720-theme1-growth2.5.png",
+      "growth": 2.5,
+      "difference_bbox": [
+        511,
+        134,
+        557,
+        246
+      ],
+      "pixels_identical": false
+    },
+    {
+      "file": "27-1000x720-theme1-growth3.0.png",
+      "growth": 3.0,
+      "difference_bbox": [
+        491,
+        120,
+        579,
+        247
+      ],
+      "pixels_identical": false
+    },
+    {
+      "file": "27-1000x720-theme1-growth3.4.png",
+      "growth": 3.4,
+      "difference_bbox": [
+        470,
+        106,
+        601,
+        247
+      ],
+      "pixels_identical": false
+    },
+    {
+      "file": "27-1000x720-theme1-growth5.8.png",
+      "growth": 5.8,
+      "difference_bbox": null,
+      "pixels_identical": true
+    },
+    {
+      "file": "27-1000x720-theme1-growth7.0.png",
+      "growth": 7.0,
+      "difference_bbox": null,
+      "pixels_identical": true
+    },
+    {
+      "file": "27-1000x720-theme2-growth1.9.png",
+      "growth": 1.9,
+      "difference_bbox": [
+        527,
+        144,
+        540,
+        246
+      ],
+      "pixels_identical": false
+    },
+    {
+      "file": "27-1000x720-theme2-growth2.5.png",
+      "growth": 2.5,
+      "difference_bbox": [
+        511,
+        134,
+        557,
+        246
+      ],
+      "pixels_identical": false
+    },
+    {
+      "file": "27-1000x720-theme2-growth3.0.png",
+      "growth": 3.0,
+      "difference_bbox": [
+        491,
+        120,
+        579,
+        247
+      ],
+      "pixels_identical": false
+    },
+    {
+      "file": "27-1000x720-theme2-growth3.4.png",
+      "growth": 3.4,
+      "difference_bbox": [
+        470,
+        106,
+        601,
+        247
+      ],
+      "pixels_identical": false
+    },
+    {
+      "file": "27-1000x720-theme2-growth5.8.png",
+      "growth": 5.8,
+      "difference_bbox": null,
+      "pixels_identical": true
+    },
+    {
+      "file": "27-1000x720-theme2-growth7.0.png",
+      "growth": 7.0,
+      "difference_bbox": null,
+      "pixels_identical": true
+    },
+    {
+      "file": "27-760x580-theme0-growth1.9.png",
+      "growth": 1.9,
+      "difference_bbox": [
+        400,
+        109,
+        410,
+        187
+      ],
+      "pixels_identical": false
+    },
+    {
+      "file": "27-760x580-theme0-growth2.5.png",
+      "growth": 2.5,
+      "difference_bbox": [
+        388,
+        101,
+        423,
+        187
+      ],
+      "pixels_identical": false
+    },
+    {
+      "file": "27-760x580-theme0-growth3.0.png",
+      "growth": 3.0,
+      "difference_bbox": [
+        373,
+        91,
+        440,
+        188
+      ],
+      "pixels_identical": false
+    },
+    {
+      "file": "27-760x580-theme0-growth3.4.png",
+      "growth": 3.4,
+      "difference_bbox": [
+        357,
+        80,
+        456,
+        188
+      ],
+      "pixels_identical": false
+    },
+    {
+      "file": "27-760x580-theme0-growth5.8.png",
+      "growth": 5.8,
+      "difference_bbox": null,
+      "pixels_identical": true
+    },
+    {
+      "file": "27-760x580-theme0-growth7.0.png",
+      "growth": 7.0,
+      "difference_bbox": null,
+      "pixels_identical": true
+    },
+    {
+      "file": "27-760x580-theme1-growth1.9.png",
+      "growth": 1.9,
+      "difference_bbox": [
+        400,
+        109,
+        410,
+        187
+      ],
+      "pixels_identical": false
+    },
+    {
+      "file": "27-760x580-theme1-growth2.5.png",
+      "growth": 2.5,
+      "difference_bbox": [
+        388,
+        101,
+        423,
+        187
+      ],
+      "pixels_identical": false
+    },
+    {
+      "file": "27-760x580-theme1-growth3.0.png",
+      "growth": 3.0,
+      "difference_bbox": [
+        373,
+        91,
+        440,
+        188
+      ],
+      "pixels_identical": false
+    },
+    {
+      "file": "27-760x580-theme1-growth3.4.png",
+      "growth": 3.4,
+      "difference_bbox": [
+        357,
+        80,
+        456,
+        188
+      ],
+      "pixels_identical": false
+    },
+    {
+      "file": "27-760x580-theme1-growth5.8.png",
+      "growth": 5.8,
+      "difference_bbox": null,
+      "pixels_identical": true
+    },
+    {
+      "file": "27-760x580-theme1-growth7.0.png",
+      "growth": 7.0,
+      "difference_bbox": null,
+      "pixels_identical": true
+    },
+    {
+      "file": "27-760x580-theme2-growth1.9.png",
+      "growth": 1.9,
+      "difference_bbox": [
+        400,
+        109,
+        410,
+        187
+      ],
+      "pixels_identical": false
+    },
+    {
+      "file": "27-760x580-theme2-growth2.5.png",
+      "growth": 2.5,
+      "difference_bbox": [
+        388,
+        101,
+        423,
+        187
+      ],
+      "pixels_identical": false
+    },
+    {
+      "file": "27-760x580-theme2-growth3.0.png",
+      "growth": 3.0,
+      "difference_bbox": [
+        373,
+        91,
+        440,
+        188
+      ],
+      "pixels_identical": false
+    },
+    {
+      "file": "27-760x580-theme2-growth3.4.png",
+      "growth": 3.4,
+      "difference_bbox": [
+        357,
+        80,
+        456,
+        188
+      ],
+      "pixels_identical": false
+    },
+    {
+      "file": "27-760x580-theme2-growth5.8.png",
+      "growth": 5.8,
+      "difference_bbox": null,
+      "pixels_identical": true
+    },
+    {
+      "file": "27-760x580-theme2-growth7.0.png",
+      "growth": 7.0,
+      "difference_bbox": null,
+      "pixels_identical": true
+    }
+  ],
+  "mature_pairs_identical": 12,
+  "gif": {
+    "size": [
+      720,
+      460
+    ],
+    "frames": 96,
+    "frame_duration_ms": 150,
+    "unchanged_other_frames": 72,
+    "changed_rose_frames": [
+      48,
+      49,
+      50,
+      51,
+      52,
+      53,
+      54,
+      55,
+      56,
+      57,
+      58,
+      59,
+      60,
+      61,
+      62,
+      63,
+      64,
+      65,
+      66,
+      67,
+      68,
+      69,
+      70,
+      71
+    ],
+    "input_frame_sha256": {
+      "social_27_00.png": "49d4d3acf2c2ae42b0ce06edea59db858cdbe24f813b211fe18b9ae66c5955d4",
+      "social_27_01.png": "26d81be7b18b6976b54c66ae706c35a905a437941e6da6a5158137f174d6e18c",
+      "social_27_02.png": "1cf769e1143b490846d3859d0222d6cfa66b0c24f14d8177c52417da18ae1910",
+      "social_27_03.png": "437449c3bec58a4d6a0d18958529f9bc90de10d0f72bd0b0dc1d3ff60fd7e681",
+      "social_27_04.png": "a85f2b66e6ee2e1a8a25144c353db07d90794ebbcf2d25f510616abbbedf05d2",
+      "social_27_05.png": "e5fc4d6d38c1af8ea68d61efa349b3d6c68c85099f84857ebfeed6e8fc9dadf9",
+      "social_27_06.png": "7b435ff885fa5233f6f94c5b40295660dc3997b0e9dd4d5487a33151b862b074",
+      "social_27_07.png": "cb43667498c22f86eb9b79ca3d984775cd16a7eb1a727213ed65b6dd9853c3b3",
+      "social_27_08.png": "5941a9c53abf20e5b64fb0675dbe8fe190a08dc68d0db5080902b74a75d084c0",
+      "social_27_09.png": "7bab800d48427cedbaf8f39813b7dbb51834a5329a6631f421ddc1b5fdc82bff",
+      "social_27_10.png": "8be308da3e5723b0f1d755f0de9be65fb3379f6d557e6544beb2fb237aacfa0c",
+      "social_27_11.png": "26328837ba237ec89d6eff428d30842eaeb32cc3c0d25ed2dbabb5538bfebbbe",
+      "social_27_12.png": "098458d3b143e2dc9c63113e0f89e6b257afbad0909395e0571b94bf76948ecb",
+      "social_27_13.png": "fce15ffabe9fb4aa763c1a0b039a96a253a64411c94f6d8c9a72a7fad3728b89",
+      "social_27_14.png": "58aadd867469a3773a43af6b903af2db5f0260c55ac8ea56678175c638efa415",
+      "social_27_15.png": "0a2e2151f08b6621ebea3031217cad1cad48d6c319c691ce8d42055c4b0864e4",
+      "social_27_16.png": "a4127e6da02c3542274c0c5fba624868a34d1dd17aebbb0e728d301e77004226",
+      "social_27_17.png": "6598c3a9fee515e9e854d70a77885303330f56fca38a76225530a09736b8e588",
+      "social_27_18.png": "2e5af5c9ba68b5ca0535ed871d54ac468c2601091b3b2c069c29f667dcff2256",
+      "social_27_19.png": "2c12137988bbd1d00925e9daeeb7e966d13666d074f1ed3ba47add1374a6c004",
+      "social_27_20.png": "1f8a3568993f0934a6ae9d2074e5c49238dbd76d67dfb235d7b5368dca1bc4f4",
+      "social_27_21.png": "b67c16507965d06b2e4c8c32ba92f8f981dbdcad682592f76b4e8633b212db7c",
+      "social_27_22.png": "119c3c7285eda07118444d62f4038e97521a7b1c7cf89857602a1ca6f9d95802",
+      "social_27_23.png": "e02417f6c2daf144580efdbf7ac615a694d631504926679d0ca28c12f8596617"
+    },
+    "before_sha256": "29b1b80e6ed6f703b139906ad45deb0e82e302731ff795a48621c159013614cb",
+    "after_sha256": "cf08d0d11b734bc080cf75766f3dd8bda4ef8a55036d0c8017a57386bd7f8028"
+  },
+  "assets_sha256": {
+    "comparison.jpg": "3fdcb1ca481973c1aeb4bd8a3841d7ee5aa3834b6c130eb6326dfde3c38aa1ee",
+    "stages.jpg": "1f8d5cdaf48b08100722d5ef9353284439bb53c6b594003566e7e46a0fed95f8"
+  },
+  "limits": "Fixed-time screenshots and direct callback checks; not human interaction, phone review, realtime FPS or new 10-minute tour acceptance."
+}
