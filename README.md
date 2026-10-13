@@ -42,6 +42,8 @@ python tools/render_video.py --output exports/social-01 --account "@你的账号
 
 **[代码造景 · 20 秒横版 →](docs/assets/social-immersive/video.mp4)** 极光、机械星仪与水晶花园的真实互动，配中文字幕与程序合成背景音。附[B 站发布文案、封面、分镜和复现命令](docs/SOCIAL_IMMERSIVE.md)，可继续用同一套流程制作展示素材。
 
+**[送你一朵代码玫瑰 · 20 秒试片 →](docs/assets/social-rose/preview.mp4)** 从花茎生长到三色绽放，再点击洒下星尘。真实窗口录制，完整保留花冠和花茎；当前为无声试片，附[分镜、字幕与复现命令](docs/SOCIAL_ROSE.md)。
+
 ## 开始体验
 
 准备 **Python 3.9 或更新版本**，并确保安装了 Tkinter。下载本仓库 ZIP 并解压，Windows 用户可双击根目录的 **[start.bat](start.bat)**。
