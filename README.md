@@ -42,7 +42,7 @@ python tools/render_video.py --output exports/social-01 --account "@你的账号
 
 **[代码造景 · 20 秒横版 →](docs/assets/social-immersive/video.mp4)** 极光、机械星仪与水晶花园的真实互动，配中文字幕与程序合成背景音。附[B 站发布文案、封面、分镜和复现命令](docs/SOCIAL_IMMERSIVE.md)，可继续用同一套流程制作展示素材。
 
-**[送你一朵代码玫瑰 · 20 秒试片 →](docs/assets/social-rose/preview.mp4)** 从花茎生长到三色绽放，再点击洒下星尘。真实窗口录制，完整保留花冠和花茎；当前为无声试片，附[分镜、字幕与复现命令](docs/SOCIAL_ROSE.md)。
+**[送你一朵代码玫瑰 · B 站配乐成片 →](https://www.bilibili.com/video/BV1Jnp26RERi/)** 从花茎生长到三色绽放，再点击洒下星尘。10 月 14 日已发布，配乐为必剪官方曲库的周深《小美满》。在电脑上运行 `python run.py --demo 27` 亲手体验；[制作记录、双比例封面与无声素材](docs/SOCIAL_ROSE.md)可继续查看和复现。
 
 ## 开始体验
 

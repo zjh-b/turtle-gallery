@@ -469,7 +469,13 @@ nav a:hover {
   min-width: 0;
 }
 
-.film-player video {
+.film-poster {
+  display: block;
+  border-radius: 12px;
+}
+
+.film-player video,
+.film-poster img {
   display: block;
   width: 100%;
   height: auto;

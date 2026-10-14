@@ -1,0 +1,23 @@
+{
+  "schema_version": 1,
+  "status": "published",
+  "bvid": "BV1Jnp26RERi",
+  "url": "https://www.bilibili.com/video/BV1Jnp26RERi/",
+  "title": "用 Python 种一朵玫瑰，点击还会洒星尘",
+  "owner": {
+    "name": "难安这余念",
+    "mid": 3546966168438889
+  },
+  "published_at": "2026-10-14T17:34:40+08:00",
+  "verified_at": "2026-10-14T17:42:20+08:00",
+  "public_api_state": 0,
+  "music": "小美满 — 周深（必剪官方音乐库）",
+  "local_duration_seconds": 20,
+  "platform_duration_seconds": 21,
+  "silent_preview_manifest": "manifest.json",
+  "covers": {
+    "cover.png": "b21393d3f395a65e4c245fc1d67fecc36a82fddea54f7ac17f2ab82d4c5c51f9",
+    "cover-4x3.png": "8eb9e67fa853a0efd804820e0416f4fc41f93c514647c78f2a617c912e3ed8d9"
+  },
+  "distribution_note": "The soundtrack edition is hosted on Bilibili; the repository keeps the silent preview and original cover images."
+}

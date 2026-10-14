@@ -40,6 +40,8 @@ python tools/render_video.py --output exports/social-01-en --language en --accou
 
 **[Three worlds in code · 20-second landscape film →](docs/assets/social-immersive/video.mp4)** Real interactions with the aurora, armillary and crystal garden, with Chinese captions and original synthesized ambient audio. The [production and Bilibili publishing kit](docs/SOCIAL_IMMERSIVE.md) includes a cover, storyboard and repeatable capture commands.
 
+**[A rose grown in Python · watch on Bilibili →](https://www.bilibili.com/video/BV1Jnp26RERi/)** Published October 14, 2026, with Zhou Shen's “小美满” from the official BCut music library. Watch the rose grow, change color and cast stardust, then run `python run.py --demo 27` to try it on your computer. The [production notes](docs/SOCIAL_ROSE.md) include both cover formats and reproducible silent footage.
+
 ## Get started
 
 Use **Python 3.9+ with Tkinter**. Download and extract the repository ZIP, then double-click **[start.bat](start.bat)** on Windows, or run:

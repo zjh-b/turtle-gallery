@@ -1,0 +1,117 @@
+{
+  "scope": "Local Edge browser; phone sizes are emulated, not physical-device checks.",
+  "checks": [
+    {
+      "name": "desktop",
+      "viewport": [
+        1440,
+        1000
+      ],
+      "status": "passed"
+    },
+    {
+      "name": "mobile",
+      "viewport": [
+        390,
+        844
+      ],
+      "status": "passed"
+    },
+    {
+      "name": "narrow",
+      "viewport": [
+        320,
+        844
+      ],
+      "status": "passed"
+    },
+    {
+      "name": "no-js",
+      "viewport": [
+        390,
+        844
+      ],
+      "status": "passed"
+    },
+    {
+      "name": "no-cover",
+      "viewport": [
+        390,
+        844
+      ],
+      "status": "passed"
+    }
+  ],
+  "browser_version": "155.0.4283.45",
+  "source_sha256_lf": {
+    "docs/index.html": "dc268835d733b630c8a0f1c4b4d1db7158678fd9dff58f5c906afd1b010a03e7",
+    "docs/gallery.css": "259d7d80bede8a3c3bfb2548834013fd182c91956584bb868a99584f1c97693f"
+  },
+  "existing_film_regression": {
+    "browser": "msedge",
+    "scope": "Fresh local browser; mobile is touch emulation",
+    "checks": [
+      {
+        "name": "desktop",
+        "status": "passed",
+        "viewport": [
+          1440,
+          1000
+        ]
+      },
+      {
+        "name": "mobile",
+        "status": "passed",
+        "viewport": [
+          390,
+          844
+        ]
+      },
+      {
+        "name": "narrow",
+        "status": "passed",
+        "viewport": [
+          320,
+          844
+        ]
+      },
+      {
+        "name": "no-js",
+        "status": "passed",
+        "viewport": [
+          390,
+          844
+        ]
+      },
+      {
+        "name": "reduced-motion",
+        "status": "passed",
+        "viewport": [
+          1440,
+          1000
+        ]
+      },
+      {
+        "name": "blocked-media",
+        "status": "passed",
+        "viewport": [
+          390,
+          844
+        ]
+      }
+    ],
+    "browser_version": "155.0.4283.45"
+  },
+  "catalog_check": {
+    "command": "python tools/check_catalog.py",
+    "status": "passed",
+    "works": 31,
+    "online_pages": 3
+  },
+  "preview_regression": {
+    "command": "python -m unittest tests.test_rose_preview -q",
+    "tests": 10,
+    "status": "passed",
+    "environment_note": "Initial sandbox attempt could not create test temporary directories. Same tests passed with normal Windows permissions."
+  }
+}

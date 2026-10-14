@@ -1,0 +1,60 @@
+{
+  "schema_version": 1,
+  "kind": "current_public_snapshot",
+  "timezone": "Asia/Shanghai",
+  "note": "这是实际采集时刻的公开计数；不回填先前缺失的 72 小时数据，不代表 24 小时复盘。",
+  "videos": [
+    {
+      "bvid": "BV1Jnp26RERi",
+      "url": "https://www.bilibili.com/video/BV1Jnp26RERi/",
+      "source": "https://api.bilibili.com/x/web-interface/view?bvid=BV1Jnp26RERi",
+      "collected_at": "2026-10-14T17:42:20+08:00",
+      "metrics": {
+        "view": 1,
+        "like": 0,
+        "reply": 0,
+        "favorite": 0,
+        "coin": 0,
+        "share": 0,
+        "danmaku": 0
+      },
+      "average_watch_seconds": null,
+      "completion_rate": null,
+      "follows_from_video": null,
+      "private_analytics_note": "未读取创作者专属指标，未知值保持 null。",
+      "http_status": 200,
+      "api_code": 0,
+      "title": "用 Python 种一朵玫瑰，点击还会洒星尘",
+      "published_at": "2026-10-14T17:34:40+08:00",
+      "elapsed_since_publication_seconds": 460,
+      "state": 0,
+      "duration_seconds": 21
+    },
+    {
+      "bvid": "BV1VhpY66EsQ",
+      "url": "https://www.bilibili.com/video/BV1VhpY66EsQ/",
+      "source": "https://api.bilibili.com/x/web-interface/view?bvid=BV1VhpY66EsQ",
+      "collected_at": "2026-10-14T17:42:21+08:00",
+      "metrics": {
+        "view": 26,
+        "like": 1,
+        "reply": 1,
+        "favorite": 0,
+        "coin": 0,
+        "share": 0,
+        "danmaku": 0
+      },
+      "average_watch_seconds": null,
+      "completion_rate": null,
+      "follows_from_video": null,
+      "private_analytics_note": "未读取创作者专属指标，未知值保持 null。",
+      "http_status": 200,
+      "api_code": 0,
+      "title": "我用 Python，画了三个会回应你的世界",
+      "published_at": "2026-10-10T11:53:52+08:00",
+      "elapsed_since_publication_seconds": 366509,
+      "state": 0,
+      "duration_seconds": 21
+    }
+  ]
+}
