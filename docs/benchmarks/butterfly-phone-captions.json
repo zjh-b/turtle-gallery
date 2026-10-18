@@ -1,0 +1,129 @@
+{
+  "checked_at": "2026-10-18T19:58:29+08:00",
+  "scope": "Encoded frames resized to phone widths; not physical-phone viewing or human listening.",
+  "passed": true,
+  "before_video_sha256": "6d1730d521c96a797bd3733603eb70aa7d5456d2390bdd3547d5c891a6fa6c16",
+  "after_video_sha256": "b5fb0312a6a99f4048982cc7623f258816894f6b899bf1e001ef6289469b3b5a",
+  "source_sha256_lf": {
+    "tools/render_butterfly_film.py": "c4c93252315ead0b286da8b40e128652139e2516f2a8fc9f01f917112b81b53b",
+    "tools/butterfly_audio.py": "4548818247dfae6604069ccdfbee2f6429a7dfd8e682e3197bd7f10d12ed382b",
+    "tools/render_butterfly_preview.py": "fdb030664ac6f6bf6586fd790d4dd9b31585d9737e9852ca575a7c196159bb44",
+    "tools/render_video.py": "bb90479a1320b2719bcbd0df72f3054c71d317de6513366fdc0bf11d886e9037",
+    "社团展示/高清导出.py": "405a827db37f9806170fd4c8967884bb89f5170c548a6ef2610b3b544f94a91f"
+  },
+  "same_600_input_frames": true,
+  "same_capture_events": true,
+  "same_encoded_aac": true,
+  "aac_adts_sha256": "9b5d399345c442eb5ee53d2c3081228ff687b0d4231c280c75fe436397f29311",
+  "captions": [
+    {
+      "start": 0,
+      "end": 4,
+      "text": "点一束光，看看蝶的回应",
+      "bbox": [
+        354,
+        647,
+        926,
+        699
+      ]
+    },
+    {
+      "start": 4,
+      "end": 8,
+      "text": "换一侧，它也轻轻跟过来",
+      "bbox": [
+        354,
+        647,
+        926,
+        698
+      ]
+    },
+    {
+      "start": 8,
+      "end": 10,
+      "text": "按 C，换成玫瑰月光",
+      "bbox": [
+        407,
+        647,
+        873,
+        699
+      ]
+    },
+    {
+      "start": 10,
+      "end": 12,
+      "text": "按 M，定住位置，蝶翼仍在呼吸",
+      "bbox": [
+        268,
+        647,
+        1012,
+        698
+      ]
+    },
+    {
+      "start": 12,
+      "end": 14,
+      "text": "再按 C，换成翡翠流萤",
+      "bbox": [
+        381,
+        647,
+        899,
+        698
+      ]
+    },
+    {
+      "start": 14,
+      "end": 18,
+      "text": "恢复漫游，再追一束微光",
+      "bbox": [
+        354,
+        647,
+        926,
+        698
+      ]
+    },
+    {
+      "start": 18,
+      "end": 20,
+      "text": "关注我，继续看代码画出的小世界",
+      "bbox": [
+        250,
+        647,
+        1030,
+        699
+      ]
+    }
+  ],
+  "comparisons": [
+    {
+      "width": 390,
+      "height": 219,
+      "times": [
+        1,
+        11,
+        19
+      ],
+      "before_font_px_scaled": 8.53125,
+      "after_font_px_scaled": 15.84375,
+      "file": "docs/assets/social-butterfly-film/comparison-390.jpg",
+      "sha256": "3d5df76f3446eb7eed61c6c988f9cb51dfce696ac5226aa3b34b8e9b786767b9"
+    },
+    {
+      "width": 320,
+      "height": 180,
+      "times": [
+        1,
+        11,
+        19
+      ],
+      "before_font_px_scaled": 7.0,
+      "after_font_px_scaled": 13.0,
+      "file": "docs/assets/social-butterfly-film/comparison-320.jpg",
+      "sha256": "10d212947c30865500a41c146b2b4ee43d79f329d1cd29e4d62d186e50c26abd"
+    }
+  ],
+  "before_revision": "3db9981c27c5ba4de06fb7b1daac39406cfa0640",
+  "font_size_before_px": 28,
+  "font_size_after_px": 52,
+  "media_report": "butterfly-film.json"
+}

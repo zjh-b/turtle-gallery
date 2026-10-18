@@ -42,6 +42,8 @@ python tools/render_video.py --output exports/social-01-en --language en --accou
 
 **[A rose grown in Python · watch on Bilibili →](https://www.bilibili.com/video/BV1Jnp26RERi/)** Published October 14, 2026, with Zhou Shen's “小美满” from the official BCut music library. Watch the rose grow, change color and cast stardust, then run `python run.py --demo 27` to try it on your computer. The [production notes](docs/SOCIAL_ROSE.md) include both cover formats and reproducible silent footage.
 
+**Butterfly film candidate:** [Watch the 20-second soundtracked cut](docs/assets/social-butterfly-film/video.mp4) · [Review caption comparisons at 390 and 320 px](docs/benchmarks/butterfly-phone-captions.json) · [Production notes and draft post copy](docs/SOCIAL_BUTTERFLY.md). Physical-phone viewing and listening are still pending; it has not been submitted.
+
 ## Get started
 
 Use **Python 3.9+ with Tkinter**. Download and extract the repository ZIP, then double-click **[start.bat](start.bat)** on Windows, or run:

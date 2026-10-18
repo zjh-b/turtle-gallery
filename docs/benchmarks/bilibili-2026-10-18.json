@@ -1,0 +1,42 @@
+{
+  "schema_version": 1,
+  "kind": "current_public_snapshot",
+  "timezone": "Asia/Shanghai",
+  "collection_status": "unavailable",
+  "note": "2026-10-18 两次公开接口请求均返回 HTTP 412，未获得当前计数；不回填缺失的 24 小时或 72 小时数据，不以 10 月 14 日数据代替今天的数据。未访问创作者专属分析。",
+  "expected_owner_mid": 3546966168438889,
+  "owner_verification": "unavailable_without_successful_response",
+  "existing_browser_session_check": {
+    "checked_at": "2026-10-18T19:59:06+08:00",
+    "connected": false,
+    "error_type": "Error"
+  },
+  "videos": [
+    {
+      "bvid": "BV1Jnp26RERi",
+      "url": "https://www.bilibili.com/video/BV1Jnp26RERi/",
+      "source": "https://api.bilibili.com/x/web-interface/view?bvid=BV1Jnp26RERi",
+      "collected_at": "2026-10-18T19:58:27+08:00",
+      "metrics": null,
+      "average_watch_seconds": null,
+      "completion_rate": null,
+      "follows_from_video": null,
+      "private_analytics_note": "未读取创作者专属指标，未知值保持 null。",
+      "http_status": 412,
+      "api_code": null
+    },
+    {
+      "bvid": "BV1VhpY66EsQ",
+      "url": "https://www.bilibili.com/video/BV1VhpY66EsQ/",
+      "source": "https://api.bilibili.com/x/web-interface/view?bvid=BV1VhpY66EsQ",
+      "collected_at": "2026-10-18T19:58:27+08:00",
+      "metrics": null,
+      "average_watch_seconds": null,
+      "completion_rate": null,
+      "follows_from_video": null,
+      "private_analytics_note": "未读取创作者专属指标，未知值保持 null。",
+      "http_status": 412,
+      "api_code": null
+    }
+  ]
+}

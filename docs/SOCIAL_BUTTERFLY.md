@@ -6,6 +6,12 @@
 
 [观看 / 下载 20 秒有声候选片](assets/social-butterfly-film/video.mp4) · [横版封面](assets/social-butterfly-film/cover.png) · [4:3 封面](assets/social-butterfly-film/cover-4x3.png) · [字幕](assets/social-butterfly-film/captions.zh.srt) · [素材与源码记录](assets/social-butterfly-film/manifest.json)
 
+### 2026-10-18：手机尺寸字幕复核
+
+原候选字幕为 28 px；缩至 390 / 320 像素宽约 8.5 / 7 px。现将有声候选的字号调整为 52 px，并把底部留白增至 97 px；蝶翼仍完整显示。两档尺寸的前后对照见[390 像素](assets/social-butterfly-film/comparison-390.jpg)与[320 像素](assets/social-butterfly-film/comparison-320.jpg)，7 条字幕的边界与素材哈希见[检查记录](benchmarks/butterfly-phone-captions.json)。影片仍为 20 秒、600 帧；重用原来的 600 帧和音轨，封面与外挂字幕文件保持不变。完整媒体检查更新于[报告](benchmarks/butterfly-film.json)。
+
+画面缩放检查不等于手机实机观看，也不等于人工试听；完成这两项后，才进入正式投稿核对。
+
 ![会追光的蝴蝶，真实程序蝶翼与横版标题](assets/social-butterfly-film/cover.png)
 
 [原无声试片](assets/social-butterfly/preview.mp4)和[点击提示改前改后图](assets/social-butterfly/feedback-comparison.jpg)保留作制作记录。

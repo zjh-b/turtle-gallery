@@ -110,6 +110,8 @@ python run.py --check      # 检查环境和作品文件，不打开窗口
 | 27 | [星河玫瑰](社团展示/27_星河玫瑰.py) | 点击洒星尘；G 看花瓣生长，C 换花色；[花瓣层次改进](docs/ROSE_FOLDS.md) |
 | 28 | [霓光蝶舞](社团展示/28_霓光蝶舞.py) | 点击引蝶追光；M 切换悬停与漫游，C 换色 |
 
+**短片候选：**[观看 20 秒蝶舞有声候选片](docs/assets/social-butterfly-film/video.mp4) · [查看 390 / 320 像素字幕前后对照](docs/benchmarks/butterfly-phone-captions.json) · [制作分镜、操作说明与投稿草稿](docs/SOCIAL_BUTTERFLY.md)。短片仍在手机实机观看和试听验收中，尚未投稿。
+
 ### 原有互动作品
 
 ![原有互动展品的运行片段](docs/assets/showcase.gif)

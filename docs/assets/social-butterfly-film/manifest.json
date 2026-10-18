@@ -327,7 +327,7 @@
     }
   },
   "source_sha256_lf": {
-    "tools/render_butterfly_film.py": "ec89e064f5745ca403dbb888e696cedaa6225ffd388270aaeb38d88e8f11743f",
+    "tools/render_butterfly_film.py": "c4c93252315ead0b286da8b40e128652139e2516f2a8fc9f01f917112b81b53b",
     "tools/butterfly_audio.py": "4548818247dfae6604069ccdfbee2f6429a7dfd8e682e3197bd7f10d12ed382b",
     "tools/render_butterfly_preview.py": "fdb030664ac6f6bf6586fd790d4dd9b31585d9737e9852ca575a7c196159bb44",
     "tools/render_video.py": "bb90479a1320b2719bcbd0df72f3054c71d317de6513366fdc0bf11d886e9037",
@@ -943,10 +943,10 @@
     0.855
   ],
   "files": {
-    "video.mp4": "6d1730d521c96a797bd3733603eb70aa7d5456d2390bdd3547d5c891a6fa6c16",
+    "video.mp4": "b5fb0312a6a99f4048982cc7623f258816894f6b899bf1e001ef6289469b3b5a",
     "cover.png": "f8f82ede44894c4358642370a87ee973224e45e9bda8cafdb9776ba62efe0886",
     "cover-4x3.png": "457f58eeac06bdccfadd415332c4ad83f0ebe713b21f8c239883d0dbe47ee3f2",
-    "storyboard.jpg": "da4ebb19c3c8e044531fead02a3eee914c1095dfc92bfbcef617f5785e31fce8",
+    "storyboard.jpg": "83e71fe28cad24663b18fadf11a128d25478172643dc5a9962284c6a68225679",
     "captions.zh.srt": "b0c8b32a4a77eddb437bc56b09faa0c20e2fec410f8ed5c3ee9b902f2b8982bb"
   }
 }

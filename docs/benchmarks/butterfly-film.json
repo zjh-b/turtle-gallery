@@ -1,7 +1,7 @@
 {
-  "date": "2026-10-12",
+  "date": "2026-10-18",
   "passed": true,
-  "video_sha256": "6d1730d521c96a797bd3733603eb70aa7d5456d2390bdd3547d5c891a6fa6c16",
+  "video_sha256": "b5fb0312a6a99f4048982cc7623f258816894f6b899bf1e001ef6289469b3b5a",
   "ffmpeg_version": "ffmpeg version 8.1.2-full_build-www.gyan.dev Copyright (c) 2000-2026 the FFmpeg developers",
   "ffprobe": {
     "programs": [],
@@ -28,7 +28,7 @@
     ],
     "format": {
       "duration": "20.000000",
-      "size": "5466151"
+      "size": "4987921"
     }
   },
   "full_decode": "passed",
