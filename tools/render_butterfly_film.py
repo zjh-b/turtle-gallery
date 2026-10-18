@@ -29,7 +29,7 @@ def fonts():
     from PIL import ImageFont
     regular, bold = _fonts(None, None)
     return {"label": ImageFont.truetype(regular, 20),
-            "caption": ImageFont.truetype(bold, 28),
+            "caption": ImageFont.truetype(bold, 52),
             "small": ImageFont.truetype(regular, 18),
             "headline": ImageFont.truetype(bold, 90),
             "hero": ImageFont.truetype(bold, 116),
@@ -53,15 +53,16 @@ def validate_capture(capture):
 def compose(source, seconds, face):
     from PIL import Image, ImageDraw, ImageOps
     picture = Image.new("RGB", SIZE, BACKGROUND)
-    art = ImageOps.contain(source.convert("RGB"), (1216, 574), Image.Resampling.LANCZOS)
-    picture.paste(art, ((1280-art.width)//2, 60+(574-art.height)//2))
+    # Reserve a taller footer so captions remain legible in a phone-width player.
+    art = ImageOps.contain(source.convert("RGB"), (1216, 548), Image.Resampling.LANCZOS)
+    picture.paste(art, ((1280-art.width)//2, 60+(548-art.height)//2))
     draw = ImageDraw.Draw(picture)
     draw.ellipse((32, 24, 40, 32), fill="#B8A4F3")
     draw.text((52, 16), "PYTHON / 霓光蝶舞", font=face["label"], fill="#D8D3ED")
     draw.text((1248, 16), "难安这余念", font=face["label"], fill="#969DBB", anchor="ra")
     caption = next(text for start, end, text in CAPTIONS if start <= seconds < end)
-    draw.line((48, 649, 1232, 649), fill="#292D46")
-    draw.text((640, 665), caption, font=face["caption"], fill="#F0EDF9", anchor="ma")
+    draw.line((48, 623, 1232, 623), fill="#292D46")
+    draw.text((640, 670), caption, font=face["caption"], fill="#F0EDF9", anchor="mm")
     draw.line((0, 718, round(1279*min(1, seconds/20)), 718), fill="#A799CE", width=2)
     return picture
 
